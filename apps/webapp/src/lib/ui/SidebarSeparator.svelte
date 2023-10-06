@@ -11,9 +11,9 @@
 
 	.separator {
 		display: block;
-		width: 90%;
+		width: 100%;
 		height: 1px;
-		background: #ddd;
+		background: #e0e0e0;
 		margin: 10px 0;
 	}
 </style>
