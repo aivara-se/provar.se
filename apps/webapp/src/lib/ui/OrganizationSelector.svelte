@@ -12,8 +12,8 @@
 	export let organizations: OrganizationInfo[];
 </script>
 
-<Button color="light" size="sm">
-	{organization.name}
+<Button color="light" size="sm" class="dropdown">
+	<span class="organization-name">{organization.name}</span>
 	<ChevronDownSolid size="xs" class="w-2 h-2 ml-2" />
 </Button>
 
@@ -21,7 +21,7 @@
 	{#each organizations as org}
 		<DropdownItem>
 			<a href={`/org/${org.id}`} class="org-item">
-				{org.name}
+				<span class="organization-name">{org.name}</span>
 				{#if org.environment === 'production'}
 					<Badge class="text-xs font-semibold ml-2">
 						<LockOutline class="w-3 h-3 mr-1" />
@@ -37,5 +37,11 @@
 		display: flex;
 		flex: 1;
 		justify-content: space-between;
+	}
+
+	.organization-name {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
 	}
 </style>
