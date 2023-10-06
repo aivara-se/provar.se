@@ -1,8 +1,8 @@
 import type { Feedback, Organization } from '../types';
 
 export const MOCK_ORGANIZATIONS: Organization[] = [
-	{ id: 'org-a', name: 'Normative', environment: 'production' },
-	{ id: 'org-b', name: 'Normative - develop', environment: 'staging' }
+	{ id: 'org-a', name: 'Wikipedia', environment: 'production' },
+	{ id: 'org-b', name: 'Wikipedia - develop', environment: 'staging' }
 ];
 
 export const MOCK_FEEDBACKS_MAP: { [organizationId: string]: Feedback[] } = {
