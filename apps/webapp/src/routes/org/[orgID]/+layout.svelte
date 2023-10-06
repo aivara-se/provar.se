@@ -55,6 +55,7 @@
 		background: #f0f0f0;
 		flex-direction: column;
 		box-sizing: border-box;
+		border-right: solid 1px #e0e0e0;
 	}
 
 	.sidebar-top {
