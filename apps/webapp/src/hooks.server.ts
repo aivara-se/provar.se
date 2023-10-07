@@ -1,6 +1,8 @@
-import { SvelteKitAuth } from '@auth/sveltekit';
-import GitHub from '@auth/core/providers/github';
 import { AUTH_GITHUB_ID, AUTH_GITHUB_SECRET, AUTH_SECRET } from '$env/static/private';
+import { getMongoConnection } from '$lib/server/mongo';
+import GitHub from '@auth/core/providers/github';
+import { MongoDBAdapter } from '@auth/mongodb-adapter';
+import { SvelteKitAuth } from '@auth/sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
@@ -15,6 +17,7 @@ const authorization: Handle = async ({ event, resolve }) => {
 };
 
 const sveltekitauth = SvelteKitAuth({
+	adapter: MongoDBAdapter(getMongoConnection()),
 	providers: [GitHub({ clientId: AUTH_GITHUB_ID, clientSecret: AUTH_GITHUB_SECRET })],
 	secret: AUTH_SECRET,
 	session: {
@@ -25,7 +28,7 @@ const sveltekitauth = SvelteKitAuth({
 		signOut: '/auth/logout',
 		error: '/auth/error',
 		verifyRequest: '/auth/verify',
-		newUser: '/auth/new-user'
+		newUser: '/'
 	},
 	trustHost: true
 });
