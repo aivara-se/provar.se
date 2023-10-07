@@ -35,14 +35,4 @@
 		flex: 1;
 		justify-content: space-between;
 	}
-
-	.separator {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 25px 0;
-		width: 160px;
-		height: 1px;
-		background: #e0e0e0;
-	}
 </style>
