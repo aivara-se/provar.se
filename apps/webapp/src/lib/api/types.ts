@@ -1,7 +1,23 @@
-export interface Organization {
+export interface User {
 	id: string;
 	name: string;
-	environment: 'staging' | 'production';
+}
+
+export type UserRole = 'owner' | 'admin' | 'member';
+
+export interface Membership {
+	id: string;
+	role: UserRole;
+}
+
+export type Environment = 'staging' | 'production';
+
+export interface Organization {
+	id: string;
+	slug: string;
+	name: string;
+	environment: Environment;
+	members: Membership[];
 }
 
 export interface Feedback {
