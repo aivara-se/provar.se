@@ -1,4 +1,6 @@
 import {
+	AUTH_EMAIL_SERVER,
+	AUTH_EMAIL_FROM,
 	AUTH_GITHUB_ID,
 	AUTH_GITHUB_SECRET,
 	AUTH_GOOGLE_ID,
@@ -6,8 +8,9 @@ import {
 	AUTH_SECRET
 } from '$env/static/private';
 import { getMongoConnection } from '$lib/server/mongo';
-import GitHub from '@auth/core/providers/github';
-import Google from '@auth/core/providers/google';
+import EmailProvider from '@auth/core/providers/email';
+import GitHubProvider from '@auth/core/providers/github';
+import GoogleProvider from '@auth/core/providers/google';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import { SvelteKitAuth } from '@auth/sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
@@ -26,12 +29,16 @@ const authorization: Handle = async ({ event, resolve }) => {
 const sveltekitauth = SvelteKitAuth({
 	adapter: MongoDBAdapter(getMongoConnection()),
 	providers: [
-		Google({
+		EmailProvider({
+			server: AUTH_EMAIL_SERVER,
+			from: AUTH_EMAIL_FROM
+		}) as any,
+		GoogleProvider({
 			clientId: AUTH_GOOGLE_ID,
 			clientSecret: AUTH_GOOGLE_SECRET,
 			allowDangerousEmailAccountLinking: true
 		}),
-		GitHub({
+		GitHubProvider({
 			clientId: AUTH_GITHUB_ID,
 			clientSecret: AUTH_GITHUB_SECRET,
 			allowDangerousEmailAccountLinking: true
