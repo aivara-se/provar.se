@@ -29,3 +29,6 @@ yarn run dev
 Nisma tries pull requests in Github
 ###### Install Homebrew
 * [install homebrew](https://brew.sh/)
+Nisma tries pull requests in Github
+###### Install Homebrew
+* [install homebrew](https://brew.sh/)
