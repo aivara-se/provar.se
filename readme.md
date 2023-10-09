@@ -25,3 +25,5 @@ Start the application locally
 ```shell
 yarn run dev
 ```
+
+Nisma tries pull requests in Github
