@@ -5,8 +5,9 @@ Provar is a tool to collect feedback from users.
 ## Getting started
 
 Install Node and Yarn
-* [Install node v20](https://formulae.brew.sh/formula/node)
-* [Install yarn v3](https://yarnpkg.com/getting-started/install)
+
+- [Install node v20](https://formulae.brew.sh/formula/node)
+- [Install yarn v3](https://yarnpkg.com/getting-started/install)
 
 Create a .env file with the following in apps/webapp directory.
 
@@ -21,14 +22,8 @@ AUTH_EMAIL_FROM=""
 MONGODB_URL=""
 ```
 
-Start the application locally 
+Start the application locally
+
 ```shell
 yarn run dev
 ```
-
-Nisma tries pull requests in Github
-###### Install Homebrew
-* [install homebrew](https://brew.sh/)
-Nisma tries pull requests in Github
-###### Install Homebrew
-* [install homebrew](https://brew.sh/)
