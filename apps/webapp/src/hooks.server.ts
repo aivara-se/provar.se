@@ -17,6 +17,10 @@ import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
 const authorization: Handle = async ({ event, resolve }) => {
+	// Note: needed for Cloudflare Pages 404.html
+	if (event.url.pathname === '/[fallback]') {
+		return resolve(event);
+	}
 	if (!event.url.pathname.startsWith('/auth/')) {
 		const session = await event.locals.getSession();
 		if (!session) {
