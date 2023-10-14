@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb';
 let client: MongoClient;
 
 export const getMongoClient = async () => {
-	if (!client) {
+	if (!client && env.MONGODB_URL) {
 		client = new MongoClient(env.MONGODB_URL);
 		await client.connect();
 	}
