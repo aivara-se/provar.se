@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && ./scripts/postbuild.sh",
-		"build:docker": "docker build -f ./Dockerfile -t provar-webapp:latest ../../",
+		"build:docker": "docker build -t provar-webapp:latest .",
 		"preview": "vite preview",
 		"preview:docker": "docker run -it --rm --env-file ./.env -p 5173:5173 provar-webapp:latest",
 		"test": "npm run test:integration && npm run test:unit",
