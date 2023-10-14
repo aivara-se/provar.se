@@ -73,7 +73,6 @@ jobs:
             AUTH_EMAIL_FROM=${{ secrets.APP_AUTH_EMAIL_FROM }}
             MONGODB_URL=${{ secrets.APP_MONGODB_URL }}
             ORIGIN=https://app.provar.se
-            PORT=8080
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
