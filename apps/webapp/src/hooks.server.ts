@@ -1,5 +1,5 @@
 import { env } from '$env/dynamic/private';
-import { getMongoConnection } from '$lib/server/mongo';
+import { getMongoClient } from '$lib/server/database';
 import EmailProvider from '@auth/core/providers/email';
 import GitHubProvider from '@auth/core/providers/github';
 import GoogleProvider from '@auth/core/providers/google';
@@ -32,7 +32,7 @@ const authorization: Handle = async ({ event, resolve }) => {
 };
 
 const sveltekitauth = SvelteKitAuth({
-	adapter: MongoDBAdapter(getMongoConnection()),
+	adapter: MongoDBAdapter(getMongoClient()),
 	providers: [
 		EmailProvider({
 			server: env.AUTH_EMAIL_SERVER,
@@ -60,7 +60,13 @@ const sveltekitauth = SvelteKitAuth({
 		verifyRequest: '/auth/verify',
 		newUser: '/'
 	},
-	trustHost: true
+	trustHost: true,
+	callbacks: {
+		async session({ session, user, token }) {
+			session.user.id = token.sub as string;
+			return session;
+		}
+	}
 });
 
 export const handle = sequence(sveltekitauth, authorization);
