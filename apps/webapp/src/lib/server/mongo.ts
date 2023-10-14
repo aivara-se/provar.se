@@ -1,9 +1,12 @@
-import { MONGODB_URL } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { MongoClient } from 'mongodb';
 
-const client = new MongoClient(MONGODB_URL);
-const clientPromise = client.connect();
+let client: MongoClient;
 
-export const getMongoConnection = () => {
-	return clientPromise;
+export const getMongoConnection = async () => {
+	if (!client) {
+		client = new MongoClient(env.MONGODB_URL);
+		await client.connect();
+	}
+	return client;
 };

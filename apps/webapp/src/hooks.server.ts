@@ -1,12 +1,4 @@
-import {
-	AUTH_EMAIL_SERVER,
-	AUTH_EMAIL_FROM,
-	AUTH_GITHUB_ID,
-	AUTH_GITHUB_SECRET,
-	AUTH_GOOGLE_ID,
-	AUTH_GOOGLE_SECRET,
-	AUTH_SECRET
-} from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { getMongoConnection } from '$lib/server/mongo';
 import EmailProvider from '@auth/core/providers/email';
 import GitHubProvider from '@auth/core/providers/github';
@@ -15,6 +7,15 @@ import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import { SvelteKitAuth } from '@auth/sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
+import process from 'process';
+
+process.on('SIGINT', function () {
+	process.exit();
+});
+
+process.on('SIGTERM', function () {
+	process.exit();
+});
 
 const authorization: Handle = async ({ event, resolve }) => {
 	// Note: needed for Cloudflare Pages 404.html
@@ -34,21 +35,21 @@ const sveltekitauth = SvelteKitAuth({
 	adapter: MongoDBAdapter(getMongoConnection()),
 	providers: [
 		EmailProvider({
-			server: AUTH_EMAIL_SERVER,
-			from: AUTH_EMAIL_FROM
+			server: env.AUTH_EMAIL_SERVER,
+			from: env.AUTH_EMAIL_FROM
 		}) as any,
 		GoogleProvider({
-			clientId: AUTH_GOOGLE_ID,
-			clientSecret: AUTH_GOOGLE_SECRET,
+			clientId: env.AUTH_GOOGLE_ID,
+			clientSecret: env.AUTH_GOOGLE_SECRET,
 			allowDangerousEmailAccountLinking: true
 		}),
 		GitHubProvider({
-			clientId: AUTH_GITHUB_ID,
-			clientSecret: AUTH_GITHUB_SECRET,
+			clientId: env.AUTH_GITHUB_ID,
+			clientSecret: env.AUTH_GITHUB_SECRET,
 			allowDangerousEmailAccountLinking: true
 		})
 	],
-	secret: AUTH_SECRET,
+	secret: env.AUTH_SECRET,
 	session: {
 		strategy: 'jwt'
 	},
