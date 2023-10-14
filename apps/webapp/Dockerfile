@@ -3,7 +3,7 @@ FROM node:20-alpine as builder
 WORKDIR /repo
 
 COPY . .
-RUN yarn install --immutable
+RUN yarn install --silent --immutable
 RUN cd apps/webapp && yarn build
 
 # ---
