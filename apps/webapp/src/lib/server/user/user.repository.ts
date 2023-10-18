@@ -19,7 +19,7 @@ type UserDocument = {
 };
 
 /**
- * Convert an organization document from the db to Organization.
+ * Convert a user document from the db to User.
  */
 function fromDocument(doc: UserDocument): User {
 	return {
