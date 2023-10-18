@@ -50,3 +50,4 @@ export async function findByName(name: string): Promise<Project | null> {
     const doc = await coll.findOne({ name });
     return doc ? fromDocument(doc) : null;
 }
+
