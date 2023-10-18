@@ -1,6 +1,6 @@
 import { getMongoClient } from '$lib/server/database';
 import { ObjectId, type Collection } from 'mongodb';
-import type { Feature } from './features.types';
+import type { Features } from './features.types';
 
 /**
  * The name of the MongoDB collection for features.
@@ -18,7 +18,7 @@ type FeatureDocument = {
 /**
  * Convert a feature document from the db to Feature.
  */
-function fromDocument(doc: FeatureDocument): Feature {
+function fromDocument(doc: FeatureDocument): Features {
     return {
         id: doc._id.toHexString(),
         name: doc.name,
@@ -36,7 +36,7 @@ async function getCollection(): Promise<Collection<FeatureDocument>> {
 /**
  * Find a feature by id.
  */
-export async function findById(id: string): Promise<Feature | null> {
+export async function findById(id: string): Promise<Features | null> {
     const coll = await getCollection();
     const doc = await coll.findOne({ _id: new ObjectId(id) });
     return doc ? fromDocument(doc) : null;
@@ -45,7 +45,7 @@ export async function findById(id: string): Promise<Feature | null> {
 /**
  * Find a feature by name.
  */
-export async function findByName(name: string): Promise<Feature | null> {
+export async function findByName(name: string): Promise<Features | null> {
     const coll = await getCollection();
     const doc = await coll.findOne({ name });
     return doc ? fromDocument(doc) : null;
