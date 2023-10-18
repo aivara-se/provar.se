@@ -15,6 +15,7 @@ type UserDocument = {
 	name: string;
 	email: string;
 	image: string;
+	emailVerified: Date | null;
 };
 
 /**
