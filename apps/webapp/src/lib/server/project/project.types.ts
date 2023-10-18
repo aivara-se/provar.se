@@ -1,5 +1,5 @@
 /**
- * The project 
+ * The user/s work on project/s 
  */
 export interface Project {
     id: string;
