@@ -4,4 +4,5 @@
 export interface Feedback {
     id: string;
     organization: string[];
+    project: string[];
 }

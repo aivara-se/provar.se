@@ -13,6 +13,7 @@ const COLLECTION_NAME = 'feedbacks';
 type FeedbackDocument = {
     _id: ObjectId;
     organization: string[];
+    project: string[];
 };
 
 /**
@@ -22,6 +23,7 @@ function fromDocument(doc: FeedbackDocument): Feedback {
     return {
         id: doc._id.toHexString(),
         organization: doc.organization,
+        project: doc.project,
     };
 }
 
@@ -43,10 +45,19 @@ export async function findById(id: string): Promise<Feedback | null> {
 }
 
 /**
- * Find feedback by organization
+ * Find feedback by organization.
  */
 export async function findByMember(organizationId: string): Promise<Feedback[]> {
     const coll = await getCollection();
     const docs = await coll.find({ organization: organizationId }).toArray();
+    return docs.map(fromDocument);
+}
+
+/**
+ * Find feedback by project.
+ */
+export async function findByProject(projectId: string): Promise<Feedback[]> {
+    const coll = await getCollection();
+    const docs = await coll.find({ project: projectId }).toArray();
     return docs.map(fromDocument);
 }
