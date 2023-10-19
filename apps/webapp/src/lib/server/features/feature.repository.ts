@@ -5,7 +5,7 @@ import type { Feature } from './feature.types';
 /**
  * The name of the MongoDB collection for features.
  */
-const COLLECTION_NAME = 'feature';
+const COLLECTION_NAME = 'features';
 
 /**
  * Type for the MongoDB document for Features in db.
@@ -14,7 +14,7 @@ type FeatureDocument = {
     _id: ObjectId;
     name: string;
     key: string;
-    organization: string[];
+    organizationId: string;
 };
 
 /**
@@ -25,7 +25,7 @@ function fromDocument(doc: FeatureDocument): Feature {
         id: doc._id.toHexString(),
         name: doc.name,
         key: doc.key,
-        organization: doc.organization,
+        organizationId: doc.organizationId,
     };
 }
 
@@ -58,9 +58,9 @@ export async function findByKey(key: string): Promise<Feature | null> {
 /**
  * Find a feature by organisation
  */
-export async function findByOrganisation(OrganizationId: string): Promise<Feature[]> {
+export async function findByOrganisation(organizationId: string): Promise<Feature[]> {
     const coll = await getCollection();
-    const doc = await coll.find({ organization: OrganizationId }).toArray();
+    const doc = await coll.find({ organization: organizationId }).toArray();
     return doc.map(fromDocument);
 }
 
