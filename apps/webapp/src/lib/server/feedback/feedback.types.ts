@@ -3,5 +3,4 @@
  */
 export interface Feedback {
     id: string;
-    key: string;
 }

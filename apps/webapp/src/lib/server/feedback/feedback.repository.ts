@@ -5,14 +5,13 @@ import type { Feedback } from './feedback.types';
 /**
  * The name of the MongoDB collection for feedback.
  */
-const COLLECTION_NAME = 'feedback';
+const COLLECTION_NAME = 'feedbacks';
 
 /**
  * Type for the MongoDB document for feedback in db.
  */
 type FeedbackDocument = {
     _id: ObjectId;
-    key: string;
 };
 
 /**
@@ -21,7 +20,6 @@ type FeedbackDocument = {
 function fromDocument(doc: FeedbackDocument): Feedback {
     return {
         id: doc._id.toHexString(),
-        key: doc.key,
     };
 }
 
@@ -39,14 +37,5 @@ async function getCollection(): Promise<Collection<FeedbackDocument>> {
 export async function findById(id: string): Promise<Feedback | null> {
     const coll = await getCollection();
     const doc = await coll.findOne({ _id: new ObjectId(id) });
-    return doc ? fromDocument(doc) : null;
-}
-
-/**
- * Find feedback by key.
- */
-export async function findByKey(key: string): Promise<Feedback | null> {
-    const coll = await getCollection();
-    const doc = await coll.findOne({ key });
     return doc ? fromDocument(doc) : null;
 }
