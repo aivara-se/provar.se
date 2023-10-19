@@ -5,7 +5,7 @@ import type { Project } from './project.types';
 /**
  * The name of the MongoDB collection for projects.
  */
-const COLLECTION_NAME = 'Project';
+const COLLECTION_NAME = 'projects';
 
 /**
  * Type for the MongoDB document for Projects in db.
@@ -41,13 +41,3 @@ export async function findById(id: string): Promise<Project | null> {
     const doc = await coll.findOne({ _id: new ObjectId(id) });
     return doc ? fromDocument(doc) : null;
 }
-
-/**
- * Find a project by name.
- */
-export async function findByName(name: string): Promise<Project | null> {
-    const coll = await getCollection();
-    const doc = await coll.findOne({ name });
-    return doc ? fromDocument(doc) : null;
-}
-
