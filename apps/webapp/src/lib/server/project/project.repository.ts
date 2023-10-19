@@ -13,6 +13,7 @@ const COLLECTION_NAME = 'projects';
 type projectDocument = {
     _id: ObjectId;
     name: string;
+    organization: string[];
 };
 
 /**
@@ -22,6 +23,7 @@ function fromDocument(doc: projectDocument): Project {
     return {
         id: doc._id.toHexString(),
         name: doc.name,
+        organization: doc.organization,
     };
 }
 
@@ -40,4 +42,13 @@ export async function findById(id: string): Promise<Project | null> {
     const coll = await getCollection();
     const doc = await coll.findOne({ _id: new ObjectId(id) });
     return doc ? fromDocument(doc) : null;
+}
+
+/**
+ * Find project by organization.
+ */
+export async function findByMember(organizationId: string): Promise<Project[]> {
+    const coll = await getCollection();
+    const docs = await coll.find({ organization: organizationId }).toArray();
+    return docs.map(fromDocument);
 }
