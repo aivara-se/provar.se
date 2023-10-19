@@ -51,7 +51,7 @@ export async function findById(id: string): Promise<Feature | null> {
  */
 export async function findByKey(key: string): Promise<Feature | null> {
     const coll = await getCollection();
-    const doc = await coll.findOne({ key: new String(key) });
+    const doc = await coll.findOne({ key });
     return doc ? fromDocument(doc) : null;
 }
 
