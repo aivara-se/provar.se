@@ -14,7 +14,7 @@ type FeatureDocument = {
     _id: ObjectId;
     name: string;
     key: string;
-    organizationId: string;
+    organizationId: ObjectId;
 };
 
 /**
@@ -25,7 +25,7 @@ function fromDocument(doc: FeatureDocument): Feature {
         id: doc._id.toHexString(),
         name: doc.name,
         key: doc.key,
-        organizationId: doc.organizationId,
+        organizationId: doc.organizationId.toHexString(),
     };
 }
 
@@ -58,7 +58,7 @@ export async function findByKey(key: string): Promise<Feature | null> {
 /**
  * Find a feature by organisation
  */
-export async function findByOrganisation(organizationId: string): Promise<Feature[]> {
+export async function findByOrganisation(organizationId: ObjectId): Promise<Feature[]> {
     const coll = await getCollection();
     const doc = await coll.find({ organization: organizationId }).toArray();
     return doc.map(fromDocument);
