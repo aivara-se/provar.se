@@ -10,7 +10,7 @@ const COLLECTION_NAME = 'features';
 /**
  * Type for the MongoDB document for Features in db.
  */
-type FeatureDocument = {
+interface FeatureDocument {
     _id: ObjectId;
     name: string;
     key: string;
