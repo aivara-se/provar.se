@@ -3,6 +3,6 @@
  */
 export interface Feedback {
     id: string;
-    organization: string[];
-    project: string[];
+    organizationId: string;
+    projectId: string;
 }
