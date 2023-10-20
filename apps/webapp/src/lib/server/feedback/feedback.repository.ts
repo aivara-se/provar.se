@@ -10,7 +10,7 @@ const COLLECTION_NAME = 'feedbacks';
 /**
  * Type for the MongoDB document for feedback in db.
  */
-type FeedbackDocument = {
+interface FeedbackDocument {
     _id: ObjectId;
     organizationId: ObjectId;
     projectId: ObjectId;
