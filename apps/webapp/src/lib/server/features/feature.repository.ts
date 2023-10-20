@@ -58,9 +58,9 @@ export async function findByKey(key: string): Promise<Feature | null> {
 /**
  * Find a feature by organisation
  */
-export async function findByOrganisation(organizationId: ObjectId): Promise<Feature[]> {
+export async function findByOrganisation(organizationId: string): Promise<Feature[]> {
     const coll = await getCollection();
-    const doc = await coll.find({ organization: organizationId }).toArray();
+    const doc = await coll.find({ organizationId: new ObjectId(organizationId) }).toArray();
     return doc.map(fromDocument);
 }
 
