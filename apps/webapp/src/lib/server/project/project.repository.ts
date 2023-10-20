@@ -10,27 +10,27 @@ const COLLECTION_NAME = 'projects';
 /**
  * Type for the MongoDB document for Projects in db.
  */
-type projectDocument = {
+interface ProjectDocument {
     _id: ObjectId;
     name: string;
-    organization: string[];
+    organizationId: ObjectId;
 };
 
 /**
  * Convert a project document from the db to Project.
  */
-function fromDocument(doc: projectDocument): Project {
+function fromDocument(doc: ProjectDocument): Project {
     return {
         id: doc._id.toHexString(),
         name: doc.name,
-        organization: doc.organization,
+        organizationId: doc.organizationId.toHexString(),
     };
 }
 
 /**
  * Get the MongoDB collection for projects.
  */
-async function getCollection(): Promise<Collection<projectDocument>> {
+async function getCollection(): Promise<Collection<ProjectDocument>> {
     const mongo = await getMongoClient();
     return mongo.db().collection(COLLECTION_NAME);
 }
@@ -47,8 +47,8 @@ export async function findById(id: string): Promise<Project | null> {
 /**
  * Find project by organization.
  */
-export async function findByMember(organizationId: string): Promise<Project[]> {
+export async function findByOrganization(organizationId: string): Promise<Project[]> {
     const coll = await getCollection();
-    const docs = await coll.find({ organization: organizationId }).toArray();
+    const docs = await coll.find({ organizationId: new ObjectId(organizationId) }).toArray();
     return docs.map(fromDocument);
 }
