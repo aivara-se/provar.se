@@ -20,7 +20,7 @@
 		data.set('environment', environment);
 		const response = await fetch(event.currentTarget.action, {
 			method: 'POST',
-			body: data,
+			body: data
 		});
 		const result: ActionResult = deserialize(await response.text());
 		if (result.type === 'success') {
