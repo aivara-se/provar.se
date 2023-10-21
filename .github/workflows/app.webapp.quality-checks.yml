@@ -47,8 +47,14 @@ jobs:
       - name: Build the service
         run: yarn build
 
+      - name: Check code formatting
+        run: yarn lint
+
       - name: Check code errors
-        run: yarn lint && yarn check
+        run: yarn check
 
       - name: Check unit tests
-        run: yarn test
+        run: yarn test:unit
+
+      - name: Check integration tests
+        run: yarn test:integration
