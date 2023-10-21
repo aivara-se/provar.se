@@ -37,6 +37,7 @@ const sveltekitauth = SvelteKitAuth({
 		EmailProvider({
 			server: env.AUTH_EMAIL_SERVER,
 			from: env.AUTH_EMAIL_FROM
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		}) as any,
 		GoogleProvider({
 			clientId: env.AUTH_GOOGLE_ID,
@@ -62,7 +63,7 @@ const sveltekitauth = SvelteKitAuth({
 	},
 	trustHost: true,
 	callbacks: {
-		async session({ session, user, token }) {
+		async session({ session, token }) {
 			session.user.id = token.sub as string;
 			return session;
 		}
