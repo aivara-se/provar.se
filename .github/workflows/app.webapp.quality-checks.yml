@@ -65,4 +65,6 @@ jobs:
           AUTH_GOOGLE_SECRET: ${{ secrets.APP_AUTH_GOOGLE_SECRET }}
           AUTH_EMAIL_SERVER: ${{ secrets.APP_AUTH_EMAIL_SERVER }}
           AUTH_EMAIL_FROM: ${{ secrets.APP_AUTH_EMAIL_FROM }}
-        run: yarn test:integration
+        run: |
+          yarn playwright install --with-deps
+          yarn test:integration
