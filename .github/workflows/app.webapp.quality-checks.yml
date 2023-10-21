@@ -17,9 +17,18 @@ jobs:
   quality-checks:
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+
     defaults:
       run:
         working-directory: ./apps/webapp
+
+    env:
+      MONGODB_URL: mongodb://localhost:27017
 
     steps:
       - name: Checkout
