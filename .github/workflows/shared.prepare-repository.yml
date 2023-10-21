@@ -1,0 +1,25 @@
+# Prepare Repository
+
+name: Shared Workflow - Prepare Repository
+
+on:
+  workflow_call:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+
+      - name: Setup Yarn
+        run: |-
+          yarn install --immutable --silent
