@@ -1,0 +1,35 @@
+# apps/webapp - quality checks
+
+name: apps/webapp - quality checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - ".github/**"
+      - "apps/webapp/**"
+
+concurrency:
+  group: "app.webapp.quality-checks-${{ github.head_ref }}"
+  cancel-in-progress: true
+
+jobs:
+  prepare:
+    uses: ./shared.prepare-repository.yml@main
+
+  quality-checks:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./apps/webapp
+
+    steps:
+      - name: Build the service
+        run: yarn build
+
+      - name: Check code errors
+        run: yarn lint && yarn check
+
+      - name: Check unit tests
+        run: yarn test
