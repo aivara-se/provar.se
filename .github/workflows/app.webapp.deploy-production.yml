@@ -5,6 +5,9 @@ name: apps/webapp - deploy production
 on:
   push:
     branches: ["main"]
+    paths:
+      - ".github/**"
+      - "apps/webapp/**"
 
 jobs:
   prepare:
