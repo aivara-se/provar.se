@@ -27,3 +27,7 @@ Start the application locally
 ```shell
 yarn run dev
 ```
+
+## Github Workflows
+
+This repository uses Github Actions to check pull requests for failing tests or code formatting.
