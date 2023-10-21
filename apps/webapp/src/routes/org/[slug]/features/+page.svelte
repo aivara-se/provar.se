@@ -1,12 +1,12 @@
-Features
-
 <script>
-    import { Alert } from 'flowbite-svelte';
-    import { InfoCircleSolid } from 'flowbite-svelte-icons';
+	import { Alert } from 'flowbite-svelte';
+	import { InfoCircleSolid } from 'flowbite-svelte-icons';
 </script>
+
+Features
 
 <Alert color="blue" rounded={false} class="border-t-4">
 	<InfoCircleSolid slot="icon" class="w-4 h-4" />
-	<span class="font-medium">Alert!</span><br>
-    This page is under construction.
+	<span class="font-medium">Alert!</span><br />
+	This page is under construction.
 </Alert>

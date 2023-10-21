@@ -11,44 +11,44 @@ const COLLECTION_NAME = 'projects';
  * Type for the MongoDB document for Projects in db.
  */
 interface ProjectDocument {
-    _id: ObjectId;
-    name: string;
-    organizationId: ObjectId;
-};
+	_id: ObjectId;
+	name: string;
+	organizationId: ObjectId;
+}
 
 /**
  * Convert a project document from the db to Project.
  */
 function fromDocument(doc: ProjectDocument): Project {
-    return {
-        id: doc._id.toHexString(),
-        name: doc.name,
-        organizationId: doc.organizationId.toHexString(),
-    };
+	return {
+		id: doc._id.toHexString(),
+		name: doc.name,
+		organizationId: doc.organizationId.toHexString()
+	};
 }
 
 /**
  * Get the MongoDB collection for projects.
  */
 async function getCollection(): Promise<Collection<ProjectDocument>> {
-    const mongo = await getMongoClient();
-    return mongo.db().collection(COLLECTION_NAME);
+	const mongo = await getMongoClient();
+	return mongo.db().collection(COLLECTION_NAME);
 }
 
 /**
  * Find a Project by id.
  */
 export async function findById(id: string): Promise<Project | null> {
-    const coll = await getCollection();
-    const doc = await coll.findOne({ _id: new ObjectId(id) });
-    return doc ? fromDocument(doc) : null;
+	const coll = await getCollection();
+	const doc = await coll.findOne({ _id: new ObjectId(id) });
+	return doc ? fromDocument(doc) : null;
 }
 
 /**
  * Find project by organization.
  */
 export async function findByOrganization(organizationId: string): Promise<Project[]> {
-    const coll = await getCollection();
-    const docs = await coll.find({ organizationId: new ObjectId(organizationId) }).toArray();
-    return docs.map(fromDocument);
+	const coll = await getCollection();
+	const docs = await coll.find({ organizationId: new ObjectId(organizationId) }).toArray();
+	return docs.map(fromDocument);
 }
