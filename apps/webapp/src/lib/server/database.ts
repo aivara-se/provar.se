@@ -4,9 +4,13 @@ import { MongoClient } from 'mongodb';
 let client: MongoClient;
 
 export const getMongoClient = async () => {
-	if (!client && env.MONGODB_URL) {
-		client = new MongoClient(env.MONGODB_URL);
-		await client.connect();
+	if (client) {
+		return client;
 	}
+	if (!env.MONGODB_URL) {
+		throw new Error('MONGODB_URL is not set');
+	}
+	client = new MongoClient(env.MONGODB_URL);
+	await client.connect();
 	return client;
 };
