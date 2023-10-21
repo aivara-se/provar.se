@@ -56,6 +56,9 @@ jobs:
       - name: Check unit tests
         run: yarn test:unit
 
+      - name: Install playwright
+        run: yarn playwright install --with-deps
+
       - name: Check integration tests
         env:
           AUTH_SECRET: ${{ secrets.APP_AUTH_SECRET }}
@@ -65,6 +68,4 @@ jobs:
           AUTH_GOOGLE_SECRET: ${{ secrets.APP_AUTH_GOOGLE_SECRET }}
           AUTH_EMAIL_SERVER: ${{ secrets.APP_AUTH_EMAIL_SERVER }}
           AUTH_EMAIL_FROM: ${{ secrets.APP_AUTH_EMAIL_FROM }}
-        run: |
-          yarn playwright install --with-deps
-          yarn test:integration
+        run: yarn test:integration
