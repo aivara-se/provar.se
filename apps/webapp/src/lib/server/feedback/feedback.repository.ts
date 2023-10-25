@@ -23,7 +23,7 @@ function fromDocument(doc: FeedbackDocument): Feedback {
 	return {
 		id: doc._id.toHexString(),
 		organizationId: doc.organizationId.toHexString(),
-		projectId: doc.projectId.toHexString()
+		projectId: doc.projectId?.toHexString()
 	};
 }
 
@@ -61,8 +61,10 @@ export async function findByProject(
 	organizationId: string
 ): Promise<Feedback[]> {
 	const coll = await getCollection();
-	const docs = await coll
-		.find({ projectId: new ObjectId(projectId), organizationId: new ObjectId(organizationId) })
-		.toArray();
+	const filter = {
+		projectId: new ObjectId(projectId),
+		organizationId: new ObjectId(organizationId)
+	};
+	const docs = await coll.find(filter).toArray();
 	return docs.map(fromDocument);
 }
