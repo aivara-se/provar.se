@@ -9,25 +9,8 @@ Install Node and Yarn
 - [Install node v20](https://formulae.brew.sh/formula/node)
 - [Install yarn v3](https://yarnpkg.com/getting-started/install)
 
-Create a .env file with the following in apps/webapp directory.
-
-```
-AUTH_SECRET=""
-AUTH_GITHUB_ID=""
-AUTH_GITHUB_SECRET=""
-AUTH_GOOGLE_ID=""
-AUTH_GOOGLE_SECRET=""
-AUTH_EMAIL_SERVER=""
-AUTH_EMAIL_FROM=""
-MONGODB_URL=""
-```
-
-Start the application locally
-
-```shell
-yarn run dev
-```
+Check readme files in each app or library for more information.
 
 ## Github Workflows
 
-This repository uses Github Actions to check pull requests for failing tests or code formatting.
+This repository uses Github Actions to check pull requests and to deploy merged code to production.
