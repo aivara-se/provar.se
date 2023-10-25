@@ -2,25 +2,29 @@
 
 Web application where users can configure organizations, projects and feature flags.
 
-## Developing
+## Getting Started
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Create a `.env` file with the following which will be used when running the application locally.
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```
+AUTH_SECRET=""
+AUTH_GITHUB_ID=""
+AUTH_GITHUB_SECRET=""
+AUTH_GOOGLE_ID=""
+AUTH_GOOGLE_SECRET=""
+AUTH_EMAIL_SERVER=""
+AUTH_EMAIL_FROM=""
+MONGODB_URL=""
 ```
 
-## Building
+Optionally create a `.env.test` file with the following if you wish to use a separate database when running unit tests.
 
-To create a production version of your app:
-
-```bash
-npm run build
+```
+MONGODB_URL=""
 ```
 
-You can preview the production build with `npm run preview`.
+Start the application locally
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```shell
+yarn run dev
+```
