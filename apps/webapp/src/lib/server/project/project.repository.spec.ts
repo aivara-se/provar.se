@@ -27,6 +27,22 @@ describe('Project Repository', () => {
 		]);
 	});
 
+	describe('create', () => {
+		it('should create a new project', async () => {
+			await projectRepository.create({
+				name: 'Test',
+				organizationId: organizationId1.toHexString(),
+			});
+			const result = await collection.findOne({ name: 'Test' });
+			expect(result).toEqual(
+				expect.objectContaining({
+					name: 'Test',
+					organizationId: organizationId1,
+				})
+			);
+		});
+	});
+
 	describe('findById', () => {
 		it('should return null if there are no matching documents', async () => {
 			const result = await projectRepository.findById(unknownId.toHexString());
