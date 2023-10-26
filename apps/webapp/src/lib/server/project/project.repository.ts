@@ -36,6 +36,26 @@ async function getCollection(): Promise<Collection<ProjectDocument>> {
 }
 
 /**
+ * The data required to create a new project.
+ */
+export interface CreateProjectData {
+	name: string;
+	organizationId: string;
+}
+
+/**
+ * Create a new project in the database with the given information.
+ */
+export async function create(data: CreateProjectData): Promise<void> {
+	const coll = await getCollection();
+	await coll.insertOne({
+		_id: new ObjectId(),
+		name: data.name,
+		organizationId: new ObjectId(data.organizationId),
+	});
+}
+
+/**
  * Find a Project by id.
  */
 export async function findById(id: string): Promise<Project | null> {
