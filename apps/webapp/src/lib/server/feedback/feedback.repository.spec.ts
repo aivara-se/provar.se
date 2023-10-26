@@ -1,7 +1,14 @@
 import { ObjectId, type Collection, type MongoClient } from 'mongodb';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { getMongoClient } from '../database';
-import { findById } from './feedback.repository';
+import * as feedbackRepository from './feedback.repository';
+
+const unknownId = new ObjectId();
+const feedbackId1 = new ObjectId();
+const feedbackId2 = new ObjectId();
+const feedbackId3 = new ObjectId();
+const projectId1 = new ObjectId();
+const organizationId1 = new ObjectId();
 
 describe('Feedback Repository', () => {
 	let mongoClient: MongoClient;
@@ -12,27 +19,83 @@ describe('Feedback Repository', () => {
 		collection = mongoClient.db().collection('feedbacks');
 	});
 
+	beforeEach(async () => {
+		await collection.deleteMany({});
+		await collection.insertMany([
+			{ _id: feedbackId1, organizationId: organizationId1 },
+			{ _id: feedbackId2, organizationId: organizationId1, projectId: projectId1 },
+			{ _id: feedbackId3, organizationId: organizationId1, projectId: projectId1 }
+		]);
+	});
+
 	describe('findById', () => {
 		it('should return null if there are no matching documents', async () => {
-			const testFeedbackId = new ObjectId();
-			const result = await findById(testFeedbackId.toHexString());
+			const result = await feedbackRepository.findById(unknownId.toHexString());
 			expect(result).toBeNull();
 		});
 
 		it('should return data if there is a matching document', async () => {
-			// setup
-			const testFeedbackId = new ObjectId();
-			const testOrganizationId = new ObjectId();
-			await collection.insertOne({
-				_id: testFeedbackId,
-				organizationId: testOrganizationId
-			});
-			// test
-			const result = await findById(testFeedbackId.toHexString());
-			expect(result).toEqual({
-				id: testFeedbackId.toHexString(),
-				organizationId: testOrganizationId.toHexString()
-			});
+			const result = await feedbackRepository.findById(feedbackId1.toHexString());
+			expect(result).toEqual(
+				expect.objectContaining({
+					id: feedbackId1.toHexString(),
+					organizationId: organizationId1.toHexString()
+				})
+			);
+		});
+	});
+
+	describe('findByOrganization', () => {
+		it('should return empty array if there are no matching documents', async () => {
+			const result = await feedbackRepository.findByOrganization(unknownId.toHexString());
+			expect(result).toEqual([]);
+		});
+
+		it('should return data if there are matching documents', async () => {
+			const result = await feedbackRepository.findByOrganization(organizationId1.toHexString());
+			expect(result).toEqual([
+				expect.objectContaining({
+					id: feedbackId1.toHexString(),
+					organizationId: organizationId1.toHexString()
+				}),
+				expect.objectContaining({
+					id: feedbackId2.toHexString(),
+					organizationId: organizationId1.toHexString()
+				}),
+				expect.objectContaining({
+					id: feedbackId3.toHexString(),
+					organizationId: organizationId1.toHexString()
+				})
+			]);
+		});
+	});
+
+	describe('findByProject', () => {
+		it('should return empty array if there are no matching documents', async () => {
+			const result = await feedbackRepository.findByProject(
+				unknownId.toHexString(),
+				unknownId.toHexString()
+			);
+			expect(result).toEqual([]);
+		});
+
+		it('should return data if there are matching documents', async () => {
+			const result = await feedbackRepository.findByProject(
+				organizationId1.toHexString(),
+				projectId1.toHexString()
+			);
+			expect(result).toEqual([
+				expect.objectContaining({
+					id: feedbackId2.toHexString(),
+					organizationId: organizationId1.toHexString(),
+					projectId: projectId1.toHexString()
+				}),
+				expect.objectContaining({
+					id: feedbackId3.toHexString(),
+					organizationId: organizationId1.toHexString(),
+					projectId: projectId1.toHexString()
+				})
+			]);
 		});
 	});
 });
