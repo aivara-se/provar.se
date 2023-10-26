@@ -57,13 +57,13 @@ export async function findByOrganization(organizationId: string): Promise<Feedba
  * Find feedback by project.
  */
 export async function findByProject(
-	projectId: string,
-	organizationId: string
+	organizationId: string,
+	projectId: string
 ): Promise<Feedback[]> {
 	const coll = await getCollection();
 	const filter = {
-		projectId: new ObjectId(projectId),
-		organizationId: new ObjectId(organizationId)
+		organizationId: new ObjectId(organizationId),
+		projectId: new ObjectId(projectId)
 	};
 	const docs = await coll.find(filter).toArray();
 	return docs.map(fromDocument);
