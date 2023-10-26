@@ -15,7 +15,7 @@ type OrganizationDocument = {
 	slug: string;
 	name: string;
 	environment: Environment;
-	members: string[];
+	members: ObjectId[];
 };
 
 /**
@@ -27,7 +27,7 @@ function fromDocument(doc: OrganizationDocument): Organization {
 		slug: doc.slug,
 		name: doc.name,
 		environment: doc.environment,
-		members: doc.members
+		members: doc.members.map((id) => id.toHexString())
 	};
 }
 
@@ -58,7 +58,7 @@ export async function create(userId: string, data: CreateOrganizationData): Prom
 		slug: data.slug,
 		name: data.name,
 		environment: data.environment,
-		members: [userId]
+		members: [new ObjectId(userId)]
 	});
 }
 
@@ -76,6 +76,6 @@ export async function findById(id: string): Promise<Organization | null> {
  */
 export async function findByMember(userId: string): Promise<Organization[]> {
 	const coll = await getCollection();
-	const docs = await coll.find({ members: userId }).toArray();
+	const docs = await coll.find({ members: new ObjectId(userId) }).toArray();
 	return docs.map(fromDocument);
 }
