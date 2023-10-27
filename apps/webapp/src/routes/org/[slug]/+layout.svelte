@@ -1,11 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import {
-		OrganizationSelector,
-		SidebarNavigationMenu,
-		LSidebarLayout,
-		HorizontalSeparator
-	} from '$lib/ui';
+	import { LSidebarLayout, HorizontalSeparator } from '$lib/ui';
+	import OrganizationSelector from './_components/OrganizationSelector.svelte';
+	import SidebarNavigationMenu from './_components/SidebarNavigationMenu.svelte';
 
 	/**
 	 * Navigation items
