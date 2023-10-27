@@ -51,7 +51,7 @@ export async function create(data: CreateProjectData): Promise<void> {
 	await coll.insertOne({
 		_id: new ObjectId(),
 		name: data.name,
-		organizationId: new ObjectId(data.organizationId),
+		organizationId: new ObjectId(data.organizationId)
 	});
 }
 

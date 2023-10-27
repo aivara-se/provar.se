@@ -31,13 +31,13 @@ describe('Project Repository', () => {
 		it('should create a new project', async () => {
 			await projectRepository.create({
 				name: 'Test',
-				organizationId: organizationId1.toHexString(),
+				organizationId: organizationId1.toHexString()
 			});
 			const result = await collection.findOne({ name: 'Test' });
 			expect(result).toEqual(
 				expect.objectContaining({
 					name: 'Test',
-					organizationId: organizationId1,
+					organizationId: organizationId1
 				})
 			);
 		});
