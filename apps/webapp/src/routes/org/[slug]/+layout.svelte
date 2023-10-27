@@ -9,7 +9,7 @@
 	 */
 	$: navigationItems = [
 		{ name: 'Dashboard', href: '/org/' + $page.params.slug },
-		{ name: 'Feedbacks', href: '/org/' + $page.params.slug + '/feedbacks' },
+		{ name: 'Feedbacks', href: '/org/' + $page.params.slug + '/feedbacks' }
 	].map((item) => ({
 		...item,
 		active: item.href === $page.url.pathname
