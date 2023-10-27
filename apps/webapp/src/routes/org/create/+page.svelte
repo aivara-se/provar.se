@@ -1,23 +1,18 @@
 <script lang="ts">
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
-	import type { Environment } from '$lib/server';
 	import { CenteredLayout } from '$lib/ui';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { Button, Input, Label, Select } from 'flowbite-svelte';
-
-	const ENVIRONMENTS = [
-		{ value: 'staging', name: 'Staging' },
-		{ value: 'production', name: 'Production' }
-	];
+	import { Button, Input, Label } from 'flowbite-svelte';
 
 	let name = '';
-	let environment: Environment = 'production';
+	let prod = true;
 
 	async function submitForm(event: { currentTarget: EventTarget & HTMLFormElement }) {
 		const data = new FormData();
 		data.set('name', name);
-		data.set('environment', environment);
+		data.set('prod', prod ? 'true' : 'false');
+		console.log('data', data)
 		const response = await fetch(event.currentTarget.action, {
 			method: 'POST',
 			body: data
@@ -36,12 +31,6 @@
 			<div>
 				<Label color="gray" for="name" class="mb-2">Organization name</Label>
 				<Input type="text" id="name" required bind:value={name} />
-			</div>
-			<div>
-				<Label color="gray">
-					Deploy environment
-					<Select class="mt-2" items={ENVIRONMENTS} required bind:value={environment} />
-				</Label>
 			</div>
 			<div>
 				<Button outline type="submit" size="sm">Create organization</Button>

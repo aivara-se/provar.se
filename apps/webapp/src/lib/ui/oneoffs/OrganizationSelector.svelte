@@ -6,7 +6,7 @@
 		id: string;
 		slug: string;
 		name: string;
-		environment: string;
+		prod: boolean;
 	}
 
 	export let value: string;
@@ -25,7 +25,7 @@
 		<DropdownItem>
 			<a href={`/org/${item.slug}`} class="org-item">
 				<span class="organization-name">{item.name}</span>
-				{#if item.environment === 'production'}
+				{#if item.prod }
 					<Badge class="text-xs font-semibold ml-2">
 						<LockOutline class="w-3 h-3 mr-1" />
 					</Badge>
@@ -40,6 +40,7 @@
 		display: flex;
 		flex: 1;
 		justify-content: space-between;
+		min-width: 120px;
 	}
 
 	.organization-name {

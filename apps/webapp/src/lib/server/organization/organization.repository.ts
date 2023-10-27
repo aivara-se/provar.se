@@ -1,6 +1,6 @@
 import { getMongoClient } from '$lib/server/database';
 import { ObjectId, type Collection } from 'mongodb';
-import type { Environment, Organization } from './organization.types';
+import type { Organization } from './organization.types';
 
 /**
  * The name of the MongoDB collection for organizations.
@@ -14,7 +14,7 @@ type OrganizationDocument = {
 	_id: ObjectId;
 	slug: string;
 	name: string;
-	environment: Environment;
+	prod: boolean;
 	members: ObjectId[];
 };
 
@@ -26,7 +26,7 @@ function fromDocument(doc: OrganizationDocument): Organization {
 		id: doc._id.toHexString(),
 		slug: doc.slug,
 		name: doc.name,
-		environment: doc.environment,
+		prod: !!doc.prod,
 		members: doc.members.map((id) => id.toHexString())
 	};
 }
@@ -45,7 +45,7 @@ async function getCollection(): Promise<Collection<OrganizationDocument>> {
 export interface CreateOrganizationData {
 	slug: string;
 	name: string;
-	environment: Environment;
+	prod: boolean;
 }
 
 /**
@@ -57,7 +57,7 @@ export async function create(userId: string, data: CreateOrganizationData): Prom
 		_id: new ObjectId(),
 		slug: data.slug,
 		name: data.name,
-		environment: data.environment,
+		prod: data.prod,
 		members: [new ObjectId(userId)]
 	});
 }
