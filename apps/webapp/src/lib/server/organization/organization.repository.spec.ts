@@ -32,14 +32,14 @@ describe('Organization Repository', () => {
 			await organizationRepository.create(userId1.toHexString(), {
 				slug: 'test',
 				name: 'Test',
-				environment: 'staging'
+				prod: false
 			});
 			const result = await collection.findOne({ slug: 'test' });
 			expect(result).toEqual(
 				expect.objectContaining({
 					slug: 'test',
 					name: 'Test',
-					environment: 'staging',
+					prod: false,
 					members: [userId1]
 				})
 			);

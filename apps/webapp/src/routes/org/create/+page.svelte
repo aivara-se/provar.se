@@ -12,7 +12,7 @@
 		const data = new FormData();
 		data.set('name', name);
 		data.set('prod', prod ? 'true' : 'false');
-		console.log('data', data)
+		console.log('data', data);
 		const response = await fetch(event.currentTarget.action, {
 			method: 'POST',
 			body: data

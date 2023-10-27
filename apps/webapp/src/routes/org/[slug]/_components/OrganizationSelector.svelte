@@ -25,7 +25,7 @@
 		<DropdownItem>
 			<a href={`/org/${item.slug}`} class="org-item">
 				<span class="organization-name">{item.name}</span>
-				{#if item.prod }
+				{#if item.prod}
 					<Badge class="text-xs font-semibold ml-2">
 						<LockOutline class="w-3 h-3 mr-1" />
 					</Badge>
