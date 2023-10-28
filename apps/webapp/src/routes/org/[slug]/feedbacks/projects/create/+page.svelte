@@ -6,13 +6,10 @@
 	import { Button, Input, Label } from 'flowbite-svelte';
 
 	let name = '';
-  // TODO: set organization Id
-  let organizationId = '';
 
 	async function submitForm(event: { currentTarget: EventTarget & HTMLFormElement }) {
 		const data = new FormData();
 		data.set('name', name);
-    data.set('organizationId', organizationId)
 		const response = await fetch(event.currentTarget.action, {
 			method: 'POST',
 			body: data
