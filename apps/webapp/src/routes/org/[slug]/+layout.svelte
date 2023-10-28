@@ -3,6 +3,9 @@
 	import { LSidebarLayout, HorizontalSeparator } from '$lib/ui';
 	import OrganizationSelector from './_components/OrganizationSelector.svelte';
 	import SidebarNavigationMenu from './_components/SidebarNavigationMenu.svelte';
+	import type { LayoutData } from './$types';
+
+	export let data: LayoutData;
 
 	/**
 	 * Navigation items
@@ -18,7 +21,7 @@
 
 <LSidebarLayout>
 	<svelte:fragment slot="sidebar-top">
-		<OrganizationSelector value={$page.params.slug} items={$page.data.organizations} />
+		<OrganizationSelector value={$page.params.slug} items={data.organizations} />
 		<HorizontalSeparator />
 		<SidebarNavigationMenu items={navigationItems} />
 	</svelte:fragment>
