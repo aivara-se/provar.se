@@ -1,8 +1,8 @@
-package routes
+package healthcheck
 
 import "github.com/gofiber/fiber/v2"
 
-func SetupPing(app *fiber.App) {
+func SetupBasicHealthcheck(app *fiber.App) {
 	app.Get("/ping", handler)
 }
 

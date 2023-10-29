@@ -7,8 +7,7 @@ import (
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
-	"provar.se/webapi/feedback"
-	"provar.se/webapi/healthcheck"
+	"provar.se/webapi/routes"
 )
 
 func init() {
@@ -24,8 +23,7 @@ func main() {
         JSONDecoder: json.Unmarshal,
     })
 
-    feedback.SetupRoutes(app)
-    healthcheck.SetupRoutes(app)
+    routes.SetupRoutes(app)
 
 		port := os.Getenv("PORT")
     app.Listen(":" + port)

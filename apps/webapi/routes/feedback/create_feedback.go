@@ -1,4 +1,4 @@
-package routes
+package feedback
 
 import "github.com/gofiber/fiber/v2"
 
