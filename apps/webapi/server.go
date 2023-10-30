@@ -8,23 +8,27 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"provar.se/webapi/routes"
+	"provar.se/webapi/shared/database"
 )
 
-func init() {
-    err := godotenv.Load()
-    if err != nil {
-      log.Fatal("Error loading .env file")
-    }
-}
-
 func main() {
-    app := fiber.New(fiber.Config{
-        JSONEncoder: json.Marshal,
-        JSONDecoder: json.Unmarshal,
-    })
-
-    routes.SetupRoutes(app)
-
-		port := os.Getenv("PORT")
-    app.Listen(":" + port)
+	// Load environment variables from .env
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	// Connect to database using MONGO_URI
+	MONGO_URI := os.Getenv("MONGO_URI")
+	if err := database.Connect(MONGO_URI); err != nil {
+		log.Fatal("Error connecting to database")
+	}
+	// Configure Fiber app with faster JSON
+	app := fiber.New(fiber.Config{
+		JSONEncoder: json.Marshal,
+		JSONDecoder: json.Unmarshal,
+	})
+	// Load all app routes
+	routes.SetupRoutes(app)
+	// Listen on port $PORT
+	PORT := os.Getenv("PORT")
+	app.Listen(":" + PORT)
 }

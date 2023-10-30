@@ -8,6 +8,6 @@ import (
 )
 
 func SetupRoutes(app *fiber.App) {
-	  feedback.SetupRoutes(app)
-    healthcheck.SetupRoutes(app)
+	feedback.SetupRoutes(app)
+	healthcheck.SetupRoutes(app)
 }
