@@ -2,10 +2,12 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/joho/godotenv"
 	"provar.se/webapi/routes"
 	"provar.se/webapi/shared/database"
@@ -26,6 +28,10 @@ func main() {
 		JSONEncoder: json.Marshal,
 		JSONDecoder: json.Unmarshal,
 	})
+	// Serve swagger API UI
+	app.Use(filesystem.New(filesystem.Config{
+		Root: http.Dir("./public"),
+	}))
 	// Load all app routes
 	routes.SetupRoutes(app)
 	// Listen on port $PORT
