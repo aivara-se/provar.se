@@ -1,0 +1,20 @@
+{
+  "name": "@provar-se/webapi",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "go run server.go",
+    "build": "exit 1",
+    "build:swagger": "redocly build-docs openapi.yaml -o ./public/swagger.html",
+    "build:docker": "docker build -t provar-webapi:latest .",
+    "preview": "exit 1",
+    "preview:docker": "docker run -it --rm --env-file ./.env -p 5173:5173 provar-webapi:latest",
+    "lint": "exit 1",
+    "test:integration": "exit 1",
+    "test:unit": "exit 1"
+  },
+  "devDependencies": {
+    "@redocly/cli": "^1.4.0"
+  }
+}
