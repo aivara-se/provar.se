@@ -1,0 +1,11 @@
+FROM alpine:3
+
+WORKDIR /app
+COPY ./server ./
+
+ENV MONGO_URI=""
+ENV PORT=3001
+
+EXPOSE 3001
+
+ENTRYPOINT ["./server"]

@@ -67,7 +67,7 @@ jobs:
           registry: "${{ secrets.APPS_WEBAPI_GCP_GAR_REGISTRY }}"
 
       - name: Build the service
-        run: go build ./...
+        run: go build -o ./server
 
       - name: Build docker image
         run: docker build -t "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}" .
