@@ -1,0 +1,90 @@
+# apps/webapi - deploy production
+
+name: apps/webapi - deploy production
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/apps.webapi.*.yml"
+      - "apps/webapi/**"
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+
+    # Add 'id-token' with the intended permissions for workload identity federation
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    defaults:
+      run:
+        working-directory: ./apps/webapi
+
+    env:
+      MONGODB_URL: mongodb://localhost:27017
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.21.3"
+          cache-dependency-path: apps/webapi/go.sum
+
+      - name: Install dependencies
+        run: go get .
+
+      - name: Google Auth
+        id: auth
+        uses: "google-github-actions/auth@v0"
+        with:
+          service_account: "${{ secrets.APPS_WEBAPI_GCP_SERVICE_ACCOUNT }}"
+          credentials_json: "${{ secrets.APPS_WEBAPI_GCP_CREDENTIALS }}"
+
+      - name: Docker Auth
+        id: docker-auth
+        uses: "docker/login-action@v1"
+        with:
+          username: "_json_key"
+          password: "${{ secrets.APPS_WEBAPI_GCP_CREDENTIALS }}"
+          registry: "${{ secrets.APPS_WEBAPI_GCP_GAR_REGISTRY }}"
+
+      - name: Build the service
+        run: go build ./...
+
+      - name: Build docker image
+        run: docker build -t "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}" .
+
+      - name: Push docker image
+        run: |-
+          docker push "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}"
+
+      - name: Deploy the service
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          service: "${{ secrets.APPS_WEBAPI_GCP_CLOUD_RUN_SERVICE }}"
+          region: "${{ secrets.APPS_WEBAPI_GCP_REGION }}"
+          image: "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}"
+          env_vars: |
+            MONGO_URI=${{ secrets.APPS_WEBAPI_APP_MONGODB_URL }}
+
+      - name: Show Output
+        run: echo ${{ steps.deploy.outputs.url }}

@@ -49,43 +49,43 @@ jobs:
         id: auth
         uses: "google-github-actions/auth@v0"
         with:
-          service_account: "${{ secrets.GCP_SERVICE_ACCOUNT }}"
-          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+          service_account: "${{ secrets.APPS_WEBAPP_GCP_SERVICE_ACCOUNT }}"
+          credentials_json: "${{ secrets.APPS_WEBAPP_GCP_CREDENTIALS }}"
 
       - name: Docker Auth
         id: docker-auth
         uses: "docker/login-action@v1"
         with:
           username: "_json_key"
-          password: "${{ secrets.GCP_CREDENTIALS }}"
-          registry: "${{ secrets.GCP_GAR_REGISTRY }}"
+          password: "${{ secrets.APPS_WEBAPP_GCP_CREDENTIALS }}"
+          registry: "${{ secrets.APPS_WEBAPP_GCP_GAR_REGISTRY }}"
 
       - name: Build the service
         run: yarn build
 
       - name: Build docker image
-        run: docker build -t "${{ secrets.GCP_GAR_REPOSITORY }}/webapp:${{ github.sha }}" .
+        run: docker build -t "${{ secrets.APPS_WEBAPP_GCP_GAR_REPOSITORY }}/webapp:${{ github.sha }}" .
 
       - name: Push docker image
         run: |-
-          docker push "${{ secrets.GCP_GAR_REPOSITORY }}/webapp:${{ github.sha }}"
+          docker push "${{ secrets.APPS_WEBAPP_GCP_GAR_REPOSITORY }}/webapp:${{ github.sha }}"
 
       - name: Deploy the service
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
         with:
-          service: "${{ secrets.GCP_CLOUD_RUN_SERVICE }}"
-          region: "${{ secrets.GCP_REGION }}"
-          image: "${{ secrets.GCP_GAR_REPOSITORY }}/webapp:${{ github.sha }}"
+          service: "${{ secrets.APPS_WEBAPP_GCP_CLOUD_RUN_SERVICE }}"
+          region: "${{ secrets.APPS_WEBAPP_GCP_REGION }}"
+          image: "${{ secrets.APPS_WEBAPP_GCP_GAR_REPOSITORY }}/webapp:${{ github.sha }}"
           env_vars: |
-            AUTH_SECRET=${{ secrets.APP_AUTH_SECRET }}
-            AUTH_GITHUB_ID=${{ secrets.APP_AUTH_GITHUB_ID }}
-            AUTH_GITHUB_SECRET=${{ secrets.APP_AUTH_GITHUB_SECRET }}
-            AUTH_GOOGLE_ID=${{ secrets.APP_AUTH_GOOGLE_ID }}
-            AUTH_GOOGLE_SECRET=${{ secrets.APP_AUTH_GOOGLE_SECRET }}
-            AUTH_EMAIL_SERVER=${{ secrets.APP_AUTH_EMAIL_SERVER }}
-            AUTH_EMAIL_FROM=${{ secrets.APP_AUTH_EMAIL_FROM }}
-            MONGODB_URL=${{ secrets.APP_MONGODB_URL }}
+            AUTH_SECRET=${{ secrets.APPS_WEBAPP_APP_AUTH_SECRET }}
+            AUTH_GITHUB_ID=${{ secrets.APPS_WEBAPP_APP_AUTH_GITHUB_ID }}
+            AUTH_GITHUB_SECRET=${{ secrets.APPS_WEBAPP_APP_AUTH_GITHUB_SECRET }}
+            AUTH_GOOGLE_ID=${{ secrets.APPS_WEBAPP_APP_AUTH_GOOGLE_ID }}
+            AUTH_GOOGLE_SECRET=${{ secrets.APPS_WEBAPP_APP_AUTH_GOOGLE_SECRET }}
+            AUTH_EMAIL_SERVER=${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_SERVER }}
+            AUTH_EMAIL_FROM=${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_FROM }}
+            MONGODB_URL=${{ secrets.APPS_WEBAPP_APP_MONGODB_URL }}
             ORIGIN=https://app.provar.se
 
       - name: Show Output

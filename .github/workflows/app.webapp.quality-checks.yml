@@ -61,11 +61,11 @@ jobs:
 
       - name: Check integration tests
         env:
-          AUTH_SECRET: ${{ secrets.APP_AUTH_SECRET }}
-          AUTH_GITHUB_ID: ${{ secrets.APP_AUTH_GITHUB_ID }}
-          AUTH_GITHUB_SECRET: ${{ secrets.APP_AUTH_GITHUB_SECRET }}
-          AUTH_GOOGLE_ID: ${{ secrets.APP_AUTH_GOOGLE_ID }}
-          AUTH_GOOGLE_SECRET: ${{ secrets.APP_AUTH_GOOGLE_SECRET }}
-          AUTH_EMAIL_SERVER: ${{ secrets.APP_AUTH_EMAIL_SERVER }}
-          AUTH_EMAIL_FROM: ${{ secrets.APP_AUTH_EMAIL_FROM }}
+          AUTH_SECRET: ${{ secrets.APPS_WEBAPP_APP_AUTH_SECRET }}
+          AUTH_GITHUB_ID: ${{ secrets.APPS_WEBAPP_APP_AUTH_GITHUB_ID }}
+          AUTH_GITHUB_SECRET: ${{ secrets.APPS_WEBAPP_APP_AUTH_GITHUB_SECRET }}
+          AUTH_GOOGLE_ID: ${{ secrets.APPS_WEBAPP_APP_AUTH_GOOGLE_ID }}
+          AUTH_GOOGLE_SECRET: ${{ secrets.APPS_WEBAPP_APP_AUTH_GOOGLE_SECRET }}
+          AUTH_EMAIL_SERVER: ${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_SERVER }}
+          AUTH_EMAIL_FROM: ${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_FROM }}
         run: yarn test:integration
