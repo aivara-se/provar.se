@@ -14,7 +14,7 @@
     "check": "echo TODO",
     "lint": "echo TODO",
     "test:integration": "echo TODO",
-    "test:unit": "echo TODO"
+    "test:unit": "go test ./..."
   },
   "devDependencies": {
     "@redocly/cli": "^1.4.0"
