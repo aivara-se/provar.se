@@ -1,11 +1,16 @@
-FROM alpine:3
-
+FROM golang:1.21-alpine AS builder
 WORKDIR /app
-COPY ./webapi ./
+RUN apk add --no-cache git
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN go build -o ./webapi
 
+FROM alpine:3
+RUN apk add ca-certificates
+WORKDIR /app
+COPY --from=builder /app/webapi ./
 ENV MONGO_URI=""
 ENV PORT=3001
-
 EXPOSE 3001
-
-ENTRYPOINT ["./webapi"]
+ENTRYPOINT ["/app/webapi"]

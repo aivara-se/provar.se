@@ -17,12 +17,6 @@ jobs:
   deploy-production:
     runs-on: ubuntu-latest
 
-    services:
-      mongodb:
-        image: mongo
-        ports:
-          - 27017:27017
-
     # Add 'id-token' with the intended permissions for workload identity federation
     permissions:
       contents: "read"
@@ -32,28 +26,9 @@ jobs:
       run:
         working-directory: ./apps/webapi
 
-    env:
-      MONGODB_URL: mongodb://localhost:27017
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: "yarn"
-          cache-dependency-path: "yarn.lock"
-
-      - name: Setup Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: "1.21.3"
-          cache-dependency-path: apps/webapi/go.sum
-
-      - name: Install dependencies
-        run: go mod download
 
       - name: Google Auth
         id: auth
@@ -70,11 +45,8 @@ jobs:
           password: "${{ secrets.APPS_WEBAPI_GCP_CREDENTIALS }}"
           registry: "${{ secrets.APPS_WEBAPI_GCP_GAR_REGISTRY }}"
 
-      - name: Build the service
-        run: GOOS=linux GOARCH=amd64 go build -o ./webapi
-
       - name: Build docker image
-        run: docker build --platform linux/amd64 -t "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}" .
+        run: docker build -t "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}" .
 
       - name: Push docker image
         run: |-

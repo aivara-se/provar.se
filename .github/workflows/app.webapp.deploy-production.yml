@@ -68,7 +68,7 @@ jobs:
         run: yarn build
 
       - name: Build docker image
-        run: docker build --platform linux/amd64 -t "${{ secrets.APPS_WEBAPP_GCP_GAR_REPOSITORY }}/webapp:${{ github.sha }}" .
+        run: docker build -t "${{ secrets.APPS_WEBAPP_GCP_GAR_REPOSITORY }}/webapp:${{ github.sha }}" .
 
       - name: Push docker image
         run: |-

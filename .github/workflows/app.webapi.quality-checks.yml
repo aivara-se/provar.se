@@ -51,10 +51,7 @@ jobs:
         run: go mod download
 
       - name: Build the service
-        run: GOOS=linux GOARCH=amd64 go build -o ./webapi
-
-      - name: Build docker image
-        run: docker build -t provar-webapi:latest .
+        run: go build -o ./webapi
 
       - name: Check code formatting
         run: echo TODO
