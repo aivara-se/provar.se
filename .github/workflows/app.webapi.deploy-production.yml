@@ -74,7 +74,7 @@ jobs:
         run: GOOS=linux GOARCH=arm64 go build -o ./webapi
 
       - name: Build docker image
-        run: docker build -t "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}" .
+        run: docker build --platform linux/amd64 -t "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}" .
 
       - name: Push docker image
         run: |-
