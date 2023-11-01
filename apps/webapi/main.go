@@ -2,17 +2,25 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/filesystem"
+	"github.com/gofiber/swagger"
 	"github.com/joho/godotenv"
 	"provar.se/webapi/routes"
 	"provar.se/webapi/shared/database"
+
+	_ "provar.se/webapi/docs"
 )
 
+// @title Provar API
+// @version 1.0
+// @description Provar.se public API
+// @host https://api.provar.se
+// @BasePath /
+// @accept json
+// @produce json
 func main() {
 	// Load environment variables from .env
 	if err := godotenv.Load(); err != nil {
@@ -29,9 +37,7 @@ func main() {
 		JSONDecoder: json.Unmarshal,
 	})
 	// Serve swagger API UI
-	app.Use(filesystem.New(filesystem.Config{
-		Root: http.Dir("./public"),
-	}))
+	app.Get("/swagger/*", swagger.HandlerDefault)
 	// Load all app routes
 	routes.SetupRoutes(app)
 	// Listen on port $PORT

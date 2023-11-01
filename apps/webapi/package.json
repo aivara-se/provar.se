@@ -4,19 +4,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "go run server.go",
+    "dev": "go run main.go",
     "setup": "go get .",
-    "build": "go build -o ./server",
-    "build:swagger": "redocly build-docs openapi.yaml -o ./public/swagger.html",
+    "build": "swag init && go build -o ./webapi",
     "build:docker": "docker build -t provar-webapi:latest .",
-    "preview": "./server",
+    "preview": "./webapi",
     "preview:docker": "docker run -it --rm --env-file ./.env -p 3001:3001 provar-webapi:latest",
     "check": "echo TODO",
     "lint": "echo TODO",
     "test:integration": "echo TODO",
     "test:unit": "go test ./..."
-  },
-  "devDependencies": {
-    "@redocly/cli": "^1.4.0"
   }
 }

@@ -1,0 +1,39 @@
+basePath: /
+consumes:
+- application/json
+host: https://api.provar.se
+info:
+  contact: {}
+  description: Provar.se public API
+  title: Provar API
+  version: "1.0"
+paths:
+  /organization/{organization_id}/feedback:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new feedback for the organization.
+      parameters:
+      - description: Organization ID
+        in: path
+        name: organization_id
+        type: string
+      responses:
+        "204":
+          description: ok
+      summary: Creates a new feedback
+      tags:
+      - feedback
+  /ping:
+    get:
+      description: Basic healthcheck endpoint that can be used to check whether the
+        service can be reached.
+      responses:
+        "204":
+          description: ok
+      summary: Basic healthcheck endpoint
+      tags:
+      - health
+produces:
+- application/json
+swagger: "2.0"
