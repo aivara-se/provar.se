@@ -71,7 +71,7 @@ jobs:
           registry: "${{ secrets.APPS_WEBAPI_GCP_GAR_REGISTRY }}"
 
       - name: Build the service
-        run: GOOS=linux GOARCH=arm64 go build -o ./webapi
+        run: GOOS=linux GOARCH=amd64 go build -o ./webapi
 
       - name: Build docker image
         run: docker build --platform linux/amd64 -t "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}" .

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "go run main.go",
     "setup": "go get .",
-    "build": "GOOS=linux GOARCH=arm64 go build -o ./webapi",
+    "build": "GOOS=linux GOARCH=amd64 go build -o ./webapi",
     "build:swagger": "swag init",
     "build:docker": "docker build -t provar-webapi:latest .",
     "preview": "./webapi",
