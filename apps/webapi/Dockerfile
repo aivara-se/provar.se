@@ -1,11 +1,11 @@
 FROM alpine:3
 
 WORKDIR /app
-COPY ./server ./
+COPY ./webapi ./
 
 ENV MONGO_URI=""
 ENV PORT=3001
 
 EXPOSE 3001
 
-ENTRYPOINT ["./server"]
+ENTRYPOINT ["./webapi"]

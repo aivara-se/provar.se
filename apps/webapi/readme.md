@@ -1,19 +1,18 @@
-# apps/webapp
+# apps/webapi
 
-Web application where users can configure organizations, projects and feature flags.
+Public API to collect feedback from client applications.
 
-## Getting Started
+## Getting started
+
+Install CLI tools needed to generate swagger documentation.
+
+```shell
+go install github.com/swaggo/swag/cmd/swag@latest
+```
 
 Create a `.env` file with the following which will be used when running the application locally.
 
 ```
-AUTH_SECRET=""
-AUTH_GITHUB_ID=""
-AUTH_GITHUB_SECRET=""
-AUTH_GOOGLE_ID=""
-AUTH_GOOGLE_SECRET=""
-AUTH_EMAIL_SERVER=""
-AUTH_EMAIL_FROM=""
 MONGODB_URL=""
 ```
 
@@ -26,5 +25,5 @@ MONGODB_URL=""
 Start the application locally
 
 ```shell
-yarn run dev
+yarn dev
 ```

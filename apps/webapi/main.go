@@ -14,6 +14,11 @@ import (
 	_ "provar.se/webapi/docs"
 )
 
+func init() {
+	// Load environment variables from .env
+	godotenv.Load()
+}
+
 // @title Provar API
 // @version 1.0
 // @description Provar.se public API
@@ -22,10 +27,6 @@ import (
 // @accept json
 // @produce json
 func main() {
-	// Load environment variables from .env
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
-	}
 	// Connect to database using MONGO_URI
 	MONGO_URI := os.Getenv("MONGO_URI")
 	if err := database.Connect(MONGO_URI); err != nil {

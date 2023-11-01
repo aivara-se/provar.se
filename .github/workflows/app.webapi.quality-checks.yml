@@ -48,10 +48,13 @@ jobs:
           cache-dependency-path: apps/webapi/go.sum
 
       - name: Install dependencies
-        run: go get .
+        run: go mod download
 
       - name: Build the service
-        run: go build -v ./...
+        run: GOOS=linux GOARCH=arm64 go build -o ./webapi
+
+      - name: Build docker image
+        run: docker build -t provar-webapi:latest .
 
       - name: Check code formatting
         run: echo TODO
