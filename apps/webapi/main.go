@@ -8,8 +8,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
 	"github.com/joho/godotenv"
-	"provar.se/webapi/routes"
-	"provar.se/webapi/shared/database"
+	"provar.se/webapi/api"
+	"provar.se/webapi/lib/database"
 
 	_ "provar.se/webapi/docs"
 )
@@ -40,7 +40,7 @@ func main() {
 	// Serve swagger API UI
 	app.Get("/swagger/*", swagger.HandlerDefault)
 	// Load all app routes
-	routes.SetupRoutes(app)
+	api.SetupRoutes(app)
 	// Listen on port $PORT
 	PORT := os.Getenv("PORT")
 	app.Listen(":" + PORT)

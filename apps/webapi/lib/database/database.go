@@ -3,6 +3,7 @@ package database
 import (
 	"context"
 	"errors"
+	"log"
 	"net/url"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -45,12 +46,18 @@ func Connect(mongoURI string) error {
 // GetClient returns the connected MongoDB client.
 // NOTE: The Connect function must be called before this function.
 func GetClient() *mongo.Client {
+	if cachedClient == nil {
+		log.Fatalln("Cannot to use MongoDB client before connecting")
+	}
 	return cachedClient
 }
 
 // GetDatabase returns the connected MongoDB database.
 // NOTE: The Connect function must be called before this function.
 func GetDatabase() *mongo.Database {
+	if cachedClient == nil {
+		log.Fatalln("Cannot to use MongoDB client before connecting")
+	}
 	return cachedDatabase
 }
 

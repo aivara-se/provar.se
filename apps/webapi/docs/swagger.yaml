@@ -1,6 +1,12 @@
 basePath: /
 consumes:
 - application/json
+definitions:
+  credentials.CreateAccessTokenResponseBody:
+    properties:
+      access_token:
+        type: string
+    type: object
 host: https://api.provar.se
 info:
   contact: {}
@@ -8,6 +14,33 @@ info:
   title: Provar API
   version: "1.0"
 paths:
+  /organization/{organization_id}/credential:
+    post:
+      consumes:
+      - application/json
+      description: Creates access tokens which can be used to authenticate when sending
+        feedback.
+      parameters:
+      - description: Organization ID
+        in: path
+        name: organization_id
+        type: string
+      - description: Client ID
+        in: header
+        name: client_id
+        type: string
+      - description: Client Secret
+        in: header
+        name: client_secret
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/credentials.CreateAccessTokenResponseBody'
+      summary: Creates access tokens
+      tags:
+      - credentials
   /organization/{organization_id}/feedback:
     post:
       consumes:
@@ -23,7 +56,7 @@ paths:
           description: ok
       summary: Creates a new feedback
       tags:
-      - feedback
+      - feedbacks
   /ping:
     get:
       description: Basic healthcheck endpoint that can be used to check whether the
@@ -33,7 +66,7 @@ paths:
           description: ok
       summary: Basic healthcheck endpoint
       tags:
-      - health
+      - healthchecks
 produces:
 - application/json
 swagger: "2.0"

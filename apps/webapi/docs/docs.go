@@ -21,6 +21,46 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/organization/{organization_id}/credential": {
+            "post": {
+                "description": "Creates access tokens which can be used to authenticate when sending feedback.",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "credentials"
+                ],
+                "summary": "Creates access tokens",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Organization ID",
+                        "name": "organization_id",
+                        "in": "path"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Client ID",
+                        "name": "client_id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Client Secret",
+                        "name": "client_secret",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/credentials.CreateAccessTokenResponseBody"
+                        }
+                    }
+                }
+            }
+        },
         "/organization/{organization_id}/feedback": {
             "post": {
                 "description": "Creates a new feedback for the organization.",
@@ -28,7 +68,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "feedback"
+                    "feedbacks"
                 ],
                 "summary": "Creates a new feedback",
                 "parameters": [
@@ -50,13 +90,23 @@ const docTemplate = `{
             "get": {
                 "description": "Basic healthcheck endpoint that can be used to check whether the service can be reached.",
                 "tags": [
-                    "health"
+                    "healthchecks"
                 ],
                 "summary": "Basic healthcheck endpoint",
                 "responses": {
                     "204": {
                         "description": "ok"
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "credentials.CreateAccessTokenResponseBody": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
                 }
             }
         }

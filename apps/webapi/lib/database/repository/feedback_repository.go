@@ -1,9 +1,10 @@
-package database
+package repository
 
 import (
 	"context"
 
 	"go.mongodb.org/mongo-driver/mongo"
+	"provar.se/webapi/lib/database"
 )
 
 const (
@@ -12,8 +13,14 @@ const (
 )
 
 var (
+	// cachedFeedbackRepository is a reference to a FeedbackRepository
 	cachedFeedbackRepository *FeedbackRepository
 )
+
+// FeedbackModel is a MongoDB document for feedback
+type FeedbackModel struct {
+	OrganizationID string `bson:"organizationId"`
+}
 
 // FeedbackRepository is a repository for feedback
 type FeedbackRepository struct {
@@ -25,20 +32,16 @@ func GetFeedbackRepository() *FeedbackRepository {
 	if cachedFeedbackRepository != nil {
 		return cachedFeedbackRepository
 	}
-	db := GetDatabase()
+	db := database.GetDatabase()
 	coll := db.Collection(feedbackCollectionName)
 	repo := &FeedbackRepository{coll: coll}
 	cachedFeedbackRepository = repo
 	return repo
 }
 
-// CreateFeedbackParams is the details of a feedback
-type CreateFeedbackParams struct {
-	OrganizationID string `bson:"organizationId"`
-}
-
 // CreateFeedback creates a feedback document in the database
-func (repo *FeedbackRepository) CreateFeedback(params *CreateFeedbackParams) error {
-	_, err := repo.coll.InsertOne(context.TODO(), params)
+func (repo *FeedbackRepository) CreateFeedback(organizationID string) error {
+	doc := &FeedbackModel{OrganizationID: organizationID}
+	_, err := repo.coll.InsertOne(context.TODO(), doc)
 	return err
 }
