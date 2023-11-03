@@ -1,8 +1,9 @@
 {
-  "name": "@provar-se/root",
-  "private": true,
-  "version": "1.0.0",
+  "name": "@provar/monorepo",
   "description": "",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
   "main": "index.js",
   "keywords": [],
   "author": "Thanish Nizam <mnmtanish@gmail.com> (https://thanish.me/)",
