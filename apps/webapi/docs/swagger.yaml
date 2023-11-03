@@ -10,7 +10,7 @@ definitions:
 host: https://api.provar.se
 info:
   contact: {}
-  description: Provar.se public API
+  description: Provar.se API
   title: Provar API
   version: "1.0"
 paths:

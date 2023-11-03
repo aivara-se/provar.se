@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "go run main.go",
+    "dev": "air -c .air.toml",
     "setup": "go get .",
     "build": "GOOS=linux GOARCH=amd64 go build -o ./webapi",
     "build:swagger": "swag init",

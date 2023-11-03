@@ -7,7 +7,7 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "Provar.se public API",
+        "description": "Provar.se API",
         "title": "Provar API",
         "contact": {},
         "version": "1.0"

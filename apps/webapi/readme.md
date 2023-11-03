@@ -4,10 +4,11 @@ Public API to collect feedback from client applications.
 
 ## Getting started
 
-Install CLI tools needed to generate swagger documentation.
+Install CLI tools needed to generate swagger documentation and to live-reload on changes.
 
 ```shell
 go install github.com/swaggo/swag/cmd/swag@latest
+go install github.com/cosmtrek/air@latest
 ```
 
 Create a `.env` file with the following which will be used when running the application locally.
