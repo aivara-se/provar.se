@@ -4,11 +4,17 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nx run-many --target=serve --projects=provar-frontend,provar-backend --parallel"
+    "dev": "yarn workspaces foreach --all --parallel --interlaced run dev"
   },
-  "packageManager": "yarn@3.6.4",
   "workspaces": [
     "apps/*",
     "libs/*"
-  ]
+  ],
+  "devDependencies": {
+    "@yarnpkg/types": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "yarn@4.0.1"
 }

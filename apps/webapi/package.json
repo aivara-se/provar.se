@@ -15,5 +15,8 @@
     "lint": "echo TODO",
     "test:integration": "echo TODO",
     "test:unit": "go test ./..."
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
