@@ -3,9 +3,11 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/swagger"
 	"github.com/joho/godotenv"
 	"provar.se/webapi/api"
@@ -37,6 +39,11 @@ func main() {
 		JSONEncoder: json.Marshal,
 		JSONDecoder: json.Unmarshal,
 	})
+	// Use rate limiter middleware
+	app.Use(limiter.New(limiter.Config{
+		Expiration: time.Second,
+		Max:        100,
+	}))
 	// Serve swagger API UI
 	app.Get("/swagger/*", swagger.HandlerDefault)
 	// Load all app routes
