@@ -45,9 +45,10 @@ func CreateApp() *fiber.App {
 	app.Get("/swagger/*", swagger.HandlerDefault)
 
 	// Load all app routes
-	auth.SetupRoutes(app)
-	feedback.SetupRoutes(app)
-	health.SetupRoutes(app)
+	auth.SetupCreateAccessToken(app)
+	feedback.SetupCreateFeedback(app)
+	health.SetupBasicHealthcheck(app)
+	health.SetupSecureHealthcheck(app)
 
 	return app
 }
