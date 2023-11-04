@@ -30,6 +30,12 @@ func GetMiddleware() fiber.Handler {
 	})
 }
 
+// ExtractOrganizationId extracts the organization ID from a JWT token
+func ExtractOrganizationId(c *fiber.Ctx) string {
+	user := c.Locals("user").(*jwt.Token)
+	return user.Claims.(jwt.MapClaims)["sub"].(string)
+}
+
 // CreateAccessToken creates a JWT token for an organization
 func CreateAccessToken(organizationID string) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{

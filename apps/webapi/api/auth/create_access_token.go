@@ -29,21 +29,21 @@ type CreateAccessTokenResponseBody struct {
 func SetupCreateAccessToken(app *fiber.App) {
 	app.Post("/auth/token", func(c *fiber.Ctx) error {
 		organizationID := string(c.Request().Header.Peek("x-organization"))
-		if organizationID == "" {
+		reqBody := &CreateAccessTokenRequestBody{}
+		if err := c.BodyParser(&reqBody); err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
-		var requestBody CreateAccessTokenRequestBody
-		if err := c.BodyParser(&requestBody); err != nil {
+		if organizationID == "" || reqBody.ClientID == "" || reqBody.ClientSecret == "" {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
-		if !credentials.ValidateClientCredentials(organizationID, requestBody.ClientID, requestBody.ClientSecret) {
+		if !credentials.ValidateClientCredentials(organizationID, reqBody.ClientID, reqBody.ClientSecret) {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 		token, err := token.CreateAccessToken(organizationID)
 		if err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}
-		responseBody := CreateAccessTokenResponseBody{Token: token}
-		return c.JSON(responseBody)
+		resBody := CreateAccessTokenResponseBody{Token: token}
+		return c.JSON(resBody)
 	})
 }

@@ -16,10 +16,7 @@ import (
 func SetupCreateFeedback(app *fiber.App) {
 	app.Use("/feedback", token.GetMiddleware())
 	app.Post("/feedback", func(c *fiber.Ctx) error {
-		organizationID := string(c.Request().Header.Peek("x-organization"))
-		if organizationID == "" {
-			return c.SendStatus(fiber.StatusBadRequest)
-		}
+		organizationID := token.ExtractOrganizationId(c)
 		repo := repository.GetFeedbackRepository()
 		err := repo.CreateFeedback(organizationID)
 		if err != nil {

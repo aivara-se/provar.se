@@ -14,7 +14,6 @@
     "format": "go fmt ./...",
     "check": "go vet ./...",
     "lint": "test -z \"$(gofmt -l .)\"",
-    "test:integration": "echo TODO",
     "test:unit": "go test ./..."
   },
   "engines": {
