@@ -5,12 +5,6 @@ import "github.com/swaggo/swag"
 
 const docTemplate = `{
     "schemes": {{ marshal .Schemes }},
-    "consumes": [
-        "application/json"
-    ],
-    "produces": [
-        "application/json"
-    ],
     "swagger": "2.0",
     "info": {
         "description": "{{escape .Description}}",
@@ -133,12 +127,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
-	Host:             "https://api.provar.se",
-	BasePath:         "/",
+	Version:          "",
+	Host:             "",
+	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "Provar API",
-	Description:      "Provar.se API",
+	Title:            "",
+	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

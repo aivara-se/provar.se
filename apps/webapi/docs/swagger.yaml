@@ -1,18 +1,11 @@
-basePath: /
-consumes:
-- application/json
 definitions:
   auth.CreateAccessTokenResponseBody:
     properties:
       token:
         type: string
     type: object
-host: https://api.provar.se
 info:
   contact: {}
-  description: Provar.se API
-  title: Provar API
-  version: "1.0"
 paths:
   /auth/token:
     post:
@@ -76,6 +69,4 @@ paths:
       summary: Ensure that an access token is valid.
       tags:
       - health
-produces:
-- application/json
 swagger: "2.0"
