@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "air -c .air.toml",
     "setup": "go get .",
-    "build": "GOOS=linux GOARCH=amd64 go build -o ./webapi",
+    "build": "go build -o ./webapi",
     "build:swagger": "swag init",
     "build:docker": "docker build -t provar-webapi:latest .",
     "preview": "./webapi",
