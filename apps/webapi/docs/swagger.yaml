@@ -2,9 +2,9 @@ basePath: /
 consumes:
 - application/json
 definitions:
-  credentials.CreateAccessTokenResponseBody:
+  auth.CreateAccessTokenResponseBody:
     properties:
-      access_token:
+      token:
         type: string
     type: object
 host: https://api.provar.se
@@ -14,59 +14,68 @@ info:
   title: Provar API
   version: "1.0"
 paths:
-  /organization/{organization_id}/credential:
+  /auth/token:
     post:
       consumes:
       - application/json
-      description: Creates access tokens which can be used to authenticate when sending
-        feedback.
+      description: Create an access token using client credentials.
       parameters:
       - description: Organization ID
         in: path
-        name: organization_id
+        name: x-organization
         type: string
       - description: Client ID
-        in: header
+        in: body
         name: client_id
-        type: string
+        schema:
+          type: string
       - description: Client Secret
-        in: header
+        in: body
         name: client_secret
-        type: string
+        schema:
+          type: string
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/credentials.CreateAccessTokenResponseBody'
-      summary: Creates access tokens
+            $ref: '#/definitions/auth.CreateAccessTokenResponseBody'
+      summary: Create an access token using client credentials.
       tags:
-      - credentials
-  /organization/{organization_id}/feedback:
+      - auth
+  /feedback:
     post:
       consumes:
       - application/json
-      description: Creates a new feedback for the organization.
+      description: Create a new feedback event for an organization.
       parameters:
       - description: Organization ID
         in: path
-        name: organization_id
+        name: x-organization
         type: string
       responses:
         "204":
           description: ok
-      summary: Creates a new feedback
+      summary: Create a new feedback event for an organization.
       tags:
-      - feedbacks
+      - feedback
   /ping:
     get:
-      description: Basic healthcheck endpoint that can be used to check whether the
-        service can be reached.
+      description: Ensure that the service can be reached.
       responses:
         "204":
           description: ok
-      summary: Basic healthcheck endpoint
+      summary: Ensure that the service can be reached.
       tags:
-      - healthchecks
+      - health
+  /ping/secure:
+    get:
+      description: Ensure that an access token is valid.
+      responses:
+        "204":
+          description: ok
+      summary: Ensure that an access token is valid.
+      tags:
+      - health
 produces:
 - application/json
 swagger: "2.0"

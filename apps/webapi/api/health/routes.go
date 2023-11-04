@@ -1,4 +1,4 @@
-package healthcheck
+package health
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -7,4 +7,5 @@ import (
 // SetupRoutes sets up the healthcheck routes
 func SetupRoutes(app *fiber.App) {
 	SetupBasicHealthcheck(app)
+	SetupSecureHealthcheck(app)
 }

@@ -3,13 +3,13 @@ package api
 import (
 	"github.com/gofiber/fiber/v2"
 
-	"provar.se/webapi/api/credentials"
+	"provar.se/webapi/api/auth"
 	"provar.se/webapi/api/feedback"
-	"provar.se/webapi/api/healthcheck"
+	"provar.se/webapi/api/health"
 )
 
 func SetupRoutes(app *fiber.App) {
-	credentials.SetupRoutes(app)
+	auth.SetupRoutes(app)
 	feedback.SetupRoutes(app)
-	healthcheck.SetupRoutes(app)
+	health.SetupRoutes(app)
 }

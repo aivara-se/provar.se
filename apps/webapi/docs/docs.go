@@ -21,61 +21,65 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/organization/{organization_id}/credential": {
+        "/auth/token": {
             "post": {
-                "description": "Creates access tokens which can be used to authenticate when sending feedback.",
+                "description": "Create an access token using client credentials.",
                 "consumes": [
                     "application/json"
                 ],
                 "tags": [
-                    "credentials"
+                    "auth"
                 ],
-                "summary": "Creates access tokens",
+                "summary": "Create an access token using client credentials.",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Organization ID",
-                        "name": "organization_id",
+                        "name": "x-organization",
                         "in": "path"
                     },
                     {
-                        "type": "string",
                         "description": "Client ID",
                         "name": "client_id",
-                        "in": "header"
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
-                        "type": "string",
                         "description": "Client Secret",
                         "name": "client_secret",
-                        "in": "header"
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/credentials.CreateAccessTokenResponseBody"
+                            "$ref": "#/definitions/auth.CreateAccessTokenResponseBody"
                         }
                     }
                 }
             }
         },
-        "/organization/{organization_id}/feedback": {
+        "/feedback": {
             "post": {
-                "description": "Creates a new feedback for the organization.",
+                "description": "Create a new feedback event for an organization.",
                 "consumes": [
                     "application/json"
                 ],
                 "tags": [
-                    "feedbacks"
+                    "feedback"
                 ],
-                "summary": "Creates a new feedback",
+                "summary": "Create a new feedback event for an organization.",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Organization ID",
-                        "name": "organization_id",
+                        "name": "x-organization",
                         "in": "path"
                     }
                 ],
@@ -88,11 +92,25 @@ const docTemplate = `{
         },
         "/ping": {
             "get": {
-                "description": "Basic healthcheck endpoint that can be used to check whether the service can be reached.",
+                "description": "Ensure that the service can be reached.",
                 "tags": [
-                    "healthchecks"
+                    "health"
                 ],
-                "summary": "Basic healthcheck endpoint",
+                "summary": "Ensure that the service can be reached.",
+                "responses": {
+                    "204": {
+                        "description": "ok"
+                    }
+                }
+            }
+        },
+        "/ping/secure": {
+            "get": {
+                "description": "Ensure that an access token is valid.",
+                "tags": [
+                    "health"
+                ],
+                "summary": "Ensure that an access token is valid.",
                 "responses": {
                     "204": {
                         "description": "ok"
@@ -102,10 +120,10 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "credentials.CreateAccessTokenResponseBody": {
+        "auth.CreateAccessTokenResponseBody": {
             "type": "object",
             "properties": {
-                "access_token": {
+                "token": {
                     "type": "string"
                 }
             }

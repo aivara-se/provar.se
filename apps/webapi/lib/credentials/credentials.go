@@ -1,4 +1,4 @@
-package creds
+package credentials
 
 import (
 	"provar.se/webapi/lib/database/repository"

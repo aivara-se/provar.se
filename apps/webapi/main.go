@@ -13,6 +13,7 @@ import (
 	"github.com/joho/godotenv"
 	"provar.se/webapi/api"
 	"provar.se/webapi/lib/database"
+	"provar.se/webapi/lib/token"
 
 	_ "provar.se/webapi/docs"
 )
@@ -22,19 +23,23 @@ func init() {
 	godotenv.Load()
 }
 
-// @title Provar API
-// @version 1.0
-// @description Provar.se API
-// @host https://api.provar.se
-// @BasePath /
-// @accept json
-// @produce json
+// @title       Provar API
+// @version		  1.0
+// @description	Provar.se API
+// @host			  https://api.provar.se
+// @BasePath		/
+// @accept			json
+// @produce     json
 func main() {
 	// Connect to database using MONGO_URI
 	MONGO_URI := os.Getenv("MONGO_URI")
 	if err := database.Connect(MONGO_URI); err != nil {
 		log.Fatal("Error connecting to database")
 	}
+
+	// Configure access token signing secret
+	JWT_SECRET := os.Getenv("JWT_SECRET")
+	token.SetSigningSecret(JWT_SECRET)
 
 	// Configure Fiber app with faster JSON
 	app := fiber.New(fiber.Config{
