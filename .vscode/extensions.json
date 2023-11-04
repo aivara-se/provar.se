@@ -3,6 +3,7 @@
     "esbenp.prettier-vscode",
     "svelte.svelte-vscode",
     "tldraw-org.tldraw-vscode",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "golang.go"
   ]
 }
