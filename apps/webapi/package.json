@@ -12,8 +12,8 @@
     "preview": "./webapi",
     "preview:docker": "docker run -it --rm --env-file ./.env -p 3001:3001 provar-webapi:latest",
     "format": "go fmt ./...",
-    "check": "echo TODO",
-    "lint": "echo TODO",
+    "check": "go vet ./...",
+    "lint": "test -z \"$(gofmt -l .)\"",
     "test:integration": "echo TODO",
     "test:unit": "go test ./..."
   },

@@ -34,13 +34,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: "yarn"
-          cache-dependency-path: "yarn.lock"
-
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
@@ -54,10 +47,16 @@ jobs:
         run: go build -o ./webapi
 
       - name: Check code formatting
-        run: echo TODO
+        run: test -z "$(gofmt -l .)"
 
       - name: Check code errors
-        run: echo TODO
+        run: go vet ./...
 
       - name: Check unit tests
-        run: go test ./... -json > test-results.json
+        run: go test ./... -json > unit-test-results.json
+
+      - name: Upload unit test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: Unit test results
+          path: unit-test-results.json
