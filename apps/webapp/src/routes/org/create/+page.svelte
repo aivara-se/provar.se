@@ -14,7 +14,7 @@
 		data.set('name', name);
 		data.set('prod', prod ? 'true' : 'false');
 		const response = await fetch(event.currentTarget.action, {
-			method: 'POST',
+			method: 'post',
 			body: data
 		});
 		const result: ActionResult = deserialize(await response.text());
@@ -26,7 +26,7 @@
 </script>
 
 <CenteredLayout>
-	<form method="POST" on:submit|preventDefault={submitForm}>
+	<form method="post" on:submit|preventDefault={submitForm}>
 		<div class="grid gap-6 mb-6">
 			<div>
 				<Label color="gray" for="name" class="mb-2">Organization name</Label>
