@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Dropdown, DropdownItem, DropdownDivider, P, Badge  } from 'flowbite-svelte';
+	import { Button, Dropdown, DropdownItem, DropdownDivider, P, Badge } from 'flowbite-svelte';
 	import { ChevronDownSolid, LockOutline } from 'flowbite-svelte-icons';
 
 	interface OrganizationInfo {
@@ -34,15 +34,15 @@
 				{/if}
 			</a>
 		</DropdownItem>
-		{/each}
+	{/each}
 
-		<DropdownDivider />
+	<DropdownDivider />
 
-		<DropdownItem>
-			<a href={`/org/create`} class="create-organization">
-				<P size="xs" color="text-gray-700">+ Create Organization</P>
-			</a>
-		</DropdownItem>
+	<DropdownItem>
+		<a href={`/org/create`} class="create-organization">
+			<P size="xs" color="text-gray-700">+ Create Organization</P>
+		</a>
+	</DropdownItem>
 </Dropdown>
 
 <style>

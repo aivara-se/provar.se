@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { HorizontalSeparator, LSidebarLayout } from '$lib/ui';
+	import { LSidebarLayout } from '$lib/ui';
 	import { Button, ButtonGroup } from 'flowbite-svelte';
 	import {
 		AdjustmentsHorizontalOutline,
-		UserSettingsOutline,
-		MessageDotsOutline,
 		ChartMixedOutline,
-		MessagesOutline
+		MessageDotsOutline,
+		MessagesOutline,
+		UserSettingsOutline
 	} from 'flowbite-svelte-icons';
 	import type { LayoutData } from './$types';
 	import OrganizationSelector from './_components/OrganizationSelector.svelte';
