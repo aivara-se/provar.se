@@ -2,6 +2,8 @@
 	interface NagivationItem {
 		name: string;
 		href: string;
+		// TODO: use strict typing when we know which type to use here
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		icon: any;
 		active: boolean;
 	}
