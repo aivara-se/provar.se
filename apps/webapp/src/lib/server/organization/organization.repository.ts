@@ -43,8 +43,8 @@ async function getCollection(): Promise<Collection<OrganizationDocument>> {
  * The data required to create a new organization.
  */
 export interface CreateOrganizationData {
-	slug: string;
 	name: string;
+	slug: string;
 	prod: boolean;
 }
 
@@ -60,6 +60,23 @@ export async function create(userId: string, data: CreateOrganizationData): Prom
 		prod: data.prod,
 		members: [new ObjectId(userId)]
 	});
+}
+
+/**
+ * The data required to update an organization.
+ */
+export interface UpdateOrganizationData {
+	name: string;
+	slug: string;
+	prod: boolean;
+}
+
+/**
+ * Create a new organization in the database with the given information.
+ */
+export async function update(orgId: string, data: UpdateOrganizationData): Promise<void> {
+	const coll = await getCollection();
+	await coll.updateOne({ _id: new ObjectId(orgId) }, { $set: data });
 }
 
 /**
