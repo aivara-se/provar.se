@@ -11,7 +11,11 @@
 
 <div class="wrapper">
 	{#each items as item}
-		<a class="text-sm font-medium rounded-lg navigation-item" href={item.href}>
+		<a
+			class="text-sm font-medium rounded-lg navigation-item"
+			class:active={item.active}
+			href={item.href}
+		>
 			<svelte:component this={item.icon} class="w-3 h-3 mr-4" />
 			{item.name}
 		</a>
@@ -29,7 +33,7 @@
 		color: #000;
 	}
 
-	.navigation-item:hover {
+	.navigation-item.active {
 		background: #fff;
 		border: solid 1px #ddd;
 	}
