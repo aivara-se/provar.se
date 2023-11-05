@@ -1,10 +1,12 @@
 <script>
-	import { Alert } from 'flowbite-svelte';
-	import { InfoCircleSolid } from 'flowbite-svelte-icons';
+	import { Tabs, TabItem } from 'flowbite-svelte';
+	import OrganizationTabContent from './_tab-content/OrganizationTabContent.svelte';
+	import MembersTabContent from './_tab-content/MembersTabContent.svelte';
+	import CredentialsTabContent from './_tab-content/CredentialsTabContent.svelte';
 </script>
 
-<Alert color="blue" rounded={false} class="border-t-4">
-	<InfoCircleSolid slot="icon" class="w-4 h-4" />
-	<span class="font-medium">Preferences</span><br />
-	This page is under construction.
-</Alert>
+<Tabs style="underline">
+	<TabItem open title="Organization"><OrganizationTabContent /></TabItem>
+	<TabItem title="Members"><MembersTabContent /></TabItem>
+	<TabItem title="Credentials"><CredentialsTabContent /></TabItem>
+</Tabs>
