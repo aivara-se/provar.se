@@ -15,9 +15,11 @@
 	$: organization = items.find((org) => org.slug === value);
 </script>
 
-<Button color="light" size="sm" class="dropdown">
-	<span class="organization-name">{organization?.name}</span>
-	<ChevronDownSolid size="xs" class="w-2 h-2 ml-2" />
+<Button color="light" size="sm">
+	<div class="dropdown">
+		<span class="organization-name">{organization?.name}</span>
+		<ChevronDownSolid size="xs" class="w-2 h-2 ml-2" />
+	</div>
 </Button>
 
 <Dropdown>
@@ -36,6 +38,13 @@
 </Dropdown>
 
 <style>
+	.dropdown {
+		display: flex;
+		flex: 1;
+		align-items: center;
+		justify-content: space-between;
+	}
+
 	.org-item {
 		display: flex;
 		flex: 1;
@@ -44,6 +53,8 @@
 	}
 
 	.organization-name {
+		display: inline-block;
+		flex: 1;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
