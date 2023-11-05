@@ -29,13 +29,13 @@
 
 <LSidebarLayout>
 	<svelte:fragment slot="sidebar-top">
-		<OrganizationSelector value={$page.params.slug} items={data.organizations} />
-		<HorizontalSeparator />
 		<SidebarNavigationMenu items={navigationItems} />
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebar-bottom">
-		<ButtonGroup>
+		<OrganizationSelector value={$page.params.slug} items={data.organizations} />
+
+		<ButtonGroup class="mt-2">
 			<Button>
 				<UserSettingsOutline class="w-4 h-4 mr-1" />
 			</Button>

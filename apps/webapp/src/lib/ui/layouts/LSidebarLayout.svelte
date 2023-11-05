@@ -35,7 +35,6 @@
 	.sidebar-bottom {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 	}
 
 	.content {
