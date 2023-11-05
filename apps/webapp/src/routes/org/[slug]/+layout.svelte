@@ -36,7 +36,7 @@
 		<OrganizationSelector value={$page.params.slug} items={data.organizations} />
 
 		<ButtonGroup class="mt-2">
-			<Button>
+			<Button href={`/auth/logout`}>
 				<UserSettingsOutline class="w-4 h-4 mr-1" />
 			</Button>
 			<Button href={`/org/${$page.params.slug}/preferences`}>
