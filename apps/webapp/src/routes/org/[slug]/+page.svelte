@@ -5,6 +5,6 @@
 
 <Alert color="blue" rounded={false} class="border-t-4">
 	<InfoCircleSolid slot="icon" class="w-4 h-4" />
-	<span class="font-medium">Alert!</span><br />
+	<span class="font-medium">Dashboard</span><br />
 	This page is under construction.
 </Alert>
