@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { ChevronRightSolid } from 'flowbite-svelte-icons';
-
 	interface NagivationItem {
 		name: string;
 		href: string;
+		icon: any;
 		active: boolean;
 	}
 
@@ -13,10 +12,8 @@
 <div class="wrapper">
 	{#each items as item}
 		<a class="text-sm font-medium rounded-lg navigation-item" href={item.href}>
+			<svelte:component this={item.icon} class="w-3 h-3 mr-4" />
 			{item.name}
-			{#if item.active}
-				<ChevronRightSolid class="w-2 h-2" />
-			{/if}
 		</a>
 	{/each}
 </div>
@@ -25,7 +22,7 @@
 	.navigation-item {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-start;
 		padding: 7px 20px;
 		border: solid 1px transparent;
 		box-sizing: border-box;
