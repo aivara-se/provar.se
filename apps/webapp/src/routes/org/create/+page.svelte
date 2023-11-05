@@ -4,6 +4,7 @@
 	import { CenteredLayout } from '$lib/ui';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { Button, Input, Label } from 'flowbite-svelte';
+	import { UsersGroupOutline } from 'flowbite-svelte-icons';
 
 	let name = '';
 	let prod = true;
@@ -32,7 +33,10 @@
 				<Input type="text" id="name" required bind:value={name} />
 			</div>
 			<div>
-				<Button outline type="submit" size="sm">Create organization</Button>
+				<Button outline type="submit" size="sm">
+					Create organization &nbsp;
+					<UsersGroupOutline class="w-3 h-3 mr-1" />
+				</Button>
 			</div>
 		</div>
 	</form>
