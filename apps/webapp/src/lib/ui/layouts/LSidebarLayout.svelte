@@ -34,6 +34,7 @@
 
 	.sidebar-bottom {
 		display: flex;
+		align-items: center;
 		flex-direction: column;
 	}
 
