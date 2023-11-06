@@ -20,6 +20,7 @@ var (
 
 // CredentialModel is a MongoDB document for credentials
 type CredentialModel struct {
+	Name           string `bson:"name"`
 	OrganizationID string `bson:"organizationId"`
 	ClientID       string `bson:"clientId"`
 	ClientSecret   string `bson:"clientSecret"`
