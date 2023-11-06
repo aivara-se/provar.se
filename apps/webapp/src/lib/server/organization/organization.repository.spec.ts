@@ -21,9 +21,9 @@ describe('Organization Repository', () => {
 	beforeEach(async () => {
 		await collection.deleteMany({});
 		await collection.insertMany([
-			{ _id: organizationId1, members: [userId1] },
-			{ _id: organizationId2, members: [userId1] },
-			{ _id: organizationId3, members: [] }
+			{ _id: organizationId1, slug: 'org1', members: [userId1] },
+			{ _id: organizationId2, slug: 'org2', members: [userId1] },
+			{ _id: organizationId3, slug: 'org3', members: [] }
 		]);
 	});
 
@@ -54,6 +54,18 @@ describe('Organization Repository', () => {
 
 		it('should return data if there is a matching document', async () => {
 			const result = await organizationRepository.findById(organizationId1.toHexString());
+			expect(result).toEqual(expect.objectContaining({ id: organizationId1.toHexString() }));
+		});
+	});
+
+	describe('findBySlug', () => {
+		it('should return null if there are no matching documents', async () => {
+			const result = await organizationRepository.findBySlug('unknown');
+			expect(result).toBeNull();
+		});
+
+		it('should return data if there is a matching document', async () => {
+			const result = await organizationRepository.findBySlug('org1');
 			expect(result).toEqual(expect.objectContaining({ id: organizationId1.toHexString() }));
 		});
 	});

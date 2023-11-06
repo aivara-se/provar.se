@@ -11,7 +11,6 @@
 
 	async function submitForm(event: { currentTarget: EventTarget & HTMLFormElement }) {
 		const data = new FormData();
-		data.set('id', $selectedOrg.id);
 		data.set('name', name);
 		data.set('prod', prod ? 'true' : 'false');
 		const response = await fetch(event.currentTarget.action, {
