@@ -89,6 +89,15 @@ export async function findById(id: string): Promise<Organization | null> {
 }
 
 /**
+ * Find an organization by slug.
+ */
+export async function findBySlug(slug: string): Promise<Organization | null> {
+	const coll = await getCollection();
+	const doc = await coll.findOne({ slug: String(slug) });
+	return doc ? fromDocument(doc) : null;
+}
+
+/**
  * Get a list of all organizations that the given user is a member of.
  */
 export async function findByMember(userId: string): Promise<Organization[]> {
