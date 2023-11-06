@@ -12,6 +12,7 @@
 	import type { LayoutData } from './$types';
 	import OrganizationSelector from './_components/OrganizationSelector.svelte';
 	import SidebarNavigationMenu from './_components/SidebarNavigationMenu.svelte';
+	import UserActionButtonGroup from './_components/UserActionButtonGroup.svelte';
 
 	export let data: LayoutData;
 
@@ -25,6 +26,22 @@
 		...item,
 		active: item.href === $page.url.pathname
 	}));
+
+	/**
+	 * User action items
+	 */
+	$: userActionItems = [
+		{ name: 'Profile', href: `/auth/logout`, icon: UserSettingsOutline },
+		{
+			name: 'Preferences',
+			href: `/org/${$page.params.slug}/preferences`,
+			icon: AdjustmentsHorizontalOutline
+		},
+		{ name: 'Chat UI', href: `/org/${$page.params.slug}/chat`, icon: MessageDotsOutline }
+	].map((item) => ({
+		...item,
+		active: item.href === $page.url.pathname
+	}));
 </script>
 
 <LSidebarLayout>
@@ -34,18 +51,7 @@
 
 	<svelte:fragment slot="sidebar-bottom">
 		<OrganizationSelector value={$page.params.slug} items={data.organizations} />
-
-		<ButtonGroup class="mt-2">
-			<Button href={`/auth/logout`}>
-				<UserSettingsOutline class="w-4 h-4 mr-1" />
-			</Button>
-			<Button href={`/org/${$page.params.slug}/preferences`}>
-				<AdjustmentsHorizontalOutline class="w-4 h-4 mr-1" />
-			</Button>
-			<Button>
-				<MessageDotsOutline class="w-4 h-4 mr-1" />
-			</Button>
-		</ButtonGroup>
+		<UserActionButtonGroup items={userActionItems} />
 	</svelte:fragment>
 
 	<svelte:fragment>
