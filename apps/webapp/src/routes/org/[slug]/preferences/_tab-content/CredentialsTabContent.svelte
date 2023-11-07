@@ -2,9 +2,9 @@
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
+	import type { Credential } from '$lib/types';
 	import type { ActionResult } from '@sveltejs/kit';
 	import {
-		A,
 		Button,
 		Heading,
 		Input,
@@ -22,14 +22,14 @@
 
 	let name = '';
 
-	let selectedCredential: any;
+	let selectedCredential: Credential;
 
 	let isCreateModalOpen = false;
 	let isDetailsModalOpen = false;
 
 	$: credentials = $page.data.credentials;
 
-	function selectCredential(cred: any) {
+	function selectCredential(cred: Credential) {
 		selectedCredential = cred;
 		isDetailsModalOpen = true;
 	}

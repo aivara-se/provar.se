@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { LSidebarLayout } from '$lib/ui';
-	import { Button, ButtonGroup } from 'flowbite-svelte';
 	import {
 		AdjustmentsHorizontalOutline,
 		ChartMixedOutline,
