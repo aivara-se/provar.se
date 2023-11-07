@@ -6,3 +6,6 @@ export type { Organization } from './organization/organization.types';
 
 export * as ProjectRepository from './project/project.repository';
 export type { Project } from './project/project.types';
+
+export * as CredentialRepository from './credential/credential.repository';
+export type { Credential } from './credential/credential.types';
