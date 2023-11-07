@@ -6,7 +6,7 @@
 </script>
 
 <Tabs style="underline">
-	<TabItem open title="Organization"><OrganizationTabContent /></TabItem>
+	<TabItem open title="Settings"><OrganizationTabContent /></TabItem>
 	<TabItem title="Members"><MembersTabContent /></TabItem>
-	<TabItem title="Credentials"><CredentialsTabContent /></TabItem>
+	<TabItem title="API Keys"><CredentialsTabContent /></TabItem>
 </Tabs>

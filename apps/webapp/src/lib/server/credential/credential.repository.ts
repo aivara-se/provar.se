@@ -64,11 +64,14 @@ export async function create(data: CreateCredentialData): Promise<void> {
 }
 
 /**
- * Delete a credential by id.
+ * Revoke a credential by id.
  */
-export async function deleteById(id: string): Promise<void> {
+export async function revoke(organizationId: string, id: string): Promise<void> {
 	const coll = await getCollection();
-	await coll.deleteOne({ _id: new ObjectId(id) });
+	await coll.deleteOne({
+		_id: new ObjectId(id),
+		organizationId: new ObjectId(organizationId)
+	});
 }
 
 /**

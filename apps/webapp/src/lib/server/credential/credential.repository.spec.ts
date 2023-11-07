@@ -27,17 +27,17 @@ describe('Credential Repository', () => {
 		]);
 	});
 
-	describe('deleteById', () => {
+	describe('revoke', () => {
 		it('should return success if attmpted to delete an unknown document', async () => {
 			const count0 = (await collection.find({}).toArray()).length;
-			await credentialRepository.deleteById(unknownId.toHexString());
+			await credentialRepository.revoke(unknownId.toHexString(), unknownId.toHexString());
 			const count1 = (await collection.find({}).toArray()).length;
 			expect(count1).toEqual(count0);
 		});
 
 		it('should return success after deleting a document', async () => {
 			const count0 = (await collection.find({}).toArray()).length;
-			await credentialRepository.deleteById(credentialId1.toHexString());
+			await credentialRepository.revoke(organizationId1.toHexString(), credentialId1.toHexString());
 			const count1 = (await collection.find({}).toArray()).length;
 			expect(count1).toEqual(count0 - 1);
 		});
