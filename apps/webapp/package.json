@@ -32,7 +32,7 @@
 		"@sveltejs/kit": "^1.20.4",
 		"@types/slug": "^5.0.5",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
-		"@typescript-eslint/parser": "^6.0.0",
+		"@typescript-eslint/parser": "^6.10.0",
 		"@vitest/coverage-v8": "^0.34.6",
 		"autoprefixer": "^10.4.16",
 		"eslint": "^8.28.0",
