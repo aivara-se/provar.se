@@ -29,7 +29,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:0.16.1, @auth/core@npm:^0.16.1":
+"@auth/core@npm:0.16.1":
   version: 0.16.1
   resolution: "@auth/core@npm:0.16.1"
   dependencies:
@@ -45,6 +45,25 @@ __metadata:
     nodemailer:
       optional: true
   checksum: 7f807125231d4bb04732e7b1a2d102afbb2513e062dad3c64edf98b6be5572a3cf8695c62d107bba4038eba8327843cae874d3ca5a2e9113eccd449e9921655d
+  languageName: node
+  linkType: hard
+
+"@auth/core@npm:^0.18.0":
+  version: 0.18.0
+  resolution: "@auth/core@npm:0.18.0"
+  dependencies:
+    "@panva/hkdf": "npm:^1.0.4"
+    cookie: "npm:0.5.0"
+    jose: "npm:^4.11.1"
+    oauth4webapi: "npm:^2.0.6"
+    preact: "npm:10.11.3"
+    preact-render-to-string: "npm:5.2.3"
+  peerDependencies:
+    nodemailer: ^6.8.0
+  peerDependenciesMeta:
+    nodemailer:
+      optional: true
+  checksum: 1cc261cdbc9b11cf4dadf4ef55690a217c7df6a6994247b4ccdfc10494191c35cf4c4464b7aba6619bb472a306e9d1ef44e8dd71649233b1f378cf6c20397ade
   languageName: node
   linkType: hard
 
@@ -4662,7 +4681,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "webapp@workspace:apps/webapp"
   dependencies:
-    "@auth/core": "npm:^0.16.1"
+    "@auth/core": "npm:^0.18.0"
     "@auth/mongodb-adapter": "npm:^2.0.1"
     "@auth/sveltekit": "npm:^0.3.9"
     "@playwright/test": "npm:^1.39.0"
