@@ -17,6 +17,11 @@ jobs:
   quality-checks:
     runs-on: ubuntu-latest
 
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
     services:
       mongodb:
         image: mongo
@@ -40,6 +45,11 @@ jobs:
           node-version: 20
           cache: "yarn"
           cache-dependency-path: "yarn.lock"
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: "javascript-typescript"
 
       - name: Setup Yarn
         run: yarn install --silent
@@ -69,3 +79,8 @@ jobs:
           AUTH_EMAIL_SERVER: ${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_SERVER }}
           AUTH_EMAIL_FROM: ${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_FROM }}
         run: yarn test:integration
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:go"
