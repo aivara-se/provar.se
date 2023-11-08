@@ -1,6 +1,6 @@
 # apps/webapp
 
-Web application where users can configure organizations, projects and feature flags.
+Web application where users can configure organizations, projects and API keys. This app is deployed to https://app.provar.se
 
 ## Getting Started
 

@@ -1,6 +1,6 @@
 # apps/webapi
 
-Public API to collect feedback from client applications.
+Public API to collect feedback from client applications. This app is deployed to https://api.provar.se
 
 ## Getting started
 
