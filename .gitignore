@@ -1,3 +1,4 @@
+# Nodejs and Yarn
 node_modules
 .pnp.*
 .yarn/*
@@ -6,4 +7,17 @@ node_modules
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+yarn.lock
+
+# Local development
 .env
+.env.*
+.secrets
+
+# Temporary files
+build
+coverage
+.svelte-kit
+
+# ...and this thing
+.DS_Store
