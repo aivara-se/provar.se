@@ -3,6 +3,7 @@
 	import { LSidebarLayout } from '$lib/ui';
 	import {
 		AdjustmentsHorizontalOutline,
+		HomeOutline,
 		ChartMixedOutline,
 		MessageDotsOutline,
 		MessagesOutline,
@@ -20,13 +21,18 @@
 	 */
 	$: navigationItems = [
 		{
-			name: 'Dashboard',
+			name: 'Home',
 			href: `/org/${$page.params.organizationId}`,
+			icon: HomeOutline
+		},
+		{
+			name: 'Overview',
+			href: `/org/${$page.params.organizationId}/overview`,
 			icon: ChartMixedOutline
 		},
 		{
-			name: 'Feedbacks',
-			href: `/org/${$page.params.organizationId}/feedbacks`,
+			name: 'Feedback',
+			href: `/org/${$page.params.organizationId}/feedback`,
 			icon: MessagesOutline
 		}
 	].map((item) => ({

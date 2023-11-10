@@ -39,15 +39,6 @@ function withOrganization(fn: (organization: Organization, event: RequestEvent) 
 
 export const actions: Actions = {
 	/**
-	 * Updates the organization's name and other details.
-	 */
-	updateOrganization: withOrganization(async (organization, { request }) => {
-		const data = await request.formData();
-		const name = String(data.get('name'));
-		await OrganizationRepository.update(organization.id, { name });
-	}),
-
-	/**
 	 * Creates a new client credential for the organization.
 	 */
 	createCredential: withOrganization(async (organization, { request }) => {
@@ -59,15 +50,6 @@ export const actions: Actions = {
 		};
 		const id = await CredentialRepository.create(cred);
 		return { ...cred, id };
-	}),
-
-	/**
-	 * Creates a new client credential for the organization.
-	 */
-	revokeCredential: withOrganization(async (organization, { request }) => {
-		const data = await request.formData();
-		const id = String(data.get('id'));
-		await CredentialRepository.revoke(organization.id, id);
 	})
 };
 
