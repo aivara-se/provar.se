@@ -5,7 +5,7 @@ import type { Feedback } from './types.js';
  * config is the configuration for the library.
  */
 const config = {
-	baseUrl: 'https://api.provar.app'
+	baseUrl: 'https://api.provar.se'
 };
 
 /**
