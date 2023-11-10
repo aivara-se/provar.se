@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { LSidebarLayout } from '$lib/ui';
+	import { sendTextFeedback } from '$lib/provar';
+	import { Button, Modal, Textarea } from 'flowbite-svelte';
 	import {
 		AdjustmentsHorizontalOutline,
-		HomeOutline,
 		ChartMixedOutline,
+		CheckCircleOutline,
+		HomeOutline,
 		MessageDotsOutline,
 		MessagesOutline,
 		UserSettingsOutline
@@ -15,6 +18,15 @@
 	import UserActionButtonGroup from './_components/UserActionButtonGroup.svelte';
 
 	export let data: LayoutData;
+
+	let feedbackMessage = '';
+	let feedbackModalVisible = false;
+
+	async function sendUserFeedback() {
+		await sendTextFeedback(feedbackMessage);
+		feedbackMessage = '';
+		feedbackModalVisible = false;
+	}
 
 	/**
 	 * Navigation items
@@ -56,12 +68,13 @@
 		},
 		{
 			name: 'Chat UI',
-			href: `/org/${$page.params.organizationId}/chat`,
+			onClick: () => (feedbackModalVisible = true),
+			active: feedbackModalVisible,
 			icon: MessageDotsOutline
 		}
 	].map((item) => ({
 		...item,
-		active: item.href === $page.url.pathname
+		active: item.active || item.href === $page.url.pathname
 	}));
 </script>
 
@@ -79,3 +92,20 @@
 		<slot />
 	</svelte:fragment>
 </LSidebarLayout>
+
+<Modal title="Send Feedback" bind:open={feedbackModalVisible} autoclose>
+	<Textarea
+		id="message"
+		placeholder="Your message"
+		rows="4"
+		name="message"
+		required
+		bind:value={feedbackMessage}
+	/>
+	<svelte:fragment slot="footer">
+		<Button size="xs" color="primary" on:click={sendUserFeedback}>
+			Send Feedback &nbsp;
+			<CheckCircleOutline class="w-3 h-3 mr-1" />
+		</Button>
+	</svelte:fragment>
+</Modal>
