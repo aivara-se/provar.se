@@ -1,45 +1,11 @@
-definitions:
-  auth.CreateAccessTokenResponseBody:
-    properties:
-      token:
-        type: string
-    type: object
 info:
   contact: {}
 paths:
-  /auth/token:
-    post:
-      consumes:
-      - application/json
-      description: Create an access token using client credentials.
-      parameters:
-      - description: Organization ID
-        in: path
-        name: x-organization
-        type: string
-      - description: Key
-        in: body
-        name: key
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/auth.CreateAccessTokenResponseBody'
-      summary: Create an access token using client credentials.
-      tags:
-      - auth
   /feedback:
     post:
       consumes:
       - application/json
       description: Create a new feedback event for an organization.
-      parameters:
-      - description: Organization ID
-        in: path
-        name: x-organization
-        type: string
       responses:
         "204":
           description: ok
@@ -57,11 +23,11 @@ paths:
       - health
   /ping/secure:
     get:
-      description: Ensure that an access token is valid.
+      description: Ensure that the api key is valid
       responses:
         "204":
           description: ok
-      summary: Ensure that an access token is valid.
+      summary: Ensure that the api key is valid
       tags:
       - health
 swagger: "2.0"

@@ -8,7 +8,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/swagger"
-	"provar.se/webapi/api/auth"
 	"provar.se/webapi/api/feedback"
 	"provar.se/webapi/api/health"
 )
@@ -45,7 +44,6 @@ func CreateApp() *fiber.App {
 	app.Get("/swagger/*", swagger.HandlerDefault)
 
 	// Load all app routes
-	auth.SetupCreateAccessToken(app)
 	feedback.SetupCreateFeedback(app)
 	health.SetupBasicHealthcheck(app)
 	health.SetupSecureHealthcheck(app)
