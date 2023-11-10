@@ -65,6 +65,8 @@ jobs:
           registry: "${{ secrets.APPS_WEBAPP_GCP_GAR_REGISTRY }}"
 
       - name: Build the service
+        env:
+          PUBLIC_PROVAR_API_KEY: ${{ secrets.APPS_WEBAPP_APP_PROVAR_API_KEY }}
         run: yarn build
 
       - name: Build docker image
@@ -90,7 +92,6 @@ jobs:
             AUTH_EMAIL_SERVER=${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_SERVER }}
             AUTH_EMAIL_FROM=${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_FROM }}
             MONGODB_URL=${{ secrets.APPS_WEBAPP_APP_MONGODB_URL }}
-            PUBLIC_PROVAR_API_KEY=${{ secrets.APPS_WEBAPP_APP_PROVAR_API_KEY }}
             ORIGIN=https://app.provar.se
 
       - name: Show Output
