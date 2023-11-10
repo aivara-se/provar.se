@@ -30,7 +30,8 @@
 	async function createCredential() {
 		const data = new FormData();
 		data.set('name', credentialName);
-		const response = await fetch('?/createCredential', {
+		const action = `/org/${$page.params.organizationId}/preferences?/createCredential`;
+		const response = await fetch(action, {
 			method: 'post',
 			body: data
 		});
