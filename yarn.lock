@@ -651,7 +651,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@provar/provar-js@npm:^0.0.3, @provar/provar-js@workspace:libs/provar-js":
+"@provar/provar-js@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "@provar/provar-js@npm:0.0.3"
+  dependencies:
+    isomorphic-fetch: "npm:^3.0.0"
+  checksum: 48398e0c4de08229ab40be5f4b655b69e48db08e565ee0f841eaf7b5b776b12e0dd977a161e61ecb457b4e166ba027dbce54641137f2687b96e6be0fe87d54da
+  languageName: node
+  linkType: hard
+
+"@provar/provar-js@workspace:libs/provar-js":
   version: 0.0.0-use.local
   resolution: "@provar/provar-js@workspace:libs/provar-js"
   dependencies:
