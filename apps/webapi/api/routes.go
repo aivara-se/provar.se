@@ -5,6 +5,7 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/swagger"
@@ -36,6 +37,9 @@ func CreateApp() *fiber.App {
 		Expiration: time.Second,
 		Max:        100,
 	}))
+
+	// Use cors middleware
+	app.Use(cors.New())
 
 	// Use logger middleware
 	app.Use(logger.New())
