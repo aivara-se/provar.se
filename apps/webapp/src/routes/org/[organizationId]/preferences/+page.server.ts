@@ -1,15 +1,14 @@
-import { OrganizationRepository, CredentialRepository, type Organization } from '$lib/server';
+import { CredentialRepository, OrganizationRepository, type Organization } from '$lib/server';
 import type { Session } from '@auth/core/types';
-import createSlug from 'slug';
-import type { Actions, PageServerLoad, RequestEvent } from './$types';
 import { error, redirect } from '@sveltejs/kit';
+import type { Actions, PageServerLoad, RequestEvent } from './$types';
 
 /**
  * Loads data required for all tabs on organization preferences page.
  */
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const session = (await locals.getSession()) as Session;
-	const organization = await OrganizationRepository.findBySlug(params.slug);
+	const organization = await OrganizationRepository.findById(params.organizationId);
 	if (!organization || isMember(organization, session.user.id)) {
 		throw error(403);
 	}
@@ -30,7 +29,7 @@ function isMember(organization: Organization, userId: string): boolean {
 function withOrganization(fn: (organization: Organization, event: RequestEvent) => unknown) {
 	return async (event: RequestEvent) => {
 		const session = (await event.locals.getSession()) as Session;
-		const organization = await OrganizationRepository.findBySlug(event.params.slug);
+		const organization = await OrganizationRepository.findById(event.params.organizationId);
 		if (!organization || isMember(organization, session.user.id)) {
 			throw error(403);
 		}
@@ -45,10 +44,8 @@ export const actions: Actions = {
 	updateOrganization: withOrganization(async (organization, { request }) => {
 		const data = await request.formData();
 		const name = String(data.get('name'));
-		const prod = data.get('prod') === 'true';
-		const slug = createSlug(name);
-		await OrganizationRepository.update(organization.id, { name, slug, prod });
-		throw redirect(303, `/org/${slug}/preferences`);
+		await OrganizationRepository.update(organization.id, { name });
+		throw redirect(303, `/org/${organization.id}/preferences`);
 	}),
 	/**
 	 * Creates a new client credential for the organization.

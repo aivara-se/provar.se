@@ -49,14 +49,16 @@ export interface CreateCredentialData {
 /**
  * Create a new credential in the database with the given information.
  */
-export async function create(data: CreateCredentialData): Promise<void> {
+export async function create(data: CreateCredentialData): Promise<string> {
 	const coll = await getCollection();
+	const id = new ObjectId();
 	await coll.insertOne({
-		_id: new ObjectId(),
+		_id: id,
 		name: data.name,
 		organizationId: new ObjectId(data.organizationId),
 		key: data.key
 	});
+	return id.toHexString();
 }
 
 /**

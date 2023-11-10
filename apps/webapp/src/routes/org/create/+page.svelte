@@ -7,12 +7,10 @@
 	import { UsersGroupOutline } from 'flowbite-svelte-icons';
 
 	let name = '';
-	let prod = true;
 
 	async function submitForm(event: { currentTarget: EventTarget & HTMLFormElement }) {
 		const data = new FormData();
 		data.set('name', name);
-		data.set('prod', prod ? 'true' : 'false');
 		const response = await fetch(event.currentTarget.action, {
 			method: 'post',
 			body: data

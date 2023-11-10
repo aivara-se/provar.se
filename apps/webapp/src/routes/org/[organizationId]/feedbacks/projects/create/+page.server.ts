@@ -1,7 +1,7 @@
-import { ProjectRepository, OrganizationRepository } from '$lib/server';
-import type { Actions } from './$types';
-import { redirect, error } from '@sveltejs/kit';
+import { OrganizationRepository, ProjectRepository } from '$lib/server';
 import type { Session } from '@auth/core/types';
+import { error, redirect } from '@sveltejs/kit';
+import type { Actions } from './$types';
 
 export const actions: Actions = {
 	default: async ({ request, params, locals }) => {
@@ -9,7 +9,7 @@ export const actions: Actions = {
 		const data = await request.formData();
 		const name = data.get('name') as string;
 		const organizations = await OrganizationRepository.findByMember(session.user.id);
-		const selectedOrganization = organizations.find((org) => org.slug === params.slug);
+		const selectedOrganization = organizations.find((org) => org.id === params.organizationId);
 		if (!selectedOrganization) {
 			throw error(404);
 		}
