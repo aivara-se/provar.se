@@ -5,7 +5,7 @@ export default defineConfig({
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	plugins: [sveltekit() as any],
 	test: {
-		name: '@aivara-se/provar-webapp',
+		name: 'webapp',
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
 });
