@@ -22,8 +22,7 @@ var (
 type CredentialModel struct {
 	Name           string `bson:"name"`
 	OrganizationID string `bson:"organizationId"`
-	ClientID       string `bson:"clientId"`
-	ClientSecret   string `bson:"clientSecret"`
+	Key            string `bson:"key"`
 }
 
 // CredentialRepository is a repository for credentials
@@ -43,13 +42,9 @@ func GetCredentialRepository() *CredentialRepository {
 	return repo
 }
 
-// FindCredentialByClientID searches for a credential by organization id and the client id
-func (repo *CredentialRepository) FindCredentialByClientID(organizationID string, clientID string) (*CredentialModel, error) {
+// IsValidCredenial make sure that the credential exists in the database and is valid
+func (repo *CredentialRepository) IsValidCredenial(organizationID string, key string) error {
 	var result CredentialModel
-	filter := bson.M{"organizationId": organizationID, "clientId": clientID}
-	err := repo.coll.FindOne(context.TODO(), filter).Decode(&result)
-	if err != nil {
-		return nil, err
-	}
-	return &result, nil
+	filter := bson.M{"organizationId": organizationID, "key": key}
+	return repo.coll.FindOne(context.TODO(), filter).Decode(&result)
 }

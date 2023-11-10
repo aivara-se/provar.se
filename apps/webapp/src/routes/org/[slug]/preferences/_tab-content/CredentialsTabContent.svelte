@@ -83,7 +83,7 @@
 		<section class="current-credentials mt-6">
 			<Table hoverable>
 				<TableHead>
-					<TableHeadCell>Credential name</TableHeadCell>
+					<TableHeadCell>API key name</TableHeadCell>
 					<TableHeadCell>Created At</TableHeadCell>
 					<TableHeadCell>Last Used</TableHeadCell>
 					<TableHeadCell />
@@ -120,15 +120,9 @@
 
 <Modal title={selectedCredential?.name} bind:open={isDetailsModalOpen} autoclose>
 	<P class="mb-2">
-		<span class="font-semibold">Client ID:</span>
+		<span class="font-semibold">API Key:</span>
 		<code class="block break-words text-xs mt-2 bg-gray-100 p-2 rounded">
-			{selectedCredential?.clientId}
-		</code>
-	</P>
-	<P class="mb-2">
-		<span class="font-semibold">Client Secret:</span>
-		<code class="block break-words text-xs mt-2 bg-gray-100 p-2 rounded">
-			{selectedCredential?.clientSecret}
+			{selectedCredential?.key}
 		</code>
 	</P>
 	<svelte:fragment slot="footer">
