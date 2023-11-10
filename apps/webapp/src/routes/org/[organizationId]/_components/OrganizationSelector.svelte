@@ -1,18 +1,16 @@
 <script lang="ts">
-	import { Button, Dropdown, DropdownItem, DropdownDivider, P, Badge } from 'flowbite-svelte';
-	import { ChevronDownSolid, LockOutline } from 'flowbite-svelte-icons';
+	import { Button, Dropdown, DropdownDivider, DropdownItem, P } from 'flowbite-svelte';
+	import { ChevronDownSolid } from 'flowbite-svelte-icons';
 
 	interface OrganizationInfo {
 		id: string;
-		slug: string;
 		name: string;
-		prod: boolean;
 	}
 
-	export let value: string;
+	export let current: string;
 	export let items: OrganizationInfo[];
 
-	$: organization = items.find((org) => org.slug === value);
+	$: organization = items.find((org) => org.id === current);
 </script>
 
 <Button color="light" size="xs">
@@ -25,13 +23,8 @@
 <Dropdown>
 	{#each items as item}
 		<DropdownItem>
-			<a href={`/org/${item.slug}`} class="org-item">
+			<a href={`/org/${item.id}`} class="org-item">
 				<span class="organization-name">{item.name}</span>
-				{#if item.prod}
-					<Badge class="text-xs font-semibold ml-2">
-						<LockOutline class="w-3 h-3 mr-1" />
-					</Badge>
-				{/if}
 			</a>
 		</DropdownItem>
 	{/each}

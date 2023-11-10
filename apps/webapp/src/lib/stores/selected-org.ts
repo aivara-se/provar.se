@@ -1,13 +1,16 @@
 import { page } from '$app/stores';
 import { derived } from 'svelte/store';
+import type { Organization } from '../types';
 
+/**
+ * This is a derived store that returns the selected organization from the
+ * current page's data. Returns null if outside an organization page.
+ */
 export const selectedOrg = derived(page, ($page) => {
-	const slug = $page.params.slug;
-	const orgs = $page.data.organizations;
-	if (!slug || !orgs) {
+	const organizationId = $page.params.organizationId;
+	const orgs: Organization[] = $page.data.organizations;
+	if (!organizationId || !orgs) {
 		return null;
 	}
-	// TODO: use strict typing when types are available for frontend
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	return orgs.find((org: any) => org.slug === slug);
+	return orgs.find((org) => org.id === organizationId);
 });

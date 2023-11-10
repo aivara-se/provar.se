@@ -12,9 +12,7 @@ const COLLECTION_NAME = 'organizations';
  */
 type OrganizationDocument = {
 	_id: ObjectId;
-	slug: string;
 	name: string;
-	prod: boolean;
 	members: ObjectId[];
 };
 
@@ -24,9 +22,7 @@ type OrganizationDocument = {
 function fromDocument(doc: OrganizationDocument): Organization {
 	return {
 		id: doc._id.toHexString(),
-		slug: doc.slug,
 		name: doc.name,
-		prod: !!doc.prod,
 		members: doc.members.map((id) => id.toHexString())
 	};
 }
@@ -44,22 +40,16 @@ async function getCollection(): Promise<Collection<OrganizationDocument>> {
  */
 export interface CreateOrganizationData {
 	name: string;
-	slug: string;
-	prod: boolean;
 }
 
 /**
  * Create a new organization in the database with the given information.
  */
-export async function create(userId: string, data: CreateOrganizationData): Promise<void> {
+export async function create(userId: string, data: CreateOrganizationData): Promise<string> {
 	const coll = await getCollection();
-	await coll.insertOne({
-		_id: new ObjectId(),
-		slug: data.slug,
-		name: data.name,
-		prod: data.prod,
-		members: [new ObjectId(userId)]
-	});
+	const id = new ObjectId();
+	await coll.insertOne({ _id: id, name: data.name, members: [new ObjectId(userId)] });
+	return id.toHexString();
 }
 
 /**
@@ -67,8 +57,6 @@ export async function create(userId: string, data: CreateOrganizationData): Prom
  */
 export interface UpdateOrganizationData {
 	name: string;
-	slug: string;
-	prod: boolean;
 }
 
 /**
@@ -85,15 +73,6 @@ export async function update(orgId: string, data: UpdateOrganizationData): Promi
 export async function findById(id: string): Promise<Organization | null> {
 	const coll = await getCollection();
 	const doc = await coll.findOne({ _id: new ObjectId(id) });
-	return doc ? fromDocument(doc) : null;
-}
-
-/**
- * Find an organization by slug.
- */
-export async function findBySlug(slug: string): Promise<Organization | null> {
-	const coll = await getCollection();
-	const doc = await coll.findOne({ slug: String(slug) });
 	return doc ? fromDocument(doc) : null;
 }
 

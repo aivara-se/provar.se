@@ -9,7 +9,7 @@
 	<Listgroup active class="w-48">
 		{#each $page.data.organizations as org}
 			<ListgroupItem>
-				<a href={`/org/${org.slug}`} class="org-item">
+				<a href={`/org/${org.id}`} class="org-item">
 					{org.name}
 					{#if org.environment === 'production'}
 						<Badge class="text-xs font-semibold ml-2">

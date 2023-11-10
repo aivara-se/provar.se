@@ -19,8 +19,16 @@
 	 * Navigation items
 	 */
 	$: navigationItems = [
-		{ name: 'Dashboard', href: `/org/${$page.params.slug}`, icon: ChartMixedOutline },
-		{ name: 'Feedbacks', href: `/org/${$page.params.slug}/feedbacks`, icon: MessagesOutline }
+		{
+			name: 'Dashboard',
+			href: `/org/${$page.params.organizationId}`,
+			icon: ChartMixedOutline
+		},
+		{
+			name: 'Feedbacks',
+			href: `/org/${$page.params.organizationId}/feedbacks`,
+			icon: MessagesOutline
+		}
 	].map((item) => ({
 		...item,
 		active: item.href === $page.url.pathname
@@ -30,13 +38,21 @@
 	 * User action items
 	 */
 	$: userActionItems = [
-		{ name: 'Profile', href: `/auth/logout`, icon: UserSettingsOutline },
+		{
+			name: 'Profile',
+			href: `/auth/logout`,
+			icon: UserSettingsOutline
+		},
 		{
 			name: 'Preferences',
-			href: `/org/${$page.params.slug}/preferences`,
+			href: `/org/${$page.params.organizationId}/preferences`,
 			icon: AdjustmentsHorizontalOutline
 		},
-		{ name: 'Chat UI', href: `/org/${$page.params.slug}/chat`, icon: MessageDotsOutline }
+		{
+			name: 'Chat UI',
+			href: `/org/${$page.params.organizationId}/chat`,
+			icon: MessageDotsOutline
+		}
 	].map((item) => ({
 		...item,
 		active: item.href === $page.url.pathname
@@ -49,7 +65,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebar-bottom">
-		<OrganizationSelector value={$page.params.slug} items={data.organizations} />
+		<OrganizationSelector current={$page.params.organizationId} items={data.organizations} />
 		<UserActionButtonGroup items={userActionItems} />
 	</svelte:fragment>
 

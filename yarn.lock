@@ -3502,6 +3502,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nodemailer@npm:^6.9.7":
+  version: 6.9.7
+  resolution: "nodemailer@npm:6.9.7"
+  checksum: 32b6e6c3f5e0ab6c5fa796934fee397e8b520f6d782fc41d8bd5aaf72a2e757564b8e7e7f7aa02fcf0ba73a83d364bdb923c2dbb76a32ac87a5c628d1bde03df
+  languageName: node
+  linkType: hard
+
 "nopt@npm:^6.0.0":
   version: 6.0.0
   resolution: "nopt@npm:6.0.0"
@@ -5144,6 +5151,7 @@ __metadata:
     flowbite-svelte-blocks: "npm:^0.5.1"
     flowbite-svelte-icons: "npm:^0.4.5"
     mongodb: "npm:^6.2.0"
+    nodemailer: "npm:^6.9.7"
     postcss: "npm:^8.4.31"
     postcss-load-config: "npm:^4.0.1"
     prettier: "npm:^3.0.0"
