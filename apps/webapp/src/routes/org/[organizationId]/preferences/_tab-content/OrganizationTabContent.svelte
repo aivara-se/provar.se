@@ -6,13 +6,11 @@
 	import { CheckCircleOutline } from 'flowbite-svelte-icons';
 	import { selectedOrg } from '$lib/stores/selected-org';
 
-	let name = $selectedOrg?.name;
-	let prod = $selectedOrg?.prod;
+	let name = $selectedOrg?.name || '';
 
 	async function submitForm(event: { currentTarget: EventTarget & HTMLFormElement }) {
 		const data = new FormData();
 		data.set('name', name);
-		data.set('prod', prod ? 'true' : 'false');
 		const response = await fetch(event.currentTarget.action, {
 			method: 'post',
 			body: data
