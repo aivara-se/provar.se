@@ -651,12 +651,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@provar/provar-js@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@provar/provar-js@npm:0.0.3"
+"@provar/provar-js@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@provar/provar-js@npm:1.0.0"
   dependencies:
     isomorphic-fetch: "npm:^3.0.0"
-  checksum: 48398e0c4de08229ab40be5f4b655b69e48db08e565ee0f841eaf7b5b776b12e0dd977a161e61ecb457b4e166ba027dbce54641137f2687b96e6be0fe87d54da
+  checksum: b4e8ff5fba73f5b8d4fc97dadce8f7d48975f2036dbef8af895f08aa85f39dffbe76f15ee97595da1b7ee40b05fabab9104c196b5d4ad25d5f9ea15f77087a4a
   languageName: node
   linkType: hard
 
@@ -5146,7 +5146,7 @@ __metadata:
     "@auth/mongodb-adapter": "npm:^2.0.3"
     "@auth/sveltekit": "npm:^0.3.11"
     "@playwright/test": "npm:^1.39.0"
-    "@provar/provar-js": "npm:^0.0.3"
+    "@provar/provar-js": "npm:^1.0.0"
     "@sveltejs/adapter-node": "npm:^1.3.1"
     "@sveltejs/kit": "npm:^1.27.3"
     "@typescript-eslint/eslint-plugin": "npm:^6.10.0"
