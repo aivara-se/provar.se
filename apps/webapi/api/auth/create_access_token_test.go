@@ -15,8 +15,7 @@ func TestCreateAccessToken(t *testing.T) {
 
 	t.Run("success", func(t *testing.T) {
 		reqBody := strings.NewReader(`{
-			"client_id": "test-client-id",
-			"client_secret": "test-client-secret"
+			"key": "test-api-key"
 		}`)
 		req := httptest.NewRequest("POST", "/auth/token", reqBody)
 		req.Header.Add("x-organization", "test-organization")
@@ -34,8 +33,7 @@ func TestCreateAccessToken(t *testing.T) {
 
 	t.Run("fail with missing organization header", func(t *testing.T) {
 		reqBody := strings.NewReader(`{
-			"client_id": "test-client-id",
-			"client_secret": "test-client-secret"
+			"key": "test-api-key"
 		}`)
 		req := httptest.NewRequest("POST", "/auth/token", reqBody)
 		req.Header.Add("content-type", "application/json")
@@ -68,8 +66,7 @@ func TestCreateAccessToken(t *testing.T) {
 
 	t.Run("fail with unknown credentials", func(t *testing.T) {
 		reqBody := strings.NewReader(`{
-			"client_id": "not-test-client-id",
-			"client_secret": "not-test-client-secret"
+			"key": "not-test-api-key"
 		}`)
 		req := httptest.NewRequest("POST", "/auth/token", reqBody)
 		req.Header.Add("x-organization", "test-organization")

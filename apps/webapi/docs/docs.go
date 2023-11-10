@@ -33,16 +33,8 @@ const docTemplate = `{
                         "in": "path"
                     },
                     {
-                        "description": "Client ID",
-                        "name": "client_id",
-                        "in": "body",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "Client Secret",
-                        "name": "client_secret",
+                        "description": "Key",
+                        "name": "key",
                         "in": "body",
                         "schema": {
                             "type": "string"

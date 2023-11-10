@@ -14,8 +14,7 @@ type CredentialDocument = {
 	_id: ObjectId;
 	name: string;
 	organizationId: ObjectId;
-	clientId: string;
-	clientSecret: string;
+	key: string;
 };
 
 /**
@@ -26,8 +25,7 @@ function fromDocument(doc: CredentialDocument): Credential {
 		id: doc._id.toHexString(),
 		name: doc.name,
 		organizationId: doc.organizationId.toHexString(),
-		clientId: doc.clientId,
-		clientSecret: doc.clientSecret
+		key: doc.key
 	};
 }
 
@@ -45,8 +43,7 @@ async function getCollection(): Promise<Collection<CredentialDocument>> {
 export interface CreateCredentialData {
 	name: string;
 	organizationId: string;
-	clientId: string;
-	clientSecret: string;
+	key: string;
 }
 
 /**
@@ -58,8 +55,7 @@ export async function create(data: CreateCredentialData): Promise<void> {
 		_id: new ObjectId(),
 		name: data.name,
 		organizationId: new ObjectId(data.organizationId),
-		clientId: data.clientId,
-		clientSecret: data.clientSecret
+		key: data.key
 	});
 }
 

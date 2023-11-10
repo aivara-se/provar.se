@@ -2,14 +2,13 @@ package auth
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"provar.se/webapi/lib/credentials"
+	"provar.se/webapi/lib/database/repository"
 	"provar.se/webapi/lib/token"
 )
 
 // CreateAccessTokenRequestBody is the request body for creating access tokens
 type CreateAccessTokenRequestBody struct {
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+	Key string `json:"key"`
 }
 
 // CreateAccessTokenResponseBody is the response body for creating access tokens
@@ -23,8 +22,7 @@ type CreateAccessTokenResponseBody struct {
 // @Tags        auth
 // @Accept      json
 // @Param       x-organization  path      string  6541eba0b8857ce9f394cf7e  "Organization ID"
-// @Param       client_id       body      string  taYxWHrU0YoKu5vtbE4jn    "Client ID"
-// @Param       client_secret   body      string  taYxWHrU0YoKu5vtbE4jn    "Client Secret"
+// @Param       key             body      string  taYxWHrU0YoKu5vtbE4jn     "Key"
 // @Success     200             {object}  auth.CreateAccessTokenResponseBody
 func SetupCreateAccessToken(app *fiber.App) {
 	app.Post("/auth/token", func(c *fiber.Ctx) error {
@@ -33,10 +31,11 @@ func SetupCreateAccessToken(app *fiber.App) {
 		if err := c.BodyParser(&reqBody); err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
-		if organizationID == "" || reqBody.ClientID == "" || reqBody.ClientSecret == "" {
+		if organizationID == "" || reqBody.Key == "" {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
-		if !credentials.ValidateClientCredentials(organizationID, reqBody.ClientID, reqBody.ClientSecret) {
+		repo := repository.GetCredentialRepository()
+		if err := repo.IsValidCredenial(organizationID, reqBody.Key); err != nil {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 		token, err := token.CreateAccessToken(organizationID)

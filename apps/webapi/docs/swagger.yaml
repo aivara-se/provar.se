@@ -17,14 +17,9 @@ paths:
         in: path
         name: x-organization
         type: string
-      - description: Client ID
+      - description: Key
         in: body
-        name: client_id
-        schema:
-          type: string
-      - description: Client Secret
-        in: body
-        name: client_secret
+        name: key
         schema:
           type: string
       responses:

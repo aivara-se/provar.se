@@ -58,8 +58,7 @@ export const actions: Actions = {
 		await CredentialRepository.create({
 			name: String(data.get('name')),
 			organizationId: organization.id,
-			clientId: secureRandom(64),
-			clientSecret: secureRandom(64)
+			key: secureRandom(64)
 		});
 	}),
 	/**
