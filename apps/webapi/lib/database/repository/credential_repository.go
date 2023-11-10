@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"errors"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -14,6 +15,9 @@ const (
 )
 
 var (
+	// ErrCredentialNotFound is returned when the api key is not found
+	ErrCredentialNotFound = errors.New("credential not found")
+
 	// cachedCredentialRepository is a reference to a CredentialRepository
 	cachedCredentialRepository *CredentialRepository
 )
@@ -42,9 +46,13 @@ func GetCredentialRepository() *CredentialRepository {
 	return repo
 }
 
-// IsValidCredenial make sure that the credential exists in the database and is valid
-func (repo *CredentialRepository) IsValidCredenial(organizationID string, key string) error {
+// FindCredenial finds a credential from in the database. Returns an error if not found.
+func (repo *CredentialRepository) FindCredenial(key string) (*CredentialModel, error) {
 	var result CredentialModel
-	filter := bson.M{"organizationId": organizationID, "key": key}
-	return repo.coll.FindOne(context.TODO(), filter).Decode(&result)
+	filter := bson.M{"key": key}
+	err := repo.coll.FindOne(context.TODO(), filter).Decode(&result)
+	if err == mongo.ErrNoDocuments {
+		return nil, ErrCredentialNotFound
+	}
+	return &result, err
 }

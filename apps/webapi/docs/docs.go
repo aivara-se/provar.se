@@ -15,42 +15,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/auth/token": {
-            "post": {
-                "description": "Create an access token using client credentials.",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "auth"
-                ],
-                "summary": "Create an access token using client credentials.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Organization ID",
-                        "name": "x-organization",
-                        "in": "path"
-                    },
-                    {
-                        "description": "Key",
-                        "name": "key",
-                        "in": "body",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/auth.CreateAccessTokenResponseBody"
-                        }
-                    }
-                }
-            }
-        },
         "/feedback": {
             "post": {
                 "description": "Create a new feedback event for an organization.",
@@ -61,14 +25,6 @@ const docTemplate = `{
                     "feedback"
                 ],
                 "summary": "Create a new feedback event for an organization.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Organization ID",
-                        "name": "x-organization",
-                        "in": "path"
-                    }
-                ],
                 "responses": {
                     "204": {
                         "description": "ok"
@@ -92,25 +48,15 @@ const docTemplate = `{
         },
         "/ping/secure": {
             "get": {
-                "description": "Ensure that an access token is valid.",
+                "description": "Ensure that the api key is valid",
                 "tags": [
                     "health"
                 ],
-                "summary": "Ensure that an access token is valid.",
+                "summary": "Ensure that the api key is valid",
                 "responses": {
                     "204": {
                         "description": "ok"
                     }
-                }
-            }
-        }
-    },
-    "definitions": {
-        "auth.CreateAccessTokenResponseBody": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string"
                 }
             }
         }

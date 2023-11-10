@@ -5,16 +5,14 @@ import (
 	"testing"
 
 	"provar.se/webapi/lib/testapp"
-	"provar.se/webapi/lib/token"
 )
 
 func TestSecureHealthcheck(t *testing.T) {
 	app := testapp.Create()
 
 	t.Run("success", func(t *testing.T) {
-		validToken, _ := token.CreateAccessToken("test-organization")
 		req := httptest.NewRequest("GET", "/ping/secure", nil)
-		req.Header.Add("Authorization", "Bearer "+validToken)
+		req.Header.Add("Authorization", "bearer test-api-key")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 204 {
 			t.Fail()
@@ -31,7 +29,7 @@ func TestSecureHealthcheck(t *testing.T) {
 
 	t.Run("fail with invalid access token", func(t *testing.T) {
 		req := httptest.NewRequest("GET", "/ping/secure", nil)
-		req.Header.Add("Authorization", "Bearer invalid-token")
+		req.Header.Add("Authorization", "bearer not-test-api-key")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 401 {
 			t.Fail()
