@@ -8,6 +8,7 @@ on:
     paths:
       - ".github/apps.webapi.*.yml"
       - "apps/webapi/**"
+  workflow_dispatch:
 
 concurrency:
   group: "app.webapi.deploy-production"
