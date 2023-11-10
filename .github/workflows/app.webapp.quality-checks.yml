@@ -78,6 +78,7 @@ jobs:
           AUTH_GOOGLE_SECRET: ${{ secrets.APPS_WEBAPP_APP_AUTH_GOOGLE_SECRET }}
           AUTH_EMAIL_SERVER: ${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_SERVER }}
           AUTH_EMAIL_FROM: ${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_FROM }}
+          PUBLIC_PROVAR_API_KEY: ${{ secrets.APPS_WEBAPP_APP_PROVAR_API_KEY }}
         run: yarn test:integration
 
       - name: Perform CodeQL Analysis
