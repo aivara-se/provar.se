@@ -15,12 +15,14 @@ AUTH_GOOGLE_SECRET=""
 AUTH_EMAIL_SERVER=""
 AUTH_EMAIL_FROM=""
 MONGODB_URL=""
+PUBLIC_PROVAR_API_KEY=""
 ```
 
 Optionally create a `.env.test` file with the following if you wish to use a separate database when running unit tests.
 
 ```
 MONGODB_URL=""
+PUBLIC_PROVAR_API_KEY=""
 ```
 
 Start the application locally
