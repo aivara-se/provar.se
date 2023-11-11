@@ -5,14 +5,10 @@
 
 	$: createLink = `/org/${$page.params.organizationId}/feedback/project/create`;
 
-	function transformToListItem(project: Project) {
-		return {
-			name: project.name,
-			link: `/org/${project.organizationId}/feedback/project/${project.id}`
-		};
-	}
-
-	$: projectListItems = $page.data.projects.map(transformToListItem);
+	$: projectListItems = $page.data.projects.map((project: Project) => ({
+		name: project.name,
+		link: `/org/${project.organizationId}/feedback/project/${project.id}`
+	}));
 </script>
 
 <Button href={createLink}>Create Project</Button>
