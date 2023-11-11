@@ -16,10 +16,19 @@ const (
 	authHeaderPrefixLength = len(authHeaderPrefix)
 )
 
+// hasPrefixCaseInsensitive checks if the string has the prefix, case insensitive
+func hasPrefixCaseInsensitive(str string, prefix string) bool {
+	prefixLength := len(prefix)
+	if len(str) < prefixLength {
+		return false
+	}
+	return strings.EqualFold(str[:prefixLength], prefix)
+}
+
 // extractApiKeyFromRequest extracts the api key from the request
 func extractApiKeyFromRequest(c *fiber.Ctx) string {
 	auth := c.Get(fiber.HeaderAuthorization)
-	if !strings.HasPrefix(auth, authHeaderPrefix) {
+	if !hasPrefixCaseInsensitive(auth, authHeaderPrefix) {
 		return ""
 	}
 	return auth[authHeaderPrefixLength:]
