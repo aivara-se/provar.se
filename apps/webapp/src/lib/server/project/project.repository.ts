@@ -46,13 +46,15 @@ export interface CreateProjectData {
 /**
  * Create a new project in the database with the given information.
  */
-export async function create(data: CreateProjectData): Promise<void> {
+export async function create(data: CreateProjectData): Promise<string> {
 	const coll = await getCollection();
+	const id = new ObjectId();
 	await coll.insertOne({
-		_id: new ObjectId(),
+		_id: id,
 		name: data.name,
 		organizationId: new ObjectId(data.organizationId)
 	});
+	return id.toHexString();
 }
 
 /**
