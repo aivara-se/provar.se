@@ -14,8 +14,7 @@ export const actions: Actions = {
 			throw error(404);
 		}
 		const organizationId = selectedOrganization.id;
-		await ProjectRepository.create({ name, organizationId });
-		// TODO: redirect user to the created project
-		throw redirect(303, `/`);
+		const projectId = await ProjectRepository.create({ name, organizationId });
+		throw redirect(303, `/org/${organizationId}/feedback/project/${projectId}`);
 	}
 };
