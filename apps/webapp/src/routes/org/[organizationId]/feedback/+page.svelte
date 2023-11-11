@@ -1,10 +1,10 @@
-<script>
-	import { Alert } from 'flowbite-svelte';
-	import { InfoCircleSolid } from 'flowbite-svelte-icons';
+<script lang="ts">
+  import { Button } from 'flowbite-svelte';
+	import { page } from '$app/stores';
+
+	$: createLink = `/org/${$page.params.organizationId}/feedback/project/create`
 </script>
 
-<Alert color="blue" rounded={false} class="border-t-4">
-	<InfoCircleSolid slot="icon" class="w-4 h-4" />
-	<span class="font-medium">Feedback</span><br />
-	This page is under construction.
-</Alert>
+<Button href={createLink}>
+	Create Project
+</Button>
