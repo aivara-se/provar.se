@@ -14,13 +14,14 @@ go install github.com/cosmtrek/air@latest
 Create a `.env` file with the following which will be used when running the application locally.
 
 ```
-MONGODB_URL=""
+MONGO_URI=""
+PORT=
 ```
 
 Optionally create a `.env.test` file with the following if you wish to use a separate database when running unit tests.
 
 ```
-MONGODB_URL=""
+MONGO_URI=""
 ```
 
 Start the application locally
