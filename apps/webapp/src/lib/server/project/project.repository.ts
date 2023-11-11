@@ -74,3 +74,7 @@ export async function findByOrganization(organizationId: string): Promise<Projec
 	const docs = await coll.find({ organizationId: new ObjectId(organizationId) }).toArray();
 	return docs.map(fromDocument);
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function update(id: unknown, arg1: { name: string }) {
+	throw new Error('Function not implemented.');
+}
