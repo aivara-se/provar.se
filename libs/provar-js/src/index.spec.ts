@@ -17,11 +17,32 @@ describe('ProvarClient', () => {
 		});
 	});
 
-	it('sends feedback successfully', async () => {
+	it('sends a text feedback with required fields', async () => {
 		fetcher.mockRequest('POST', '/feedback', { success: true });
-		await client.sendFeedback({ text: 'test feedback' });
+		await client.sendText('test feedback');
 		const requests = fetcher.getRequests('POST', '/feedback');
 		expect(requests.length).toBe(1);
-		expect(requests[0]).toEqual({ text: 'test feedback' });
+		expect(requests[0]).toEqual({ type: 'text', data: { text: 'test feedback' } });
+	});
+
+	it('sends a text feedback with required fields', async () => {
+		fetcher.mockRequest('POST', '/feedback', { success: true });
+		await client.sendRate(0.8);
+		const requests = fetcher.getRequests('POST', '/feedback');
+		expect(requests.length).toBe(1);
+		expect(requests[0]).toEqual({ type: 'rate', data: { rate: 0.8 } });
+	});
+
+	it('sends a text feedback with project id and tags', async () => {
+		fetcher.mockRequest('POST', '/feedback', { success: true });
+		await client.sendText('test feedback', 'project1', { tag1: 'value1', tag2: 'value2' });
+		const requests = fetcher.getRequests('POST', '/feedback');
+		expect(requests.length).toBe(1);
+		expect(requests[0]).toEqual({
+			type: 'text',
+			data: { text: 'test feedback' },
+			projectId: 'project1',
+			tags: { tag1: 'value1', tag2: 'value2' }
+		});
 	});
 });

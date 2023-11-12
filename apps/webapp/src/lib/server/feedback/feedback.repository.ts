@@ -14,9 +14,9 @@ const COLLECTION_NAME = 'feedbacks';
 interface BaseFeedbackDocument {
 	_id: ObjectId;
 	organizationId: ObjectId;
-	projectId: ObjectId;
+	projectId?: ObjectId;
 	type: FeedbackType;
-	tags: string[];
+	tags?: Record<string, string>;
 	data: unknown;
 }
 
