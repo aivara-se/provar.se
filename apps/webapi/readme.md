@@ -29,3 +29,7 @@ Start the application locally
 ```shell
 yarn dev
 ```
+
+## Contributing Code
+
+- OpenAPI spec is built for API endpoints using comments. Read https://github.com/swaggo/swag#declarative-comments-format for more info.
