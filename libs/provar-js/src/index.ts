@@ -52,6 +52,9 @@ export class DefaultFetcher implements Fetcher {
 		if (fetchResponse.status >= 400) {
 			throw new Error(`Provar: request failed with status ${fetchResponse.status}`);
 		}
+		if (fetchResponse.status === 204) {
+			return null as TRes;
+		}
 		return fetchResponse.json();
 	}
 }
