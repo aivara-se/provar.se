@@ -38,7 +38,7 @@
 				your cient application. You can revoke this key at any time from organization settings page.
 			</P>
 			<code class="block break-words text-sm mt-2 bg-gray-100 p-2 rounded">
-				{$credentials[0].key}
+				{credentials[0].key}
 			</code>
 		{:else}
 			<P class="mb-4">
