@@ -1,4 +1,5 @@
-import { CredentialRepository, OrganizationRepository, type Organization } from '$lib/server';
+import { CredentialRepository, OrganizationRepository } from '$lib/server';
+import type { Organization } from '$lib/types';
 import type { Session } from '@auth/core/types';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';

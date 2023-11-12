@@ -1,6 +1,6 @@
 import { getMongoClient } from '$lib/server/database';
 import { ObjectId, type Collection } from 'mongodb';
-import type { Feedback } from './feedback.types';
+import type { Feedback } from '$lib/types';
 
 /**
  * The name of the MongoDB collection for feedback.
