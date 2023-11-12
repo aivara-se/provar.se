@@ -12,12 +12,15 @@ definitions:
         - $ref: '#/definitions/repository.FeedbackType'
         enum:
         - text
+        - rate
     required:
     - data
     - type
     type: object
   repository.FeedbackData:
     properties:
+      rate:
+        type: number
       text:
         type: string
     type: object
@@ -28,9 +31,11 @@ definitions:
   repository.FeedbackType:
     enum:
     - text
+    - rate
     type: string
     x-enum-varnames:
     - FeedbackTypeText
+    - FeedbackTypeRate
 info:
   contact: {}
 paths:

@@ -80,7 +80,8 @@
                 },
                 "type": {
                     "enum": [
-                        "text"
+                        "text",
+                        "rate"
                     ],
                     "allOf": [
                         {
@@ -93,6 +94,9 @@
         "repository.FeedbackData": {
             "type": "object",
             "properties": {
+                "rate": {
+                    "type": "number"
+                },
                 "text": {
                     "type": "string"
                 }
@@ -107,10 +111,12 @@
         "repository.FeedbackType": {
             "type": "string",
             "enum": [
-                "text"
+                "text",
+                "rate"
             ],
             "x-enum-varnames": [
-                "FeedbackTypeText"
+                "FeedbackTypeText",
+                "FeedbackTypeRate"
             ]
         }
     }

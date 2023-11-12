@@ -10,7 +10,7 @@ import (
 // RequestBody is the request body for creating a feedback event
 type RequestBody struct {
 	ProjectID string                  `json:"projectId"`
-	Type      repository.FeedbackType `json:"type" validate:"required,oneof=text"`
+	Type      repository.FeedbackType `json:"type" validate:"required,oneof=text rate"`
 	Data      repository.FeedbackData `json:"data" validate:"required"`
 	Tags      repository.FeedbackTags `json:"tags"`
 }
