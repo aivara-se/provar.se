@@ -22,11 +22,12 @@ const authorization: Handle = async ({ event, resolve }) => {
 	if (event.url.pathname === '/[fallback]') {
 		return resolve(event);
 	}
-	if (!event.url.pathname.startsWith('/auth/')) {
-		const session = await event.locals.getSession();
-		if (!session) {
-			throw redirect(303, '/auth/login');
-		}
+	if (event.url.pathname.startsWith('/auth/')) {
+		return resolve(event);
+	}
+	const session = await event.locals.getSession();
+	if (!session) {
+		throw redirect(303, '/auth/login');
 	}
 	return resolve(event);
 };
