@@ -1,9 +1,16 @@
-import type { Session } from '@auth/core/types';
+import { CredentialRepository } from '$lib/server';
+import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-import { OrganizationRepository } from '$lib/server';
 
+/**
+ * Loads data required for all tabs on organization preferences page.
+ */
 export const load: LayoutServerLoad = async (event) => {
-	const session = (await event.locals.getSession()) as Session;
-	const organizations = await OrganizationRepository.findByMember(session.user.id);
-	return { organizations };
+	const { organizations } = await event.parent();
+	const organization = organizations.find((org) => org.id === event.params.organizationId);
+	if (!organization) {
+		throw error(403);
+	}
+	const credentials = await CredentialRepository.findByOrganization(organization.id);
+	return { organization, credentials };
 };

@@ -8,9 +8,9 @@ import type { Organization } from '../types';
  */
 export const selectedOrg = derived(page, ($page) => {
 	const organizationId = $page.params.organizationId;
-	const orgs: Organization[] = $page.data.organizations;
-	if (!organizationId || !orgs) {
+	const organizations: Organization[] = $page.data.organizations;
+	if (!organizationId || !organizations) {
 		return null;
 	}
-	return orgs.find((org) => org.id === organizationId);
+	return organizations.find((org) => org.id === organizationId);
 });
