@@ -1,3 +1,22 @@
+definitions:
+  feedback.RequestBody:
+    properties:
+      data:
+        $ref: '#/definitions/repository.FeedbackData'
+      type:
+        $ref: '#/definitions/repository.FeedbackType'
+    type: object
+  repository.FeedbackData:
+    properties:
+      text:
+        type: string
+    type: object
+  repository.FeedbackType:
+    enum:
+    - text
+    type: string
+    x-enum-varnames:
+    - FeedbackTypeText
 info:
   contact: {}
 paths:
@@ -6,6 +25,13 @@ paths:
       consumes:
       - application/json
       description: Create a new feedback event for an organization.
+      parameters:
+      - description: The request body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/feedback.RequestBody'
       responses:
         "204":
           description: ok
