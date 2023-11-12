@@ -40,11 +40,16 @@ type FeedbackData struct {
 	*FeedbackTextData `bson:"inline"`
 }
 
+// FeedbackTags is metadata for a feedback stored in the database
+type FeedbackTags map[string]string
+
 // FeedbackDocument is a MongoDB document for feedback
 type FeedbackDocument struct {
 	OrganizationID string       `bson:"organizationId"`
+	ProjectID      string       `bson:"projectId,omitempty"`
 	Type           FeedbackType `bson:"type"`
 	Data           FeedbackData `bson:"data"`
+	Tags           FeedbackTags `bson:"tags"`
 }
 
 // FeedbackRepository is a repository for feedback
@@ -65,8 +70,14 @@ func GetFeedbackRepository() *FeedbackRepository {
 }
 
 // CreateFeedback creates a feedback document in the database
-func (repo *FeedbackRepository) CreateFeedback(organizationID string, feedbackType FeedbackType, feedbackData FeedbackData) error {
-	doc := &FeedbackDocument{OrganizationID: organizationID}
+func (repo *FeedbackRepository) CreateFeedback(organizationID string, projectID string, feedbackType FeedbackType, feedbackData FeedbackData, feedbackTags FeedbackTags) error {
+	doc := &FeedbackDocument{
+		OrganizationID: organizationID,
+		ProjectID:      projectID,
+		Type:           feedbackType,
+		Data:           feedbackData,
+		Tags:           feedbackTags,
+	}
 	_, err := repo.coll.InsertOne(context.TODO(), doc)
 	return err
 }

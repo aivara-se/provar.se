@@ -3,13 +3,27 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/repository.FeedbackData'
+      projectId:
+        type: string
+      tags:
+        $ref: '#/definitions/repository.FeedbackTags'
       type:
-        $ref: '#/definitions/repository.FeedbackType'
+        allOf:
+        - $ref: '#/definitions/repository.FeedbackType'
+        enum:
+        - text
+    required:
+    - data
+    - type
     type: object
   repository.FeedbackData:
     properties:
       text:
         type: string
+    type: object
+  repository.FeedbackTags:
+    additionalProperties:
+      type: string
     type: object
   repository.FeedbackType:
     enum:

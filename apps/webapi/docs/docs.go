@@ -75,12 +75,29 @@ const docTemplate = `{
     "definitions": {
         "feedback.RequestBody": {
             "type": "object",
+            "required": [
+                "data",
+                "type"
+            ],
             "properties": {
                 "data": {
                     "$ref": "#/definitions/repository.FeedbackData"
                 },
+                "projectId": {
+                    "type": "string"
+                },
+                "tags": {
+                    "$ref": "#/definitions/repository.FeedbackTags"
+                },
                 "type": {
-                    "$ref": "#/definitions/repository.FeedbackType"
+                    "enum": [
+                        "text"
+                    ],
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/repository.FeedbackType"
+                        }
+                    ]
                 }
             }
         },
@@ -90,6 +107,12 @@ const docTemplate = `{
                 "text": {
                     "type": "string"
                 }
+            }
+        },
+        "repository.FeedbackTags": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
             }
         },
         "repository.FeedbackType": {
