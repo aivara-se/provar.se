@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import type { Feedback } from './types.js';
+import { FeedbackType, type Feedback, FeedbackTags, TextFeedback, RateFeedback } from './types.js';
 
 /**
  * config is the configuration for the library.
@@ -81,9 +81,31 @@ export class ProvarClient {
 	}
 
 	/**
+	 * Sends a text feedback message to the Provar API.
+	 */
+	async sendText(text: string, projectId?: string, tags?: FeedbackTags): Promise<void> {
+		const feedback: TextFeedback = { type: FeedbackType.Text, data: { text } };
+		await this.send(feedback, projectId, tags);
+	}
+
+	/**
+	 * Sends a rate feedback message to the Provar API.
+	 */
+	async sendRate(rate: number, projectId?: string, tags?: FeedbackTags): Promise<void> {
+		const feedback: RateFeedback = { type: FeedbackType.Rate, data: { rate } };
+		await this.send(feedback, projectId, tags);
+	}
+
+	/**
 	 * Sends a feedback message to the Provar API.
 	 */
-	async sendFeedback(feedback: Feedback): Promise<void> {
+	private async send(feedback: Feedback, projectId?: string, tags?: FeedbackTags): Promise<void> {
+		if (projectId) {
+			feedback.projectId = projectId;
+		}
+		if (tags) {
+			feedback.tags = tags;
+		}
 		await this.fetcher.fetch('post', '/feedback', feedback);
 	}
 }

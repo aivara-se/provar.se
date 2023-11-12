@@ -69,7 +69,7 @@
 import &lbrace; ProvarClient &rbrace; from '@provar/provar-js';
 
 const provarClient = new ProvarClient(&lbrace; apiKey: 'YOUR_API_KEY' &rbrace;);
-await provarClient.sendFeedback(&lbrace; ... &rbrace;);</pre>
+await provarClient.sendText('My feedback');</pre>
 	</TimelineItem>
 </Timeline>
 

@@ -10,9 +10,9 @@ yarn add @provar/provar-js
 
 ## Usage
 
-```js
+```ts
 import { ProvarClient } from '@provar/provar-js';
 
 const provarClient = new ProvarClient({ apiKey: 'your-api-key' });
-await provarClient.sendFeedback({ text: 'my user feedback' });
+await provarClient.sendText('My feedback');
 ```

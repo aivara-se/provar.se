@@ -14,10 +14,10 @@ export enum FeedbackType {
 interface BaseFeedback {
 	id: string;
 	organizationId: string;
-	projectId: string;
+	projectId?: string;
 	createdAt: number;
 	type: FeedbackType;
-	tags: string[];
+	tags?: Record<string, string>;
 	data: unknown;
 }
 
