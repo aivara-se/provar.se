@@ -10,5 +10,5 @@ const provarClient = new ProvarClient({ apiKey: PUBLIC_PROVAR_API_KEY });
  * Sends user feedback to Provar.
  */
 export async function sendTextFeedback(text: string) {
-	await provarClient.sendFeedback({ text });
+	await provarClient.sendText(text);
 }
