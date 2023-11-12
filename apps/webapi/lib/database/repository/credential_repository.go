@@ -22,8 +22,8 @@ var (
 	cachedCredentialRepository *CredentialRepository
 )
 
-// CredentialModel is a MongoDB document for credentials
-type CredentialModel struct {
+// CredentialDocument is a MongoDB document for credentials
+type CredentialDocument struct {
 	Name           string `bson:"name"`
 	OrganizationID string `bson:"organizationId"`
 	Key            string `bson:"key"`
@@ -47,8 +47,8 @@ func GetCredentialRepository() *CredentialRepository {
 }
 
 // FindCredenial finds a credential from in the database. Returns an error if not found.
-func (repo *CredentialRepository) FindCredenial(key string) (*CredentialModel, error) {
-	var result CredentialModel
+func (repo *CredentialRepository) FindCredenial(key string) (*CredentialDocument, error) {
+	var result CredentialDocument
 	filter := bson.M{"key": key}
 	err := repo.coll.FindOne(context.TODO(), filter).Decode(&result)
 	if err == mongo.ErrNoDocuments {

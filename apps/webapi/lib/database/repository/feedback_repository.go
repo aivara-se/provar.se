@@ -17,8 +17,8 @@ var (
 	cachedFeedbackRepository *FeedbackRepository
 )
 
-// FeedbackModel is a MongoDB document for feedback
-type FeedbackModel struct {
+// FeedbackDocument is a MongoDB document for feedback
+type FeedbackDocument struct {
 	OrganizationID string `bson:"organizationId"`
 }
 
@@ -41,7 +41,7 @@ func GetFeedbackRepository() *FeedbackRepository {
 
 // CreateFeedback creates a feedback document in the database
 func (repo *FeedbackRepository) CreateFeedback(organizationID string) error {
-	doc := &FeedbackModel{OrganizationID: organizationID}
+	doc := &FeedbackDocument{OrganizationID: organizationID}
 	_, err := repo.coll.InsertOne(context.TODO(), doc)
 	return err
 }
