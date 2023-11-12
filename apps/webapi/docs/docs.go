@@ -25,6 +25,17 @@ const docTemplate = `{
                     "feedback"
                 ],
                 "summary": "Create a new feedback event for an organization.",
+                "parameters": [
+                    {
+                        "description": "The request body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/feedback.RequestBody"
+                        }
+                    }
+                ],
                 "responses": {
                     "204": {
                         "description": "ok"
@@ -59,6 +70,36 @@ const docTemplate = `{
                     }
                 }
             }
+        }
+    },
+    "definitions": {
+        "feedback.RequestBody": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/repository.FeedbackData"
+                },
+                "type": {
+                    "$ref": "#/definitions/repository.FeedbackType"
+                }
+            }
+        },
+        "repository.FeedbackData": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "repository.FeedbackType": {
+            "type": "string",
+            "enum": [
+                "text"
+            ],
+            "x-enum-varnames": [
+                "FeedbackTypeText"
+            ]
         }
     }
 }`
