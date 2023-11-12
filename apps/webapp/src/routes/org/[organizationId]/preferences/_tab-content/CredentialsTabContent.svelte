@@ -27,7 +27,7 @@
 	let isCreateModalOpen = false;
 	let isDetailsModalOpen = false;
 
-	$: credentials = $page.data.credentials;
+	$: credentials = $page.data.credentials || [];
 
 	function selectCredential(cred: Credential) {
 		selectedCredential = cred;

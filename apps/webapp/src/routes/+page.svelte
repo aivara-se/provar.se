@@ -3,11 +3,13 @@
 	import { CenteredLayout, HorizontalSeparator } from '$lib/ui';
 	import { Badge, Button, Listgroup, ListgroupItem } from 'flowbite-svelte';
 	import { LockOutline, UsersGroupOutline } from 'flowbite-svelte-icons';
+
+	$: organizations = $page.data.organizations || [];
 </script>
 
 <CenteredLayout>
 	<Listgroup active class="w-48">
-		{#each $page.data.organizations as org}
+		{#each organizations as org}
 			<ListgroupItem>
 				<a href={`/org/${org.id}`} class="org-item">
 					{org.name}

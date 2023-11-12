@@ -3,12 +3,13 @@
 	import { page } from '$app/stores';
 	import type { Project } from '$lib/types';
 
-	$: createLink = `/org/${$page.params.organizationId}/feedback/project/create`;
-
-	$: projectListItems = $page.data.projects.map((project: Project) => ({
+	$: projects = $page.data.projects || [];
+	$: projectListItems = projects.map((project: Project) => ({
 		name: project.name,
 		link: `/org/${project.organizationId}/feedback/project/${project.id}`
 	}));
+
+	$: createLink = `/org/${$page.params.organizationId}/feedback/project/create`;
 </script>
 
 <Button href={createLink}>Create Project</Button>
