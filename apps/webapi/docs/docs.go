@@ -91,7 +91,8 @@ const docTemplate = `{
                 },
                 "type": {
                     "enum": [
-                        "text"
+                        "text",
+                        "rate"
                     ],
                     "allOf": [
                         {
@@ -104,6 +105,9 @@ const docTemplate = `{
         "repository.FeedbackData": {
             "type": "object",
             "properties": {
+                "rate": {
+                    "type": "number"
+                },
                 "text": {
                     "type": "string"
                 }
@@ -118,10 +122,12 @@ const docTemplate = `{
         "repository.FeedbackType": {
             "type": "string",
             "enum": [
-                "text"
+                "text",
+                "rate"
             ],
             "x-enum-varnames": [
-                "FeedbackTypeText"
+                "FeedbackTypeText",
+                "FeedbackTypeRate"
             ]
         }
     }

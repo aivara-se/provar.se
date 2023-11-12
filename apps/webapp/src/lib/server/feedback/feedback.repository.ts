@@ -1,6 +1,6 @@
 import { getMongoClient } from '$lib/server/database';
+import type { FeedbackType, Feedback, RateFeedbackData, TextFeedbackData } from '$lib/types';
 import { ObjectId, type Collection } from 'mongodb';
-import type { Feedback } from '$lib/types';
 
 /**
  * The name of the MongoDB collection for feedback.
@@ -8,13 +8,38 @@ import type { Feedback } from '$lib/types';
 const COLLECTION_NAME = 'feedbacks';
 
 /**
- * Type for the MongoDB document for feedback in db.
+ * Base type for the MongoDB document for feedback in db. This should not
+ * be used. Use derived types instead.
  */
-interface FeedbackDocument {
+interface BaseFeedbackDocument {
 	_id: ObjectId;
 	organizationId: ObjectId;
 	projectId: ObjectId;
+	type: FeedbackType;
+	tags: string[];
+	data: unknown;
 }
+
+/**
+ * Type for the variant of the document that stores text feedback.
+ */
+interface TextFeedbackDocument extends BaseFeedbackDocument {
+	type: FeedbackType.Text;
+	data: TextFeedbackData;
+}
+
+/**
+ * Type for the variant of the document that stores text feedback.
+ */
+interface RateFeedbackDocument extends BaseFeedbackDocument {
+	type: FeedbackType.Rate;
+	data: RateFeedbackData;
+}
+
+/**
+ * Type for the MongoDB document for feedback in db.
+ */
+type FeedbackDocument = TextFeedbackDocument | RateFeedbackDocument;
 
 /**
  * Convert a feedback document from the db to Feedback.
@@ -23,7 +48,13 @@ function fromDocument(doc: FeedbackDocument): Feedback {
 	return {
 		id: doc._id.toHexString(),
 		organizationId: doc.organizationId.toHexString(),
-		projectId: doc.projectId?.toHexString()
+		projectId: doc.projectId?.toHexString(),
+		createdAt: doc._id.getTimestamp().getTime(),
+		type: doc.type,
+		// TODO: Fix this any without writing unnecessary javascript code.
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		data: doc.data as any,
+		tags: doc.tags
 	};
 }
 

@@ -23,6 +23,7 @@ type FeedbackType string
 
 const (
 	FeedbackTypeText FeedbackType = "text"
+	FeedbackTypeRate FeedbackType = "rate"
 )
 
 // String returns the string representation of a FeedbackType
@@ -35,9 +36,15 @@ type FeedbackTextData struct {
 	Text string `bson:"text"`
 }
 
+// FeedbackRateData is the data stored for for a rating feedback
+type FeedbackRateData struct {
+	Rate float64 `bson:"rate"`
+}
+
 // FeedbackData is the data for a feedback stored in the database
 type FeedbackData struct {
 	*FeedbackTextData `bson:"inline"`
+	*FeedbackRateData `bson:"inline"`
 }
 
 // FeedbackTags is metadata for a feedback stored in the database
@@ -49,7 +56,7 @@ type FeedbackDocument struct {
 	ProjectID      string       `bson:"projectId,omitempty"`
 	Type           FeedbackType `bson:"type"`
 	Data           FeedbackData `bson:"data"`
-	Tags           FeedbackTags `bson:"tags"`
+	Tags           FeedbackTags `bson:"tags,omitempty"`
 }
 
 // FeedbackRepository is a repository for feedback
