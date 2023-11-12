@@ -1,6 +1,6 @@
 import { getMongoClient } from '$lib/server/database';
 import { ObjectId, type Collection } from 'mongodb';
-import type { User } from './user.types';
+import type { User } from '$lib/types';
 
 /**
  * The name of the MongoDB collection for users.
