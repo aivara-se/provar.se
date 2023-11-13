@@ -19,7 +19,7 @@
 	"dependencies": {
 		"@auth/core": "^0.18.0",
 		"@auth/mongodb-adapter": "^2.0.3",
-		"@auth/sveltekit": "^0.3.11",
+		"@auth/sveltekit": "^0.3.12",
 		"@provar/provar-js": "^1.1.1",
 		"mongodb": "^6.2.0",
 		"nodemailer": "^6.9.7",
