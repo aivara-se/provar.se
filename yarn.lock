@@ -48,6 +48,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@auth/core@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@auth/core@npm:0.18.1"
+  dependencies:
+    "@panva/hkdf": "npm:^1.1.1"
+    cookie: "npm:0.5.0"
+    jose: "npm:^5.1.0"
+    oauth4webapi: "npm:^2.3.0"
+    preact: "npm:10.11.3"
+    preact-render-to-string: "npm:5.2.3"
+  peerDependencies:
+    nodemailer: ^6.8.0
+  peerDependenciesMeta:
+    nodemailer:
+      optional: true
+  checksum: 0d818c1ab541df3f3deb7345c0d002a5dd6ced1d81d75625f9753c246ad7ef8e1ef46a358f650d59db0ee0f1bed4038ce4ec4ef4e08d3631afc72a6c14408c56
+  languageName: node
+  linkType: hard
+
 "@auth/mongodb-adapter@npm:^2.0.3":
   version: 2.0.3
   resolution: "@auth/mongodb-adapter@npm:2.0.3"
@@ -59,15 +78,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/sveltekit@npm:^0.3.11":
-  version: 0.3.11
-  resolution: "@auth/sveltekit@npm:0.3.11"
+"@auth/sveltekit@npm:^0.3.12":
+  version: 0.3.12
+  resolution: "@auth/sveltekit@npm:0.3.12"
   dependencies:
-    "@auth/core": "npm:0.18.0"
+    "@auth/core": "npm:0.18.1"
   peerDependencies:
     "@sveltejs/kit": ^1.0.0
     svelte: ^3.54.0 || ^4.0.0
-  checksum: 009a8ad6724c83e92cea079040d33d9a67bb8f133622d150a7937a02fbc89e009c2216002a0eb38833e9112cb1c93af67582e072ac7c1e570d7be5770de3b416
+  checksum: c0b2cb5f67201d7fa9d1c0db41bf3a23a62e276915737c3e32731df6c25ed76a09d2e60af63e70522e2434176f6baf729da9af6a141718c13b5eeb244367e44c
   languageName: node
   linkType: hard
 
@@ -612,7 +631,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@panva/hkdf@npm:^1.0.4":
+"@panva/hkdf@npm:^1.0.4, @panva/hkdf@npm:^1.1.1":
   version: 1.1.1
   resolution: "@panva/hkdf@npm:1.1.1"
   checksum: f0dd12903751d8792420353f809ed3c7de860cf506399759fff5f59f7acfef8a77e2b64012898cee7e5b047708fa0bd91dff5ef55a502bf8ea11aad9842160da
@@ -2960,6 +2979,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jose@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "jose@npm:5.1.0"
+  checksum: aba6fbb2f9aae47fd1d99de9657ad8835cb710ba3755486cb98616486372dd60a9c8698f7a464b5071b106d09cbcb67d4498994b8325f64252a1c66cf3e56026
+  languageName: node
+  linkType: hard
+
 "js-yaml@npm:^4.1.0":
   version: 4.1.0
   resolution: "js-yaml@npm:4.1.0"
@@ -3555,7 +3581,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oauth4webapi@npm:^2.0.6":
+"oauth4webapi@npm:^2.0.6, oauth4webapi@npm:^2.3.0":
   version: 2.3.0
   resolution: "oauth4webapi@npm:2.3.0"
   checksum: f0ec83060a2ceb6297c898a9c6c3f4c4a4af0539813ec6eb17f053b3f7b6260bd9052df35444afdfe7aa2c3791bcb6dc63e642e621c35ab1c9a8ada83e611032
@@ -5144,7 +5170,7 @@ __metadata:
   dependencies:
     "@auth/core": "npm:^0.18.0"
     "@auth/mongodb-adapter": "npm:^2.0.3"
-    "@auth/sveltekit": "npm:^0.3.11"
+    "@auth/sveltekit": "npm:^0.3.12"
     "@playwright/test": "npm:^1.39.0"
     "@provar/provar-js": "npm:^1.1.1"
     "@sveltejs/adapter-node": "npm:^1.3.1"
