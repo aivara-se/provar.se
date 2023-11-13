@@ -850,11 +850,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/kit@npm:^1.27.3":
-  version: 1.27.3
-  resolution: "@sveltejs/kit@npm:1.27.3"
+"@sveltejs/kit@npm:^1.27.5":
+  version: 1.27.5
+  resolution: "@sveltejs/kit@npm:1.27.5"
   dependencies:
-    "@sveltejs/vite-plugin-svelte": "npm:^2.4.1"
+    "@sveltejs/vite-plugin-svelte": "npm:^2.5.0"
     "@types/cookie": "npm:^0.5.1"
     cookie: "npm:^0.5.0"
     devalue: "npm:^4.3.1"
@@ -868,11 +868,11 @@ __metadata:
     tiny-glob: "npm:^0.2.9"
     undici: "npm:~5.26.2"
   peerDependencies:
-    svelte: ^3.54.0 || ^4.0.0-next.0
+    svelte: ^3.54.0 || ^4.0.0-next.0 || ^5.0.0-next.0
     vite: ^4.0.0
   bin:
     svelte-kit: svelte-kit.js
-  checksum: f6d10062cfe7ccdfa83749ec52d3802084d33daaa02589caaf806bce07b8acd40cbab30184ad5194d45219c099234f65f371530605d3f6316f4942e97eb7874c
+  checksum: 9eced16ff52e30c8020984b97df87cd3597265768b889a748a72e8605db32fb16ffac476645ff01cfced775b78caf19185851949917f0df73d12e5fcc6168ae9
   languageName: node
   linkType: hard
 
@@ -889,9 +889,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/vite-plugin-svelte@npm:^2.4.1":
-  version: 2.4.6
-  resolution: "@sveltejs/vite-plugin-svelte@npm:2.4.6"
+"@sveltejs/vite-plugin-svelte@npm:^2.5.0":
+  version: 2.5.2
+  resolution: "@sveltejs/vite-plugin-svelte@npm:2.5.2"
   dependencies:
     "@sveltejs/vite-plugin-svelte-inspector": "npm:^1.0.4"
     debug: "npm:^4.3.4"
@@ -901,9 +901,9 @@ __metadata:
     svelte-hmr: "npm:^0.15.3"
     vitefu: "npm:^0.2.4"
   peerDependencies:
-    svelte: ^3.54.0 || ^4.0.0
+    svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
     vite: ^4.0.0
-  checksum: f65e8a6f8d75abd98ae0399139ccde690e3138ba4793f4c7d878cf77675f29143bd5acf87fc6dc6d96fd982bc29b9870e05e6461ae003774f77cb117c586caf2
+  checksum: ceede0f0cce947b2a6026328cec5b2ae004745a3d507a0527b0ff865e0b2ef539cf1c34bee9e7af94a998070b6ae22332932013dd215953f6d84e46494b54c93
   languageName: node
   linkType: hard
 
@@ -5158,7 +5158,7 @@ __metadata:
     "@playwright/test": "npm:^1.39.0"
     "@provar/provar-js": "npm:^1.1.1"
     "@sveltejs/adapter-node": "npm:^1.3.1"
-    "@sveltejs/kit": "npm:^1.27.3"
+    "@sveltejs/kit": "npm:^1.27.5"
     "@typescript-eslint/eslint-plugin": "npm:^6.10.0"
     "@typescript-eslint/parser": "npm:^6.10.0"
     "@vitest/coverage-v8": "npm:^0.34.6"
