@@ -7,10 +7,12 @@
 	import { selectedOrg } from '$lib/stores/selected-org';
 
 	let name = $selectedOrg?.name || '';
+	let description = $selectedOrg?.description || '';
 
 	async function submitForm(event: { currentTarget: EventTarget & HTMLFormElement }) {
 		const data = new FormData();
 		data.set('name', name);
+		data.set('description', description);
 		const response = await fetch(event.currentTarget.action, {
 			method: 'post',
 			body: data
@@ -25,8 +27,13 @@
 
 <form method="post" action="?/updateOrganization" on:submit|preventDefault={submitForm}>
 	<div class="mb-6">
-		<Label for="name" class="block mb-2">Organization Name:</Label>
+		<Label for="name" class="block mb-2">Name:</Label>
 		<Input id="name" required bind:value={name} />
+	</div>
+
+	<div class="mb-6">
+		<Label for="description" class="block mb-2">Description:</Label>
+		<Input id="description" required bind:value={description} />
 	</div>
 
 	<div>

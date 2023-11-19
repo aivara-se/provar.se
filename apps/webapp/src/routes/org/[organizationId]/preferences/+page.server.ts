@@ -9,7 +9,8 @@ export const actions: Actions = {
 		const organization = await getSelectedOrganization(event);
 		const data = await event.request.formData();
 		const name = String(data.get('name'));
-		await OrganizationRepository.update(organization.id, { name });
+		const description = String(data.get('description'));
+		await OrganizationRepository.update(organization.id, { name, description });
 	},
 
 	/**
