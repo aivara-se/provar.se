@@ -13,6 +13,7 @@ const COLLECTION_NAME = 'organizations';
 type OrganizationDocument = {
 	_id: ObjectId;
 	name: string;
+	description?: string;
 	members: ObjectId[];
 };
 
@@ -23,6 +24,7 @@ function fromDocument(doc: OrganizationDocument): Organization {
 	return {
 		id: doc._id.toHexString(),
 		name: doc.name,
+		description: doc.description ?? '',
 		members: doc.members.map((id) => id.toHexString())
 	};
 }
@@ -57,6 +59,7 @@ export async function create(userId: string, data: CreateOrganizationData): Prom
  */
 export interface UpdateOrganizationData {
 	name: string;
+	description: string;
 }
 
 /**
