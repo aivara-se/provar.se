@@ -1,6 +1,6 @@
 import { getMongoClient } from '$lib/server/database';
-import { ObjectId, type Collection } from 'mongodb';
 import type { Project } from '$lib/types';
+import { ObjectId, type Collection } from 'mongodb';
 
 /**
  * The name of the MongoDB collection for projects.
@@ -13,7 +13,9 @@ const COLLECTION_NAME = 'projects';
 interface ProjectDocument {
 	_id: ObjectId;
 	name: string;
+	description?: string;
 	organizationId: ObjectId;
+	collectionGoal?: number;
 }
 
 /**
@@ -23,7 +25,9 @@ function fromDocument(doc: ProjectDocument): Project {
 	return {
 		id: doc._id.toHexString(),
 		name: doc.name,
-		organizationId: doc.organizationId.toHexString()
+		description: doc.description ?? '',
+		organizationId: doc.organizationId.toHexString(),
+		collectionGoal: doc.collectionGoal ?? null
 	};
 }
 
