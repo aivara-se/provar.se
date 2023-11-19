@@ -29,7 +29,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:0.18.0, @auth/core@npm:^0.18.0":
+"@auth/core@npm:0.18.0":
   version: 0.18.0
   resolution: "@auth/core@npm:0.18.0"
   dependencies:
@@ -48,7 +48,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:0.18.1":
+"@auth/core@npm:0.18.1, @auth/core@npm:^0.18.0":
   version: 0.18.1
   resolution: "@auth/core@npm:0.18.1"
   dependencies:
@@ -2422,17 +2422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flowbite@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "flowbite@npm:2.0.0"
-  dependencies:
-    "@popperjs/core": "npm:^2.9.3"
-    mini-svg-data-uri: "npm:^1.4.3"
-  checksum: b0f1abb48a325e868e7a64d4e042e2759bd141c64ae8fcf2f6d5737411246735ac040bb3a90593bc2750aa79c9032bda6ebc837b765322a8aeb1917e6e60b378
-  languageName: node
-  linkType: hard
-
-"flowbite@npm:^2.1.1":
+"flowbite@npm:^2.0.0, flowbite@npm:^2.1.1":
   version: 2.1.1
   resolution: "flowbite@npm:2.1.1"
   dependencies:
