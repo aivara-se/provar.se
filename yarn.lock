@@ -2413,6 +2413,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"flowbite@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "flowbite@npm:2.1.1"
+  dependencies:
+    "@popperjs/core": "npm:^2.9.3"
+    mini-svg-data-uri: "npm:^1.4.3"
+  checksum: c67c5e09b879fe5b314a608637ece98ab3610c02dd9001c7d8f89865e0c1b239db53f8097bb2f0f20455c6ad626277fb32e94a5c8eaeedd1a41473669d85683a
+  languageName: node
+  linkType: hard
+
 "foreground-child@npm:^3.1.0":
   version: 3.1.1
   resolution: "foreground-child@npm:3.1.1"
@@ -5156,7 +5166,7 @@ __metadata:
     eslint: "npm:^8.53.0"
     eslint-config-prettier: "npm:^9.0.0"
     eslint-plugin-svelte: "npm:^2.35.0"
-    flowbite: "npm:^2.0.0"
+    flowbite: "npm:^2.1.1"
     flowbite-svelte: "npm:^0.44.19"
     flowbite-svelte-blocks: "npm:^0.5.1"
     flowbite-svelte-icons: "npm:^0.4.5"
