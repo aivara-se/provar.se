@@ -2,7 +2,7 @@
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { Button, Input, Label } from 'flowbite-svelte';
+	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
 	import { CheckCircleOutline } from 'flowbite-svelte-icons';
 	import { selectedOrg } from '$lib/stores/selected-org';
 
@@ -33,7 +33,7 @@
 
 	<div class="mb-6">
 		<Label for="description" class="block mb-2">Description:</Label>
-		<Input id="description" required bind:value={description} />
+		<Textarea id="description" required bind:value={description} />
 	</div>
 
 	<div>
