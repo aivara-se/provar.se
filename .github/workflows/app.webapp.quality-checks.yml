@@ -6,7 +6,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - ".github/apps.webapp.*.yml"
+      - ".github/**"
       - "apps/webapp/**"
 
 concurrency:
