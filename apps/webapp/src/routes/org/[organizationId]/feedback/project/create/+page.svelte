@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { CenteredLayout } from '$lib/ui';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { Button, Input, Label } from 'flowbite-svelte';
+	import { Breadcrumb, BreadcrumbItem, Button, Heading, Input, Label } from 'flowbite-svelte';
 
 	let name = '';
 
@@ -21,6 +22,17 @@
 		applyAction(result);
 	}
 </script>
+
+<Breadcrumb class="mb-6">
+	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
+	<BreadcrumbItem href={`/org/${$page.params.organizationId}/feedback`}>Feedbacks</BreadcrumbItem>
+	<BreadcrumbItem href={`/org/${$page.params.organizationId}/feedback/project`}
+		>Projects</BreadcrumbItem
+	>
+	<BreadcrumbItem>Create Project</BreadcrumbItem>
+</Breadcrumb>
+
+<Heading customSize="mb-2 text-xl font-semibold">Create a project</Heading>
 
 <CenteredLayout>
 	<form method="POST" on:submit|preventDefault={submitForm}>

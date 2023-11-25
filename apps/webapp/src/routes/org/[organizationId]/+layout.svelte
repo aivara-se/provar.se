@@ -35,7 +35,8 @@
 		{
 			name: 'Home',
 			href: `/org/${$page.params.organizationId}`,
-			icon: HomeOutline
+			icon: HomeOutline,
+			matchExact: true
 		},
 		{
 			name: 'Overview',
@@ -43,13 +44,15 @@
 			icon: ChartMixedOutline
 		},
 		{
-			name: 'Feedback',
+			name: 'Feedbacks',
 			href: `/org/${$page.params.organizationId}/feedback`,
 			icon: MessagesOutline
 		}
 	].map((item) => ({
 		...item,
-		active: item.href === $page.url.pathname
+		active: item.matchExact
+			? item.href === $page.url.pathname
+			: $page.url.pathname.startsWith(item.href)
 	}));
 
 	/**
