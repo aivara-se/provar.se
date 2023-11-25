@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"provar.se/webapi/lib/database"
 )
@@ -52,11 +53,11 @@ type FeedbackTags map[string]string
 
 // FeedbackDocument is a MongoDB document for feedback
 type FeedbackDocument struct {
-	OrganizationID string       `bson:"organizationId"`
-	ProjectID      string       `bson:"projectId,omitempty"`
-	Type           FeedbackType `bson:"type"`
-	Data           FeedbackData `bson:"data"`
-	Tags           FeedbackTags `bson:"tags,omitempty"`
+	OrganizationID primitive.ObjectID `bson:"organizationId"`
+	ProjectID      string             `bson:"projectId,omitempty"`
+	Type           FeedbackType       `bson:"type"`
+	Data           FeedbackData       `bson:"data"`
+	Tags           FeedbackTags       `bson:"tags,omitempty"`
 }
 
 // FeedbackRepository is a repository for feedback
@@ -78,13 +79,17 @@ func GetFeedbackRepository() *FeedbackRepository {
 
 // CreateFeedback creates a feedback document in the database
 func (repo *FeedbackRepository) CreateFeedback(organizationID string, projectID string, feedbackType FeedbackType, feedbackData FeedbackData, feedbackTags FeedbackTags) error {
+	organizationIDAsObjectId, err := primitive.ObjectIDFromHex(organizationID)
+	if err != nil {
+		return err
+	}
 	doc := &FeedbackDocument{
-		OrganizationID: organizationID,
+		OrganizationID: organizationIDAsObjectId,
 		ProjectID:      projectID,
 		Type:           feedbackType,
 		Data:           feedbackData,
 		Tags:           feedbackTags,
 	}
-	_, err := repo.coll.InsertOne(context.TODO(), doc)
+	_, err = repo.coll.InsertOne(context.TODO(), doc)
 	return err
 }
