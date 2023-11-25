@@ -71,9 +71,16 @@ export interface UpdateProjectData {
 /**
  * Update project information in the database
  */
-export async function update(projectId: string, data: UpdateProjectData): Promise<void> {
+export async function update(
+	organizationId: string,
+	projectId: string,
+	data: UpdateProjectData
+): Promise<void> {
 	const coll = await getCollection();
-	coll.updateOne({ _id: new ObjectId(projectId) }, { $set: { name: data.name } });
+	coll.updateOne(
+		{ _id: new ObjectId(projectId), organizationId: new ObjectId(organizationId) },
+		{ $set: { name: data.name } }
+	);
 }
 
 /**
