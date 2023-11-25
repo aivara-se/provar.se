@@ -77,7 +77,7 @@ export async function update(
 	data: UpdateProjectData
 ): Promise<void> {
 	const coll = await getCollection();
-	coll.updateOne(
+	await coll.updateOne(
 		{ _id: new ObjectId(projectId), organizationId: new ObjectId(organizationId) },
 		{ $set: { name: data.name } }
 	);
