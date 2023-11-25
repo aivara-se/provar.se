@@ -43,6 +43,25 @@ describe('Project Repository', () => {
 		});
 	});
 
+	describe('update', () => {
+		it('should update an existing project', async () => {
+			const projectId = await projectRepository.create({
+				name: 'oldName',
+				organizationId: organizationId1.toHexString()
+			});
+			const organizationId = organizationId1.toHexString();
+			const newValues = { name: 'newName' };
+			await projectRepository.update(organizationId, projectId, newValues);
+			const result = await collection.findOne({ _id: new ObjectId(projectId) });
+			expect(result).toEqual(
+				expect.objectContaining({
+					name: 'newName',
+					organizationId: organizationId1
+				})
+			);
+		});
+	});
+
 	describe('findById', () => {
 		it('should return null if there are no matching documents', async () => {
 			const result = await projectRepository.findById(unknownId.toHexString());
