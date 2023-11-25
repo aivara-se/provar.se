@@ -62,6 +62,21 @@ export async function create(data: CreateProjectData): Promise<string> {
 }
 
 /**
+ * Update project information
+ */
+export interface UpdateProjectData {
+	name: string;
+}
+
+/**
+ * Update project information in the database
+ */
+export async function update(projectId: string, data: UpdateProjectData): Promise<void> {
+	const coll = await getCollection();
+	coll.updateOne({ _id: new ObjectId(projectId) }, { $set: { name: data.name } });
+}
+
+/**
  * Find a Project by id.
  */
 export async function findById(id: string): Promise<Project | null> {
