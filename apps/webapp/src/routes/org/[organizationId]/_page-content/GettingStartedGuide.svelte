@@ -3,7 +3,18 @@
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { Button, Heading, Input, Label, Modal, P, Timeline, TimelineItem } from 'flowbite-svelte';
+	import {
+		Breadcrumb,
+		BreadcrumbItem,
+		Button,
+		Heading,
+		Input,
+		Label,
+		Modal,
+		P,
+		Timeline,
+		TimelineItem
+	} from 'flowbite-svelte';
 	import { CheckCircleOutline } from 'flowbite-svelte-icons';
 
 	$: credentials = $page.data.credentials || [];
@@ -28,7 +39,12 @@
 	}
 </script>
 
-<Heading customSize="mb-6 text-xl font-semibold">Getting Started</Heading>
+<Breadcrumb class="mb-6">
+	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
+	<BreadcrumbItem>Getting Started</BreadcrumbItem>
+</Breadcrumb>
+
+<Heading customSize="mb-2 text-xl font-semibold">Getting started</Heading>
 
 <Timeline>
 	<TimelineItem title="Create an API key" date="Step 1">

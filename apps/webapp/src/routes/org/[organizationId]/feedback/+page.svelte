@@ -1,23 +1,28 @@
-<script lang="ts">
-	import { Button } from 'flowbite-svelte';
+<script>
 	import { page } from '$app/stores';
-	import type { Project } from '$lib/types';
-
-	$: projects = $page.data.projects || [];
-	$: projectListItems = projects.map((project: Project) => ({
-		name: project.name,
-		link: `/org/${project.organizationId}/feedback/project/${project.id}`
-	}));
-
-	$: createLink = `/org/${$page.params.organizationId}/feedback/project/create`;
+	import { Alert, Breadcrumb, BreadcrumbItem, Button, Heading } from 'flowbite-svelte';
+	import { InfoCircleSolid } from 'flowbite-svelte-icons';
 </script>
 
-<Button href={createLink}>Create Project</Button>
+<Breadcrumb class="mb-6">
+	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
+	<BreadcrumbItem>Feedbacks</BreadcrumbItem>
+</Breadcrumb>
 
-<ul>
-	{#each projectListItems as project}
-		<li>
-			<a href={project.link}>{project.name}</a>
-		</li>
-	{/each}
-</ul>
+<Heading customSize="mb-2 text-xl font-semibold">Feedbacks</Heading>
+
+<Alert color="blue" rounded={false} class="border-t-4 mb-6">
+	<InfoCircleSolid slot="icon" class="w-4 h-4" />
+	This page is under construction.
+</Alert>
+
+<div>
+	<Button
+		href={`/org/${$page.params.organizationId}/feedback/project`}
+		color="light"
+		size="sm"
+		outline
+	>
+		Go to projects
+	</Button>
+</div>
