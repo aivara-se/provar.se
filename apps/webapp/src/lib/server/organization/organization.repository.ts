@@ -63,7 +63,7 @@ export interface UpdateOrganizationData {
 }
 
 /**
- * Create a new organization in the database with the given information.
+ * Update organization in the database with the given information.
  */
 export async function update(orgId: string, data: UpdateOrganizationData): Promise<void> {
 	const coll = await getCollection();
