@@ -30,3 +30,9 @@ Start the application locally
 ```shell
 yarn dev
 ```
+
+## Run tests
+
+```shell
+yarn test:unit
+```
