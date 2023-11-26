@@ -54,7 +54,7 @@ function fromDocument(doc: FeedbackDocument): Feedback {
 		// TODO: Fix this any without writing unnecessary javascript code.
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		data: doc.data as any,
-		tags: doc.tags
+		tags: doc.tags || {}
 	};
 }
 
