@@ -1,7 +1,30 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
-	import { Alert, Breadcrumb, BreadcrumbItem, Button, Heading } from 'flowbite-svelte';
-	import { InfoCircleSolid } from 'flowbite-svelte-icons';
+	import type { Project } from '$lib/types';
+	import {
+		Breadcrumb,
+		BreadcrumbItem,
+		Button,
+		Heading,
+		Table,
+		TableBody,
+		TableBodyCell,
+		TableBodyRow,
+		TableHead,
+		TableHeadCell
+	} from 'flowbite-svelte';
+
+	$: feedbacks = $page.data.feedbacks;
+	$: projects = $page.data.projects;
+
+	function getProjectName(id: string) {
+		return projects.find((p: Project) => p.id === id)?.name || '-';
+	}
+
+	function getTimeString(ts: number) {
+		const date = new Date(ts);
+		return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+	}
 </script>
 
 <Breadcrumb class="mb-6">
@@ -11,10 +34,30 @@
 
 <Heading customSize="mb-2 text-xl font-semibold">Feedbacks</Heading>
 
-<Alert color="blue" rounded={false} class="border-t-4 mb-6">
-	<InfoCircleSolid slot="icon" class="w-4 h-4" />
-	This page is under construction.
-</Alert>
+<Table divClass="mb-6 border">
+	<TableHead>
+		<TableHeadCell>Created At</TableHeadCell>
+		<TableHeadCell>Type</TableHeadCell>
+		<TableHeadCell>Project</TableHeadCell>
+		<TableHeadCell>Tags</TableHeadCell>
+		<TableHeadCell>Feedback Data</TableHeadCell>
+	</TableHead>
+	<TableBody>
+		{#each feedbacks as feedback}
+			<TableBodyRow>
+				<TableBodyCell>{getTimeString(feedback.createdAt)}</TableBodyCell>
+				<TableBodyCell>{feedback.type}</TableBodyCell>
+				<TableBodyCell>{getProjectName(feedback.projectId)}</TableBodyCell>
+				<TableBodyCell>
+					<code>{JSON.stringify(feedback.tags)}</code>
+				</TableBodyCell>
+				<TableBodyCell>
+					<code>{JSON.stringify(feedback.data)}</code>
+				</TableBodyCell>
+			</TableBodyRow>
+		{/each}
+	</TableBody>
+</Table>
 
 <div>
 	<Button
