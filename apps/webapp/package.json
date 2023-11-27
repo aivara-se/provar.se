@@ -17,7 +17,7 @@
 		"test:unit": "vitest"
 	},
 	"dependencies": {
-		"@auth/core": "^0.18.0",
+		"@auth/core": "^0.18.3",
 		"@auth/mongodb-adapter": "^2.0.3",
 		"@auth/sveltekit": "^0.3.12",
 		"@provar/provar-js": "^1.1.1",
