@@ -1,7 +1,20 @@
 <script lang="ts">
+	import { applyAction, deserialize } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { Project } from '$lib/types';
-	import { Breadcrumb, BreadcrumbItem, Button, Card, Heading, Progressbar } from 'flowbite-svelte';
+	import type { ActionResult } from '@sveltejs/kit';
+	import {
+		Breadcrumb,
+		BreadcrumbItem,
+		Button,
+		Card,
+		Heading,
+		Input,
+		Label,
+		Modal,
+		Progressbar
+	} from 'flowbite-svelte';
 
 	$: projects = $page.data.projects || [];
 	$: projectListItems = projects.map((project: Project) => ({
@@ -9,7 +22,24 @@
 		link: `/org/${project.organizationId}/project/${project.id}`
 	}));
 
-	$: createLink = `/org/${$page.params.organizationId}/project/create`;
+	let isCreateModalOpen = false;
+
+	let name = '';
+
+	async function createProject() {
+		const data = new FormData();
+		data.set('name', name);
+		const action = `/org/${$page.params.organizationId}/project`;
+		const response = await fetch(action, {
+			method: 'POST',
+			body: data
+		});
+		const result: ActionResult = deserialize(await response.text());
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+		applyAction(result);
+	}
 </script>
 
 <Breadcrumb class="mb-6">
@@ -33,8 +63,18 @@
 </section>
 
 <section>
-	<Button href={createLink} color="light" size="sm" outline>Create new project</Button>
+	<Button color="light" size="xs" on:click={() => (isCreateModalOpen = true)}>
+		+ Create project
+	</Button>
 </section>
+
+<Modal title="Create Project" bind:open={isCreateModalOpen} autoclose>
+	<Label for="name" class="block mb-2">Name:</Label>
+	<Input id="name" required bind:value={name} />
+	<svelte:fragment slot="footer">
+		<Button size="sm" color="primary" on:click={createProject}>Create</Button>
+	</svelte:fragment>
+</Modal>
 
 <style>
 	.project-item {
