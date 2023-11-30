@@ -13,9 +13,14 @@ const MinimalTextFeedback = `{
 	"data": { "text": "This is a test feedback" }
 }`
 
-const MinimalRateFeedback = `{
-	"type": "rate",
-	"data": { "rate": 0.75 }
+const MinimalCNPSFeedback = `{
+	"type": "cnps",
+	"data": { "cnps": 0.8 }
+}`
+
+const MinimalCSATFeedback = `{
+	"type": "csat",
+	"data": { "csat": 0.7 }
 }`
 
 const FeedbackWithProjectID = `{
@@ -48,8 +53,18 @@ func TestCreateFeedback(t *testing.T) {
 		}
 	})
 
-	t.Run("success - rate", func(t *testing.T) {
-		req := httptest.NewRequest("POST", "/feedback", strings.NewReader(MinimalRateFeedback))
+	t.Run("success - cnps", func(t *testing.T) {
+		req := httptest.NewRequest("POST", "/feedback", strings.NewReader(MinimalCNPSFeedback))
+		req.Header.Add("content-type", "application/json")
+		req.Header.Add("authorization", "bearer test-api-key")
+		res, _ := app.Test(req, -1)
+		if res.StatusCode != 204 {
+			t.Fail()
+		}
+	})
+
+	t.Run("success - csat", func(t *testing.T) {
+		req := httptest.NewRequest("POST", "/feedback", strings.NewReader(MinimalCSATFeedback))
 		req.Header.Add("content-type", "application/json")
 		req.Header.Add("authorization", "bearer test-api-key")
 		res, _ := app.Test(req, -1)

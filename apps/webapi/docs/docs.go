@@ -92,7 +92,8 @@ const docTemplate = `{
                 "type": {
                     "enum": [
                         "text",
-                        "rate"
+                        "cnps",
+                        "csat"
                     ],
                     "allOf": [
                         {
@@ -105,7 +106,10 @@ const docTemplate = `{
         "repository.FeedbackData": {
             "type": "object",
             "properties": {
-                "rate": {
+                "cnps": {
+                    "type": "number"
+                },
+                "csat": {
                     "type": "number"
                 },
                 "text": {
@@ -123,11 +127,13 @@ const docTemplate = `{
             "type": "string",
             "enum": [
                 "text",
-                "rate"
+                "cnps",
+                "csat"
             ],
             "x-enum-varnames": [
                 "FeedbackTypeText",
-                "FeedbackTypeRate"
+                "FeedbackTypeCNPS",
+                "FeedbackTypeCSAT"
             ]
         }
     }

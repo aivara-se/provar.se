@@ -8,6 +8,6 @@ export const actions: Actions = {
 		const data = await event.request.formData();
 		const name = data.get('name') as string;
 		const projectId = await ProjectRepository.create({ name, organizationId: organization.id });
-		throw redirect(303, `/org/${organization.id}/feedback/project/${projectId}`);
+		throw redirect(303, `/org/${organization.id}/project/${projectId}`);
 	}
 };

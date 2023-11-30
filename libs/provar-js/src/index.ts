@@ -1,5 +1,12 @@
 import fetch from 'isomorphic-fetch';
-import { FeedbackType, type Feedback, FeedbackTags, TextFeedback, RateFeedback } from './types.js';
+import {
+	CNPSFeedback,
+	CSATFeedback,
+	FeedbackTags,
+	FeedbackType,
+	TextFeedback,
+	type Feedback
+} from './types.js';
 
 /**
  * config is the configuration for the library.
@@ -92,10 +99,18 @@ export class ProvarClient {
 	}
 
 	/**
-	 * Sends a rate feedback message to the Provar API.
+	 * Sends a cNPS feedback message to the Provar API.
 	 */
-	async sendRate(rate: number, projectId?: string, tags?: FeedbackTags): Promise<void> {
-		const feedback: RateFeedback = { type: FeedbackType.Rate, data: { rate } };
+	async sendCNPS(cnps: number, projectId?: string, tags?: FeedbackTags): Promise<void> {
+		const feedback: CNPSFeedback = { type: FeedbackType.CNPS, data: { cnps } };
+		await this.send(feedback, projectId, tags);
+	}
+
+	/**
+	 * Sends a CSAT feedback message to the Provar API.
+	 */
+	async sendCSAT(csat: number, projectId?: string, tags?: FeedbackTags): Promise<void> {
+		const feedback: CSATFeedback = { type: FeedbackType.CSAT, data: { csat } };
 		await this.send(feedback, projectId, tags);
 	}
 

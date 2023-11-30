@@ -8,13 +8,13 @@
 
 <Breadcrumb class="mb-6">
 	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
-	<BreadcrumbItem>Getting Started</BreadcrumbItem>
+	<BreadcrumbItem>Preferences</BreadcrumbItem>
 </Breadcrumb>
 
 <Heading customSize="mb-2 text-xl font-semibold">Preferences</Heading>
 
 <Tabs style="underline">
-	<TabItem open title="Settings"><OrganizationTabContent /></TabItem>
+	<TabItem open title="Organization"><OrganizationTabContent /></TabItem>
 	<TabItem title="Members"><MembersTabContent /></TabItem>
 	<TabItem title="API Keys"><CredentialsTabContent /></TabItem>
 </Tabs>
