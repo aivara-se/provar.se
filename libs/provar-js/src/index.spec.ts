@@ -25,12 +25,20 @@ describe('ProvarClient', () => {
 		expect(requests[0]).toEqual({ type: 'text', data: { text: 'test feedback' } });
 	});
 
-	it('sends a text feedback with required fields', async () => {
+	it('sends a cNPS feedback with required fields', async () => {
 		fetcher.mockRequest('POST', '/feedback', { success: true });
-		await client.sendRate(0.8);
+		await client.sendCNPS(0.8);
 		const requests = fetcher.getRequests('POST', '/feedback');
 		expect(requests.length).toBe(1);
-		expect(requests[0]).toEqual({ type: 'rate', data: { rate: 0.8 } });
+		expect(requests[0]).toEqual({ type: 'cnps', data: { cnps: 0.8 } });
+	});
+
+	it('sends a CSAT feedback with required fields', async () => {
+		fetcher.mockRequest('POST', '/feedback', { success: true });
+		await client.sendCSAT(0.8);
+		const requests = fetcher.getRequests('POST', '/feedback');
+		expect(requests.length).toBe(1);
+		expect(requests[0]).toEqual({ type: 'csat', data: { csat: 0.8 } });
 	});
 
 	it('sends a text feedback with project id and tags', async () => {

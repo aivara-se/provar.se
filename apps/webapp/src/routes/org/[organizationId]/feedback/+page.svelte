@@ -4,7 +4,6 @@
 	import {
 		Breadcrumb,
 		BreadcrumbItem,
-		Button,
 		Heading,
 		Table,
 		TableBody,
@@ -29,10 +28,10 @@
 
 <Breadcrumb class="mb-6">
 	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
-	<BreadcrumbItem>Feedbacks</BreadcrumbItem>
+	<BreadcrumbItem>Feedback</BreadcrumbItem>
 </Breadcrumb>
 
-<Heading customSize="mb-2 text-xl font-semibold">Feedbacks</Heading>
+<Heading customSize="mb-2 text-xl font-semibold">Feedback</Heading>
 
 <Table divClass="mb-6 border">
 	<TableHead>
@@ -58,14 +57,3 @@
 		{/each}
 	</TableBody>
 </Table>
-
-<div>
-	<Button
-		href={`/org/${$page.params.organizationId}/feedback/project`}
-		color="light"
-		size="sm"
-		outline
-	>
-		Go to projects
-	</Button>
-</div>
