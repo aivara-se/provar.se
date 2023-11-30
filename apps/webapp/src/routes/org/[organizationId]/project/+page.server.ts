@@ -1,10 +1,13 @@
+import { ProjectRepository, getSelectedOrganization } from '$lib/server';
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import type { Actions } from './$types';
 
-export const load: PageServerLoad = async (event) => {
-	const { organization, projects } = await event.parent();
-	if (projects.length === 0) {
-		throw redirect(302, `/org/${organization.id}/project/create`);
+export const actions: Actions = {
+	default: async (event) => {
+		const organization = await getSelectedOrganization(event);
+		const data = await event.request.formData();
+		const name = data.get('name') as string;
+		const projectId = await ProjectRepository.create({ name, organizationId: organization.id });
+		throw redirect(303, `/org/${organization.id}/project/${projectId}`);
 	}
-	return {};
 };
