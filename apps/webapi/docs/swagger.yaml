@@ -12,14 +12,17 @@ definitions:
         - $ref: '#/definitions/repository.FeedbackType'
         enum:
         - text
-        - rate
+        - cnps
+        - csat
     required:
     - data
     - type
     type: object
   repository.FeedbackData:
     properties:
-      rate:
+      cnps:
+        type: number
+      csat:
         type: number
       text:
         type: string
@@ -31,11 +34,13 @@ definitions:
   repository.FeedbackType:
     enum:
     - text
-    - rate
+    - cnps
+    - csat
     type: string
     x-enum-varnames:
     - FeedbackTypeText
-    - FeedbackTypeRate
+    - FeedbackTypeCNPS
+    - FeedbackTypeCSAT
 info:
   contact: {}
 paths:
