@@ -81,7 +81,8 @@
                 "type": {
                     "enum": [
                         "text",
-                        "rate"
+                        "cnps",
+                        "csat"
                     ],
                     "allOf": [
                         {
@@ -94,7 +95,10 @@
         "repository.FeedbackData": {
             "type": "object",
             "properties": {
-                "rate": {
+                "cnps": {
+                    "type": "number"
+                },
+                "csat": {
                     "type": "number"
                 },
                 "text": {
@@ -112,11 +116,13 @@
             "type": "string",
             "enum": [
                 "text",
-                "rate"
+                "cnps",
+                "csat"
             ],
             "x-enum-varnames": [
                 "FeedbackTypeText",
-                "FeedbackTypeRate"
+                "FeedbackTypeCNPS",
+                "FeedbackTypeCSAT"
             ]
         }
     }

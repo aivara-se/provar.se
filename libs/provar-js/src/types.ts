@@ -4,7 +4,8 @@
  */
 export enum FeedbackType {
 	Text = 'text',
-	Rate = 'rate'
+	CNPS = 'cnps',
+	CSAT = 'csat'
 }
 
 /**
@@ -39,21 +40,36 @@ export interface TextFeedback extends BaseFeedback {
 }
 
 /**
- * Data stored in the database for rate feedback.
+ * Data stored in the database for cNPS feedback.
  */
-export interface RateFeedbackData {
-	rate: number;
+export interface CNPSFeedbackData {
+	cnps: number;
 }
 
 /**
- * A feedback type that stores a single text field.
+ * A feedback type that stores a single cNPS value.
  */
-export interface RateFeedback extends BaseFeedback {
-	type: FeedbackType.Rate;
-	data: RateFeedbackData;
+export interface CNPSFeedback extends BaseFeedback {
+	type: FeedbackType.CNPS;
+	data: CNPSFeedbackData;
+}
+
+/**
+ * Data stored in the database for CSAT feedback.
+ */
+export interface CSATFeedbackData {
+	csat: number;
+}
+
+/**
+ * A feedback type that stores a single CSAT value.
+ */
+export interface CSATFeedback extends BaseFeedback {
+	type: FeedbackType.CSAT;
+	data: CSATFeedbackData;
 }
 
 /**
  * A union type of all available feedback types.
  */
-export type Feedback = TextFeedback | RateFeedback;
+export type Feedback = TextFeedback | CNPSFeedback | CSATFeedback;

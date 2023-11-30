@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { LSidebarLayout } from '$lib/ui';
-	import { sendTextFeedback } from '$lib/provar';
-	import { Button, Modal, Textarea } from 'flowbite-svelte';
+	import { signOut } from '@auth/sveltekit/client';
 	import {
 		AdjustmentsHorizontalOutline,
 		ChartMixedOutline,
-		CheckCircleOutline,
-		HomeOutline,
+		ClockOutline,
 		MessageDotsOutline,
 		MessagesOutline,
+		UserHeadsetOutline,
 		UserSettingsOutline
 	} from 'flowbite-svelte-icons';
 	import type { LayoutData } from './$types';
@@ -19,40 +18,33 @@
 
 	export let data: LayoutData;
 
-	let feedbackMessage = '';
-	let feedbackModalVisible = false;
-
-	async function sendUserFeedback() {
-		await sendTextFeedback(feedbackMessage);
-		feedbackMessage = '';
-		feedbackModalVisible = false;
-	}
-
 	/**
 	 * Navigation items
 	 */
 	$: navigationItems = [
-		{
-			name: 'Home',
-			href: `/org/${$page.params.organizationId}`,
-			icon: HomeOutline,
-			matchExact: true
-		},
 		{
 			name: 'Overview',
 			href: `/org/${$page.params.organizationId}/overview`,
 			icon: ChartMixedOutline
 		},
 		{
-			name: 'Feedbacks',
+			name: 'Feedback',
 			href: `/org/${$page.params.organizationId}/feedback`,
 			icon: MessagesOutline
+		},
+		{
+			name: 'Projects',
+			href: `/org/${$page.params.organizationId}/project`,
+			icon: ClockOutline
+		},
+		{
+			name: 'Preferences',
+			href: `/org/${$page.params.organizationId}/preferences`,
+			icon: AdjustmentsHorizontalOutline
 		}
 	].map((item) => ({
 		...item,
-		active: item.matchExact
-			? item.href === $page.url.pathname
-			: $page.url.pathname.startsWith(item.href)
+		active: $page.url.pathname.startsWith(item.href)
 	}));
 
 	/**
@@ -61,24 +53,20 @@
 	$: userActionItems = [
 		{
 			name: 'Profile',
-			href: `/auth/logout`,
+			onClick: () => signOut(),
 			icon: UserSettingsOutline
 		},
 		{
-			name: 'Preferences',
-			href: `/org/${$page.params.organizationId}/preferences`,
-			icon: AdjustmentsHorizontalOutline
+			name: 'Chat UI',
+			onClick: () => alert('Chat UI'),
+			icon: MessageDotsOutline
 		},
 		{
-			name: 'Chat UI',
-			onClick: () => (feedbackModalVisible = true),
-			active: feedbackModalVisible,
-			icon: MessageDotsOutline
+			name: 'Support',
+			onClick: () => alert('Support'),
+			icon: UserHeadsetOutline
 		}
-	].map((item) => ({
-		...item,
-		active: item.active || item.href === $page.url.pathname
-	}));
+	];
 </script>
 
 <LSidebarLayout>
@@ -95,20 +83,3 @@
 		<slot />
 	</svelte:fragment>
 </LSidebarLayout>
-
-<Modal title="Send Feedback" bind:open={feedbackModalVisible} autoclose>
-	<Textarea
-		id="message"
-		placeholder="Your message"
-		rows="4"
-		name="message"
-		required
-		bind:value={feedbackMessage}
-	/>
-	<svelte:fragment slot="footer">
-		<Button size="xs" color="primary" on:click={sendUserFeedback}>
-			Send Feedback &nbsp;
-			<CheckCircleOutline class="w-3 h-3 mr-1" />
-		</Button>
-	</svelte:fragment>
-</Modal>

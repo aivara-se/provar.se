@@ -1,5 +1,11 @@
 import { getMongoClient } from '$lib/server/database';
-import type { FeedbackType, Feedback, RateFeedbackData, TextFeedbackData } from '$lib/types';
+import type {
+	FeedbackType,
+	Feedback,
+	TextFeedbackData,
+	CNPSFeedbackData,
+	CSATFeedbackData
+} from '$lib/types';
 import { ObjectId, type Collection } from 'mongodb';
 
 /**
@@ -29,17 +35,25 @@ interface TextFeedbackDocument extends BaseFeedbackDocument {
 }
 
 /**
- * Type for the variant of the document that stores text feedback.
+ * Type for the variant of the document that stores cNPS feedback.
  */
-interface RateFeedbackDocument extends BaseFeedbackDocument {
-	type: FeedbackType.Rate;
-	data: RateFeedbackData;
+interface CNPSFeedbackDocument extends BaseFeedbackDocument {
+	type: FeedbackType.CNPS;
+	data: CNPSFeedbackData;
+}
+
+/**
+ * Type for the variant of the document that stores CSAT feedback.
+ */
+interface CSATFeedbackDocument extends BaseFeedbackDocument {
+	type: FeedbackType.CSAT;
+	data: CSATFeedbackData;
 }
 
 /**
  * Type for the MongoDB document for feedback in db.
  */
-type FeedbackDocument = TextFeedbackDocument | RateFeedbackDocument;
+type FeedbackDocument = TextFeedbackDocument | CNPSFeedbackDocument | CSATFeedbackDocument;
 
 /**
  * Convert a feedback document from the db to Feedback.
