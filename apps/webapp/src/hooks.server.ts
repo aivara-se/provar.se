@@ -65,7 +65,9 @@ const sveltekitauth = SvelteKitAuth({
 	trustHost: true,
 	callbacks: {
 		async session({ session, token }) {
-			session.user.id = token.sub as string;
+			if (session.user) {
+				session.user.id = token.sub as string;
+			}
 			return session;
 		}
 	}
