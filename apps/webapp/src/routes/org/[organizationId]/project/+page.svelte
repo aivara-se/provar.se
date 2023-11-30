@@ -6,15 +6,14 @@
 	$: projects = $page.data.projects || [];
 	$: projectListItems = projects.map((project: Project) => ({
 		name: project.name,
-		link: `/org/${project.organizationId}/feedback/project/${project.id}`
+		link: `/org/${project.organizationId}/project/${project.id}`
 	}));
 
-	$: createLink = `/org/${$page.params.organizationId}/feedback/project/create`;
+	$: createLink = `/org/${$page.params.organizationId}/project/create`;
 </script>
 
 <Breadcrumb class="mb-6">
 	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
-	<BreadcrumbItem href={`/org/${$page.params.organizationId}/feedback`}>Feedbacks</BreadcrumbItem>
 	<BreadcrumbItem>Projects</BreadcrumbItem>
 </Breadcrumb>
 
