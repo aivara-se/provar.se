@@ -1,4 +1,4 @@
-import { CredentialRepository } from '$lib/server';
+import { CredentialRepository, ProjectRepository } from '$lib/server';
 import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
@@ -11,6 +11,9 @@ export const load: LayoutServerLoad = async (event) => {
 	if (!organization) {
 		throw error(403);
 	}
-	const credentials = await CredentialRepository.findByOrganization(organization.id);
-	return { organization, credentials };
+	const [credentials, projects] = await Promise.all([
+		CredentialRepository.findByOrganization(organization.id),
+		ProjectRepository.findByOrganization(organization.id)
+	]);
+	return { organization, credentials, projects };
 };

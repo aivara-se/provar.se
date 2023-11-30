@@ -15,7 +15,6 @@
 		Timeline,
 		TimelineItem
 	} from 'flowbite-svelte';
-	import { CheckCircleOutline } from 'flowbite-svelte-icons';
 
 	$: credentials = $page.data.credentials || [];
 
@@ -62,8 +61,7 @@
 				started.
 			</P>
 			<Button size="xs" color="light" on:click={() => (isCreateModalOpen = true)}>
-				Create an API Key &nbsp;
-				<CheckCircleOutline class="w-3 h-3 mr-1" />
+				+ Create API Key
 			</Button>
 		{/if}
 	</TimelineItem>
@@ -93,9 +91,6 @@ await provarClient.sendText('My feedback');</pre>
 	<Label for="name" class="block mb-2">Name:</Label>
 	<Input id="name" required bind:value={credentialName} />
 	<svelte:fragment slot="footer">
-		<Button size="xs" color="dark" on:click={createCredential}>
-			Create API Key &nbsp;
-			<CheckCircleOutline class="w-3 h-3 mr-1" />
-		</Button>
+		<Button size="sm" color="primary" on:click={createCredential}>Create</Button>
 	</svelte:fragment>
 </Modal>

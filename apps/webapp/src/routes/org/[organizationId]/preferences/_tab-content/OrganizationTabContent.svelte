@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import { selectedOrg } from '$lib/stores/selected-org';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
-	import { CheckCircleOutline } from 'flowbite-svelte-icons';
-	import { selectedOrg } from '$lib/stores/selected-org';
 
 	let name = $selectedOrg?.name || '';
 	let description = $selectedOrg?.description || '';
@@ -37,9 +36,6 @@
 	</div>
 
 	<div>
-		<Button type="submit" size="xs" color="dark">
-			Update organization &nbsp;
-			<CheckCircleOutline class="w-3 h-3 mr-1" />
-		</Button>
+		<Button type="submit" size="sm" color="primary">Update</Button>
 	</div>
 </form>

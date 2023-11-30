@@ -18,7 +18,6 @@
 		TableHead,
 		TableHeadCell
 	} from 'flowbite-svelte';
-	import { CheckCircleOutline } from 'flowbite-svelte-icons';
 
 	let name = '';
 
@@ -72,13 +71,6 @@
 		application access to our platform's features.
 	</P>
 
-	<section class="create-credentials mt-6">
-		<Button size="xs" color="light" on:click={() => (isCreateModalOpen = true)}>
-			Create an API Key &nbsp;
-			<CheckCircleOutline class="w-3 h-3 mr-1" />
-		</Button>
-	</section>
-
 	{#if credentials.length > 0}
 		<section class="current-credentials mt-6">
 			<Table hoverable>
@@ -107,14 +99,17 @@
 	{/if}
 </section>
 
+<section class="create-credentials mt-6">
+	<Button size="xs" color="light" on:click={() => (isCreateModalOpen = true)}>
+		+ Create API Key
+	</Button>
+</section>
+
 <Modal title="Create API Key" bind:open={isCreateModalOpen} autoclose>
 	<Label for="name" class="block mb-2">Name:</Label>
 	<Input id="name" required bind:value={name} />
 	<svelte:fragment slot="footer">
-		<Button size="xs" color="dark" on:click={createCredential}>
-			Create API Key &nbsp;
-			<CheckCircleOutline class="w-3 h-3 mr-1" />
-		</Button>
+		<Button size="sm" color="primary" on:click={createCredential}>Create</Button>
 	</svelte:fragment>
 </Modal>
 
@@ -126,7 +121,7 @@
 		</code>
 	</P>
 	<svelte:fragment slot="footer">
-		<Button size="xs" color="red" on:click={() => revokeCredential(selectedCredential.id)}>
+		<Button size="sm" color="red" on:click={() => revokeCredential(selectedCredential.id)}>
 			Revoke
 		</Button>
 	</svelte:fragment>
