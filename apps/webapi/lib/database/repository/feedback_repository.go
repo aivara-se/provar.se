@@ -24,7 +24,8 @@ type FeedbackType string
 
 const (
 	FeedbackTypeText FeedbackType = "text"
-	FeedbackTypeRate FeedbackType = "rate"
+	FeedbackTypeCNPS FeedbackType = "cnps"
+	FeedbackTypeCSAT FeedbackType = "csat"
 )
 
 // String returns the string representation of a FeedbackType
@@ -37,15 +38,21 @@ type FeedbackTextData struct {
 	Text string `bson:"text"`
 }
 
-// FeedbackRateData is the data stored for for a rating feedback
-type FeedbackRateData struct {
-	Rate float64 `bson:"rate"`
+// FeedbackCNPSData is the data stored for for a rating feedback
+type FeedbackCNPSData struct {
+	CNPS float64 `bson:"cnps"`
+}
+
+// FeedbackCSATData is the data stored for for a rating feedback
+type FeedbackCSATData struct {
+	CSAT float64 `bson:"csat"`
 }
 
 // FeedbackData is the data for a feedback stored in the database
 type FeedbackData struct {
 	*FeedbackTextData `bson:"inline"`
-	*FeedbackRateData `bson:"inline"`
+	*FeedbackCNPSData `bson:"inline"`
+	*FeedbackCSATData `bson:"inline"`
 }
 
 // FeedbackTags is metadata for a feedback stored in the database
