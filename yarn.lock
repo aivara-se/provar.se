@@ -2416,7 +2416,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flowbite-svelte@npm:^0.44.20":
+"flowbite-svelte@npm:^0.44.20, flowbite-svelte@npm:^0.44.4":
   version: 0.44.20
   resolution: "flowbite-svelte@npm:0.44.20"
   dependencies:
@@ -2430,20 +2430,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flowbite-svelte@npm:^0.44.4":
-  version: 0.44.19
-  resolution: "flowbite-svelte@npm:0.44.19"
-  dependencies:
-    "@floating-ui/dom": "npm:^1.5.3"
-    apexcharts: "npm:^3.44.0"
-    flowbite: "npm:^2.0.0"
-    tailwind-merge: "npm:^2.0.0"
-  peerDependencies:
-    svelte: ^4.0.0
-  checksum: f691ec6c8a71991875bb774ed0da8d1f9f9d697bed2c983c5f16bf3d8fad2cba89766e9f0ea4e4d9aebc020d9d273c0df5147d9d412883ddc6491fd8a4a9bfe1
-  languageName: node
-  linkType: hard
-
 "flowbite@npm:^1.8.1":
   version: 1.8.1
   resolution: "flowbite@npm:1.8.1"
@@ -2454,17 +2440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flowbite@npm:^2.0.0, flowbite@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "flowbite@npm:2.1.1"
-  dependencies:
-    "@popperjs/core": "npm:^2.9.3"
-    mini-svg-data-uri: "npm:^1.4.3"
-  checksum: c67c5e09b879fe5b314a608637ece98ab3610c02dd9001c7d8f89865e0c1b239db53f8097bb2f0f20455c6ad626277fb32e94a5c8eaeedd1a41473669d85683a
-  languageName: node
-  linkType: hard
-
-"flowbite@npm:^2.2.0":
+"flowbite@npm:^2.1.1, flowbite@npm:^2.2.0":
   version: 2.2.0
   resolution: "flowbite@npm:2.2.0"
   dependencies:
