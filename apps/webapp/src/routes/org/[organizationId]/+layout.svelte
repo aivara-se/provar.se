@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { LSidebarLayout } from '$lib/ui';
 	import { sendTextFeedback } from '$lib/provar';
+	import { LSidebarLayout } from '$lib/ui';
 	import { Button, Modal, Textarea } from 'flowbite-svelte';
 	import {
 		AdjustmentsHorizontalOutline,
 		ChartMixedOutline,
 		CheckCircleOutline,
-		HomeOutline,
+		ClockOutline,
 		MessageDotsOutline,
 		MessagesOutline,
 		UserSettingsOutline
@@ -41,6 +41,11 @@
 			name: 'Feedbacks',
 			href: `/org/${$page.params.organizationId}/feedback`,
 			icon: MessagesOutline
+		},
+		{
+			name: 'Projects',
+			href: `/org/${$page.params.organizationId}/project`,
+			icon: ClockOutline
 		}
 	].map((item) => ({
 		...item,

@@ -8,10 +8,7 @@
 
 <Breadcrumb class="mb-6">
 	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
-	<BreadcrumbItem href={`/org/${$page.params.organizationId}/feedback`}>Feedbacks</BreadcrumbItem>
-	<BreadcrumbItem href={`/org/${$page.params.organizationId}/feedback/project`}>
-		Projects
-	</BreadcrumbItem>
+	<BreadcrumbItem href={`/org/${$page.params.organizationId}/project`}>Projects</BreadcrumbItem>
 	<BreadcrumbItem>{project?.name}</BreadcrumbItem>
 </Breadcrumb>
 
