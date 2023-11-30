@@ -33,12 +33,6 @@
 	 */
 	$: navigationItems = [
 		{
-			name: 'Home',
-			href: `/org/${$page.params.organizationId}`,
-			icon: HomeOutline,
-			matchExact: true
-		},
-		{
 			name: 'Overview',
 			href: `/org/${$page.params.organizationId}/overview`,
 			icon: ChartMixedOutline
@@ -50,9 +44,7 @@
 		}
 	].map((item) => ({
 		...item,
-		active: item.matchExact
-			? item.href === $page.url.pathname
-			: $page.url.pathname.startsWith(item.href)
+		active: $page.url.pathname.startsWith(item.href)
 	}));
 
 	/**
