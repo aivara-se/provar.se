@@ -7,17 +7,17 @@ import (
 	"provar.se/webapi/lib/validator"
 )
 
-// RequestBody is the request body for creating a feedback event
-type RequestBody struct {
+// CreateFeedbackRequestBody is the request body for creating a feedback event
+type CreateFeedbackRequestBody struct {
 	ProjectID string                  `json:"projectId"`
 	Type      repository.FeedbackType `json:"type" validate:"required,oneof=text cnps csat"`
 	Data      repository.FeedbackData `json:"data" validate:"required"`
 	Tags      repository.FeedbackTags `json:"tags"`
 }
 
-// NewRequestBody returns a new RequestBody for parsing and validating
-func NewRequestBody() interface{} {
-	return new(RequestBody)
+// NewCreateFeedbackRequestBody returns a new RequestBody for parsing and validating
+func NewCreateFeedbackRequestBody() interface{} {
+	return new(CreateFeedbackRequestBody)
 }
 
 // @Router      /feedback  [post]
@@ -29,14 +29,23 @@ func NewRequestBody() interface{} {
 // @Success     204  "ok"
 func SetupCreateFeedback(app *fiber.App) {
 	app.Post("/feedback", credential.GetMiddleware())
-	app.Post("/feedback", validator.GetMiddleware(NewRequestBody))
+	app.Post("/feedback", validator.GetMiddleware(NewCreateFeedbackRequestBody))
 
 	app.Post("/feedback", func(c *fiber.Ctx) error {
 		organizationID := credential.GetOrganizationID(c)
-		body := validator.GetRequestBody(c).(*RequestBody)
+		body := validator.GetRequestBody(c).(*CreateFeedbackRequestBody)
 		repo := repository.GetFeedbackRepository()
-		err := repo.CreateFeedback(organizationID, body.ProjectID, body.Type, body.Data, body.Tags)
-		if err != nil {
+		data := repository.CreateFeedbackData{
+			OrganizationID: organizationID,
+			ProjectID:      body.ProjectID,
+			Type:           body.Type,
+			Data:           body.Data,
+			Tags:           body.Tags,
+		}
+		if err := data.Validate(); err != nil {
+			return c.SendStatus(fiber.StatusBadRequest)
+		}
+		if err := repo.CreateFeedback(data); err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}
 		return c.SendStatus(fiber.StatusNoContent)

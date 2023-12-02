@@ -49,6 +49,7 @@ func CreateApp() *fiber.App {
 
 	// Load all app routes
 	feedback.SetupCreateFeedback(app)
+	feedback.SetupImportFeedback(app)
 	health.SetupBasicHealthcheck(app)
 	health.SetupSecureHealthcheck(app)
 

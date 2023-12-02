@@ -24,7 +24,7 @@ const MinimalCSATFeedback = `{
 }`
 
 const FeedbackWithProjectID = `{
-	"projectId": "test-project-id",
+	"projectId": "507f1f77bcf86cd799439011",
 	"type": "text",
 	"data": { "text": "This is a test feedback" },
 	"tags": { "country": "LK" }

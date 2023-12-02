@@ -62,6 +62,17 @@ paths:
       summary: Create a new feedback event for an organization.
       tags:
       - feedback
+  /feedback/import:
+    post:
+      consumes:
+      - application/json
+      description: Imports feedback from an uploaded CSV file.
+      responses:
+        "204":
+          description: ok
+      summary: Imports feedback from an uploaded CSV file.
+      tags:
+      - feedback
   /ping:
     get:
       description: Ensure that the service can be reached.

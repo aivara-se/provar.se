@@ -33,26 +33,12 @@ func (t FeedbackType) String() string {
 	return string(t)
 }
 
-// FeedbackTextData is the data stored for for a text feedback
-type FeedbackTextData struct {
-	Text string `bson:"text"`
-}
-
-// FeedbackCNPSData is the data stored for for a rating feedback
-type FeedbackCNPSData struct {
-	CNPS float64 `bson:"cnps"`
-}
-
-// FeedbackCSATData is the data stored for for a rating feedback
-type FeedbackCSATData struct {
-	CSAT float64 `bson:"csat"`
-}
-
 // FeedbackData is the data for a feedback stored in the database
+// Which fields are available depends on the feedback type.
 type FeedbackData struct {
-	*FeedbackTextData `bson:"inline"`
-	*FeedbackCNPSData `bson:"inline"`
-	*FeedbackCSATData `bson:"inline"`
+	Text string  `bson:"text,omitempty"`
+	CSAT float64 `bson:"csat,omitempty" validate:"gte=0,lte=1"`
+	CNPS float64 `bson:"cnps,omitempty" validate:"gte=0,lte=1"`
 }
 
 // FeedbackTags is metadata for a feedback stored in the database
@@ -61,7 +47,7 @@ type FeedbackTags map[string]string
 // FeedbackDocument is a MongoDB document for feedback
 type FeedbackDocument struct {
 	OrganizationID primitive.ObjectID `bson:"organizationId"`
-	ProjectID      string             `bson:"projectId,omitempty"`
+	ProjectID      primitive.ObjectID `bson:"projectId,omitempty"`
 	Type           FeedbackType       `bson:"type"`
 	Data           FeedbackData       `bson:"data"`
 	Tags           FeedbackTags       `bson:"tags,omitempty"`
@@ -84,19 +70,66 @@ func GetFeedbackRepository() *FeedbackRepository {
 	return repo
 }
 
-// CreateFeedback creates a feedback document in the database
-func (repo *FeedbackRepository) CreateFeedback(organizationID string, projectID string, feedbackType FeedbackType, feedbackData FeedbackData, feedbackTags FeedbackTags) error {
-	organizationIDAsObjectId, err := primitive.ObjectIDFromHex(organizationID)
+// CreateFeedbackData is the data required to create a feedback document
+type CreateFeedbackData struct {
+	OrganizationID string
+	ProjectID      string
+	Type           FeedbackType
+	Data           FeedbackData
+	Tags           FeedbackTags
+}
+
+// Validate validates the CreateFeedbackData
+// TODO: enforce a maximum length for the text field
+// TODO: enforce a maximum length for keys and values of tags
+func (data *CreateFeedbackData) Validate() error {
+	return nil
+}
+
+// createFeedbackDocument creates a FeedbackDocument from a CreateFeedbackData
+func createFeedbackDocument(data CreateFeedbackData) (*FeedbackDocument, error) {
+	organizationIDAsObjectId, err := primitive.ObjectIDFromHex(data.OrganizationID)
 	if err != nil {
-		return err
+		return nil, err
+	}
+	projectIDAsObjectId := primitive.NilObjectID
+	if data.ProjectID != "" {
+		projectIDAsObjectId, err = primitive.ObjectIDFromHex(data.ProjectID)
+		if err != nil {
+			return nil, err
+		}
 	}
 	doc := &FeedbackDocument{
 		OrganizationID: organizationIDAsObjectId,
-		ProjectID:      projectID,
-		Type:           feedbackType,
-		Data:           feedbackData,
-		Tags:           feedbackTags,
+		ProjectID:      projectIDAsObjectId,
+		Type:           data.Type,
+		Data:           data.Data,
+		Tags:           data.Tags,
+	}
+	return doc, nil
+}
+
+// CreateFeedback creates a feedback document in the database
+func (repo *FeedbackRepository) CreateFeedback(data CreateFeedbackData) error {
+	doc, err := createFeedbackDocument(data)
+	if err != nil {
+		return err
 	}
 	_, err = repo.coll.InsertOne(context.TODO(), doc)
+	return err
+}
+
+// ImportFeedback creates multiple feedback documents in the database
+// TODO: limit the number of feedbacks that can be created at once
+func (repo *FeedbackRepository) ImportFeedback(data []CreateFeedbackData) error {
+	docs := make([]interface{}, len(data))
+	for i, d := range data {
+		doc, err := createFeedbackDocument(d)
+		if err != nil {
+			return err
+		}
+		docs[i] = doc
+	}
+	_, err := repo.coll.InsertMany(context.Background(), docs)
 	return err
 }

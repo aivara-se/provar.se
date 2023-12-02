@@ -43,6 +43,23 @@ const docTemplate = `{
                 }
             }
         },
+        "/feedback/import": {
+            "post": {
+                "description": "Imports feedback from an uploaded CSV file.",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "feedback"
+                ],
+                "summary": "Imports feedback from an uploaded CSV file.",
+                "responses": {
+                    "204": {
+                        "description": "ok"
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "Ensure that the service can be reached.",
