@@ -5,6 +5,7 @@
 		Breadcrumb,
 		BreadcrumbItem,
 		Heading,
+		P,
 		Table,
 		TableBody,
 		TableBodyCell,
@@ -31,29 +32,31 @@
 	<BreadcrumbItem>Feedback</BreadcrumbItem>
 </Breadcrumb>
 
-<Heading customSize="mb-2 text-xl font-semibold">Feedback</Heading>
+<Heading customSize="text-xl font-semibold">Feedback</Heading>
 
-<Table divClass="mb-6 border">
-	<TableHead>
-		<TableHeadCell>Created At</TableHeadCell>
-		<TableHeadCell>Type</TableHeadCell>
-		<TableHeadCell>Project</TableHeadCell>
-		<TableHeadCell>Tags</TableHeadCell>
-		<TableHeadCell>Feedback Data</TableHeadCell>
-	</TableHead>
-	<TableBody>
-		{#each feedbacks as feedback}
-			<TableBodyRow>
-				<TableBodyCell>{getTimeString(feedback.createdAt)}</TableBodyCell>
-				<TableBodyCell>{feedback.type}</TableBodyCell>
-				<TableBodyCell>{getProjectName(feedback.projectId)}</TableBodyCell>
-				<TableBodyCell>
-					<code>{JSON.stringify(feedback.tags)}</code>
-				</TableBodyCell>
-				<TableBodyCell>
-					<code>{JSON.stringify(feedback.data)}</code>
-				</TableBodyCell>
-			</TableBodyRow>
-		{/each}
-	</TableBody>
-</Table>
+{#if feedbacks.length > 0}
+	<Table hoverable>
+		<TableHead>
+			<TableHeadCell>Created At</TableHeadCell>
+			<TableHeadCell>Type</TableHeadCell>
+			<TableHeadCell>Project</TableHeadCell>
+			<TableHeadCell>Tags</TableHeadCell>
+			<TableHeadCell>Feedback Data</TableHeadCell>
+		</TableHead>
+		<TableBody>
+			{#each feedbacks as feedback}
+				<TableBodyRow>
+					<TableBodyCell>{getTimeString(feedback.createdAt)}</TableBodyCell>
+					<TableBodyCell>{feedback.type}</TableBodyCell>
+					<TableBodyCell>{getProjectName(feedback.projectId)}</TableBodyCell>
+					<TableBodyCell>
+						<code>{JSON.stringify(feedback.tags)}</code>
+					</TableBodyCell>
+					<TableBodyCell>
+						<code>{JSON.stringify(feedback.data)}</code>
+					</TableBodyCell>
+				</TableBodyRow>
+			{/each}
+		</TableBody>
+	</Table>
+{/if}
