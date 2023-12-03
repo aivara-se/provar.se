@@ -63,7 +63,7 @@
 	}
 </script>
 
-<section class="create-credentials">
+<section>
 	<Heading customSize="text-xl font-semibold">API Keys</Heading>
 
 	<P class="mt-6">
@@ -99,7 +99,7 @@
 	{/if}
 </section>
 
-<section class="create-credentials mt-6">
+<section class="mt-6">
 	<Button size="xs" color="light" on:click={() => (isCreateModalOpen = true)}>
 		+ Create API Key
 	</Button>

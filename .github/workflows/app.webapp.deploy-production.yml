@@ -93,6 +93,7 @@ jobs:
             AUTH_EMAIL_SERVER=${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_SERVER }}
             AUTH_EMAIL_FROM=${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_FROM }}
             MONGODB_URL=${{ secrets.APPS_WEBAPP_APP_MONGODB_URL }}
+            GCS_IMPORT_BUCKET=${{ secrets.APPS_WEBAPP_APP_GCS_IMPORT_BUCKET }}
             ORIGIN=https://app.provar.se
 
       - name: Show Output

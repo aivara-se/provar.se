@@ -27,12 +27,12 @@ const docTemplate = `{
                 "summary": "Create a new feedback event for an organization.",
                 "parameters": [
                     {
-                        "description": "The request body",
+                        "description": "Request body",
                         "name": "body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/feedback.RequestBody"
+                            "$ref": "#/definitions/feedback.CreateFeedbackRequestBody"
                         }
                     }
                 ],
@@ -90,7 +90,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "feedback.RequestBody": {
+        "feedback.CreateFeedbackRequestBody": {
             "type": "object",
             "required": [
                 "data",
@@ -124,10 +124,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "cnps": {
-                    "type": "number"
+                    "type": "number",
+                    "maximum": 1,
+                    "minimum": 0
                 },
                 "csat": {
-                    "type": "number"
+                    "type": "number",
+                    "maximum": 1,
+                    "minimum": 0
                 },
                 "text": {
                     "type": "string"

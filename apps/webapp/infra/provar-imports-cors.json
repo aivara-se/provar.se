@@ -1,0 +1,14 @@
+[
+  {
+    "origin": "http://localhost:5173",
+    "responseHeader": ["Content-Type", "Authorization"],
+    "method": ["PUT"],
+    "maxAgeSeconds": 3600
+  },
+  {
+    "origin": "https://app.provar.se",
+    "responseHeader": ["Content-Type", "Authorization"],
+    "method": ["PUT"],
+    "maxAgeSeconds": 3600
+  }
+]

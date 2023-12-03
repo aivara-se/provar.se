@@ -1,5 +1,5 @@
 definitions:
-  feedback.RequestBody:
+  feedback.CreateFeedbackRequestBody:
     properties:
       data:
         $ref: '#/definitions/repository.FeedbackData'
@@ -21,8 +21,12 @@ definitions:
   repository.FeedbackData:
     properties:
       cnps:
+        maximum: 1
+        minimum: 0
         type: number
       csat:
+        maximum: 1
+        minimum: 0
         type: number
       text:
         type: string
@@ -50,12 +54,12 @@ paths:
       - application/json
       description: Create a new feedback event for an organization.
       parameters:
-      - description: The request body
+      - description: Request body
         in: body
         name: body
         required: true
         schema:
-          $ref: '#/definitions/feedback.RequestBody'
+          $ref: '#/definitions/feedback.CreateFeedbackRequestBody'
       responses:
         "204":
           description: ok
