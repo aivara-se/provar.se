@@ -18,6 +18,15 @@ definitions:
     - data
     - type
     type: object
+  feedback.ImportFeedbackRequestBody:
+    properties:
+      link:
+        type: string
+      projectId:
+        type: string
+    required:
+    - link
+    type: object
   repository.FeedbackData:
     properties:
       cnps:
@@ -71,6 +80,13 @@ paths:
       consumes:
       - application/json
       description: Imports feedback from an uploaded CSV file.
+      parameters:
+      - description: Request body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/feedback.ImportFeedbackRequestBody'
       responses:
         "204":
           description: ok

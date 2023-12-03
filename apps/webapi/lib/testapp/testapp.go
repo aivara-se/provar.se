@@ -1,9 +1,7 @@
 package testapp
 
 import (
-	"bytes"
 	"log"
-	"mime/multipart"
 	"path/filepath"
 	"runtime"
 
@@ -29,15 +27,8 @@ func Create() *fiber.App {
 		log.Fatal("Error connecting to database")
 	}
 
-	return api.CreateApp()
-}
+	app := api.CreateApp()
+	go startFileServer()
 
-// FileUpload creates a file upload request body
-func FileUpload(name string, data string) (*bytes.Buffer, *multipart.Writer) {
-	body := &bytes.Buffer{}
-	writer := multipart.NewWriter(body)
-	fileWriter, _ := writer.CreateFormFile(name, name)
-	fileWriter.Write([]byte(data))
-	writer.Close()
-	return body, writer
+	return app
 }

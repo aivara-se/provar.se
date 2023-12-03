@@ -3,35 +3,50 @@ package feedback
 import (
 	"encoding/csv"
 	"io"
+	"net/http"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"provar.se/webapi/lib/credential"
 	"provar.se/webapi/lib/database/repository"
+	"provar.se/webapi/lib/validator"
 )
+
+// ImportFeedbackRequestBody is the request body for importing feedback events
+type ImportFeedbackRequestBody struct {
+	ProjectID string `json:"projectId"`
+	Link      string `json:"link" validate:"required"`
+}
+
+// NewImportFeedbackRequestBody returns a new ImportFeedbackRequestBody
+func NewImportFeedbackRequestBody() interface{} {
+	return new(ImportFeedbackRequestBody)
+}
 
 // @Router      /feedback/import  [post]
 // @Summary     Imports feedback from an uploaded CSV file.
 // @Description Imports feedback from an uploaded CSV file.
 // @Tags        feedback
 // @Accept      json
+// @Param       body  body  ImportFeedbackRequestBody  true  "Request body"
 // @Success     204  "ok"
 func SetupImportFeedback(app *fiber.App) {
 	app.Post("/feedback/import", credential.GetMiddleware())
+	app.Post("/feedback/import", validator.GetMiddleware(NewImportFeedbackRequestBody))
 
 	app.Post("/feedback/import", func(c *fiber.Ctx) error {
 		organizationID := credential.GetOrganizationID(c)
+		body := validator.GetRequestBody(c).(*ImportFeedbackRequestBody)
 		repo := repository.GetFeedbackRepository()
-		file, err := c.FormFile("csvfile")
+		response, err := http.Get(body.Link)
 		if err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
-		csvfile, err := file.Open()
-		if err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
+		defer response.Body.Close()
+		if response.StatusCode != http.StatusOK {
+			return c.SendStatus(fiber.StatusBadRequest)
 		}
-		defer csvfile.Close()
-		reader := csv.NewReader(csvfile)
+		reader := csv.NewReader(response.Body)
 		var data []repository.CreateFeedbackData
 		// Read the header row to determine column order
 		header, err := reader.Read()
@@ -78,6 +93,7 @@ func SetupImportFeedback(app *fiber.App) {
 			// Map fields dynamically based on column order
 			feedback := repository.CreateFeedbackData{
 				OrganizationID: organizationID,
+				ProjectID:      body.ProjectID,
 				Type:           repository.FeedbackType(record[columnMap["type"]]),
 				Data:           feedbackData,
 			}
