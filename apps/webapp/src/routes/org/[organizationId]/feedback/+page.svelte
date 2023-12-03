@@ -10,8 +10,6 @@
 		Button,
 		Fileupload,
 		Heading,
-		Helper,
-		Label,
 		Modal,
 		P,
 		Table,
@@ -22,7 +20,7 @@
 		TableHeadCell
 	} from 'flowbite-svelte';
 
-	let importedFileRefs: any;
+	let importedFileRefs: FileList;
 
 	let isImportModalOpen = false;
 
