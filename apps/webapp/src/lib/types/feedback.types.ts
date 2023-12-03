@@ -47,6 +47,7 @@ export interface TextFeedback extends BaseFeedback {
  */
 export interface CNPSFeedbackData {
 	cnps: number;
+	text?: string;
 }
 
 /**
@@ -62,6 +63,7 @@ export interface CNPSFeedback extends BaseFeedback {
  */
 export interface CSATFeedbackData {
 	csat: number;
+	text?: string;
 }
 
 /**
