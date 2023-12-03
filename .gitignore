@@ -13,6 +13,7 @@ yarn.lock
 .env
 .env.*
 .secrets
+credentials.json
 
 # Temporary files
 build

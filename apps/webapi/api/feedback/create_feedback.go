@@ -25,7 +25,7 @@ func NewCreateFeedbackRequestBody() interface{} {
 // @Description Create a new feedback event for an organization.
 // @Tags        feedback
 // @Accept      json
-// @Param       body  body  RequestBody  true  "The request body"
+// @Param       body  body  CreateFeedbackRequestBody  true  "Request body"
 // @Success     204  "ok"
 func SetupCreateFeedback(app *fiber.App) {
 	app.Post("/feedback", credential.GetMiddleware())
