@@ -1,6 +1,18 @@
-import { GCS_IMPORT_BUCKET } from '$env/static/private';
 import { env } from '$env/dynamic/private';
+import { GCS_IMPORT_BUCKET } from '$env/static/private';
 import { Storage } from '@google-cloud/storage';
+
+/**
+ * The Google Cloud Storage client.
+ */
+const cloudStorage = new Storage({
+	keyFilename: env.GOOGLE_APPLICATION_CREDENTIALS
+});
+
+/**
+ * Google Cloud Storage bucket used for importing CSV files.
+ */
+const importBucket = cloudStorage.bucket(GCS_IMPORT_BUCKET);
 
 /**
  * The expiration time for a signed URL in ms.
@@ -21,11 +33,7 @@ function getUTCDate(date = new Date()) {
 /**
  * Creates a signed URL for uploading a CSV file with feedbacks.
  */
-export async function createImportUrl(organizationId: string) {
-	const cloudStorage = new Storage({
-		keyFilename: env.GOOGLE_APPLICATION_CREDENTIALS
-	});
-	const importBucket = cloudStorage.bucket(GCS_IMPORT_BUCKET);
+export async function createUploadUrl(organizationId: string) {
 	const fileName = `${getUTCDate()}-${secureRandom(8)}`;
 	const filePath = `${organizationId}/${fileName}.csv`;
 	const [signedUrl] = await importBucket.file(filePath).getSignedUrl({
@@ -35,6 +43,19 @@ export async function createImportUrl(organizationId: string) {
 		contentType: 'text/csv'
 	});
 	return { signedUrl, fileName };
+}
+
+/**
+ * Creates a signed URL for downloading a CSV file with feedbacks.
+ */
+export async function createReadableUrl(organizationId: string, fileName: string) {
+	const filePath = `${organizationId}/${fileName}.csv`;
+	const [signedUrl] = await importBucket.file(filePath).getSignedUrl({
+		version: 'v4',
+		action: 'read',
+		expires: Date.now() + IMPORT_URL_EXPIRATION
+	});
+	return { signedUrl };
 }
 
 /**
