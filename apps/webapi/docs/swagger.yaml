@@ -2,14 +2,14 @@ definitions:
   feedback.CreateFeedbackRequestBody:
     properties:
       data:
-        $ref: '#/definitions/repository.FeedbackData'
+        $ref: '#/definitions/feedback.FeedbackData'
       projectId:
         type: string
       tags:
-        $ref: '#/definitions/repository.FeedbackTags'
+        $ref: '#/definitions/feedback.FeedbackTags'
       type:
         allOf:
-        - $ref: '#/definitions/repository.FeedbackType'
+        - $ref: '#/definitions/feedback.FeedbackType'
         enum:
         - text
         - cnps
@@ -18,16 +18,7 @@ definitions:
     - data
     - type
     type: object
-  feedback.ImportFeedbackRequestBody:
-    properties:
-      link:
-        type: string
-      projectId:
-        type: string
-    required:
-    - link
-    type: object
-  repository.FeedbackData:
+  feedback.FeedbackData:
     properties:
       cnps:
         maximum: 1
@@ -40,11 +31,11 @@ definitions:
       text:
         type: string
     type: object
-  repository.FeedbackTags:
+  feedback.FeedbackTags:
     additionalProperties:
       type: string
     type: object
-  repository.FeedbackType:
+  feedback.FeedbackType:
     enum:
     - text
     - cnps
@@ -54,6 +45,15 @@ definitions:
     - FeedbackTypeText
     - FeedbackTypeCNPS
     - FeedbackTypeCSAT
+  feedback.ImportFeedbackRequestBody:
+    properties:
+      link:
+        type: string
+      projectId:
+        type: string
+    required:
+    - link
+    type: object
 info:
   contact: {}
 paths:

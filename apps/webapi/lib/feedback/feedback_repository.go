@@ -1,7 +1,8 @@
-package repository
+package feedback
 
 import (
 	"context"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -48,6 +49,7 @@ type FeedbackTags map[string]string
 type FeedbackDocument struct {
 	OrganizationID primitive.ObjectID `bson:"organizationId"`
 	ProjectID      primitive.ObjectID `bson:"projectId,omitempty"`
+	CreatedAt      time.Time          `bson:"createdAt"`
 	Type           FeedbackType       `bson:"type"`
 	Data           FeedbackData       `bson:"data"`
 	Tags           FeedbackTags       `bson:"tags,omitempty"`
@@ -74,6 +76,7 @@ func GetFeedbackRepository() *FeedbackRepository {
 type CreateFeedbackData struct {
 	OrganizationID string
 	ProjectID      string
+	CreatedAt      time.Time
 	Type           FeedbackType
 	Data           FeedbackData
 	Tags           FeedbackTags
@@ -99,9 +102,14 @@ func createFeedbackDocument(data CreateFeedbackData) (*FeedbackDocument, error) 
 			return nil, err
 		}
 	}
+	createdTime := time.Now()
+	if !data.CreatedAt.IsZero() {
+		createdTime = data.CreatedAt
+	}
 	doc := &FeedbackDocument{
 		OrganizationID: organizationIDAsObjectId,
 		ProjectID:      projectIDAsObjectId,
+		CreatedAt:      createdTime,
 		Type:           data.Type,
 		Data:           data.Data,
 		Tags:           data.Tags,

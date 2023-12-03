@@ -3,16 +3,16 @@ package feedback
 import (
 	"github.com/gofiber/fiber/v2"
 	"provar.se/webapi/lib/credential"
-	"provar.se/webapi/lib/database/repository"
+	"provar.se/webapi/lib/feedback"
 	"provar.se/webapi/lib/validator"
 )
 
 // CreateFeedbackRequestBody is the request body for creating a feedback event
 type CreateFeedbackRequestBody struct {
-	ProjectID string                  `json:"projectId"`
-	Type      repository.FeedbackType `json:"type" validate:"required,oneof=text cnps csat"`
-	Data      repository.FeedbackData `json:"data" validate:"required"`
-	Tags      repository.FeedbackTags `json:"tags"`
+	ProjectID string                `json:"projectId"`
+	Type      feedback.FeedbackType `json:"type" validate:"required,oneof=text cnps csat"`
+	Data      feedback.FeedbackData `json:"data" validate:"required"`
+	Tags      feedback.FeedbackTags `json:"tags"`
 }
 
 // NewCreateFeedbackRequestBody returns a new CreateFeedbackRequestBody
@@ -34,8 +34,8 @@ func SetupCreateFeedback(app *fiber.App) {
 	app.Post("/feedback", func(c *fiber.Ctx) error {
 		organizationID := credential.GetOrganizationID(c)
 		body := validator.GetRequestBody(c).(*CreateFeedbackRequestBody)
-		repo := repository.GetFeedbackRepository()
-		data := repository.CreateFeedbackData{
+		repo := feedback.GetFeedbackRepository()
+		data := feedback.CreateFeedbackData{
 			OrganizationID: organizationID,
 			ProjectID:      body.ProjectID,
 			Type:           body.Type,

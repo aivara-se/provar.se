@@ -21,6 +21,7 @@ interface BaseFeedbackDocument {
 	_id: ObjectId;
 	organizationId: ObjectId;
 	projectId?: ObjectId;
+	createdAt: Date;
 	type: FeedbackType;
 	tags?: Record<string, string>;
 	data: unknown;
@@ -63,7 +64,7 @@ function fromDocument(doc: FeedbackDocument): Feedback {
 		id: doc._id.toHexString(),
 		organizationId: doc.organizationId.toHexString(),
 		projectId: doc.projectId?.toHexString(),
-		createdAt: doc._id.getTimestamp().getTime(),
+		createdAt: doc.createdAt.getTime(),
 		type: doc.type,
 		// TODO: Fix this any without writing unnecessary javascript code.
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -94,7 +95,10 @@ export async function findById(id: string): Promise<Feedback | null> {
  */
 export async function findByOrganization(organizationId: string): Promise<Feedback[]> {
 	const coll = await getCollection();
-	const docs = await coll.find({ organizationId: new ObjectId(organizationId) }).toArray();
+	const docs = await coll
+		.find({ organizationId: new ObjectId(organizationId) })
+		.sort('createdAt', -1)
+		.toArray();
 	return docs.map(fromDocument);
 }
 
@@ -110,6 +114,6 @@ export async function findByProject(
 		organizationId: new ObjectId(organizationId),
 		projectId: new ObjectId(projectId)
 	};
-	const docs = await coll.find(filter).toArray();
+	const docs = await coll.find(filter).sort('createdAt', -1).toArray();
 	return docs.map(fromDocument);
 }

@@ -109,13 +109,13 @@ const docTemplate = `{
             ],
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/repository.FeedbackData"
+                    "$ref": "#/definitions/feedback.FeedbackData"
                 },
                 "projectId": {
                     "type": "string"
                 },
                 "tags": {
-                    "$ref": "#/definitions/repository.FeedbackTags"
+                    "$ref": "#/definitions/feedback.FeedbackTags"
                 },
                 "type": {
                     "enum": [
@@ -125,27 +125,13 @@ const docTemplate = `{
                     ],
                     "allOf": [
                         {
-                            "$ref": "#/definitions/repository.FeedbackType"
+                            "$ref": "#/definitions/feedback.FeedbackType"
                         }
                     ]
                 }
             }
         },
-        "feedback.ImportFeedbackRequestBody": {
-            "type": "object",
-            "required": [
-                "link"
-            ],
-            "properties": {
-                "link": {
-                    "type": "string"
-                },
-                "projectId": {
-                    "type": "string"
-                }
-            }
-        },
-        "repository.FeedbackData": {
+        "feedback.FeedbackData": {
             "type": "object",
             "properties": {
                 "cnps": {
@@ -163,13 +149,13 @@ const docTemplate = `{
                 }
             }
         },
-        "repository.FeedbackTags": {
+        "feedback.FeedbackTags": {
             "type": "object",
             "additionalProperties": {
                 "type": "string"
             }
         },
-        "repository.FeedbackType": {
+        "feedback.FeedbackType": {
             "type": "string",
             "enum": [
                 "text",
@@ -181,6 +167,20 @@ const docTemplate = `{
                 "FeedbackTypeCNPS",
                 "FeedbackTypeCSAT"
             ]
+        },
+        "feedback.ImportFeedbackRequestBody": {
+            "type": "object",
+            "required": [
+                "link"
+            ],
+            "properties": {
+                "link": {
+                    "type": "string"
+                },
+                "projectId": {
+                    "type": "string"
+                }
+            }
         }
     }
 }`
