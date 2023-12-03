@@ -15,7 +15,7 @@ type CreateFeedbackRequestBody struct {
 	Tags      repository.FeedbackTags `json:"tags"`
 }
 
-// NewCreateFeedbackRequestBody returns a new RequestBody for parsing and validating
+// NewCreateFeedbackRequestBody returns a new CreateFeedbackRequestBody
 func NewCreateFeedbackRequestBody() interface{} {
 	return new(CreateFeedbackRequestBody)
 }

@@ -53,6 +53,17 @@ const docTemplate = `{
                     "feedback"
                 ],
                 "summary": "Imports feedback from an uploaded CSV file.",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/feedback.ImportFeedbackRequestBody"
+                        }
+                    }
+                ],
                 "responses": {
                     "204": {
                         "description": "ok"
@@ -117,6 +128,20 @@ const docTemplate = `{
                             "$ref": "#/definitions/repository.FeedbackType"
                         }
                     ]
+                }
+            }
+        },
+        "feedback.ImportFeedbackRequestBody": {
+            "type": "object",
+            "required": [
+                "link"
+            ],
+            "properties": {
+                "link": {
+                    "type": "string"
+                },
+                "projectId": {
+                    "type": "string"
                 }
             }
         },
