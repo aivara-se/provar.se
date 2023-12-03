@@ -79,7 +79,8 @@ jobs:
           AUTH_GOOGLE_SECRET: test-google-secret
           AUTH_EMAIL_SERVER: test-email-server
           AUTH_EMAIL_FROM: tests@provar.se
-          PUBLIC_PROVAR_API_KEY: test-api-key
+          GCS_IMPORT_BUCKET: test-import-bucket
+          PROVAR_API_URL: http://localhost:3001
         run: yarn test:integration
 
       - name: Perform CodeQL Analysis

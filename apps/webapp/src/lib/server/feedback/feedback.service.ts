@@ -1,5 +1,4 @@
 import { env } from '$env/dynamic/private';
-import { GCS_IMPORT_BUCKET } from '$env/static/private';
 import { Storage } from '@google-cloud/storage';
 
 /**
@@ -12,7 +11,7 @@ const cloudStorage = new Storage({
 /**
  * Google Cloud Storage bucket used for importing CSV files.
  */
-const importBucket = cloudStorage.bucket(GCS_IMPORT_BUCKET);
+const importBucket = cloudStorage.bucket(env.GCS_IMPORT_BUCKET);
 
 /**
  * The expiration time for a signed URL in ms.
