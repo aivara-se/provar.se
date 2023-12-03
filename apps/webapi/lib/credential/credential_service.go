@@ -4,7 +4,6 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
-	"provar.se/webapi/lib/database/repository"
 )
 
 const (
@@ -46,7 +45,7 @@ func GetMiddleware() fiber.Handler {
 		if key == "" {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
-		repo := repository.GetCredentialRepository()
+		repo := GetCredentialRepository()
 		cred, err := repo.FindCredenial(key)
 		if err != nil {
 			return c.SendStatus(fiber.StatusUnauthorized)

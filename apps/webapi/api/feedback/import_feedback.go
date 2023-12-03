@@ -5,10 +5,11 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"provar.se/webapi/lib/credential"
-	"provar.se/webapi/lib/database/repository"
+	"provar.se/webapi/lib/feedback"
 	"provar.se/webapi/lib/validator"
 )
 
@@ -37,7 +38,7 @@ func SetupImportFeedback(app *fiber.App) {
 	app.Post("/feedback/import", func(c *fiber.Ctx) error {
 		organizationID := credential.GetOrganizationID(c)
 		body := validator.GetRequestBody(c).(*ImportFeedbackRequestBody)
-		repo := repository.GetFeedbackRepository()
+		repo := feedback.GetFeedbackRepository()
 		response, err := http.Get(body.Link)
 		if err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
@@ -47,7 +48,7 @@ func SetupImportFeedback(app *fiber.App) {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
 		reader := csv.NewReader(response.Body)
-		var data []repository.CreateFeedbackData
+		var data []feedback.CreateFeedbackData
 		// Read the header row to determine column order
 		header, err := reader.Read()
 		if err != nil {
@@ -85,16 +86,25 @@ func SetupImportFeedback(app *fiber.App) {
 					return c.SendStatus(fiber.StatusInternalServerError)
 				}
 			}
-			feedbackData := repository.FeedbackData{
+			createdTime := time.Now()
+			createdTimeStr := record[columnMap["time"]]
+			if createdTimeStr != "" {
+				createdTime, err = time.Parse(time.RFC3339, record[columnMap["time"]])
+				if err != nil {
+					return c.SendStatus(fiber.StatusBadRequest)
+				}
+			}
+			feedbackData := feedback.FeedbackData{
 				Text: record[columnMap["text"]],
 				CNPS: cnpsVal,
 				CSAT: csatVal,
 			}
 			// Map fields dynamically based on column order
-			feedback := repository.CreateFeedbackData{
+			feedback := feedback.CreateFeedbackData{
 				OrganizationID: organizationID,
 				ProjectID:      body.ProjectID,
-				Type:           repository.FeedbackType(record[columnMap["type"]]),
+				CreatedAt:      createdTime,
+				Type:           feedback.FeedbackType(record[columnMap["type"]]),
 				Data:           feedbackData,
 			}
 			data = append(data, feedback)

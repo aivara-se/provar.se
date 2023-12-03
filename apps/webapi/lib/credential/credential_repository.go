@@ -1,4 +1,4 @@
-package repository
+package credential
 
 import (
 	"context"
