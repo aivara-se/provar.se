@@ -9,15 +9,17 @@ const cloudStorage = new Storage({
 });
 
 /**
- * Google Cloud Storage bucket used for importing CSV files.
- */
-const importBucket = cloudStorage.bucket(env.GCS_IMPORT_BUCKET);
-
-/**
  * The expiration time for a signed URL in ms.
  * Right now it is set to 15 minutes.
  */
 const IMPORT_URL_EXPIRATION = 15 * 60 * 1000;
+
+/**
+ * The bucket where the feedback files to import are stored.
+ */
+function getImportBucket() {
+	return cloudStorage.bucket(env.GCS_IMPORT_BUCKET);
+}
 
 /**
  * Returns the current date in UTC format.
@@ -35,12 +37,14 @@ function getUTCDate(date = new Date()) {
 export async function createUploadUrl(organizationId: string) {
 	const fileName = `${getUTCDate()}-${secureRandom(8)}`;
 	const filePath = `${organizationId}/${fileName}.csv`;
-	const [signedUrl] = await importBucket.file(filePath).getSignedUrl({
-		version: 'v4',
-		action: 'write',
-		expires: Date.now() + IMPORT_URL_EXPIRATION,
-		contentType: 'text/csv'
-	});
+	const [signedUrl] = await getImportBucket()
+		.file(filePath)
+		.getSignedUrl({
+			version: 'v4',
+			action: 'write',
+			expires: Date.now() + IMPORT_URL_EXPIRATION,
+			contentType: 'text/csv'
+		});
 	return { signedUrl, fileName };
 }
 
@@ -49,11 +53,13 @@ export async function createUploadUrl(organizationId: string) {
  */
 export async function createReadableUrl(organizationId: string, fileName: string) {
 	const filePath = `${organizationId}/${fileName}.csv`;
-	const [signedUrl] = await importBucket.file(filePath).getSignedUrl({
-		version: 'v4',
-		action: 'read',
-		expires: Date.now() + IMPORT_URL_EXPIRATION
-	});
+	const [signedUrl] = await getImportBucket()
+		.file(filePath)
+		.getSignedUrl({
+			version: 'v4',
+			action: 'read',
+			expires: Date.now() + IMPORT_URL_EXPIRATION
+		});
 	return { signedUrl };
 }
 
