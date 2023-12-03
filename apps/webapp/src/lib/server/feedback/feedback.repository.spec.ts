@@ -10,6 +10,15 @@ const feedbackId3 = new ObjectId();
 const projectId1 = new ObjectId();
 const organizationId1 = new ObjectId();
 
+function createDocument(changes: object = {}): object {
+	return {
+		_id: new ObjectId(),
+		createdAt: new Date(),
+		organizationId: organizationId1,
+		...changes
+	};
+}
+
 describe('Feedback Repository', () => {
 	let mongoClient: MongoClient;
 	let collection: Collection;
@@ -22,9 +31,9 @@ describe('Feedback Repository', () => {
 	beforeEach(async () => {
 		await collection.deleteMany({});
 		await collection.insertMany([
-			{ _id: feedbackId1, organizationId: organizationId1 },
-			{ _id: feedbackId2, organizationId: organizationId1, projectId: projectId1 },
-			{ _id: feedbackId3, organizationId: organizationId1, projectId: projectId1 }
+			createDocument({ _id: feedbackId1 }),
+			createDocument({ _id: feedbackId2, projectId: projectId1 }),
+			createDocument({ _id: feedbackId3, projectId: projectId1 })
 		]);
 	});
 
