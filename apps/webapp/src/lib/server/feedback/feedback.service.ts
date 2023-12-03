@@ -18,6 +18,9 @@ const IMPORT_URL_EXPIRATION = 15 * 60 * 1000;
  * The bucket where the feedback files to import are stored.
  */
 function getImportBucket() {
+	if (!env.GCS_IMPORT_BUCKET) {
+		throw new Error('GCS_IMPORT_BUCKET is not defined');
+	}
 	return cloudStorage.bucket(env.GCS_IMPORT_BUCKET);
 }
 
