@@ -73,6 +73,15 @@ export async function revoke(organizationId: string, id: string): Promise<void> 
 }
 
 /**
+ * Find a creedntial by id.
+ */
+export async function findById(id: string): Promise<Credential | null> {
+	const coll = await getCollection();
+	const doc = await coll.findOne({ _id: new ObjectId(id) });
+	return doc ? fromDocument(doc) : null;
+}
+
+/**
  * Find credentials by organization.
  */
 export async function findByOrganization(organizationId: string): Promise<Credential[]> {

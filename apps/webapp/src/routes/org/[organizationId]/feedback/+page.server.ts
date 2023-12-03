@@ -1,4 +1,10 @@
-import { FeedbackRepository, FeedbackService, getSelectedOrganization } from '$lib/server';
+import {
+	CredentialService,
+	FeedbackRepository,
+	FeedbackService,
+	ProvarAPIService,
+	getSelectedOrganization
+} from '$lib/server';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
@@ -13,7 +19,7 @@ export const actions: Actions = {
 	 */
 	createImportUrl: async (event) => {
 		const organization = await getSelectedOrganization(event);
-		const { signedUrl, fileName } = await FeedbackService.createImportUrl(organization.id);
+		const { signedUrl, fileName } = await FeedbackService.createUploadUrl(organization.id);
 		return { signedUrl, fileName };
 	},
 
@@ -24,7 +30,8 @@ export const actions: Actions = {
 		const organization = await getSelectedOrganization(event);
 		const data = await event.request.formData();
 		const name = String(data.get('name'));
-		const path = `${organization.id}/${name}`;
-		console.log('Processing import file', path);
+		const { signedUrl } = await FeedbackService.createReadableUrl(organization.id, name);
+		const credential = await CredentialService.getImportCredential(organization.id);
+		await ProvarAPIService.importFeedback(credential.key, signedUrl);
 	}
 };

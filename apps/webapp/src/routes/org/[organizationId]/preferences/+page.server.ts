@@ -1,4 +1,9 @@
-import { CredentialRepository, OrganizationRepository, getSelectedOrganization } from '$lib/server';
+import {
+	CredentialRepository,
+	CredentialService,
+	OrganizationRepository,
+	getSelectedOrganization
+} from '$lib/server';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
@@ -22,7 +27,7 @@ export const actions: Actions = {
 		const cred = {
 			name: String(data.get('name')),
 			organizationId: organization.id,
-			key: secureRandom(64)
+			key: CredentialService.createCredentialKey()
 		};
 		const id = await CredentialRepository.create(cred);
 		return { ...cred, id };
@@ -38,12 +43,3 @@ export const actions: Actions = {
 		await CredentialRepository.revoke(organization.id, id);
 	}
 };
-
-/**
- * Generates a secure random string.
- */
-function secureRandom(count: number): string {
-	const array = new Uint8Array(count);
-	crypto.getRandomValues(array);
-	return Buffer.from(array).toString('base64url');
-}
