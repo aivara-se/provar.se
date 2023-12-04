@@ -33,7 +33,7 @@ jobs:
 
       - name: Google Auth
         id: auth
-        uses: "google-github-actions/auth@v1"
+        uses: "google-github-actions/auth@v2"
         with:
           service_account: "${{ secrets.APPS_WEBAPI_GCP_SERVICE_ACCOUNT }}"
           credentials_json: "${{ secrets.APPS_WEBAPI_GCP_CREDENTIALS }}"
