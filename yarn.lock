@@ -29,25 +29,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@auth/core@npm:0.18.0"
-  dependencies:
-    "@panva/hkdf": "npm:^1.0.4"
-    cookie: "npm:0.5.0"
-    jose: "npm:^4.11.1"
-    oauth4webapi: "npm:^2.0.6"
-    preact: "npm:10.11.3"
-    preact-render-to-string: "npm:5.2.3"
-  peerDependencies:
-    nodemailer: ^6.8.0
-  peerDependenciesMeta:
-    nodemailer:
-      optional: true
-  checksum: 1cc261cdbc9b11cf4dadf4ef55690a217c7df6a6994247b4ccdfc10494191c35cf4c4464b7aba6619bb472a306e9d1ef44e8dd71649233b1f378cf6c20397ade
-  languageName: node
-  linkType: hard
-
 "@auth/core@npm:0.18.1":
   version: 0.18.1
   resolution: "@auth/core@npm:0.18.1"
@@ -64,6 +45,25 @@ __metadata:
     nodemailer:
       optional: true
   checksum: 0d818c1ab541df3f3deb7345c0d002a5dd6ced1d81d75625f9753c246ad7ef8e1ef46a358f650d59db0ee0f1bed4038ce4ec4ef4e08d3631afc72a6c14408c56
+  languageName: node
+  linkType: hard
+
+"@auth/core@npm:0.18.4":
+  version: 0.18.4
+  resolution: "@auth/core@npm:0.18.4"
+  dependencies:
+    "@panva/hkdf": "npm:^1.1.1"
+    cookie: "npm:0.6.0"
+    jose: "npm:^5.1.0"
+    oauth4webapi: "npm:^2.3.0"
+    preact: "npm:10.11.3"
+    preact-render-to-string: "npm:5.2.3"
+  peerDependencies:
+    nodemailer: ^6.8.0
+  peerDependenciesMeta:
+    nodemailer:
+      optional: true
+  checksum: 6eb7b4af575db6281603a30c787757822e8632a8f227c4f5430aaf0ecce2b5713a0d94f01d4428eae7f37a504e0bfb4ab97f6e5799bdad5e59e79f203c376944
   languageName: node
   linkType: hard
 
@@ -86,14 +86,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/mongodb-adapter@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@auth/mongodb-adapter@npm:2.0.3"
+"@auth/mongodb-adapter@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "@auth/mongodb-adapter@npm:2.0.7"
   dependencies:
-    "@auth/core": "npm:0.18.0"
+    "@auth/core": "npm:0.18.4"
   peerDependencies:
     mongodb: ^6
-  checksum: f156d1bf3ed2072cfbbefcaaab8a8d8b6977752aaab17130fcb37dcec40d729b4fc562adc5200b5675204b17d60afd02aa6c82661a545484034864374f7f5b68
+  checksum: 33fc3327bdf077921751c47cb499c360067d177aaf18aa4b05364f04652d4ad543d93b0a02f8bc1787705491b978c7c812ca7412c7e5f0e2012e35bdef8cde47
   languageName: node
   linkType: hard
 
@@ -699,7 +699,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@panva/hkdf@npm:^1.0.4, @panva/hkdf@npm:^1.1.1":
+"@panva/hkdf@npm:^1.1.1":
   version: 1.1.1
   resolution: "@panva/hkdf@npm:1.1.1"
   checksum: f0dd12903751d8792420353f809ed3c7de860cf506399759fff5f59f7acfef8a77e2b64012898cee7e5b047708fa0bd91dff5ef55a502bf8ea11aad9842160da
@@ -1951,6 +1951,13 @@ __metadata:
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
   checksum: aae7911ddc5f444a9025fbd979ad1b5d60191011339bce48e555cb83343d0f98b865ff5c4d71fecdfb8555a5cafdc65632f6fce172f32aaf6936830a883a0380
+  languageName: node
+  linkType: hard
+
+"cookie@npm:0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: c1f8f2ea7d443b9331680598b0ae4e6af18a618c37606d1bbdc75bec8361cce09fe93e727059a673f2ba24467131a9fb5a4eec76bb1b149c1b3e1ccb268dc583
   languageName: node
   linkType: hard
 
@@ -3327,13 +3334,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:^4.11.1":
-  version: 4.15.2
-  resolution: "jose@npm:4.15.2"
-  checksum: 767056741c172646394ad806cc7703c8c3e5a4b7244281e761cf32f4bfcdd5ff4ec9e7473714ddaf9f9eb901ea61372845f693497ccc80ade209f55fd8a9eec7
-  languageName: node
-  linkType: hard
-
 "jose@npm:^5.1.0":
   version: 5.1.0
   resolution: "jose@npm:5.1.0"
@@ -3998,7 +3998,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oauth4webapi@npm:^2.0.6, oauth4webapi@npm:^2.3.0":
+"oauth4webapi@npm:^2.3.0":
   version: 2.3.0
   resolution: "oauth4webapi@npm:2.3.0"
   checksum: f0ec83060a2ceb6297c898a9c6c3f4c4a4af0539813ec6eb17f053b3f7b6260bd9052df35444afdfe7aa2c3791bcb6dc63e642e621c35ab1c9a8ada83e611032
@@ -5673,7 +5673,7 @@ __metadata:
   resolution: "webapp@workspace:apps/webapp"
   dependencies:
     "@auth/core": "npm:^0.18.3"
-    "@auth/mongodb-adapter": "npm:^2.0.3"
+    "@auth/mongodb-adapter": "npm:^2.0.7"
     "@auth/sveltekit": "npm:^0.3.12"
     "@google-cloud/storage": "npm:^7.7.0"
     "@playwright/test": "npm:^1.40.0"
