@@ -17,7 +17,7 @@
 		"test:unit": "vitest"
 	},
 	"dependencies": {
-		"@auth/core": "^0.18.3",
+		"@auth/core": "^0.18.4",
 		"@auth/mongodb-adapter": "^2.0.7",
 		"@auth/sveltekit": "^0.3.12",
 		"@google-cloud/storage": "^7.7.0",

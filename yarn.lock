@@ -48,7 +48,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:0.18.4":
+"@auth/core@npm:0.18.4, @auth/core@npm:^0.18.4":
   version: 0.18.4
   resolution: "@auth/core@npm:0.18.4"
   dependencies:
@@ -64,25 +64,6 @@ __metadata:
     nodemailer:
       optional: true
   checksum: 6eb7b4af575db6281603a30c787757822e8632a8f227c4f5430aaf0ecce2b5713a0d94f01d4428eae7f37a504e0bfb4ab97f6e5799bdad5e59e79f203c376944
-  languageName: node
-  linkType: hard
-
-"@auth/core@npm:^0.18.3":
-  version: 0.18.3
-  resolution: "@auth/core@npm:0.18.3"
-  dependencies:
-    "@panva/hkdf": "npm:^1.1.1"
-    cookie: "npm:0.5.0"
-    jose: "npm:^5.1.0"
-    oauth4webapi: "npm:^2.3.0"
-    preact: "npm:10.11.3"
-    preact-render-to-string: "npm:5.2.3"
-  peerDependencies:
-    nodemailer: ^6.8.0
-  peerDependenciesMeta:
-    nodemailer:
-      optional: true
-  checksum: 6cd351c83cd7fd2aca6119f6516670d02e4ba769811d5beff710ef65c2fe038a49fd70c7a81bad224d16ec5b5b232ea7d38aeeb5b0920da15b121b400a592f75
   languageName: node
   linkType: hard
 
@@ -5506,7 +5487,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "webapp@workspace:apps/webapp"
   dependencies:
-    "@auth/core": "npm:^0.18.3"
+    "@auth/core": "npm:^0.18.4"
     "@auth/mongodb-adapter": "npm:^2.0.7"
     "@auth/sveltekit": "npm:^0.3.12"
     "@google-cloud/storage": "npm:^7.7.0"
