@@ -84,6 +84,25 @@ export async function update(
 }
 
 /**
+ * Removes a project in the projects collection.
+ */
+export async function remove(organizationId: string, projectId: string): Promise<void> {
+	const coll = await getCollection();
+	await coll.deleteOne({
+		_id: new ObjectId(projectId),
+		organizationId: new ObjectId(organizationId)
+	});
+}
+
+/**
+ * Remove all projects that belong to an organization.
+ */
+export async function removeAll(organizationId: string): Promise<void> {
+	const coll = await getCollection();
+	await coll.deleteMany({ organizationId: new ObjectId(organizationId) });
+}
+
+/**
  * Find a Project by id.
  */
 export async function findById(id: string): Promise<Project | null> {

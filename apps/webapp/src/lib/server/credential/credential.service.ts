@@ -20,7 +20,7 @@ export async function getImportCredential(organizationId: string): Promise<Crede
 		name: 'import',
 		key: createCredentialKey()
 	});
-	const createdCredential = await CredentialRepository.findById(credentialId);
+	const createdCredential = await CredentialRepository.findById(organizationId, credentialId);
 	if (!createdCredential) {
 		throw new Error('Unexpected Error: failed to create credential');
 	}

@@ -42,6 +42,7 @@ async function getCollection(): Promise<Collection<OrganizationDocument>> {
  */
 export interface CreateOrganizationData {
 	name: string;
+	description?: string;
 }
 
 /**
@@ -50,7 +51,12 @@ export interface CreateOrganizationData {
 export async function create(userId: string, data: CreateOrganizationData): Promise<string> {
 	const coll = await getCollection();
 	const id = new ObjectId();
-	await coll.insertOne({ _id: id, name: data.name, members: [new ObjectId(userId)] });
+	await coll.insertOne({
+		_id: id,
+		name: data.name,
+		description: '',
+		members: [new ObjectId(userId)]
+	});
 	return id.toHexString();
 }
 
@@ -58,16 +64,24 @@ export async function create(userId: string, data: CreateOrganizationData): Prom
  * The data required to update an organization.
  */
 export interface UpdateOrganizationData {
-	name: string;
-	description: string;
+	name?: string;
+	description?: string;
 }
 
 /**
  * Update organization in the database with the given information.
  */
-export async function update(orgId: string, data: UpdateOrganizationData): Promise<void> {
+export async function update(organizationId: string, data: UpdateOrganizationData): Promise<void> {
 	const coll = await getCollection();
-	await coll.updateOne({ _id: new ObjectId(orgId) }, { $set: data });
+	await coll.updateOne({ _id: new ObjectId(organizationId) }, { $set: data });
+}
+
+/**
+ * Removes an organization in the organizations collection.
+ */
+export async function remove(organizationId: string): Promise<void> {
+	const coll = await getCollection();
+	await coll.deleteOne({ _id: new ObjectId(organizationId) });
 }
 
 /**

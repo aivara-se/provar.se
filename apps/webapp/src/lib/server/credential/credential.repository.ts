@@ -64,7 +64,7 @@ export async function create(data: CreateCredentialData): Promise<string> {
 /**
  * Revoke a credential by id.
  */
-export async function revoke(organizationId: string, id: string): Promise<void> {
+export async function remove(organizationId: string, id: string): Promise<void> {
 	const coll = await getCollection();
 	await coll.deleteOne({
 		_id: new ObjectId(id),
@@ -73,11 +73,22 @@ export async function revoke(organizationId: string, id: string): Promise<void> 
 }
 
 /**
- * Find a creedntial by id.
+ * Revoke all credentials that belong to an organization
  */
-export async function findById(id: string): Promise<Credential | null> {
+export async function removeAll(organizationId: string): Promise<void> {
 	const coll = await getCollection();
-	const doc = await coll.findOne({ _id: new ObjectId(id) });
+	await coll.deleteMany({ organizationId: new ObjectId(organizationId) });
+}
+
+/**
+ * Find a credential by id.
+ */
+export async function findById(organizationId: string, id: string): Promise<Credential | null> {
+	const coll = await getCollection();
+	const doc = await coll.findOne({
+		_id: new ObjectId(id),
+		organizationId: new ObjectId(organizationId)
+	});
 	return doc ? fromDocument(doc) : null;
 }
 
