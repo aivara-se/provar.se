@@ -42,6 +42,29 @@ describe('Organization Repository', () => {
 		});
 	});
 
+	describe('update', () => {
+		it('should update an existing organization', async () => {
+			const id = await organizationRepository.create(userId1.toHexString(), {
+				name: 'Test'
+			});
+			const updateData = { name: 'Updated Test', description: 'Updated Desc' };
+			await organizationRepository.update(id, updateData);
+			const result = await collection.findOne({ _id: new ObjectId(id) });
+			expect(result).toEqual(expect.objectContaining(updateData));
+		});
+	});
+
+	describe('remove', () => {
+		it('should remove an existing organization', async () => {
+			const id = await organizationRepository.create(userId1.toHexString(), {
+				name: 'Test'
+			});
+			await organizationRepository.remove(id);
+			const result = await collection.findOne({ _id: new ObjectId(id) });
+			expect(result).toBeNull();
+		});
+	});
+
 	describe('findById', () => {
 		it('should return null if there are no matching documents', async () => {
 			const result = await organizationRepository.findById(unknownId.toHexString());

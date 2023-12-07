@@ -27,19 +27,57 @@ describe('Credential Repository', () => {
 		]);
 	});
 
-	describe('revoke', () => {
+	describe('remove', () => {
 		it('should return success if attmpted to delete an unknown document', async () => {
 			const count0 = (await collection.find({}).toArray()).length;
-			await credentialRepository.revoke(unknownId.toHexString(), unknownId.toHexString());
+			await credentialRepository.remove(unknownId.toHexString(), unknownId.toHexString());
 			const count1 = (await collection.find({}).toArray()).length;
 			expect(count1).toEqual(count0);
 		});
 
 		it('should return success after deleting a document', async () => {
 			const count0 = (await collection.find({}).toArray()).length;
-			await credentialRepository.revoke(organizationId1.toHexString(), credentialId1.toHexString());
+			await credentialRepository.remove(organizationId1.toHexString(), credentialId1.toHexString());
 			const count1 = (await collection.find({}).toArray()).length;
 			expect(count1).toEqual(count0 - 1);
+		});
+	});
+
+	describe('removeAll', () => {
+		it('should return success if attempted to delete credentials of an unknown organization', async () => {
+			const count0 = (await collection.find({}).toArray()).length;
+			await credentialRepository.removeAll(unknownId.toHexString());
+			const count1 = (await collection.find({}).toArray()).length;
+			expect(count1).toEqual(count0);
+		});
+
+		it('should return success after deleting all credentials of an organization', async () => {
+			const count0 = (await collection.find({}).toArray()).length;
+			await credentialRepository.removeAll(organizationId1.toHexString());
+			const count1 = (await collection.find({}).toArray()).length;
+			expect(count1).toBeLessThan(count0);
+		});
+	});
+
+	describe('findById', () => {
+		it('should return null if there is no matching document', async () => {
+			const result = await credentialRepository.findById(
+				organizationId1.toHexString(),
+				unknownId.toHexString()
+			);
+			expect(result).toBeNull();
+		});
+
+		it('should return the credential if there is a matching document', async () => {
+			const result = await credentialRepository.findById(
+				organizationId1.toHexString(),
+				credentialId1.toHexString()
+			);
+			expect(result).toEqual(
+				expect.objectContaining({
+					id: credentialId1.toHexString()
+				})
+			);
 		});
 	});
 

@@ -62,6 +62,34 @@ describe('Project Repository', () => {
 		});
 	});
 
+	describe('remove', () => {
+		it('should remove a project', async () => {
+			const projectId = await projectRepository.create({
+				name: 'Test',
+				organizationId: organizationId1.toHexString()
+			});
+			await projectRepository.remove(organizationId1.toHexString(), projectId);
+			const result = await collection.findOne({ _id: new ObjectId(projectId) });
+			expect(result).toBeNull();
+		});
+	});
+
+	describe('removeAll', () => {
+		it('should remove all projects of an organization', async () => {
+			await projectRepository.create({
+				name: 'Test1',
+				organizationId: organizationId1.toHexString()
+			});
+			await projectRepository.create({
+				name: 'Test2',
+				organizationId: organizationId1.toHexString()
+			});
+			await projectRepository.removeAll(organizationId1.toHexString());
+			const result = await collection.find({ organizationId: organizationId1 }).toArray();
+			expect(result.length).toBe(0);
+		});
+	});
+
 	describe('findById', () => {
 		it('should return null if there are no matching documents', async () => {
 			const result = await projectRepository.findById(unknownId.toHexString());

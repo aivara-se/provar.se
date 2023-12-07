@@ -84,9 +84,12 @@ async function getCollection(): Promise<Collection<FeedbackDocument>> {
 /**
  * Find feedback by id.
  */
-export async function findById(id: string): Promise<Feedback | null> {
+export async function findById(organizationId: string, id: string): Promise<Feedback | null> {
 	const coll = await getCollection();
-	const doc = await coll.findOne({ _id: new ObjectId(id) });
+	const doc = await coll.findOne({
+		organizationId: new ObjectId(organizationId),
+		_id: new ObjectId(id)
+	});
 	return doc ? fromDocument(doc) : null;
 }
 
@@ -116,4 +119,12 @@ export async function findByProject(
 	};
 	const docs = await coll.find(filter).sort('createdAt', -1).toArray();
 	return docs.map(fromDocument);
+}
+
+/**
+ * Remove all feedback that belong to an organization.
+ */
+export async function removeAll(organizationId: string): Promise<void> {
+	const coll = await getCollection();
+	await coll.deleteMany({ organizationId: new ObjectId(organizationId) });
 }

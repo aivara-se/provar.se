@@ -8,11 +8,24 @@
 	let name = $selectedOrg?.name || '';
 	let description = $selectedOrg?.description || '';
 
-	async function submitForm(event: { currentTarget: EventTarget & HTMLFormElement }) {
+	async function deleteOrganization() {
+		const data = new FormData();
+		const response = await fetch('?/deleteOrganization', {
+			method: 'post',
+			body: data
+		});
+		const result: ActionResult = deserialize(await response.text());
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+		applyAction(result);
+	}
+
+	async function updateOrganization() {
 		const data = new FormData();
 		data.set('name', name);
 		data.set('description', description);
-		const response = await fetch(event.currentTarget.action, {
+		const response = await fetch('?/updateOrganization', {
 			method: 'post',
 			body: data
 		});
@@ -24,18 +37,17 @@
 	}
 </script>
 
-<form method="post" action="?/updateOrganization" on:submit|preventDefault={submitForm}>
-	<div class="mb-6">
-		<Label for="name" class="block mb-2">Name:</Label>
-		<Input id="name" required bind:value={name} />
-	</div>
+<div class="mb-6">
+	<Label for="name" class="block mb-2">Name:</Label>
+	<Input id="name" required bind:value={name} />
+</div>
 
-	<div class="mb-6">
-		<Label for="description" class="block mb-2">Description:</Label>
-		<Textarea id="description" required bind:value={description} />
-	</div>
+<div class="mb-6">
+	<Label for="description" class="block mb-2">Description:</Label>
+	<Textarea id="description" required bind:value={description} />
+</div>
 
-	<div>
-		<Button type="submit" size="sm" color="primary">Update</Button>
-	</div>
-</form>
+<div class="flex justify-between">
+	<Button size="sm" color="red" outline on:click={deleteOrganization}>Delete</Button>
+	<Button size="sm" color="primary" on:click={updateOrganization}>Update</Button>
+</div>

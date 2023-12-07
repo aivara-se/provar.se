@@ -7,8 +7,10 @@ const unknownId = new ObjectId();
 const feedbackId1 = new ObjectId();
 const feedbackId2 = new ObjectId();
 const feedbackId3 = new ObjectId();
+const feedbackId4 = new ObjectId();
 const projectId1 = new ObjectId();
 const organizationId1 = new ObjectId();
+const organizationId2 = new ObjectId();
 
 function createDocument(changes: object = {}): object {
 	return {
@@ -33,18 +35,25 @@ describe('Feedback Repository', () => {
 		await collection.insertMany([
 			createDocument({ _id: feedbackId1 }),
 			createDocument({ _id: feedbackId2, projectId: projectId1 }),
-			createDocument({ _id: feedbackId3, projectId: projectId1 })
+			createDocument({ _id: feedbackId3, projectId: projectId1 }),
+			createDocument({ _id: feedbackId4, organizationId: organizationId2 })
 		]);
 	});
 
 	describe('findById', () => {
 		it('should return null if there are no matching documents', async () => {
-			const result = await feedbackRepository.findById(unknownId.toHexString());
+			const result = await feedbackRepository.findById(
+				organizationId1.toHexString(),
+				unknownId.toHexString()
+			);
 			expect(result).toBeNull();
 		});
 
 		it('should return data if there is a matching document', async () => {
-			const result = await feedbackRepository.findById(feedbackId1.toHexString());
+			const result = await feedbackRepository.findById(
+				organizationId1.toHexString(),
+				feedbackId1.toHexString()
+			);
 			expect(result).toEqual(
 				expect.objectContaining({
 					id: feedbackId1.toHexString(),
@@ -105,6 +114,16 @@ describe('Feedback Repository', () => {
 					projectId: projectId1.toHexString()
 				})
 			]);
+		});
+	});
+
+	describe('removeAll', () => {
+		it('should remove all feedback for the specified organization', async () => {
+			await feedbackRepository.removeAll(organizationId1.toHexString());
+			const org1Feedback = await collection.find({ organizationId: organizationId1 }).toArray();
+			expect(org1Feedback).toEqual([]);
+			const org2Feedback = await collection.find({ organizationId: organizationId2 }).toArray();
+			expect(org2Feedback).toEqual([expect.objectContaining({ _id: feedbackId4 })]);
 		});
 	});
 });
