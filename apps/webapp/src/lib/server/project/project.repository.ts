@@ -105,9 +105,12 @@ export async function removeAll(organizationId: string): Promise<void> {
 /**
  * Find a Project by id.
  */
-export async function findById(id: string): Promise<Project | null> {
+export async function findById(organizationId: string, projectId: string): Promise<Project | null> {
 	const coll = await getCollection();
-	const doc = await coll.findOne({ _id: new ObjectId(id) });
+	const doc = await coll.findOne({
+		_id: new ObjectId(projectId),
+		organizationId: new ObjectId(organizationId)
+	});
 	return doc ? fromDocument(doc) : null;
 }
 

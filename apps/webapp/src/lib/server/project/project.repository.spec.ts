@@ -92,12 +92,18 @@ describe('Project Repository', () => {
 
 	describe('findById', () => {
 		it('should return null if there are no matching documents', async () => {
-			const result = await projectRepository.findById(unknownId.toHexString());
+			const result = await projectRepository.findById(
+				unknownId.toHexString(),
+				unknownId.toHexString()
+			);
 			expect(result).toBeNull();
 		});
 
 		it('should return data if there is a matching document', async () => {
-			const result = await projectRepository.findById(projectId1.toHexString());
+			const result = await projectRepository.findById(
+				organizationId1.toHexString(),
+				projectId1.toHexString()
+			);
 			expect(result).toEqual(
 				expect.objectContaining({
 					id: projectId1.toHexString(),
