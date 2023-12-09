@@ -9,12 +9,15 @@
 		BreadcrumbItem,
 		Button,
 		Card,
+		Dropdown,
+		DropdownItem,
 		Heading,
 		Input,
 		Label,
 		Modal,
 		Progressbar
 	} from 'flowbite-svelte';
+	import { DotsHorizontalOutline } from 'flowbite-svelte-icons';
 
 	$: projects = $page.data.projects || [];
 	$: projectListItems = projects.map((project: Project) => ({
@@ -52,11 +55,20 @@
 <section>
 	{#each projectListItems as item}
 		<div class="inline-block mb-6 project-item">
-			<Card href={item.link} shadow={false}>
-				<h5 class="mb-2 font-semibold text-gray-900">
-					{item.name}
-				</h5>
-				<Progressbar progress="50" />
+			<Card shadow={false}>
+				<div class="mb-2 flex items-center justify-between">
+					<a href={item.link}>
+						<h5 class="mb-2 font-semibold text-gray-900">{item.name}</h5>
+					</a>
+					<div class="p-2 rounded hover:bg-gray-300">
+						<DotsHorizontalOutline class="w-3 h-3 text-gray-700 outline-none" />
+						<Dropdown class="w-36">
+							<DropdownItem>Modify</DropdownItem>
+							<DropdownItem>Delete</DropdownItem>
+						</Dropdown>
+					</div>
+				</div>
+				<Progressbar progress="30" />
 			</Card>
 		</div>
 	{/each}
