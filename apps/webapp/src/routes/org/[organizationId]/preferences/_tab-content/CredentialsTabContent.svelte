@@ -67,8 +67,8 @@
 	<Heading customSize="text-xl font-semibold">API Keys</Heading>
 
 	<P class="mt-6">
-		API keys are used to authenticate your application with the API. These keys provides your
-		application access to our platform's features.
+		API keys are used to authenticate your application with the API. These keys allow your
+		application to upload feedback data.
 	</P>
 
 	{#if credentials.length > 0}
