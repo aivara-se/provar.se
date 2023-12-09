@@ -9,3 +9,4 @@ export * as ProvarAPIService from './provar-api/provar-api.service';
 export * as UserRepository from './user/user.repository';
 
 export * from './action-utils/get-selected-organization';
+export * from './action-utils/get-selected-project';
