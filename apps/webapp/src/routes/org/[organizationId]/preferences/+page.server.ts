@@ -7,6 +7,7 @@ import {
 } from '$lib/server';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
+import type { Session } from '@auth/core/types';
 
 export const actions: Actions = {
 	/**
@@ -15,6 +16,16 @@ export const actions: Actions = {
 	deleteOrganization: async (event) => {
 		const organization = await getSelectedOrganization(event);
 		await OrganizationService.remove(organization.id);
+		throw redirect(302, '/');
+	},
+
+	/**
+	 * Leaves the organization and delete the organization if there are no other members.
+	 */
+	leaveOrganization: async (event) => {
+		const session = (await event.locals.getSession()) as Session;
+		const organization = await getSelectedOrganization(event);
+		await OrganizationService.removeMember(organization.id, session.user.id);
 		throw redirect(302, '/');
 	},
 
