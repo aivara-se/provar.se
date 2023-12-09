@@ -3,7 +3,8 @@
 	import { invalidateAll } from '$app/navigation';
 	import { selectedOrg } from '$lib/stores/selected-org';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
+	import { Alert, Button, Heading, Input, Label, P, Textarea } from 'flowbite-svelte';
+	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
 
 	let name = $selectedOrg?.name || '';
 	let description = $selectedOrg?.description || '';
@@ -37,17 +38,39 @@
 	}
 </script>
 
-<div class="mb-6">
+<Heading customSize="text-xl font-semibold">Organization details</Heading>
+
+<P class="mt-6">
+	You can update your organization's information here to ensure accuracy and relevance which will be
+	used by AI features.
+</P>
+
+<div class="mt-6">
 	<Label for="name" class="block mb-2">Name:</Label>
 	<Input id="name" required bind:value={name} />
 </div>
 
-<div class="mb-6">
+<div class="mt-6">
 	<Label for="description" class="block mb-2">Description:</Label>
 	<Textarea id="description" required bind:value={description} />
 </div>
 
-<div class="flex justify-between">
-	<Button size="sm" color="red" outline on:click={deleteOrganization}>Delete</Button>
+<Alert color="red" class="mt-6">
+	<div class="flex items-center gap-3">
+		<ExclamationCircleOutline slot="icon" class="w-4 h-4" />
+		<span class="font-medium">Delete the organization</span>
+	</div>
+	<p class="mt-2 mb-4 text-sm">
+		Deleting this organization will permanently erase all collected feedback data, including
+		associated records and information. Proceeding with this action cannot be undone. Please ensure
+		that you have backed up any critical data or exported necessary information before deleting the
+		organization.
+	</p>
+	<div class="flex gap-2">
+		<Button size="xs" color="red" outline on:click={deleteOrganization}>Delete "{name}"</Button>
+	</div>
+</Alert>
+
+<div class="flex justify-end mt-6">
 	<Button size="sm" color="primary" on:click={updateOrganization}>Update</Button>
 </div>
