@@ -85,6 +85,17 @@ export async function remove(organizationId: string): Promise<void> {
 }
 
 /**
+ * Removes a member from an organization.
+ */
+export async function removeMember(organizationId: string, userId: string): Promise<void> {
+	const coll = await getCollection();
+	await coll.updateOne(
+		{ _id: new ObjectId(organizationId) },
+		{ $pull: { members: new ObjectId(userId) } }
+	);
+}
+
+/**
  * Find an organization by id.
  */
 export async function findById(id: string): Promise<Organization | null> {
