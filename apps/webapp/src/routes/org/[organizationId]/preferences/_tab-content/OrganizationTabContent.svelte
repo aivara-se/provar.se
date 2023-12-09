@@ -3,11 +3,13 @@
 	import { invalidateAll } from '$app/navigation';
 	import { selectedOrg } from '$lib/stores/selected-org';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { Alert, Button, Heading, Input, Label, P, Textarea } from 'flowbite-svelte';
+	import { Alert, Button, Heading, Input, Label, Modal, P, Textarea } from 'flowbite-svelte';
 	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
 
 	let name = $selectedOrg?.name || '';
 	let description = $selectedOrg?.description || '';
+
+	let isDeleteModalOpen = false;
 
 	async function deleteOrganization() {
 		const data = new FormData();
@@ -67,10 +69,23 @@
 		organization.
 	</p>
 	<div class="flex gap-2">
-		<Button size="xs" color="red" outline on:click={deleteOrganization}>Delete "{name}"</Button>
+		<Button size="xs" color="red" outline on:click={() => (isDeleteModalOpen = true)}>
+			Delete "{name}"
+		</Button>
 	</div>
 </Alert>
 
 <div class="flex justify-end mt-6">
 	<Button size="sm" color="primary" on:click={updateOrganization}>Update</Button>
 </div>
+
+<Modal bind:open={isDeleteModalOpen} size="sm" autoclose>
+	<div class="text-center">
+		<ExclamationCircleOutline class="mx-auto mb-4 text-gray-500 w-8 h-8" />
+		<h3 class="mb-5 text-lg font-normal text-gray-800">
+			Are you sure you want to delete "{name}"?
+		</h3>
+		<Button color="red" class="me-2" on:click={deleteOrganization}>Yes, I'm sure</Button>
+		<Button color="alternative">No, cancel</Button>
+	</div>
+</Modal>
