@@ -85,6 +85,17 @@ export async function remove(organizationId: string): Promise<void> {
 }
 
 /**
+ * Insert a member to an organization.
+ */
+export async function addMember(organizationId: string, userId: string): Promise<void> {
+	const coll = await getCollection();
+	await coll.updateOne(
+		{ _id: new ObjectId(organizationId) },
+		{ $addToSet: { members: new ObjectId(userId) } }
+	);
+}
+
+/**
  * Removes a member from an organization.
  */
 export async function removeMember(organizationId: string, userId: string): Promise<void> {
