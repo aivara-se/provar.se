@@ -71,6 +71,24 @@ describe('Organization Repository', () => {
 		});
 	});
 
+	describe('addMember', () => {
+		it('should add a new member to an organization', async () => {
+			const newUserId = new ObjectId().toHexString();
+			await organizationRepository.addMember(organizationId1.toHexString(), newUserId);
+			const organization = await collection.findOne({ _id: organizationId1 });
+			const members = organization?.members?.map((m: ObjectId) => m.toHexString());
+			expect(members).toContain(newUserId);
+			expect(members).toContain(userId1.toHexString());
+		});
+
+		it('should not throw if the user is already a member', async () => {
+			await organizationRepository.addMember(organizationId1.toHexString(), userId1.toHexString());
+			const organization = await collection.findOne({ _id: organizationId1 });
+			const members = organization?.members?.map((m: ObjectId) => m.toHexString());
+			expect(members).toContain(userId1.toHexString());
+		});
+	});
+
 	describe('removeMember', () => {
 		it('should remove an existing member from an organization', async () => {
 			await organizationRepository.removeMember(
