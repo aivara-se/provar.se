@@ -9,7 +9,7 @@ require (
 	github.com/gofiber/swagger v0.1.14
 	github.com/joho/godotenv v1.5.1
 	github.com/swaggo/swag v1.16.2
-	go.mongodb.org/mongo-driver v1.13.0
+	go.mongodb.org/mongo-driver v1.13.1
 )
 
 require (
