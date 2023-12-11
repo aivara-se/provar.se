@@ -48,7 +48,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:0.18.4, @auth/core@npm:^0.18.4":
+"@auth/core@npm:0.18.4":
   version: 0.18.4
   resolution: "@auth/core@npm:0.18.4"
   dependencies:
@@ -64,6 +64,26 @@ __metadata:
     nodemailer:
       optional: true
   checksum: 6eb7b4af575db6281603a30c787757822e8632a8f227c4f5430aaf0ecce2b5713a0d94f01d4428eae7f37a504e0bfb4ab97f6e5799bdad5e59e79f203c376944
+  languageName: node
+  linkType: hard
+
+"@auth/core@npm:^0.18.5":
+  version: 0.18.5
+  resolution: "@auth/core@npm:0.18.5"
+  dependencies:
+    "@panva/hkdf": "npm:^1.1.1"
+    "@types/cookie": "npm:0.6.0"
+    cookie: "npm:0.6.0"
+    jose: "npm:^5.1.0"
+    oauth4webapi: "npm:^2.3.0"
+    preact: "npm:10.11.3"
+    preact-render-to-string: "npm:5.2.3"
+  peerDependencies:
+    nodemailer: ^6.8.0
+  peerDependenciesMeta:
+    nodemailer:
+      optional: true
+  checksum: f85a23f8aafc9973d7dbf07641dc080ca8dd907a77ff85a22bca2827919c633687a4e80fe06ce20c3c8d683c9937cee5fe30aaa4afbb81928676eb41c8ea1a4c
   languageName: node
   linkType: hard
 
@@ -871,6 +891,13 @@ __metadata:
   version: 4.3.6
   resolution: "@types/chai@npm:4.3.6"
   checksum: cfdcee881619c1719909f7f6ca083851f5694527fa28ca1be4eb4733fa729e244f443a0cfcb43ad0caf9367067612eaa3628963dfd2acf19f1e03a49e46adcd8
+  languageName: node
+  linkType: hard
+
+"@types/cookie@npm:0.6.0":
+  version: 0.6.0
+  resolution: "@types/cookie@npm:0.6.0"
+  checksum: b883348d5bf88695fbc2c2276b1c49859267a55cae3cf11ea1dccc1b3be15b466e637ce3242109ba27d616c77c6aa4efe521e3d557110b4fdd9bc332a12445c2
   languageName: node
   linkType: hard
 
@@ -5427,7 +5454,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "webapp@workspace:apps/webapp"
   dependencies:
-    "@auth/core": "npm:^0.18.4"
+    "@auth/core": "npm:^0.18.5"
     "@auth/mongodb-adapter": "npm:^2.0.7"
     "@auth/sveltekit": "npm:^0.3.12"
     "@google-cloud/storage": "npm:^7.7.0"
