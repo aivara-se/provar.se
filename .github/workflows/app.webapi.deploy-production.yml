@@ -55,7 +55,7 @@ jobs:
 
       - name: Deploy the service
         id: deploy
-        uses: google-github-actions/deploy-cloudrun@v1
+        uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: "${{ secrets.APPS_WEBAPI_GCP_CLOUD_RUN_SERVICE }}"
           region: "${{ secrets.APPS_WEBAPI_GCP_REGION }}"
