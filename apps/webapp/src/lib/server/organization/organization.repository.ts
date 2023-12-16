@@ -25,7 +25,8 @@ function fromDocument(doc: OrganizationDocument): Organization {
 		id: doc._id.toHexString(),
 		name: doc.name,
 		description: doc.description ?? '',
-		members: doc.members.map((id) => id.toHexString())
+		members: doc.members.map((id) => id.toHexString()),
+		createdAt: doc._id.getTimestamp()
 	};
 }
 

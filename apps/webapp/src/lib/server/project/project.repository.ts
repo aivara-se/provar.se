@@ -27,7 +27,8 @@ function fromDocument(doc: ProjectDocument): Project {
 		name: doc.name,
 		description: doc.description ?? '',
 		organizationId: doc.organizationId.toHexString(),
-		collectionGoal: doc.collectionGoal ?? null
+		collectionGoal: doc.collectionGoal ?? null,
+		createdAt: doc._id.getTimestamp()
 	};
 }
 

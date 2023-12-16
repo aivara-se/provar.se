@@ -25,7 +25,8 @@ function fromDocument(doc: InvitationDocument): Invitation {
 		id: doc._id.toHexString(),
 		key: doc.key,
 		email: doc.email,
-		organizationId: doc.organizationId.toHexString()
+		organizationId: doc.organizationId.toHexString(),
+		createdAt: doc._id.getTimestamp()
 	};
 }
 

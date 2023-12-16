@@ -21,7 +21,6 @@ interface BaseFeedbackDocument {
 	_id: ObjectId;
 	organizationId: ObjectId;
 	projectId?: ObjectId;
-	createdAt: Date;
 	type: FeedbackType;
 	tags?: Record<string, string>;
 	data: unknown;
@@ -64,7 +63,7 @@ function fromDocument(doc: FeedbackDocument): Feedback {
 		id: doc._id.toHexString(),
 		organizationId: doc.organizationId.toHexString(),
 		projectId: doc.projectId?.toHexString(),
-		createdAt: doc.createdAt.getTime(),
+		createdAt: doc._id.getTimestamp(),
 		type: doc.type,
 		// TODO: Fix this any without writing unnecessary javascript code.
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

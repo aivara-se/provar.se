@@ -7,4 +7,5 @@ export interface Project {
 	description: string;
 	organizationId: string;
 	collectionGoal: number | null;
+	createdAt: Date;
 }

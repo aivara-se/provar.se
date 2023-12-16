@@ -21,7 +21,7 @@ interface BaseFeedback {
 	id: string;
 	organizationId: string;
 	projectId?: string;
-	createdAt: number;
+	createdAt: Date;
 	type: FeedbackType;
 	tags?: FeedbackTags;
 	data: unknown;

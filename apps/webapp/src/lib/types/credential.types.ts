@@ -6,4 +6,5 @@ export interface Credential {
 	name: string;
 	organizationId: string;
 	key: string;
+	createdAt: Date;
 }

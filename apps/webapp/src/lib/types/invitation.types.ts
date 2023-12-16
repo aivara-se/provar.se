@@ -6,4 +6,5 @@ export interface Invitation {
 	key: string;
 	email: string;
 	organizationId: string;
+	createdAt: Date;
 }
