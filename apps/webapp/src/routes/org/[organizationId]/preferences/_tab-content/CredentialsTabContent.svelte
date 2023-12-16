@@ -84,7 +84,7 @@
 					{#each credentials as item}
 						<TableBodyRow>
 							<TableBodyCell>{item.name}</TableBodyCell>
-							<TableBodyCell>-</TableBodyCell>
+							<TableBodyCell>{item.createdAt.toLocaleDateString()}</TableBodyCell>
 							<TableBodyCell>-</TableBodyCell>
 							<TableBodyCell>
 								<Button pill size="xs" color="light" on:click={() => selectCredential(item)}>
