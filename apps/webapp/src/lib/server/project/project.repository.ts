@@ -119,6 +119,8 @@ export async function findById(organizationId: string, projectId: string): Promi
  */
 export async function findByOrganization(organizationId: string): Promise<Project[]> {
 	const coll = await getCollection();
-	const docs = await coll.find({ organizationId: new ObjectId(organizationId) }).toArray();
+	const docs = await coll
+		.find({ organizationId: new ObjectId(organizationId) }, { sort: { name: -1 } })
+		.toArray();
 	return docs.map(fromDocument);
 }
