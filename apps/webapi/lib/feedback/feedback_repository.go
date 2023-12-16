@@ -47,9 +47,9 @@ type FeedbackTags map[string]string
 
 // FeedbackDocument is a MongoDB document for feedback
 type FeedbackDocument struct {
+	ID             primitive.ObjectID `bson:"_id"`
 	OrganizationID primitive.ObjectID `bson:"organizationId"`
 	ProjectID      primitive.ObjectID `bson:"projectId,omitempty"`
-	CreatedAt      time.Time          `bson:"createdAt"`
 	Type           FeedbackType       `bson:"type"`
 	Data           FeedbackData       `bson:"data"`
 	Tags           FeedbackTags       `bson:"tags,omitempty"`
@@ -102,14 +102,16 @@ func createFeedbackDocument(data CreateFeedbackData) (*FeedbackDocument, error) 
 			return nil, err
 		}
 	}
-	createdTime := time.Now()
-	if !data.CreatedAt.IsZero() {
+	var createdTime time.Time
+	if data.CreatedAt.IsZero() {
+		createdTime = time.Now()
+	} else {
 		createdTime = data.CreatedAt
 	}
 	doc := &FeedbackDocument{
+		ID:             primitive.NewObjectIDFromTimestamp(createdTime),
 		OrganizationID: organizationIDAsObjectId,
 		ProjectID:      projectIDAsObjectId,
-		CreatedAt:      createdTime,
 		Type:           data.Type,
 		Data:           data.Data,
 		Tags:           data.Tags,
