@@ -21,23 +21,24 @@ describe('Project Repository', () => {
 	beforeEach(async () => {
 		await collection.deleteMany({});
 		await collection.insertMany([
-			{ _id: projectId1, organizationId: organizationId1 },
-			{ _id: projectId2, organizationId: organizationId1 },
-			{ _id: projectId3, organizationId: organizationId1 }
+			{ _id: projectId1, organizationId: new ObjectId(organizationId1) },
+			{ _id: projectId2, organizationId: new ObjectId(organizationId1) },
+			{ _id: projectId3, organizationId: new ObjectId(organizationId1) }
 		]);
 	});
 
 	describe('create', () => {
 		it('should create a new project', async () => {
-			await projectRepository.create({
-				name: 'Test',
+			const projectId = await projectRepository.create({
+				name: 'Test Project',
 				organizationId: organizationId1.toHexString()
 			});
-			const result = await collection.findOne({ name: 'Test' });
+			const result = await collection.findOne({ _id: new ObjectId(projectId) });
 			expect(result).toEqual(
 				expect.objectContaining({
-					name: 'Test',
-					organizationId: organizationId1
+					_id: new ObjectId(projectId),
+					name: 'Test Project',
+					organizationId: new ObjectId(organizationId1)
 				})
 			);
 		});
