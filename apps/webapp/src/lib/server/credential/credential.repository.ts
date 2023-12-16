@@ -25,7 +25,8 @@ function fromDocument(doc: CredentialDocument): Credential {
 		id: doc._id.toHexString(),
 		name: doc.name,
 		organizationId: doc.organizationId.toHexString(),
-		key: doc.key
+		key: doc.key,
+		createdAt: doc._id.getTimestamp()
 	};
 }
 
