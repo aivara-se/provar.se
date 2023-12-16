@@ -99,8 +99,7 @@ export async function findById(organizationId: string, id: string): Promise<Feed
 export async function findByOrganization(organizationId: string): Promise<Feedback[]> {
 	const coll = await getCollection();
 	const docs = await coll
-		.find({ organizationId: new ObjectId(organizationId) })
-		.sort('createdAt', -1)
+		.find({ organizationId: new ObjectId(organizationId) }, { sort: { _id: -1 } })
 		.toArray();
 	return docs.map(fromDocument);
 }
@@ -113,11 +112,12 @@ export async function findByProject(
 	projectId: string
 ): Promise<Feedback[]> {
 	const coll = await getCollection();
-	const filter = {
-		organizationId: new ObjectId(organizationId),
-		projectId: new ObjectId(projectId)
-	};
-	const docs = await coll.find(filter).sort('createdAt', -1).toArray();
+	const docs = await coll
+		.find(
+			{ organizationId: new ObjectId(organizationId), projectId: new ObjectId(projectId) },
+			{ sort: { _id: -1 } }
+		)
+		.toArray();
 	return docs.map(fromDocument);
 }
 

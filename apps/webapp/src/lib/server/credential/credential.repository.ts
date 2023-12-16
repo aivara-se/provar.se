@@ -97,6 +97,8 @@ export async function findById(organizationId: string, id: string): Promise<Cred
  */
 export async function findByOrganization(organizationId: string): Promise<Credential[]> {
 	const coll = await getCollection();
-	const docs = await coll.find({ organizationId: new ObjectId(organizationId) }).toArray();
+	const docs = await coll
+		.find({ organizationId: new ObjectId(organizationId) }, { sort: { name: 1 } })
+		.toArray();
 	return docs.map(fromDocument);
 }

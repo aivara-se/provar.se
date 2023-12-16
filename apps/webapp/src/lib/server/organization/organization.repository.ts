@@ -109,6 +109,6 @@ export async function findById(id: string): Promise<Organization | null> {
  */
 export async function findByMember(userId: string): Promise<Organization[]> {
 	const coll = await getCollection();
-	const docs = await coll.find({ members: new ObjectId(userId) }).toArray();
+	const docs = await coll.find({ members: new ObjectId(userId) }, { sort: { name: 1 } }).toArray();
 	return docs.map(fromDocument);
 }

@@ -73,7 +73,7 @@ describe('Feedback Repository', () => {
 			const result = await feedbackRepository.findByOrganization(organizationId1.toHexString());
 			expect(result).toEqual([
 				expect.objectContaining({
-					id: feedbackId1.toHexString(),
+					id: feedbackId3.toHexString(),
 					organizationId: organizationId1.toHexString()
 				}),
 				expect.objectContaining({
@@ -81,7 +81,7 @@ describe('Feedback Repository', () => {
 					organizationId: organizationId1.toHexString()
 				}),
 				expect.objectContaining({
-					id: feedbackId3.toHexString(),
+					id: feedbackId1.toHexString(),
 					organizationId: organizationId1.toHexString()
 				})
 			]);
@@ -104,12 +104,12 @@ describe('Feedback Repository', () => {
 			);
 			expect(result).toEqual([
 				expect.objectContaining({
-					id: feedbackId2.toHexString(),
+					id: feedbackId3.toHexString(),
 					organizationId: organizationId1.toHexString(),
 					projectId: projectId1.toHexString()
 				}),
 				expect.objectContaining({
-					id: feedbackId3.toHexString(),
+					id: feedbackId2.toHexString(),
 					organizationId: organizationId1.toHexString(),
 					projectId: projectId1.toHexString()
 				})
