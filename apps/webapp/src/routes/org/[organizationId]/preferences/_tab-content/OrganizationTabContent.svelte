@@ -9,11 +9,14 @@
 	let name = $selectedOrg?.name || '';
 	let description = $selectedOrg?.description || '';
 
+	let isLeaveModalOpen = false;
 	let isDeleteModalOpen = false;
 
-	async function deleteOrganization() {
+	async function updateOrganization() {
 		const data = new FormData();
-		const response = await fetch('?/deleteOrganization', {
+		data.set('name', name);
+		data.set('description', description);
+		const response = await fetch('?/updateOrganization', {
 			method: 'post',
 			body: data
 		});
@@ -24,11 +27,22 @@
 		applyAction(result);
 	}
 
-	async function updateOrganization() {
+	async function leaveOrganization() {
 		const data = new FormData();
-		data.set('name', name);
-		data.set('description', description);
-		const response = await fetch('?/updateOrganization', {
+		const response = await fetch('?/leaveOrganization', {
+			method: 'post',
+			body: data
+		});
+		const result: ActionResult = deserialize(await response.text());
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+		applyAction(result);
+	}
+
+	async function deleteOrganization() {
+		const data = new FormData();
+		const response = await fetch('?/deleteOrganization', {
 			method: 'post',
 			body: data
 		});
@@ -60,13 +74,31 @@
 <Alert color="red" class="mt-6">
 	<div class="flex items-center gap-3">
 		<ExclamationCircleOutline slot="icon" class="w-4 h-4" />
+		<span class="font-medium">Leave the organization</span>
+	</div>
+	<p class="mt-2 mb-2 text-sm">
+		Exiting this organization will revoke your access to its feedback data and associated resources.
+		You will no longer be able to view or manage feedback within this organization. If you are the
+		last member in this organization, the organization and all its feedback data will be deleted
+		permanently. This action cannot be reversed.
+	</p>
+	<div class="flex gap-2">
+		<Button size="xs" color="red" outline on:click={() => (isLeaveModalOpen = true)}>
+			Leave "{name}"
+		</Button>
+	</div>
+</Alert>
+
+<Alert color="red" class="mt-6">
+	<div class="flex items-center gap-3">
+		<ExclamationCircleOutline slot="icon" class="w-4 h-4" />
 		<span class="font-medium">Delete the organization</span>
 	</div>
 	<p class="mt-2 mb-4 text-sm">
 		Deleting this organization will permanently erase all collected feedback data, including
 		associated records and information. Proceeding with this action cannot be undone. Please ensure
 		that you have backed up any critical data or exported necessary information before deleting the
-		organization.
+		organization. This action cannot be reversed.
 	</p>
 	<div class="flex gap-2">
 		<Button size="xs" color="red" outline on:click={() => (isDeleteModalOpen = true)}>
@@ -78,6 +110,17 @@
 <div class="flex justify-end mt-6">
 	<Button size="sm" color="primary" on:click={updateOrganization}>Update</Button>
 </div>
+
+<Modal bind:open={isLeaveModalOpen} size="sm" autoclose>
+	<div class="text-center">
+		<ExclamationCircleOutline class="mx-auto mb-4 text-gray-500 w-8 h-8" />
+		<h3 class="mb-5 text-lg font-normal text-gray-800">
+			Are you sure you want to leave "{name}"?
+		</h3>
+		<Button color="red" class="me-2" on:click={leaveOrganization}>Yes, I'm sure</Button>
+		<Button color="alternative">No, cancel</Button>
+	</div>
+</Modal>
 
 <Modal bind:open={isDeleteModalOpen} size="sm" autoclose>
 	<div class="text-center">
