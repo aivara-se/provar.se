@@ -9,9 +9,6 @@
 <style>
 	.wrapper {
 		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
 		height: 100vh;
 	}
 
@@ -19,7 +16,6 @@
 		display: flex;
 		padding: 20px;
 		width: 200px;
-		height: 100%;
 		background: #f0f0f0;
 		flex-direction: column;
 		box-sizing: border-box;
@@ -41,9 +37,10 @@
 	.content {
 		display: flex;
 		flex: 1;
-		height: 100%;
-		flex-direction: column;
-		box-sizing: border-box;
 		padding: 20px;
+		height: 100vh;
+		flex-direction: column;
+		overflow-y: scroll;
+		box-sizing: border-box;
 	}
 </style>
