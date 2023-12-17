@@ -1,0 +1,33 @@
+---
+title: 'You have requested a link to sign-in to Provar.se'
+preheader: 'You have requested a link to sign-in to Provar.se'
+bodyClass: bg-slate-50
+---
+
+<x-main>
+	<div class="bg-slate-50 sm:px-4 font-sans">
+		<table align="center">
+			<tr>
+				<td class="w-[552px] max-w-full">
+					<div class="my-12 sm:my-8 text-center">
+						<x-logo64 />
+					</div>
+					<table class="w-full">
+						<tr>
+							<td class="p-12 sm:px-6 text-base text-slate-700 bg-white rounded shadow-sm">
+								<h1 class="m-0 mb-6 text-2xl sm:leading-8 text-black font-semibold">Hello,</h1>
+								<p class="m-0 leading-6">You have requested a link to sign-in to Provar.se. To access your account, click the link below:</p>
+								<x-spacer height="24px" />
+								<x-button href="${link}"> Sign-in to Provar.se &rarr; </x-button>
+								<x-spacer height="32px" />
+								<p class="m-0 leading-6">If you did not request this email you can safely ignore it.</p>
+								<x-divider space-y="32px" class="bg-slate-200" />
+								<p class="m-0">Thanks, <br />The Provar Team</p>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</x-main>

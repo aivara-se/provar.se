@@ -35,6 +35,7 @@ jobs:
     env:
       MONGODB_URL: mongodb://localhost:27017
       PUBLIC_PROVAR_API_KEY: "test-api-key"
+      PUBLIC_PROVAR_APP_URL: "test-app-url"
 
     steps:
       - name: Checkout

@@ -1,6 +1,8 @@
+import { PUBLIC_PROVAR_APP_URL } from '$env/static/public';
 import { OrganizationRepository } from '$lib/server/organization';
-import { UserRepository } from '$lib/server/user';
 import { secureRandom } from '$lib/server/random';
+import { UserRepository } from '$lib/server/user';
+import { EmailService, InvitationTemplate } from '../email-utils';
 import * as InvitationRepository from './invitation.repository';
 
 /**
@@ -12,10 +14,13 @@ const INVITATION_KEY_LENGTH = 16;
  * Invites a user to join an organization.
  */
 export async function invite(organizationId: string, name: string, email: string): Promise<void> {
+	const organization = await OrganizationRepository.findById(organizationId);
+	if (!organization) {
+		throw new Error('Organization not found');
+	}
 	const existingUser = await UserRepository.findByEmail(email);
 	if (existingUser) {
-		const organizations = await OrganizationRepository.findByMember(existingUser.id);
-		const isAlreadyMember = organizations.some((org) => org.id === organizationId);
+		const isAlreadyMember = organization.members.some((id) => id === existingUser.id);
 		if (isAlreadyMember) {
 			throw new Error('User is already a member of this organization');
 		}
@@ -27,7 +32,12 @@ export async function invite(organizationId: string, name: string, email: string
 	}
 	const key = createInvitationKey();
 	await InvitationRepository.create({ key, name, email, organizationId });
-	// TODO: Send an email to the user with a link to the invitation key.
+	const invitationLink = `${PUBLIC_PROVAR_APP_URL}/auth/accept/${key}`;
+	await EmailService.send({
+		toEmail: email,
+		options: { name, link: invitationLink, organization: organization.name },
+		template: InvitationTemplate
+	});
 }
 
 /**
@@ -60,7 +70,7 @@ export async function accept(key: string, userId: string): Promise<void> {
 	if (!invitation) {
 		throw new Error('Invitation not found');
 	}
-	if (!canAccept(key, userId)) {
+	if (!(await canAccept(key, userId))) {
 		throw new Error('User cannot accept this invitation');
 	}
 	await Promise.all([

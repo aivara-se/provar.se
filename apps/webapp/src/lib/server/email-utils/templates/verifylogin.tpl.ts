@@ -1,0 +1,128 @@
+/**
+ * Invitation email template options
+ */
+export interface Options {
+	link: string;
+}
+
+/**
+ * Invitation email subject template
+ */
+export function subject() {
+	return `You have requested a link to sign-in to Provar.se`;
+}
+
+/**
+ * Invitation email text template
+ */
+export function text(options: Options) {
+	const { link } = options;
+	return `Hello,
+You have requested a link to sign-in to Provar.se. To access your account, click the link below:
+
+${link}
+
+If you do not wish to join this organization you can safely ignore it.
+
+Thanks,
+The Provar Team`;
+}
+
+/**
+ * Invitation email html template
+ */
+export function html(options: Options) {
+	const { link } = options;
+	return `<!DOCTYPE html>
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+  <meta charset="utf-8">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings xmlns:o="urn:schemas-microsoft-com:office:office">
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <style>
+    td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
+  </style>
+  <![endif]-->
+  <title>You have requested a link to sign-in to Provar.se</title>
+  <style>
+    .shadow-sm {
+      --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+      box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+    }
+    @media (min-width: 640px) {
+      .sm-my-8 {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important
+      }
+      .sm-px-4 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important
+      }
+      .sm-px-6 {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important
+      }
+      .sm-leading-8 {
+        line-height: 2rem !important
+      }
+    }
+  </style>
+</head>
+<body style="margin: 0px; width: 100%; --tw-bg-opacity: 1; background-color: rgb(248 250 252 / var(--tw-bg-opacity)); padding: 0px; -webkit-font-smoothing: antialiased; word-break: break-word">
+  <div style="display: none">
+    You have requested a link to sign-in to Provar.se
+    &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847;
+  </div>
+  <div role="article" aria-roledescription="email" aria-label="You have requested a link to sign-in to Provar.se" lang="en">
+    <div class="sm-px-4" style="--tw-bg-opacity: 1; background-color: rgb(248 250 252 / var(--tw-bg-opacity)); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'">
+      <table align="center" cellpadding="0" cellspacing="0" role="none">
+        <tr>
+          <td style="width: 552px; max-width: 100%">
+            <div class="sm-my-8" style="margin-top: 3rem; margin-bottom: 3rem; text-align: center"><a href="https://provar.se">
+                <img alt="Provar" height="64" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABBVBMVEUAAAD+/v7+/v7+/v7////+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7////+/v7+/v7+/v7+/v7///8AAAD9/f339/cEBARycnJZWVn5+fnz8/Otra0zMzMVFRUPDw/t7e1UVFTk5OSpqamKioqAgIBPT09DQ0M+Pj4ICAjHx8ednZ2VlZV3d3c5OTkuLi7p6enf39/a2tqYmJhqampnZ2crKysnJycNDQ3h4eHX19fBwcG4uLivr6+jo6OSkpKNjY2CgoJiYmIeHh7m5ubQ0NDMzMyfn58iIiITExPv7++zs7N7e3ttbW1dXV1JSUkbGxu7u7vcRMRyAAAAGHRSTlMA9NaFE+/p48jEr6iRjHZfWT4qHglrtmwjaiZtAAADg0lEQVRYw7VXaVsaMRAGQUG5RWw2sNxyyyW3IiKg1npUrf3/P6VJJOxkdhfk4en7aZPMzGbuicMO0bDL5/U4KXV6vD5XOOrYCpHAHkHYC0S+y+0OSm4sI+j+Drtrn9hi37VRROyArMXBj7Xsx4dkIw6P7flDTvINOEN2/H5rBhqPU3XHb8l+ckTMeCwXOnVNq18m5xOwfXRiwX9q/vXsQgM4LxkXOTVLMP9/2tEQsg3jDhv1j79Ltpfnh/zyM1GhNnYIYf6zmuDIDzNFzlN8StbFRjIuKUKK/7H/0kL7ceXM2OrqQkQhJb0J4wHHD60Kq/XV3V+XfFdfRRSIX4Iwh7fFemXkMrbKHxz/12NGV00RE165Zp+vMi9kZrkw3T0juxLqY/Ry7KgiV67lBfYxVYJRTYklBuwol5bZ/XWFICa6Y0R/iDUoj66mXAWFAFP9yTKaW2KDFnflqkaJ+odJuvyWhgXxKdMvvzrldTKASX5zFxJbcEc8ykXASoMSoygTW4zYcQnoECUY8ZqW7RJbvEErkqgjTMwSSou2XmlOKLFCmQloEYmwOYomI5m8l4s0MaPNTp6IEUs+lIZ6QjPwIOMehamx7XN41SzIaip0ahUlRpp6HR54+PNKcF28PZVao0/xPUQSimqUeBywlKTORRloLFeDHF+2kA3VKHE6KDxEl+7x6477ioeejTDgoFDAWZ5fWVGJk3/AnSY3bQoIgCosuOvUMnTDS3ERbFTYRhv2OWhEboEZUcGL4xzF+T1Ye4Ab0zzPcB2coczq8/4C1l4QSA1ZR7DXOvIPlOn8wnQCf/GBUL5ltCOCUWdu/yrqBS1f05s8UhoEhHJYETC0FpC6KcM+2yQgmaKKxaumVsA9wwJUgU5AOjv2IG0Oh36Gl8DFklHm2ZDAohhQ0gSnX5KXp4xolB+NeGPwXstrDxMCS1pEKefnqB0m2H/7dFBoZ2RtoF0QiBGlrF8zAXW1OnSQXRD21MbSEz7HzTTxSGwRVFtbhqsw0Ns9Wd+F8StrBle32lzvpLELrenNbSUrFgVKbOFC7T2pIaAhAePAjQaMqol9PKfEHjE84vzNay81vVWV8ZLTi2uHZvOQlb6mIgNn7fvk6G4aXz8yH6Mxb1uE8KC5JfzmUXcrHK0dttcDD9t43N8MPO5vbwf/rk+eXR9duz37Yrs+PHd8+v6Hx/fOz/9/45BMVffqmYkAAAAASUVORK5CYII=" style="max-width: 100%; vertical-align: middle; line-height: 1">
+              </a>
+            </div>
+            <table style="width: 100%;" cellpadding="0" cellspacing="0" role="none">
+              <tr>
+                <td class="sm-px-6 shadow-sm" style="border-radius: 0.25rem; --tw-bg-opacity: 1; background-color: rgb(255 255 255 / var(--tw-bg-opacity)); padding: 3rem; font-size: 1rem; line-height: 1.5rem; --tw-text-opacity: 1; color: rgb(51 65 85 / var(--tw-text-opacity)); --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)">
+                  <h1 class="sm-leading-8" style="margin: 0px 0px 1.5rem; font-size: 1.5rem; line-height: 2rem; font-weight: 600; --tw-text-opacity: 1; color: rgb(0 0 0 / var(--tw-text-opacity))">Hello,</h1>
+                  <p style="margin: 0px; line-height: 1.5rem">You have requested a link to sign-in to Provar.se. To access your account, click the link below:</p>
+                  <div role="separator" style="line-height: 24px">&zwj;</div>
+                  <div>
+                    <a href="${link}" style="display: inline-block; border-radius: 0.25rem; --tw-bg-opacity: 1; background-color: rgb(67 56 202 / var(--tw-bg-opacity)); padding: 1rem 1.5rem; font-size: 1rem; font-weight: 600; line-height: 1; --tw-text-opacity: 1; color: rgb(248 250 252 / var(--tw-text-opacity)); text-decoration: none">
+                      <!--[if mso]>
+      <i style="letter-spacing: 32px; mso-text-raise: 30px;" hidden>&nbsp;</i>
+    <![endif]-->
+                      <span style="mso-text-raise: 16px"> Sign-in to Provar.se &rarr; </span>
+                      <!--[if mso]>
+      <i style="letter-spacing: 32px;" hidden>&nbsp;</i>
+    <![endif]-->
+                    </a>
+                  </div>
+                  <div role="separator" style="line-height: 32px">&zwj;</div>
+                  <p style="margin: 0px; line-height: 1.5rem;">If you did not request this email you can safely ignore it.</p>
+                  <div role="separator" style="--tw-bg-opacity: 1; background-color: rgb(226 232 240 / var(--tw-bg-opacity)); height: 1px; line-height: 1px; margin: 32px 0">&zwj;</div>
+                  <p style="margin: 0px;">Thanks, <br>The Provar Team</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>`;
+}
