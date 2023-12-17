@@ -24,7 +24,7 @@ export const actions: Actions = {
 	deleteOrganization: async (event) => {
 		const organization = await getSelectedOrganization(event);
 		await OrganizationService.remove(organization.id);
-		throw redirect(302, '/');
+		redirect(302, '/');
 	},
 
 	/**
@@ -34,7 +34,7 @@ export const actions: Actions = {
 		const session = (await event.locals.getSession()) as Session;
 		const organization = await getSelectedOrganization(event);
 		await OrganizationService.removeMember(organization.id, session.user.id);
-		throw redirect(302, '/');
+		redirect(302, '/');
 	},
 
 	/**

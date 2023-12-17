@@ -7,6 +7,6 @@ export const actions: Actions = {
 	delete: async (event) => {
 		const { organization, project } = await getSelectedProject(event);
 		await ProjectRepository.remove(organization.id, project.id);
-		throw redirect(303, `/org/${organization.id}/project`);
+		redirect(303, `/org/${organization.id}/project`);
 	}
 };

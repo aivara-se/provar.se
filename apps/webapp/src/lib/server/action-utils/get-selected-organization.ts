@@ -9,12 +9,12 @@ import { error, type RequestEvent } from '@sveltejs/kit';
  */
 export async function getSelectedOrganization(event: RequestEvent) {
 	if (!event.params.organizationId) {
-		throw error(404);
+		error(404);
 	}
 	const session = (await event.locals.getSession()) as Session;
 	const organization = await OrganizationRepository.findById(event.params.organizationId);
 	if (!organization || !organization?.members.includes(session.user.id)) {
-		throw error(404);
+		error(404);
 	}
 	return organization;
 }

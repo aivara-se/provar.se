@@ -28,57 +28,56 @@ const authorization: Handle = async ({ event, resolve }) => {
 	}
 	const session = await event.locals.getSession();
 	if (!session) {
-		throw redirect(303, '/auth/login');
+		redirect(303, '/auth/login');
 	}
 	return resolve(event);
 };
 
-const sveltekitauth = SvelteKitAuth({
-	adapter: MongoDBAdapter(getMongoClient()),
-	providers: [
-		EmailProvider({
-			server: env.AUTH_EMAIL_SERVER,
-			from: env.AUTH_EMAIL_FROM,
-			async sendVerificationRequest(params) {
-				await EmailService.send({
-					toEmail: params.identifier,
-					options: { link: params.url },
-					template: VerifyLoginTemplate
-				});
+const sveltekitauth: Handle = (input) =>
+	SvelteKitAuth({
+		adapter: MongoDBAdapter(getMongoClient()),
+		providers: [
+			EmailProvider({
+				async sendVerificationRequest(params) {
+					await EmailService.send({
+						toEmail: params.identifier,
+						options: { link: params.url },
+						template: VerifyLoginTemplate
+					});
+				}
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			}) as any,
+			GoogleProvider({
+				clientId: env.AUTH_GOOGLE_ID,
+				clientSecret: env.AUTH_GOOGLE_SECRET,
+				allowDangerousEmailAccountLinking: true
+			}),
+			GitHubProvider({
+				clientId: env.AUTH_GITHUB_ID,
+				clientSecret: env.AUTH_GITHUB_SECRET,
+				allowDangerousEmailAccountLinking: true
+			})
+		],
+		secret: env.AUTH_SECRET,
+		session: {
+			strategy: 'jwt'
+		},
+		pages: {
+			signIn: '/auth/login',
+			signOut: '/auth/logout',
+			error: '/auth/error',
+			verifyRequest: '/auth/verify',
+			newUser: '/'
+		},
+		trustHost: true,
+		callbacks: {
+			async session({ session, token }) {
+				if (session.user) {
+					session.user.id = token.sub as string;
+				}
+				return session;
 			}
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		}) as any,
-		GoogleProvider({
-			clientId: env.AUTH_GOOGLE_ID,
-			clientSecret: env.AUTH_GOOGLE_SECRET,
-			allowDangerousEmailAccountLinking: true
-		}),
-		GitHubProvider({
-			clientId: env.AUTH_GITHUB_ID,
-			clientSecret: env.AUTH_GITHUB_SECRET,
-			allowDangerousEmailAccountLinking: true
-		})
-	],
-	secret: env.AUTH_SECRET,
-	session: {
-		strategy: 'jwt'
-	},
-	pages: {
-		signIn: '/auth/login',
-		signOut: '/auth/logout',
-		error: '/auth/error',
-		verifyRequest: '/auth/verify',
-		newUser: '/'
-	},
-	trustHost: true,
-	callbacks: {
-		async session({ session, token }) {
-			if (session.user) {
-				session.user.id = token.sub as string;
-			}
-			return session;
 		}
-	}
-});
+	})(input);
 
 export const handle = sequence(sveltekitauth, authorization);
