@@ -8,7 +8,7 @@ import { SvelteKitAuth } from '@auth/sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import process from 'process';
-import { EmailService, type EmailDetails, VerifyLoginTemplate } from './lib/server/email-utils';
+import { EmailService, VerifyLoginTemplate } from './lib/server/email-utils';
 
 process.on('SIGINT', function () {
 	process.exit();
