@@ -5,13 +5,15 @@ import type { EmailDetails } from './email.types';
 /**
  * Create a nodemailer transport which can be used to send emails
  */
-const transport = nodemailer.createTransport(env.AUTH_EMAIL_SERVER);
+function getTransport() {
+	return nodemailer.createTransport(env.AUTH_EMAIL_SERVER);
+}
 
 /**
  * Send an email using given templates and details
  */
 export async function send<T>(email: EmailDetails<T>) {
-	await transport.sendMail({
+	await getTransport().sendMail({
 		from: env.AUTH_EMAIL_FROM,
 		to: email.toEmail,
 		subject: email.template.subject(email.options),
