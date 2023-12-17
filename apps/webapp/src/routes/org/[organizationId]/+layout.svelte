@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { LSidebarLayout } from '$lib/ui';
+	import { LSidebarLayout } from '$lib/client/ui';
 	import { signOut } from '@auth/sveltekit/client';
 	import {
 		AdjustmentsHorizontalOutline,

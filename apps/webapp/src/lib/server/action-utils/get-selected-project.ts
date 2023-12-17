@@ -1,4 +1,4 @@
-import { ProjectRepository } from '$lib/server';
+import { ProjectRepository } from '$lib/server/project';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { getSelectedOrganization } from './get-selected-organization';
 

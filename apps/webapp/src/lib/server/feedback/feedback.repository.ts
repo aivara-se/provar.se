@@ -1,10 +1,10 @@
 import { getMongoClient } from '$lib/server/database';
 import type {
-	FeedbackType,
-	Feedback,
-	TextFeedbackData,
 	CNPSFeedbackData,
-	CSATFeedbackData
+	CSATFeedbackData,
+	Feedback,
+	FeedbackType,
+	TextFeedbackData
 } from '$lib/types';
 import { ObjectId, type Collection } from 'mongodb';
 

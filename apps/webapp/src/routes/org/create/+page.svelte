@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
-	import { CenteredLayout } from '$lib/ui';
+	import { CenteredLayout } from '$lib/client/ui';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { Button, Input, Label } from 'flowbite-svelte';
 	import { UsersGroupOutline } from 'flowbite-svelte-icons';

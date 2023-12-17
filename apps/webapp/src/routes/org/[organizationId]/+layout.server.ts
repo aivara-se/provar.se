@@ -1,4 +1,5 @@
-import { CredentialRepository, ProjectRepository } from '$lib/server';
+import { CredentialRepository } from '$lib/server/credential';
+import { ProjectRepository } from '$lib/server/project';
 import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 

@@ -1,3 +1,4 @@
+import { secureRandom } from '$lib/server/random';
 import type { Credential } from '$lib/types';
 import * as CredentialRepository from './credential.repository';
 
@@ -32,13 +33,4 @@ export async function getImportCredential(organizationId: string): Promise<Crede
  */
 export function createCredentialKey() {
 	return secureRandom(CREDENTIAL_KEY_LENGTH);
-}
-
-/**
- * Generates a secure random string.
- */
-function secureRandom(count: number): string {
-	const array = new Uint8Array(count);
-	crypto.getRandomValues(array);
-	return Buffer.from(array).toString('base64url');
 }

@@ -1,4 +1,5 @@
-import { getSelectedProject, ProjectRepository } from '$lib/server';
+import { getSelectedProject } from '$lib/server/action-utils';
+import { ProjectRepository } from '$lib/server/project';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 

@@ -1,6 +1,6 @@
 import { getMongoClient } from '$lib/server/database';
-import { ObjectId, type Collection } from 'mongodb';
 import type { Organization } from '$lib/types';
+import { ObjectId, type Collection } from 'mongodb';
 
 /**
  * The name of the MongoDB collection for organizations.

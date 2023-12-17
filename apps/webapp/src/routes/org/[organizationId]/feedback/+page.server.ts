@@ -1,10 +1,7 @@
-import {
-	CredentialService,
-	FeedbackRepository,
-	FeedbackService,
-	ProvarAPIService,
-	getSelectedOrganization
-} from '$lib/server';
+import { getSelectedOrganization } from '$lib/server/action-utils';
+import { CredentialService } from '$lib/server/credential';
+import { FeedbackRepository, FeedbackService } from '$lib/server/feedback';
+import { importFeedback } from '$lib/server/provar-api';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
@@ -32,6 +29,6 @@ export const actions: Actions = {
 		const name = String(data.get('name'));
 		const { signedUrl } = await FeedbackService.createReadableUrl(organization.id, name);
 		const credential = await CredentialService.getImportCredential(organization.id);
-		await ProvarAPIService.importFeedback(credential.key, signedUrl);
+		await importFeedback(credential.key, signedUrl);
 	}
 };

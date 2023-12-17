@@ -1,5 +1,6 @@
+import { InvitationRepository, InvitationService } from '$lib/server/invitation';
+import { OrganizationRepository } from '$lib/server/organization';
 import { error, redirect } from '@sveltejs/kit';
-import { InvitationRepository, InvitationService, OrganizationRepository } from '$lib/server';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {

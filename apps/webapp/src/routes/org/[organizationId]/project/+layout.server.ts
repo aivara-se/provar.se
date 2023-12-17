@@ -1,4 +1,4 @@
-import { ProjectRepository } from '$lib/server';
+import { ProjectRepository } from '$lib/server/project';
 import type { LayoutServerLoad } from './$types';
 
 /**

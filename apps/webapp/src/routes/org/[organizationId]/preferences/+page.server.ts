@@ -1,13 +1,21 @@
-import {
-	CredentialRepository,
-	CredentialService,
-	OrganizationRepository,
-	OrganizationService,
-	getSelectedOrganization
-} from '$lib/server';
-import { redirect } from '@sveltejs/kit';
-import type { Actions } from './$types';
+import { getSelectedOrganization } from '$lib/server/action-utils';
+import { CredentialRepository, CredentialService } from '$lib/server/credential';
+import { InvitationRepository, InvitationService } from '$lib/server/invitation';
+import { OrganizationRepository, OrganizationService } from '$lib/server/organization';
+import { UserRepository } from '$lib/server/user';
 import type { Session } from '@auth/core/types';
+import { redirect } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
+
+/**
+ * Loads the organization's members.
+ */
+export const load: PageServerLoad = async (event) => {
+	const { organization } = await event.parent();
+	const members = await UserRepository.findByIds(organization.members);
+	const invitations = await InvitationRepository.findByOrganization(organization.id);
+	return { members, invitations };
+};
 
 export const actions: Actions = {
 	/**
@@ -63,5 +71,16 @@ export const actions: Actions = {
 		const data = await event.request.formData();
 		const id = String(data.get('id'));
 		await CredentialRepository.remove(organization.id, id);
+	},
+
+	/**
+	 * Invite a new member to join the organization.
+	 */
+	inviteMember: async (event) => {
+		const organization = await getSelectedOrganization(event);
+		const data = await event.request.formData();
+		const name = String(data.get('name'));
+		const email = String(data.get('email'));
+		await InvitationService.invite(organization.id, name, email);
 	}
 };

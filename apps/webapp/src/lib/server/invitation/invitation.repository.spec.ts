@@ -1,7 +1,7 @@
+import { getMongoClient } from '$lib/server/database';
 import { ObjectId, type Collection, type MongoClient } from 'mongodb';
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { getMongoClient } from '../database';
-import * as invitationRepository from './invitation.repository';
+import { create, findByKey, findByOrganization, remove } from './invitation.repository';
 
 const unknownId = new ObjectId();
 const invitationId1 = new ObjectId();
@@ -44,8 +44,9 @@ describe('Invitation Repository', () => {
 
 	describe('create', () => {
 		it('should create a new invitation', async () => {
-			await invitationRepository.create({
+			await create({
 				key: 'key-0',
+				name: 'User 0',
 				email: 'user0@gmail.com',
 				organizationId: organizationId1.toHexString()
 			});
@@ -62,7 +63,7 @@ describe('Invitation Repository', () => {
 
 	describe('remove', () => {
 		it('should remove a invitation', async () => {
-			await invitationRepository.remove(organizationId1.toHexString(), invitationId1.toHexString());
+			await remove(organizationId1.toHexString(), invitationId1.toHexString());
 			const result = await collection.findOne({ _id: invitationId1 });
 			expect(result).toBeNull();
 		});
@@ -70,12 +71,12 @@ describe('Invitation Repository', () => {
 
 	describe('findByKey', () => {
 		it('should return null if there are no matching documents', async () => {
-			const result = await invitationRepository.findByKey('key-0');
+			const result = await findByKey('key-0');
 			expect(result).toBeNull();
 		});
 
 		it('should return data if there is a matching document', async () => {
-			const result = await invitationRepository.findByKey('key-1');
+			const result = await findByKey('key-1');
 			expect(result).toEqual(
 				expect.objectContaining({
 					key: 'key-1',
@@ -87,12 +88,12 @@ describe('Invitation Repository', () => {
 
 	describe('findByOrganization', () => {
 		it('should return empty array if there are no matching documents', async () => {
-			const result = await invitationRepository.findByOrganization(unknownId.toHexString());
+			const result = await findByOrganization(unknownId.toHexString());
 			expect(result).toEqual([]);
 		});
 
 		it('should return data if there are matching documents', async () => {
-			const result = await invitationRepository.findByOrganization(organizationId1.toHexString());
+			const result = await findByOrganization(organizationId1.toHexString());
 			expect(result).toEqual([
 				expect.objectContaining({
 					key: 'key-1',
