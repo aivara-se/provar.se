@@ -13,6 +13,7 @@ const COLLECTION_NAME = 'invitations';
 interface InvitationDocument {
 	_id: ObjectId;
 	key: string;
+	name: string;
 	email: string;
 	organizationId: ObjectId;
 }
@@ -24,6 +25,7 @@ function fromDocument(doc: InvitationDocument): Invitation {
 	return {
 		id: doc._id.toHexString(),
 		key: doc.key,
+		name: doc.name,
 		email: doc.email,
 		organizationId: doc.organizationId.toHexString(),
 		createdAt: doc._id.getTimestamp()
@@ -43,6 +45,7 @@ async function getCollection(): Promise<Collection<InvitationDocument>> {
  */
 export interface CreateInvitationData {
 	key: string;
+	name: string;
 	email: string;
 	organizationId: string;
 }
@@ -56,6 +59,7 @@ export async function create(data: CreateInvitationData): Promise<string> {
 	await coll.insertOne({
 		_id: id,
 		key: data.key,
+		name: data.name,
 		email: data.email,
 		organizationId: new ObjectId(data.organizationId)
 	});

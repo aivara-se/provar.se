@@ -48,6 +48,15 @@ export async function findById(id: string): Promise<User | null> {
 }
 
 /**
+ * Find multiple users using ids.
+ */
+export async function findByIds(ids: string[]): Promise<User[]> {
+	const coll = await getCollection();
+	const docs = await coll.find({ _id: { $in: ids.map((id) => new ObjectId(id)) } }).toArray();
+	return docs.map(fromDocument);
+}
+
+/**
  * Find a user by email.
  */
 export async function findByEmail(email: string): Promise<User | null> {

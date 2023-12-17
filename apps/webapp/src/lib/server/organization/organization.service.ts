@@ -1,6 +1,6 @@
-import * as CredentialRepository from '../credential/credential.repository';
-import * as FeedbackRepository from '../feedback/feedback.repository';
-import * as ProjectRepository from '../project/project.repository';
+import { CredentialRepository } from '$lib/server/credential';
+import { FeedbackRepository } from '$lib/server/feedback';
+import { ProjectRepository } from '$lib/server/project';
 import * as OrganizationRepository from './organization.repository';
 
 /**

@@ -1,6 +1,34 @@
-import * as OrganizationRepository from '../organization/organization.repository';
-import * as UserRepository from '../user/user.repository';
+import { OrganizationRepository } from '$lib/server/organization';
+import { UserRepository } from '$lib/server/user';
+import { secureRandom } from '$lib/server/random';
 import * as InvitationRepository from './invitation.repository';
+
+/**
+ * The length of the invitation key.
+ */
+const INVITATION_KEY_LENGTH = 16;
+
+/**
+ * Invites a user to join an organization.
+ */
+export async function invite(organizationId: string, name: string, email: string): Promise<void> {
+	const existingUser = await UserRepository.findByEmail(email);
+	if (existingUser) {
+		const organizations = await OrganizationRepository.findByMember(existingUser.id);
+		const isAlreadyMember = organizations.some((org) => org.id === organizationId);
+		if (isAlreadyMember) {
+			throw new Error('User is already a member of this organization');
+		}
+	}
+	const existingInvitations = await InvitationRepository.findByOrganization(organizationId);
+	const isAlreadyInvited = existingInvitations.some((inv) => inv.email === email);
+	if (isAlreadyInvited) {
+		throw new Error('User is already invited to this organization');
+	}
+	const key = createInvitationKey();
+	await InvitationRepository.create({ key, name, email, organizationId });
+	// TODO: Send an email to the user with a link to the invitation key.
+}
 
 /**
  * Checks whether the user can accept the invitation.
@@ -39,4 +67,11 @@ export async function accept(key: string, userId: string): Promise<void> {
 		OrganizationRepository.addMember(invitation.organizationId, userId),
 		InvitationRepository.remove(invitation.organizationId, invitation.id)
 	]);
+}
+
+/**
+ * Generates a secure invitation key.
+ */
+export function createInvitationKey() {
+	return secureRandom(INVITATION_KEY_LENGTH);
 }

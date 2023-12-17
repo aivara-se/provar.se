@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
-	import { selectedOrg } from '$lib/stores/selected-org';
+	import { page } from '$app/stores';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { Alert, Button, Heading, Input, Label, Modal, P, Textarea } from 'flowbite-svelte';
 	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
 
-	let name = $selectedOrg?.name || '';
-	let description = $selectedOrg?.description || '';
+	let organization = $page.data.organization;
+	let name = organization?.name || '';
+	let description = organization?.description || '';
 
 	let isLeaveModalOpen = false;
 	let isDeleteModalOpen = false;

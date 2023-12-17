@@ -1,5 +1,5 @@
 <script>
-	import { CenteredLayout } from '$lib/ui';
+	import { CenteredLayout } from '$lib/client/ui';
 	import { signOut } from '@auth/sveltekit/client';
 	import { Button } from 'flowbite-svelte';
 </script>

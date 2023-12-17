@@ -1,5 +1,5 @@
 <script>
-	import { CenteredLayout } from '$lib/ui';
+	import { CenteredLayout } from '$lib/client/ui';
 	import { Button } from 'flowbite-svelte';
 
 	async function acceptInvitation() {

@@ -1,4 +1,4 @@
-import { OrganizationRepository } from '$lib/server';
+import { OrganizationRepository } from '$lib/server/organization';
 import type { Session } from '@auth/core/types';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';

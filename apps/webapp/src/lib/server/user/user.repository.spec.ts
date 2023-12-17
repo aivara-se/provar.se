@@ -1,7 +1,7 @@
+import { getMongoClient } from '$lib/server/database';
 import { ObjectId, type Collection, type MongoClient } from 'mongodb';
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { getMongoClient } from '../database';
-import * as userRepository from './user.repository';
+import { findByEmail, findById, findByIds } from './user.repository';
 
 const unknownId = new ObjectId();
 const userId1 = new ObjectId();
@@ -28,12 +28,12 @@ describe('User Repository', () => {
 
 	describe('findById', () => {
 		it('should return null if there are no matching documents', async () => {
-			const result = await userRepository.findById(unknownId.toHexString());
+			const result = await findById(unknownId.toHexString());
 			expect(result).toBeNull();
 		});
 
 		it('should return data if there is a matching document', async () => {
-			const result = await userRepository.findById(userId1.toHexString());
+			const result = await findById(userId1.toHexString());
 			expect(result).toEqual(
 				expect.objectContaining({
 					id: userId1.toHexString(),
@@ -43,14 +43,43 @@ describe('User Repository', () => {
 		});
 	});
 
+	describe('findByIds', () => {
+		it('should return an empty array if there are no matching documents', async () => {
+			const result = await findByIds([unknownId.toHexString()]);
+			expect(result).toEqual([]);
+		});
+
+		it('should return data if there is a matching document', async () => {
+			const result = await findByIds([
+				userId1.toHexString(),
+				userId2.toHexString(),
+				userId3.toHexString()
+			]);
+			expect(result).toEqual([
+				expect.objectContaining({
+					id: userId1.toHexString(),
+					email: 'f1@gmail.com'
+				}),
+				expect.objectContaining({
+					id: userId2.toHexString(),
+					email: 'f2@gmail.com'
+				}),
+				expect.objectContaining({
+					id: userId3.toHexString(),
+					email: 'f3@gmail.com'
+				})
+			]);
+		});
+	});
+
 	describe('findByEmail', () => {
 		it('should return null if there are no matching documents', async () => {
-			const result = await userRepository.findByEmail('f0@gmail.com');
+			const result = await findByEmail('f0@gmail.com');
 			expect(result).toBeNull();
 		});
 
 		it('should return data if there is a matching document', async () => {
-			const result = await userRepository.findByEmail('f1@gmail.com');
+			const result = await findByEmail('f1@gmail.com');
 			expect(result).toEqual(
 				expect.objectContaining({
 					id: userId1.toHexString(),

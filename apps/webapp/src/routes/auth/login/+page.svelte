@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CenteredLayout, HorizontalSeparator } from '$lib/ui';
+	import { CenteredLayout, HorizontalSeparator } from '$lib/client/ui';
 	import { signIn } from '@auth/sveltekit/client';
 	import { Button, Input } from 'flowbite-svelte';
 	import { GithubSolid, GoogleSolid } from 'flowbite-svelte-icons';
