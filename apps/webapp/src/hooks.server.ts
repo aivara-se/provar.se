@@ -1,5 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { getMongoClient } from '$lib/server/database';
+import { EmailService, VerifyLoginTemplate } from '$lib/server/email-utils';
 import EmailProvider from '@auth/core/providers/email';
 import GitHubProvider from '@auth/core/providers/github';
 import GoogleProvider from '@auth/core/providers/google';
@@ -8,7 +9,6 @@ import { SvelteKitAuth } from '@auth/sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import process from 'process';
-import { EmailService, VerifyLoginTemplate } from './lib/server/email-utils';
 
 process.on('SIGINT', function () {
 	process.exit();
