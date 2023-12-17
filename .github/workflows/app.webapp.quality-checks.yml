@@ -48,11 +48,6 @@ jobs:
           cache: "yarn"
           cache-dependency-path: "yarn.lock"
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: "javascript-typescript"
-
       - name: Setup Yarn
         run: yarn install --silent
 
@@ -83,8 +78,3 @@ jobs:
           GCS_IMPORT_BUCKET: test-import-bucket
           PROVAR_API_URL: http://localhost:3001
         run: yarn test:integration
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          category: "/language:javascript-typescript"
