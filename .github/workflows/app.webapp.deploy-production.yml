@@ -68,6 +68,7 @@ jobs:
       - name: Build the service
         env:
           PUBLIC_PROVAR_API_KEY: ${{ secrets.APPS_WEBAPP_APP_PROVAR_API_KEY }}
+          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBAPP_APP_PROVAR_APP_URL }}
         run: yarn build
 
       - name: Build docker image

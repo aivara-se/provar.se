@@ -8,6 +8,7 @@ import { SvelteKitAuth } from '@auth/sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import process from 'process';
+import { EmailService, type EmailDetails, VerifyLoginTemplate } from './lib/server/email-utils';
 
 process.on('SIGINT', function () {
 	process.exit();
@@ -37,7 +38,14 @@ const sveltekitauth = SvelteKitAuth({
 	providers: [
 		EmailProvider({
 			server: env.AUTH_EMAIL_SERVER,
-			from: env.AUTH_EMAIL_FROM
+			from: env.AUTH_EMAIL_FROM,
+			async sendVerificationRequest(params) {
+				await EmailService.send({
+					toEmail: params.identifier,
+					options: { link: params.url },
+					template: VerifyLoginTemplate
+				});
+			}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		}) as any,
 		GoogleProvider({
