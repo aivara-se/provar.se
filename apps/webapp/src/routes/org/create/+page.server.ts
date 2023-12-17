@@ -9,6 +9,6 @@ export const actions: Actions = {
 		const data = await request.formData();
 		const name = data.get('name') as string;
 		const orgId = await OrganizationRepository.create(session.user.id, { name });
-		throw redirect(303, `/org/${orgId}`);
+		redirect(303, `/org/${orgId}`);
 	}
 };

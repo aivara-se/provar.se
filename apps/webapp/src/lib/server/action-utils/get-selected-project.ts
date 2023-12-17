@@ -9,11 +9,11 @@ import { getSelectedOrganization } from './get-selected-organization';
 export async function getSelectedProject(event: RequestEvent) {
 	const organization = await getSelectedOrganization(event);
 	if (!event.params.projectId) {
-		throw error(404);
+		error(404);
 	}
 	const project = await ProjectRepository.findById(organization.id, event.params.projectId);
 	if (!project) {
-		throw error(404);
+		error(404);
 	}
 	return { organization, project };
 }

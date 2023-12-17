@@ -10,7 +10,7 @@ export const load: LayoutServerLoad = async (event) => {
 	const { organizations } = await event.parent();
 	const organization = organizations.find((org) => org.id === event.params.organizationId);
 	if (!organization) {
-		throw error(403);
+		error(403);
 	}
 	const [credentials, projects] = await Promise.all([
 		CredentialRepository.findByOrganization(organization.id),

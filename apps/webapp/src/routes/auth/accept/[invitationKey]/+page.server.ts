@@ -7,16 +7,16 @@ import type { Actions, PageServerLoad } from './$types';
 export const load: PageServerLoad = async (event) => {
 	const session = await event.locals.getSession();
 	if (!session || !session.user?.id) {
-		throw redirect(302, `/auth/login`);
+		redirect(302, `/auth/login`);
 	}
 	const invitationKey = event.params.invitationKey;
 	const invitation = await InvitationRepository.findByKey(invitationKey);
 	if (!invitation) {
-		throw error(404, 'Invitation not found');
+		error(404, 'Invitation not found');
 	}
 	const canAccept = await InvitationService.canAccept(invitationKey, session.user?.id);
 	if (!canAccept) {
-		throw error(403, 'User cannot accept this invitation');
+		error(403, 'User cannot accept this invitation');
 	}
 	const organization = await OrganizationRepository.findById(invitation.organizationId);
 	return { invitation, organizationName: organization?.name };
@@ -25,7 +25,7 @@ export const load: PageServerLoad = async (event) => {
 export const actions: Actions = {
 	default: async (event) => {
 		if (!event.params.invitationKey) {
-			throw error(404);
+			error(404);
 		}
 		const session = (await event.locals.getSession()) as Session;
 		const invitation = await InvitationRepository.findByKey(event.params.invitationKey);
@@ -33,6 +33,6 @@ export const actions: Actions = {
 			throw new Error('Invitation not found');
 		}
 		await InvitationService.accept(event.params.invitationKey, session.user.id);
-		throw redirect(303, `/org/${invitation.organizationId}`);
+		redirect(303, `/org/${invitation.organizationId}`);
 	}
 };

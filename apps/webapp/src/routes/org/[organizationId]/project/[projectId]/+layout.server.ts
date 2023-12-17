@@ -8,7 +8,7 @@ export const load: LayoutServerLoad = async (event) => {
 	const { projects } = await event.parent();
 	const project = projects.find((project) => project.id === event.params.projectId);
 	if (!project) {
-		throw error(403);
+		error(403);
 	}
 	return { project };
 };
