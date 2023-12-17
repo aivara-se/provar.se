@@ -34,95 +34,41 @@ The Provar Team`;
 export function html(options: Options) {
 	const { link } = options;
 	return `<!DOCTYPE html>
-<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="x-apple-disable-message-reformatting">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
-  <meta name="color-scheme" content="light dark">
-  <meta name="supported-color-schemes" content="light dark">
-  <!--[if mso]>
-  <noscript>
-    <xml>
-      <o:OfficeDocumentSettings xmlns:o="urn:schemas-microsoft-com:office:office">
-        <o:PixelsPerInch>96</o:PixelsPerInch>
-      </o:OfficeDocumentSettings>
-    </xml>
-  </noscript>
-  <style>
-    td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
-  </style>
-  <![endif]-->
   <title>You have requested a link to sign-in to Provar.se</title>
-  <style>
-    .shadow-sm {
-      --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-      box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
-    }
-    @media (min-width: 640px) {
-      .sm-my-8 {
-        margin-top: 2rem !important;
-        margin-bottom: 2rem !important
-      }
-      .sm-px-4 {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important
-      }
-      .sm-px-6 {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important
-      }
-      .sm-leading-8 {
-        line-height: 2rem !important
-      }
-    }
-  </style>
 </head>
-<body style="margin: 0px; width: 100%; --tw-bg-opacity: 1; background-color: rgb(248 250 252 / var(--tw-bg-opacity)); padding: 0px; -webkit-font-smoothing: antialiased; word-break: break-word">
-  <div style="display: none">
-    You have requested a link to sign-in to Provar.se
-    &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847;
-  </div>
-  <div role="article" aria-roledescription="email" aria-label="You have requested a link to sign-in to Provar.se" lang="en">
-    <div class="sm-px-4" style="--tw-bg-opacity: 1; background-color: rgb(248 250 252 / var(--tw-bg-opacity)); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'">
-      <table align="center" cellpadding="0" cellspacing="0" role="none">
-        <tr>
-          <td style="width: 552px; max-width: 100%">
-            <div class="sm-my-8" style="margin-top: 3rem; margin-bottom: 3rem; text-align: center"><a href="https://provar.se">
-                <img alt="Provar" height="64" src="https://storage.googleapis.com/provar-assets/email/logo-64.png" style="max-width: 100%; vertical-align: middle; line-height: 1">
-              </a>
-            </div>
-            <table style="width: 100%;" cellpadding="0" cellspacing="0" role="none">
-              <tr>
-                <td class="sm-px-6 shadow-sm" style="border-radius: 0.25rem; --tw-bg-opacity: 1; background-color: rgb(255 255 255 / var(--tw-bg-opacity)); padding: 3rem; font-size: 1rem; line-height: 1.5rem; --tw-text-opacity: 1; color: rgb(51 65 85 / var(--tw-text-opacity)); --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)">
-                  <h1 class="sm-leading-8" style="margin: 0px 0px 1.5rem; font-size: 1.5rem; line-height: 2rem; font-weight: 600; --tw-text-opacity: 1; color: rgb(0 0 0 / var(--tw-text-opacity))">Hello,</h1>
-                  <p style="margin: 0px; line-height: 1.5rem">You have requested a link to sign-in to Provar.se. To access your account, click the link below:</p>
-                  <div role="separator" style="line-height: 24px">&zwj;</div>
-                  <div>
-                    <a href="${link}" style="display: inline-block; border-radius: 0.25rem; --tw-bg-opacity: 1; background-color: rgb(67 56 202 / var(--tw-bg-opacity)); padding: 1rem 1.5rem; font-size: 1rem; font-weight: 600; line-height: 1; --tw-text-opacity: 1; color: rgb(248 250 252 / var(--tw-text-opacity)); text-decoration: none">
-                      <!--[if mso]>
-      <i style="letter-spacing: 32px; mso-text-raise: 30px;" hidden>&nbsp;</i>
-    <![endif]-->
-                      <span style="mso-text-raise: 16px"> Sign-in to Provar.se &rarr; </span>
-                      <!--[if mso]>
-      <i style="letter-spacing: 32px;" hidden>&nbsp;</i>
-    <![endif]-->
-                    </a>
-                  </div>
-                  <div role="separator" style="line-height: 32px">&zwj;</div>
-                  <p style="margin: 0px; line-height: 1.5rem;">If you did not request this email you can safely ignore it.</p>
-                  <div role="separator" style="--tw-bg-opacity: 1; background-color: rgb(226 232 240 / var(--tw-bg-opacity)); height: 1px; line-height: 1px; margin: 32px 0">&zwj;</div>
-                  <p style="margin: 0px;">Thanks, <br>The Provar Team</p>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background-color: #f8fafc;">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#f8fafc">
+    <tr>
+      <td align="center" style="padding: 50px 0;">
+        <a href="https://provar.se">
+          <img alt="Provar" height="64" src="https://storage.googleapis.com/provar-assets/email/logo-64.png" style="max-width: 100%; vertical-align: middle; line-height: 1">
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px;">
+          <tr>
+            <td bgcolor="#ffffff" style="padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <h1 style="margin: 0 0 20px; font-size: 24px; font-weight: 600;">Hello,</h1>
+              <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.5;">You have requested a link to sign in to Provar.se. To access your account, click the link below:</p>
+              <a href="${link}" style="display: inline-block; padding: 12px 24px; background-color: #4338ca; color: #ffffff; text-decoration: none; font-weight: 600; border-radius: 4px;">Sign in to Provar.se →</a>
+              <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.5;">If you did not request this email, you can safely ignore it.</p>
+              <hr style="margin: 32px 0; border: none; height: 1px; background-color: #e2e8f0;">
+              <p style="margin: 0; font-size: 16px;">Thanks,<br>The Provar Team</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding: 50px 0;"><br></td>
+    </tr>
+  </table>
 </body>
-</html>`;
+</html>
+`;
 }
