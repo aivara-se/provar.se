@@ -19,5 +19,9 @@ module.exports = {
 				path: 'build_local'
 			}
 		}
+	},
+	baseURL: {
+		url: 'https://storage.googleapis.com/provar-assets/email/',
+		tags: ['img']
 	}
 };
