@@ -2605,13 +2605,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flowbite@npm:^2.1.1, flowbite@npm:^2.2.0":
+"flowbite@npm:^2.2.0":
   version: 2.2.0
   resolution: "flowbite@npm:2.2.0"
   dependencies:
     "@popperjs/core": "npm:^2.9.3"
     mini-svg-data-uri: "npm:^1.4.3"
   checksum: f00f730325ab69f876bf0cb0cd0ab9a0aac621eb20d096c67e0e0aeeaf67f5d6f91aa195aefcb3c1d5554a07b214c29996a30427405b26cd69e2d9fab2b64fb7
+  languageName: node
+  linkType: hard
+
+"flowbite@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "flowbite@npm:2.2.1"
+  dependencies:
+    "@popperjs/core": "npm:^2.9.3"
+    mini-svg-data-uri: "npm:^1.4.3"
+  checksum: 299964a50688ca2939b044e6c30340d07b582cfb4a025e743eb41381fccb12118ffe81d069e8a4a94a25388da694e90ece003d60949b121e5fbc790be4fadd30
   languageName: node
   linkType: hard
 
@@ -5708,7 +5718,7 @@ __metadata:
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^9.0.0"
     eslint-plugin-svelte: "npm:^2.35.1"
-    flowbite: "npm:^2.1.1"
+    flowbite: "npm:^2.2.1"
     flowbite-svelte: "npm:^0.44.20"
     flowbite-svelte-blocks: "npm:^0.5.1"
     flowbite-svelte-icons: "npm:^0.4.5"
