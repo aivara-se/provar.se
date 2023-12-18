@@ -2,6 +2,7 @@
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
+	import type { User } from '$lib/types';
 	import type { ActionResult } from '@sveltejs/kit';
 	import {
 		Avatar,
@@ -23,15 +24,37 @@
 	$: invitations = $page.data.invitations || [];
 
 	let isInviteModalOpen = false;
+	let isDetailsModalOpen = false;
 
 	let invitedUserName = '';
 	let invitedUserEmail = '';
+
+	let selectedMember: User;
+
+	function selectMember(member: User) {
+		selectedMember = member;
+		isDetailsModalOpen = true;
+	}
 
 	async function inviteMember() {
 		const data = new FormData();
 		data.set('name', invitedUserName);
 		data.set('email', invitedUserEmail);
 		const response = await fetch('?/inviteMember', {
+			method: 'post',
+			body: data
+		});
+		const result: ActionResult = deserialize(await response.text());
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+		applyAction(result);
+	}
+
+	async function revokeMembership(id: string) {
+		const data = new FormData();
+		data.set('id', id);
+		const response = await fetch('?/revokeMembership', {
 			method: 'post',
 			body: data
 		});
@@ -64,10 +87,12 @@
 									<Avatar src={item.image} size="sm" rounded />
 								</div>
 							</TableBodyCell>
-							<TableBodyCell>{item.name}</TableBodyCell>
+							<TableBodyCell>{item.name || ''}</TableBodyCell>
 							<TableBodyCell>{item.email}</TableBodyCell>
 							<TableBodyCell>
-								<Button pill size="xs" color="light" on:click={() => null}>Details</Button>
+								<Button pill size="xs" color="light" on:click={() => selectMember(item)}>
+									Details
+								</Button>
 							</TableBodyCell>
 						</TableBodyRow>
 					{/each}
@@ -120,5 +145,19 @@
 	<Input id="email" required bind:value={invitedUserEmail} />
 	<svelte:fragment slot="footer">
 		<Button size="sm" color="primary" on:click={inviteMember}>Invite</Button>
+	</svelte:fragment>
+</Modal>
+
+<Modal title={selectedMember?.name || ' '} bind:open={isDetailsModalOpen} autoclose>
+	<P class="mb-2">
+		<span class="font-semibold">Email:</span>
+		<code class="block break-words text-xs mt-2 bg-gray-100 p-2 rounded">
+			{selectedMember?.email}
+		</code>
+	</P>
+	<svelte:fragment slot="footer">
+		<Button size="sm" color="red" on:click={() => revokeMembership(selectedMember.id)}>
+			Revoke
+		</Button>
 	</svelte:fragment>
 </Modal>
