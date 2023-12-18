@@ -32,12 +32,26 @@ export async function invite(organizationId: string, name: string, email: string
 	}
 	const key = createInvitationKey();
 	await InvitationRepository.create({ key, name, email, organizationId });
-	const invitationLink = `${PUBLIC_PROVAR_APP_URL}/auth/accept/${key}`;
-	await EmailService.send({
-		toEmail: email,
-		options: { name, link: invitationLink, organization: organization.name },
-		template: InvitationTemplate
-	});
+	await sendInvitationEmail(name, email, key, organization.name);
+}
+
+/**
+ * Resends an invitation email.
+ */
+export async function resend(organizationId: string, id: string): Promise<void> {
+	const invitation = await InvitationRepository.findById(id);
+	if (!invitation) {
+		throw new Error('Invitation not found');
+	}
+	const organization = await OrganizationRepository.findById(organizationId);
+	if (!organization) {
+		throw new Error('Organization not found');
+	}
+	if (invitation.organizationId !== organizationId) {
+		throw new Error('Invitation does not belong to this organization');
+	}
+	const { name, email, key } = invitation;
+	await sendInvitationEmail(name, email, key, organization.name);
 }
 
 /**
@@ -84,4 +98,27 @@ export async function accept(key: string, userId: string): Promise<void> {
  */
 export function createInvitationKey() {
 	return secureRandom(INVITATION_KEY_LENGTH);
+}
+
+/**
+ * Creates a link that can be used to accept an invitation.
+ */
+function createInvitationLink(key: string): string {
+	return `${PUBLIC_PROVAR_APP_URL}/auth/accept/${key}`;
+}
+
+/**
+ * Sends an invitation email with a link to accept the invite.
+ */
+async function sendInvitationEmail(
+	name: string,
+	email: string,
+	key: string,
+	organization: string
+): Promise<void> {
+	await EmailService.send({
+		toEmail: email,
+		template: InvitationTemplate,
+		options: { name: name, link: createInvitationLink(key), organization }
+	});
 }

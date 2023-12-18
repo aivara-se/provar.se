@@ -85,6 +85,26 @@ export const actions: Actions = {
 	},
 
 	/**
+	 * Resends an invitation email.
+	 */
+	resendInvitation: async (event) => {
+		const organization = await getSelectedOrganization(event);
+		const data = await event.request.formData();
+		const invitationId = String(data.get('id'));
+		await InvitationService.resend(organization.id, invitationId);
+	},
+
+	/**
+	 * Revokes an invitation to join the organization.
+	 */
+	revokeInvitation: async (event) => {
+		const organization = await getSelectedOrganization(event);
+		const data = await event.request.formData();
+		const invitationId = String(data.get('id'));
+		await InvitationRepository.remove(organization.id, invitationId);
+	},
+
+	/**
 	 * Remove a member from the organization.
 	 */
 	revokeMembership: async (event) => {

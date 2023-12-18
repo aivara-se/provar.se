@@ -2,7 +2,7 @@
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import type { User } from '$lib/types';
+	import type { Invitation, User } from '$lib/types';
 	import type { ActionResult } from '@sveltejs/kit';
 	import {
 		Avatar,
@@ -23,17 +23,29 @@
 	$: members = $page.data.members || [];
 	$: invitations = $page.data.invitations || [];
 
-	let isInviteModalOpen = false;
-	let isDetailsModalOpen = false;
+	let isInviteMemberModalOpen = false;
+	let isMemberDetailsModalOpen = false;
+	let isInviteDetailsModalOpen = false;
 
 	let invitedUserName = '';
 	let invitedUserEmail = '';
 
 	let selectedMember: User;
+	let selectedInvitation: Invitation;
 
 	function selectMember(member: User) {
 		selectedMember = member;
-		isDetailsModalOpen = true;
+		isMemberDetailsModalOpen = true;
+	}
+
+	function selectInvitation(invitation: Invitation) {
+		selectedInvitation = invitation;
+		isInviteDetailsModalOpen = true;
+	}
+
+	function getTimeString(ts: number) {
+		const date = new Date(ts);
+		return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
 	}
 
 	async function inviteMember() {
@@ -41,6 +53,34 @@
 		data.set('name', invitedUserName);
 		data.set('email', invitedUserEmail);
 		const response = await fetch('?/inviteMember', {
+			method: 'post',
+			body: data
+		});
+		const result: ActionResult = deserialize(await response.text());
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+		applyAction(result);
+	}
+
+	async function resendInvitation(id: string) {
+		const data = new FormData();
+		data.set('id', id);
+		const response = await fetch('?/resendInvitation', {
+			method: 'post',
+			body: data
+		});
+		const result: ActionResult = deserialize(await response.text());
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+		applyAction(result);
+	}
+
+	async function revokeInvitation(id: string) {
+		const data = new FormData();
+		data.set('id', id);
+		const response = await fetch('?/revokeInvitation', {
 			method: 'post',
 			body: data
 		});
@@ -115,6 +155,7 @@
 			<TableHead>
 				<TableHeadCell>Name</TableHeadCell>
 				<TableHeadCell>Email</TableHeadCell>
+				<TableHeadCell>Created At</TableHeadCell>
 				<TableHeadCell />
 			</TableHead>
 			<TableBody>
@@ -122,8 +163,11 @@
 					<TableBodyRow>
 						<TableBodyCell>{item.name}</TableBodyCell>
 						<TableBodyCell>{item.email}</TableBodyCell>
+						<TableBodyCell>{getTimeString(item.createdAt)}</TableBodyCell>
 						<TableBodyCell>
-							<Button pill size="xs" color="light" on:click={() => null}>Details</Button>
+							<Button pill size="xs" color="light" on:click={() => selectInvitation(item)}>
+								Details
+							</Button>
 						</TableBodyCell>
 					</TableBodyRow>
 				{/each}
@@ -133,12 +177,12 @@
 {/if}
 
 <section class="mt-6">
-	<Button color="light" size="xs" on:click={() => (isInviteModalOpen = true)}>
+	<Button color="light" size="xs" on:click={() => (isInviteMemberModalOpen = true)}>
 		+ Invite member
 	</Button>
 </section>
 
-<Modal title="Invite member" bind:open={isInviteModalOpen} autoclose>
+<Modal title="Invite member" bind:open={isInviteMemberModalOpen} autoclose>
 	<Label for="name" class="block mb-1">Name:</Label>
 	<Input id="name" required bind:value={invitedUserName} />
 	<Label for="email" class="block mb-1">Email:</Label>
@@ -148,7 +192,7 @@
 	</svelte:fragment>
 </Modal>
 
-<Modal title={selectedMember?.name || ' '} bind:open={isDetailsModalOpen} autoclose>
+<Modal title={selectedMember?.name || ' '} bind:open={isMemberDetailsModalOpen} autoclose>
 	<P class="mb-2">
 		<span class="font-semibold">Email:</span>
 		<code class="block break-words text-xs mt-2 bg-gray-100 p-2 rounded">
@@ -158,6 +202,23 @@
 	<svelte:fragment slot="footer">
 		<Button size="sm" color="red" on:click={() => revokeMembership(selectedMember.id)}>
 			Revoke
+		</Button>
+	</svelte:fragment>
+</Modal>
+
+<Modal title={selectedInvitation?.name || ' '} bind:open={isInviteDetailsModalOpen} autoclose>
+	<P class="mb-2">
+		<span class="font-semibold">Email:</span>
+		<code class="block break-words text-xs mt-2 bg-gray-100 p-2 rounded">
+			{selectedInvitation?.email}
+		</code>
+	</P>
+	<svelte:fragment slot="footer">
+		<Button size="sm" color="red" on:click={() => revokeInvitation(selectedInvitation.id)}>
+			Revoke
+		</Button>
+		<Button size="sm" color="dark" on:click={() => resendInvitation(selectedInvitation.id)}>
+			Resend
 		</Button>
 	</svelte:fragment>
 </Modal>

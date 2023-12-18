@@ -78,6 +78,15 @@ export async function remove(organizationId: string, invitationId: string): Prom
 }
 
 /**
+ * Find an Invitation by id.
+ */
+export async function findById(id: string): Promise<Invitation | null> {
+	const coll = await getCollection();
+	const doc = await coll.findOne({ _id: new ObjectId(id) });
+	return doc ? fromDocument(doc) : null;
+}
+
+/**
  * Find an Invitation by key.
  */
 export async function findByKey(invitationKey: string): Promise<Invitation | null> {
