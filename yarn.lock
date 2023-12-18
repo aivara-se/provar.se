@@ -807,9 +807,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/kit@npm:^2.0.0":
-  version: 2.0.1
-  resolution: "@sveltejs/kit@npm:2.0.1"
+"@sveltejs/kit@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@sveltejs/kit@npm:2.0.2"
   dependencies:
     "@types/cookie": "npm:^0.6.0"
     cookie: "npm:^0.6.0"
@@ -828,7 +828,7 @@ __metadata:
     vite: ^5.0.3
   bin:
     svelte-kit: svelte-kit.js
-  checksum: 31b7756927f77db7c5e8f9b4ca8a87ae8ed826dfe721d035c9cb7b2894b9c2329d8d4c28c76195faa8127cc8b1af028eaf0a1ac6390ed74eb099c30e122ca650
+  checksum: 69092f1c32f0f5930a6f2b6632e3c7d6f6b0708fbbc25af45e0ea3989475b8ab55c3cf7afb680f224fa281ff7c420936b9be3faa9384351fa1c16e803ee234c3
   languageName: node
   linkType: hard
 
@@ -5698,7 +5698,7 @@ __metadata:
     "@playwright/test": "npm:^1.40.0"
     "@provar/provar-js": "npm:^1.1.1"
     "@sveltejs/adapter-node": "npm:^2.0.0"
-    "@sveltejs/kit": "npm:^2.0.0"
+    "@sveltejs/kit": "npm:^2.0.2"
     "@sveltejs/vite-plugin-svelte": "npm:^3.0.0"
     "@types/nodemailer": "npm:^6.4.14"
     "@typescript-eslint/eslint-plugin": "npm:^6.13.2"
