@@ -82,5 +82,15 @@ export const actions: Actions = {
 		const name = String(data.get('name'));
 		const email = String(data.get('email'));
 		await InvitationService.invite(organization.id, name, email);
+	},
+
+	/**
+	 * Remove a member from the organization.
+	 */
+	revokeMembership: async (event) => {
+		const organization = await getSelectedOrganization(event);
+		const data = await event.request.formData();
+		const userId = String(data.get('id'));
+		await OrganizationService.removeMember(organization.id, userId);
 	}
 };
