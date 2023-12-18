@@ -67,15 +67,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:^0.18.5":
-  version: 0.18.5
-  resolution: "@auth/core@npm:0.18.5"
+"@auth/core@npm:^0.18.6":
+  version: 0.18.6
+  resolution: "@auth/core@npm:0.18.6"
   dependencies:
     "@panva/hkdf": "npm:^1.1.1"
     "@types/cookie": "npm:0.6.0"
     cookie: "npm:0.6.0"
-    jose: "npm:^5.1.0"
-    oauth4webapi: "npm:^2.3.0"
+    jose: "npm:^5.1.3"
+    oauth4webapi: "npm:^2.4.0"
     preact: "npm:10.11.3"
     preact-render-to-string: "npm:5.2.3"
   peerDependencies:
@@ -83,7 +83,7 @@ __metadata:
   peerDependenciesMeta:
     nodemailer:
       optional: true
-  checksum: f85a23f8aafc9973d7dbf07641dc080ca8dd907a77ff85a22bca2827919c633687a4e80fe06ce20c3c8d683c9937cee5fe30aaa4afbb81928676eb41c8ea1a4c
+  checksum: 47b1b264aa8f1dc5a90f2c4c3a39b2c5d33a9265c28ce473323571e9922caa431c96fe4289a5e3979250d10e91f7c0b6f43a9d6207d17d6a541b1c44151b1923
   languageName: node
   linkType: hard
 
@@ -3257,6 +3257,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jose@npm:^5.1.3":
+  version: 5.1.3
+  resolution: "jose@npm:5.1.3"
+  checksum: b8ea7fa0f27709dc1762db1697f18f19af868c3cdf2a00ab796b4cfc9e73a1e9ec9fb35c8785740b412391e99dc0da2aecf899d0fa71a01d9c30a2c6afcc176d
+  languageName: node
+  linkType: hard
+
 "js-yaml@npm:^4.1.0":
   version: 4.1.0
   resolution: "js-yaml@npm:4.1.0"
@@ -3951,6 +3958,13 @@ __metadata:
   version: 2.3.0
   resolution: "oauth4webapi@npm:2.3.0"
   checksum: f0ec83060a2ceb6297c898a9c6c3f4c4a4af0539813ec6eb17f053b3f7b6260bd9052df35444afdfe7aa2c3791bcb6dc63e642e621c35ab1c9a8ada83e611032
+  languageName: node
+  linkType: hard
+
+"oauth4webapi@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "oauth4webapi@npm:2.4.0"
+  checksum: 8886e1757db177c9d71175b1285c682c97e75cec4cfbd363a0d7ede05f52072d2065e11c31f829ff42f0dae4f4e07ce8b9f6964111793b82b88dcc69b50a8b15
   languageName: node
   linkType: hard
 
@@ -5691,7 +5705,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "webapp@workspace:apps/webapp"
   dependencies:
-    "@auth/core": "npm:^0.18.5"
+    "@auth/core": "npm:^0.18.6"
     "@auth/mongodb-adapter": "npm:^2.0.7"
     "@auth/sveltekit": "npm:^0.3.12"
     "@google-cloud/storage": "npm:^7.7.0"
