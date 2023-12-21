@@ -10,7 +10,3 @@ Install Node and Yarn
 - [Install yarn v3](https://yarnpkg.com/getting-started/install)
 
 Check readme files in each app or library for more information.
-
-## Github Workflows
-
-This repository uses Github Actions to check pull requests and to deploy merged code to production.
