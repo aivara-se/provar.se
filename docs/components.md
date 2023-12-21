@@ -1,3 +1,3 @@
-# Architecture
+# Components
 
 ![components](./images/components.png)
