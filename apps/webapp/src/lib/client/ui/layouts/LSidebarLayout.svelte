@@ -40,7 +40,7 @@
 		padding: 20px;
 		height: 100vh;
 		flex-direction: column;
-		overflow-y: scroll;
+		overflow-y: auto;
 		box-sizing: border-box;
 	}
 </style>
