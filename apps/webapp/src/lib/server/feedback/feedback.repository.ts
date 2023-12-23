@@ -92,15 +92,38 @@ export async function findById(organizationId: string, id: string): Promise<Feed
 	return doc ? fromDocument(doc) : null;
 }
 
+export interface FindOptions {
+	page: number;
+	pageSize: number;
+}
+
 /**
  * Find feedback by organization.
  */
-export async function findByOrganization(organizationId: string): Promise<Feedback[]> {
+export async function findByOrganization(
+	organizationId: string,
+	options: FindOptions
+): Promise<Feedback[]> {
 	const coll = await getCollection();
 	const docs = await coll
-		.find({ organizationId: new ObjectId(organizationId) }, { sort: { _id: -1 } })
+		.find(
+			{ organizationId: new ObjectId(organizationId) },
+			{
+				sort: { _id: -1 },
+				limit: options.pageSize,
+				skip: (options.page - 1) * options.pageSize
+			}
+		)
 		.toArray();
 	return docs.map(fromDocument);
+}
+
+/**
+ * Count feedback by organization.
+ */
+export async function countByOrganization(organizationId: string): Promise<number> {
+	const coll = await getCollection();
+	return await coll.countDocuments({ organizationId: new ObjectId(organizationId) });
 }
 
 /**
