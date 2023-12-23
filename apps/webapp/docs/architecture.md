@@ -2,8 +2,6 @@
 
 This is a web application where users can log in and view collected feedback. It is also where users will create and manage users, organizations, projects, and credentials.
 
-![SvelteKit client and server](./images/sveltekit-client-server.png)
-
 This application is built using the following frameworks and libraries:
 
 - **SvelteKit:** A full-stack framework that uses Svelte and NodeJS. [Read more](https://kit.svelte.dev)
@@ -14,13 +12,9 @@ This application is built using the following frameworks and libraries:
 
 All routes can be found under `src/routes`. These routes will be rendered on server side using the SvelteKit SSR feature. In addition to them, the web application serves all static content under the `static` directory. This includes the `manifest.json` file which sets the application icon on browsers.
 
-![Frontend Elements](./images/frontend-elements.png)
-
 ## Backend Elements
 
 Check `+page.server.ts` files and `+layout.server.ts` files for server side code affecting to a specific route or all routes matching a prefix.
-
-![Backend Elements](./images/backend-elements.png)
 
 In addition to that, SvelteKit hooks are used to authenticate users.
 

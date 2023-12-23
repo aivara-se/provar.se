@@ -16,6 +16,9 @@ Create a `.env` file with the following which will be used when running the appl
 ```
 MONGO_URI=""
 PORT=
+
+# Local only
+GOOGLE_APPLICATION_CREDENTIALS=""
 ```
 
 Optionally create a `.env.test` file with the following if you wish to use a separate database when running unit tests.
