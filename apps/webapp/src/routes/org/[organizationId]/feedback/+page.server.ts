@@ -4,9 +4,15 @@ import { FeedbackRepository, FeedbackService } from '$lib/server/feedback';
 import { importFeedback } from '$lib/server/provar-api';
 import type { Actions, PageServerLoad } from './$types';
 
+const ITEMS_PER_PAGE = 10;
+
 export const load: PageServerLoad = async (event) => {
 	const { organization } = await event.parent();
-	const feedbacks = await FeedbackRepository.findByOrganization(organization.id);
+	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');
+	const options = { page, pageSize: ITEMS_PER_PAGE };
+	const items = await FeedbackRepository.findByOrganization(organization.id, options);
+	const count = await FeedbackRepository.countByOrganization(organization.id);
+	const feedbacks = { pages: Math.ceil(count / ITEMS_PER_PAGE), items };
 	return { feedbacks };
 };
 
