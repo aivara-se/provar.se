@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import type { Feedback } from '$lib/types';
 	import { Breadcrumb, BreadcrumbItem, Heading, P } from 'flowbite-svelte';
 	import DateRangeSelector from './_components/DateRangeSelector.svelte';
 	import FeedbackList from './_components/FeedbackList.svelte';
 	import FeedbackPageActions from './_components/FeedbackPageActions.svelte';
-	import { goto } from '$app/navigation';
 
 	$: feedbacks = $page.data.feedbacks;
 	$: currentPage = Number.parseInt($page.url.searchParams.get('page') || '1');

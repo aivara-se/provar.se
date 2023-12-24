@@ -6,8 +6,9 @@
 
 	$: value = $page.url.searchParams.get('range') || '30d';
 	$: items = [
-		{ name: 'Last 7 days', value: '7d' },
-		{ name: 'Last 30 days', value: '30d' }
+		{ name: 'Last week', value: '7d' },
+		{ name: 'Last month', value: '30d' },
+		{ name: 'Last year', value: '365d' }
 	].map((item) => ({
 		...item,
 		active: item.value === value
@@ -15,8 +16,10 @@
 
 	function udpateDateRange(range: string) {
 		value = range;
-		$page.url.searchParams.set('range', range);
-		goto($page.url.toString());
+		const url = new URL($page.url.toString());
+		url.searchParams.set('range', range);
+		url.searchParams.set('page', '1');
+		goto(url.toString());
 	}
 </script>
 
