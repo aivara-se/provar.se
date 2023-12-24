@@ -6,7 +6,7 @@ import type {
 	FeedbackType,
 	TextFeedbackData
 } from '$lib/types';
-import { ObjectId, type Collection } from 'mongodb';
+import { ObjectId, type Collection, type Filter } from 'mongodb';
 
 /**
  * The name of the MongoDB collection for feedback.
@@ -92,9 +92,13 @@ export async function findById(organizationId: string, id: string): Promise<Feed
 	return doc ? fromDocument(doc) : null;
 }
 
+/**
+ * Options for finding feedback.
+ */
 export interface FindOptions {
 	page: number;
 	pageSize: number;
+	range?: { from: Date; to: Date };
 }
 
 /**
@@ -103,27 +107,11 @@ export interface FindOptions {
 export async function findByOrganization(
 	organizationId: string,
 	options: FindOptions
-): Promise<Feedback[]> {
-	const coll = await getCollection();
-	const docs = await coll
-		.find(
-			{ organizationId: new ObjectId(organizationId) },
-			{
-				sort: { _id: -1 },
-				limit: options.pageSize,
-				skip: (options.page - 1) * options.pageSize
-			}
-		)
-		.toArray();
-	return docs.map(fromDocument);
-}
-
-/**
- * Count feedback by organization.
- */
-export async function countByOrganization(organizationId: string): Promise<number> {
-	const coll = await getCollection();
-	return await coll.countDocuments({ organizationId: new ObjectId(organizationId) });
+): Promise<{ items: Feedback[]; count: number }> {
+	const query: Filter<FeedbackDocument> = {
+		organizationId: new ObjectId(organizationId)
+	};
+	return findByFilter(query, options);
 }
 
 /**
@@ -131,16 +119,40 @@ export async function countByOrganization(organizationId: string): Promise<numbe
  */
 export async function findByProject(
 	organizationId: string,
-	projectId: string
-): Promise<Feedback[]> {
+	projectId: string,
+	options: FindOptions
+): Promise<{ items: Feedback[]; count: number }> {
+	const query: Filter<FeedbackDocument> = {
+		organizationId: new ObjectId(organizationId),
+		projectId: new ObjectId(projectId)
+	};
+	return findByFilter(query, options);
+}
+
+/**
+ * Find feedback by filter.
+ */
+async function findByFilter(
+	query: Filter<FeedbackDocument>,
+	options: FindOptions
+): Promise<{ items: Feedback[]; count: number }> {
 	const coll = await getCollection();
+	if (options.range) {
+		query._id = {
+			$gte: ObjectId.createFromTime(Math.floor(options.range.from.getTime() / 1000)),
+			$lte: ObjectId.createFromTime(Math.floor(options.range.to.getTime() / 1000))
+		};
+	}
 	const docs = await coll
-		.find(
-			{ organizationId: new ObjectId(organizationId), projectId: new ObjectId(projectId) },
-			{ sort: { _id: -1 } }
-		)
+		.find(query, {
+			sort: { _id: -1 },
+			limit: options.pageSize,
+			skip: (options.page - 1) * options.pageSize
+		})
 		.toArray();
-	return docs.map(fromDocument);
+	const items = docs.map(fromDocument);
+	const count = await coll.countDocuments(query);
+	return { items, count };
 }
 
 /**

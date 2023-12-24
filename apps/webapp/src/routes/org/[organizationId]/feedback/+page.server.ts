@@ -5,14 +5,28 @@ import { importFeedback } from '$lib/server/provar-api';
 import type { Actions, PageServerLoad } from './$types';
 
 const ITEMS_PER_PAGE = 10;
+const DEFAULT_RANGE = '30d';
 
+/**
+ * Converts a range string to a date range.
+ */
+function parseRangeString(range: string): { from: Date; to: Date } {
+	const now = new Date();
+	const val = Number.parseInt(range.slice(0, -1));
+	const mul = 24 * 60 * 60 * 1000;
+	return { from: new Date(now.getTime() - val * mul), to: now };
+}
+
+/**
+ * Loads feedbacks to display on the page.
+ */
 export const load: PageServerLoad = async (event) => {
 	const { organization } = await event.parent();
 	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');
-	const options = { page, pageSize: ITEMS_PER_PAGE };
-	const items = await FeedbackRepository.findByOrganization(organization.id, options);
-	const count = await FeedbackRepository.countByOrganization(organization.id);
-	const feedbacks = { pages: Math.ceil(count / ITEMS_PER_PAGE), items };
+	const range = parseRangeString(event.url.searchParams.get('range') ?? DEFAULT_RANGE);
+	const options = { range, page, pageSize: ITEMS_PER_PAGE };
+	const { items, count } = await FeedbackRepository.findByOrganization(organization.id, options);
+	const feedbacks = { count, pages: Math.ceil(count / ITEMS_PER_PAGE), items };
 	return { feedbacks };
 };
 

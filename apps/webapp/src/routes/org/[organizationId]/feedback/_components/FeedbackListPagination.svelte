@@ -13,7 +13,6 @@
 	let paginationItems: LinkType[] = [];
 
 	$: {
-		const url = new URL($page.url.toString());
 		paginationItems = [];
 		const min = Math.max(1, currentPage - 2);
 		const max = Math.min(pages, currentPage + 2);
@@ -22,6 +21,7 @@
 			if ((i === min && min > 1) || (i === max && max < pages)) {
 				name = '...';
 			}
+			const url = new URL($page.url.toString());
 			url.searchParams.set('page', String(i));
 			paginationItems.push({
 				name,
@@ -32,19 +32,23 @@
 	}
 
 	function previousPage() {
-		if (currentPage === 1) {
-			return;
+		const url = new URL($page.url.toString());
+		if (currentPage <= 1) {
+			url.searchParams.set('page', String(1));
+		} else {
+			url.searchParams.set('page', String(currentPage + 1));
 		}
-		$page.url.searchParams.set('page', String(currentPage - 1));
-		goto($page.url.toString());
+		goto(url.toString());
 	}
 
 	function nextPage() {
-		if (currentPage === pages) {
-			return;
+		const url = new URL($page.url.toString());
+		if (currentPage >= pages) {
+			url.searchParams.set('page', String(pages));
+		} else {
+			url.searchParams.set('page', String(currentPage + 1));
 		}
-		$page.url.searchParams.set('page', String(currentPage + 1));
-		goto($page.url.toString());
+		goto(url.toString());
 	}
 </script>
 
