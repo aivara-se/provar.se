@@ -50,7 +50,7 @@ func GetMiddleware() fiber.Handler {
 		if err != nil {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
-		c.Locals(organizationIDKey, cred.OrganizationID)
+		c.Locals(organizationIDKey, cred.OrganizationID.Hex())
 		return c.Next()
 	}
 }

@@ -3,6 +3,8 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/feedback.FeedbackData'
+      meta:
+        $ref: '#/definitions/feedback.FeedbackMeta'
       projectId:
         type: string
       tags:
@@ -14,6 +16,8 @@ definitions:
         - text
         - cnps
         - csat
+      user:
+        $ref: '#/definitions/feedback.FeedbackUser'
     required:
     - data
     - type
@@ -31,6 +35,9 @@ definitions:
       text:
         type: string
     type: object
+  feedback.FeedbackMeta:
+    additionalProperties: true
+    type: object
   feedback.FeedbackTags:
     additionalProperties:
       type: string
@@ -45,6 +52,15 @@ definitions:
     - FeedbackTypeText
     - FeedbackTypeCNPS
     - FeedbackTypeCSAT
+  feedback.FeedbackUser:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
   feedback.ImportFeedbackRequestBody:
     properties:
       link:

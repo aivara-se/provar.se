@@ -3,7 +3,10 @@ import type {
 	CNPSFeedbackData,
 	CSATFeedbackData,
 	Feedback,
+	FeedbackMeta,
+	FeedbackTags,
 	FeedbackType,
+	FeedbackUser,
 	TextFeedbackData
 } from '$lib/types';
 import { ObjectId, type Collection, type Filter } from 'mongodb';
@@ -22,7 +25,9 @@ interface BaseFeedbackDocument {
 	organizationId: ObjectId;
 	projectId?: ObjectId;
 	type: FeedbackType;
-	tags?: Record<string, string>;
+	meta?: FeedbackMeta;
+	user?: FeedbackUser;
+	tags?: FeedbackTags;
 	data: unknown;
 }
 
@@ -65,6 +70,8 @@ function fromDocument(doc: FeedbackDocument): Feedback {
 		projectId: doc.projectId?.toHexString(),
 		createdAt: doc._id.getTimestamp(),
 		type: doc.type,
+		meta: doc.meta,
+		user: doc.user,
 		// TODO: Fix this any without writing unnecessary javascript code.
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		data: doc.data as any,

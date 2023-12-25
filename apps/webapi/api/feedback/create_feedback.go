@@ -12,6 +12,8 @@ type CreateFeedbackRequestBody struct {
 	ProjectID string                `json:"projectId"`
 	Type      feedback.FeedbackType `json:"type" validate:"required,oneof=text cnps csat"`
 	Data      feedback.FeedbackData `json:"data" validate:"required"`
+	Meta      feedback.FeedbackMeta `json:"meta"`
+	User      feedback.FeedbackUser `json:"user"`
 	Tags      feedback.FeedbackTags `json:"tags"`
 }
 
@@ -40,6 +42,8 @@ func SetupCreateFeedback(app *fiber.App) {
 			ProjectID:      body.ProjectID,
 			Type:           body.Type,
 			Data:           body.Data,
+			Meta:           body.Meta,
+			User:           body.User,
 			Tags:           body.Tags,
 		}
 		if err := data.Validate(); err != nil {

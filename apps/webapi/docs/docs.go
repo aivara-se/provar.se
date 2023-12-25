@@ -111,6 +111,9 @@ const docTemplate = `{
                 "data": {
                     "$ref": "#/definitions/feedback.FeedbackData"
                 },
+                "meta": {
+                    "$ref": "#/definitions/feedback.FeedbackMeta"
+                },
                 "projectId": {
                     "type": "string"
                 },
@@ -128,6 +131,9 @@ const docTemplate = `{
                             "$ref": "#/definitions/feedback.FeedbackType"
                         }
                     ]
+                },
+                "user": {
+                    "$ref": "#/definitions/feedback.FeedbackUser"
                 }
             }
         },
@@ -149,6 +155,10 @@ const docTemplate = `{
                 }
             }
         },
+        "feedback.FeedbackMeta": {
+            "type": "object",
+            "additionalProperties": true
+        },
         "feedback.FeedbackTags": {
             "type": "object",
             "additionalProperties": {
@@ -167,6 +177,20 @@ const docTemplate = `{
                 "FeedbackTypeCNPS",
                 "FeedbackTypeCSAT"
             ]
+        },
+        "feedback.FeedbackUser": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
         },
         "feedback.ImportFeedbackRequestBody": {
             "type": "object",

@@ -100,6 +100,9 @@
                 "data": {
                     "$ref": "#/definitions/feedback.FeedbackData"
                 },
+                "meta": {
+                    "$ref": "#/definitions/feedback.FeedbackMeta"
+                },
                 "projectId": {
                     "type": "string"
                 },
@@ -117,6 +120,9 @@
                             "$ref": "#/definitions/feedback.FeedbackType"
                         }
                     ]
+                },
+                "user": {
+                    "$ref": "#/definitions/feedback.FeedbackUser"
                 }
             }
         },
@@ -138,6 +144,10 @@
                 }
             }
         },
+        "feedback.FeedbackMeta": {
+            "type": "object",
+            "additionalProperties": true
+        },
         "feedback.FeedbackTags": {
             "type": "object",
             "additionalProperties": {
@@ -156,6 +166,20 @@
                 "FeedbackTypeCNPS",
                 "FeedbackTypeCSAT"
             ]
+        },
+        "feedback.FeedbackUser": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
         },
         "feedback.ImportFeedbackRequestBody": {
             "type": "object",

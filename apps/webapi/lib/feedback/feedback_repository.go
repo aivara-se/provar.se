@@ -42,7 +42,17 @@ type FeedbackData struct {
 	CNPS float64 `bson:"cnps,omitempty" validate:"gte=0,lte=1"`
 }
 
-// FeedbackTags is metadata for a feedback stored in the database
+// FeedbackMeta are additional metadata attached to feedback messages
+type FeedbackMeta map[string]interface{}
+
+// FeedbackUser is used to identify the user that sent the feedback.
+type FeedbackUser struct {
+	ID    string `bson:"id,omitempty"`
+	Name  string `bson:"name,omitempty"`
+	Email string `bson:"email,omitempty"`
+}
+
+// FeedbackTags are used to group feedback messages into categories
 type FeedbackTags map[string]string
 
 // FeedbackDocument is a MongoDB document for feedback
@@ -51,6 +61,8 @@ type FeedbackDocument struct {
 	OrganizationID primitive.ObjectID `bson:"organizationId"`
 	ProjectID      primitive.ObjectID `bson:"projectId,omitempty"`
 	Type           FeedbackType       `bson:"type"`
+	Meta           FeedbackMeta       `bson:"meta,omitempty"`
+	User           FeedbackUser       `bson:"user,omitempty"`
 	Data           FeedbackData       `bson:"data"`
 	Tags           FeedbackTags       `bson:"tags,omitempty"`
 }
@@ -65,8 +77,7 @@ func GetFeedbackRepository() *FeedbackRepository {
 	if cachedFeedbackRepository != nil {
 		return cachedFeedbackRepository
 	}
-	db := database.GetDatabase()
-	coll := db.Collection(feedbackCollectionName)
+	coll := database.GetDatabase().Collection(feedbackCollectionName)
 	repo := &FeedbackRepository{coll: coll}
 	cachedFeedbackRepository = repo
 	return repo
@@ -79,6 +90,8 @@ type CreateFeedbackData struct {
 	CreatedAt      time.Time
 	Type           FeedbackType
 	Data           FeedbackData
+	Meta           FeedbackMeta
+	User           FeedbackUser
 	Tags           FeedbackTags
 }
 
