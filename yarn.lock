@@ -2559,7 +2559,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flowbite-svelte@npm:^0.44.20, flowbite-svelte@npm:^0.44.4":
+"flowbite-svelte@npm:^0.44.21":
+  version: 0.44.21
+  resolution: "flowbite-svelte@npm:0.44.21"
+  dependencies:
+    "@floating-ui/dom": "npm:^1.5.3"
+    apexcharts: "npm:^3.44.0"
+    flowbite: "npm:^2.2.0"
+    tailwind-merge: "npm:^2.0.0"
+  peerDependencies:
+    svelte: ^4.0.0
+  checksum: 37ce4d9357db4838c19ea0a97735b97752dce6241618324c678d1fd002b01c215be5cff83f6cac8f6d7cc4739073220d63414d79bc8dcc958a5bd00ffd5b1283
+  languageName: node
+  linkType: hard
+
+"flowbite-svelte@npm:^0.44.4":
   version: 0.44.20
   resolution: "flowbite-svelte@npm:0.44.20"
   dependencies:
@@ -5672,7 +5686,7 @@ __metadata:
     eslint-config-prettier: "npm:^9.0.0"
     eslint-plugin-svelte: "npm:^2.35.1"
     flowbite: "npm:^2.2.1"
-    flowbite-svelte: "npm:^0.44.20"
+    flowbite-svelte: "npm:^0.44.21"
     flowbite-svelte-blocks: "npm:^0.5.1"
     flowbite-svelte-icons: "npm:^0.4.5"
     mongodb: "npm:^6.3.0"
