@@ -58,12 +58,4 @@ jobs:
         env:
           MONGO_URI: mongodb://localhost:27017/provar-test
           JWT_SECRET: 2A1HLr9OPmxrEUbFNfE18w2s6uAGp+MaHyqxIk9UnXwW38iT5xWMHw
-        run: |
-          go test ./... -p 1 -json | tee unit-test-results.json
-          exit $PIPESTATUS[0]
-
-      - name: Upload unit test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: Unit test results
-          path: unit-test-results.json
+        run: go test ./... -p 1
