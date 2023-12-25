@@ -9,7 +9,23 @@ export enum FeedbackType {
 }
 
 /**
- * Feedback tags are used to add additional metadata to feedback messages.
+ * Feedback metadata are additional metadata attached to feedback messages
+ */
+export type FeedbackMeta = {
+	[key: string]: unknown;
+};
+
+/**
+ * Feedback user is used to identify the user that sent the feedback.
+ */
+export interface FeedbackUser {
+	id?: string;
+	name?: string;
+	email?: string;
+}
+
+/**
+ * Feedback tags are used to group feedback messages into categories
  */
 export type FeedbackTags = Record<string, string>;
 
@@ -23,6 +39,8 @@ interface BaseFeedback {
 	projectId?: string;
 	createdAt: Date;
 	type: FeedbackType;
+	meta?: FeedbackMeta;
+	user?: FeedbackUser;
 	tags?: FeedbackTags;
 	data: unknown;
 }

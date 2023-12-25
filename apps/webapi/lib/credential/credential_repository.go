@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"provar.se/webapi/lib/database"
 )
@@ -24,9 +25,9 @@ var (
 
 // CredentialDocument is a MongoDB document for credentials
 type CredentialDocument struct {
-	Name           string `bson:"name"`
-	OrganizationID string `bson:"organizationId"`
-	Key            string `bson:"key"`
+	Name           string             `bson:"name"`
+	OrganizationID primitive.ObjectID `bson:"organizationId"`
+	Key            string             `bson:"key"`
 }
 
 // CredentialRepository is a repository for credentials
@@ -39,8 +40,7 @@ func GetCredentialRepository() *CredentialRepository {
 	if cachedCredentialRepository != nil {
 		return cachedCredentialRepository
 	}
-	db := database.GetDatabase()
-	coll := db.Collection(credentialsCollectionName)
+	coll := database.GetDatabase().Collection(credentialsCollectionName)
 	repo := &CredentialRepository{coll: coll}
 	cachedCredentialRepository = repo
 	return repo

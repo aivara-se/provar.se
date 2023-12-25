@@ -14,7 +14,7 @@
     "format": "go fmt ./...",
     "check": "go vet ./...",
     "lint": "test -z \"$(gofmt -l .)\"",
-    "test:unit": "go test ./..."
+    "test:unit": "go test ./... -p 1"
   },
   "engines": {
     "node": ">=20.0.0"
