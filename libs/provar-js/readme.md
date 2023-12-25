@@ -13,6 +13,6 @@ yarn add @provar/provar-js
 ```ts
 import { ProvarClient } from '@provar/provar-js';
 
-const provarClient = new ProvarClient({ apiKey: 'your-api-key' });
-await provarClient.sendText('My feedback');
+const client = new ProvarClient({ apiKey: 'your-api-key' });
+await client.sendText('My feedback');
 ```

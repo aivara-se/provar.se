@@ -41,16 +41,46 @@ describe('ProvarClient', () => {
 		expect(requests[0]).toEqual({ type: 'csat', data: { csat: 0.8 } });
 	});
 
+	it('sends a text feedback with global metadata', async () => {
+		fetcher.mockRequest('POST', '/feedback', { success: true });
+		client.setProject('project0');
+		client.setUser({ id: 'user1', email: 'user1@gmail.com' });
+		client.setMeta({ meta0: 'value0', meta1: 'value1' });
+		client.setTags({ tag0: 't0', tag1: 't1' });
+		await client.sendText('test feedback');
+		const requests = fetcher.getRequests('POST', '/feedback');
+		expect(requests.length).toBe(1);
+		expect(requests[0]).toEqual({
+			type: 'text',
+			data: { text: 'test feedback' },
+			projectId: 'project0',
+			tags: { tag0: 't0', tag1: 't1' },
+			user: { id: 'user1', email: 'user1@gmail.com' },
+			meta: { meta0: 'value0', meta1: 'value1' }
+		});
+	});
+
 	it('sends a text feedback with all optional fields', async () => {
 		fetcher.mockRequest('POST', '/feedback', { success: true });
-		await client.sendText('test feedback', 'project1', { tag1: 'value1', tag2: 'value2' });
+		client.setProject('project0');
+		client.setUser({ id: 'user1', email: 'user1@gmail.com' });
+		client.setMeta({ meta0: 'value0', meta1: 'value1' });
+		client.setTags({ tag0: 't0', tag1: 't1' });
+		await client.sendText('test feedback', {
+			projectId: 'project1',
+			tags: { tag1: 'value1', tag2: 'value2' },
+			user: { id: 'user1', email: 'user1@gmail.com', name: 'UserOne' },
+			meta: { meta1: 'value1', meta2: 'value2' }
+		});
 		const requests = fetcher.getRequests('POST', '/feedback');
 		expect(requests.length).toBe(1);
 		expect(requests[0]).toEqual({
 			type: 'text',
 			data: { text: 'test feedback' },
 			projectId: 'project1',
-			tags: { tag1: 'value1', tag2: 'value2' }
+			tags: { tag0: 't0', tag1: 'value1', tag2: 'value2' },
+			user: { id: 'user1', email: 'user1@gmail.com', name: 'UserOne' },
+			meta: { meta0: 'value0', meta1: 'value1', meta2: 'value2' }
 		});
 	});
 });
