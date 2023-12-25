@@ -1,7 +1,6 @@
 package testapp
 
 import (
-	"fmt"
 	"log"
 	"path/filepath"
 	"runtime"
@@ -21,11 +20,8 @@ var (
 func Create() *fiber.App {
 	// Return cached app instance if one exists
 	if app != nil {
-		fmt.Println("*********** Reusing cached app")
 		return app
 	}
-
-	fmt.Println("************ Creating test app")
 
 	// Load environment variables from .env.test
 	_, b, _, _ := runtime.Caller(0)
