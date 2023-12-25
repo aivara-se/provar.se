@@ -795,9 +795,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/adapter-node@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@sveltejs/adapter-node@npm:2.0.0"
+"@sveltejs/adapter-node@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@sveltejs/adapter-node@npm:2.0.2"
   dependencies:
     "@rollup/plugin-commonjs": "npm:^25.0.7"
     "@rollup/plugin-json": "npm:^6.1.0"
@@ -805,7 +805,7 @@ __metadata:
     rollup: "npm:^4.8.0"
   peerDependencies:
     "@sveltejs/kit": ^2.0.0
-  checksum: 1a4ea3ef2e7f12a839253663931e02d87e874950b65648162454565ed5abae39ef331a49ec4ab38c38bafb7a72f6bd22a8d9946cd39d21bb99fa473bb1280fa4
+  checksum: 24c5bd59abaacf9a932cff2e36f408378245c43f817bfd9bebc0c7d2e25bfa5e048a899c192791a89cf46da84f0679d321a8ae35373458f0669dfa261484f857
   languageName: node
   linkType: hard
 
@@ -5827,7 +5827,7 @@ __metadata:
     "@google-cloud/storage": "npm:^7.7.0"
     "@playwright/test": "npm:^1.40.0"
     "@provar/provar-js": "npm:^1.1.1"
-    "@sveltejs/adapter-node": "npm:^2.0.0"
+    "@sveltejs/adapter-node": "npm:^2.0.2"
     "@sveltejs/kit": "npm:^2.0.2"
     "@sveltejs/vite-plugin-svelte": "npm:^3.0.0"
     "@types/nodemailer": "npm:^6.4.14"
