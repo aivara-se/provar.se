@@ -1,4 +1,4 @@
-import type { Fetcher } from './index.js';
+import type { Fetcher } from './fetcher.js';
 
 /**
  * MockFetcher is a mock implementation of the Fetcher interface.
