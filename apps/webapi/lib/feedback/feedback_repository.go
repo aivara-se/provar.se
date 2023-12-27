@@ -124,6 +124,8 @@ func createFeedbackDocument(data CreateFeedbackData) (*FeedbackDocument, error) 
 		ProjectID:      projectIDAsObjectId,
 		Type:           data.Type,
 		Data:           data.Data,
+		Meta:           data.Meta,
+		User:           data.User,
 		Tags:           data.Tags,
 	}
 	return doc, nil
