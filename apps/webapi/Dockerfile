@@ -10,6 +10,7 @@ FROM alpine:3
 RUN apk add ca-certificates
 WORKDIR /app
 COPY --from=builder /app/webapi ./
+COPY ./GeoLite2-City.mmdb ./
 ENV MONGO_URI=""
 ENV PORT=3001
 EXPOSE 3001

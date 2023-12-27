@@ -42,9 +42,6 @@ type FeedbackData struct {
 	CNPS float64 `bson:"cnps,omitempty" validate:"gte=0,lte=1"`
 }
 
-// FeedbackMeta are additional metadata attached to feedback messages
-type FeedbackMeta map[string]interface{}
-
 // FeedbackUser is used to identify the user that sent the feedback.
 type FeedbackUser struct {
 	ID    string `bson:"id,omitempty"`

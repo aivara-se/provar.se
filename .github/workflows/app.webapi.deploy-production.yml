@@ -46,6 +46,12 @@ jobs:
           password: "${{ secrets.APPS_WEBAPI_GCP_CREDENTIALS }}"
           registry: "${{ secrets.APPS_WEBAPI_GCP_GAR_REGISTRY }}"
 
+      - name: Download GeoLite2 DB
+        run: |
+          wget https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.APPS_WEBAPI_METAMIND_KEY }}&suffix=tar.gz -O GeoLite2-City.tar.gz
+          tar -xzf GeoLite2-City.tar.gz
+          mv `find . | grep GeoLite2-City.mmdb` ./
+
       - name: Build docker image
         run: docker build -t "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}" .
 
@@ -62,6 +68,7 @@ jobs:
           image: "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}"
           env_vars: |
             MONGO_URI=${{ secrets.APPS_WEBAPI_APP_MONGO_URI }}
+            GEOLITE2_DB=${{ secrets.APPS_WEBAPI_APP_GEOLITE2_DB }}
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
