@@ -56,7 +56,7 @@ jobs:
 
       - name: Download GeoLite2 DB
         run: |
-          wget https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.APPS_WEBAPI_METAMIND_KEY }}&suffix=tar.gz -O GeoLite2-City.tar.gz
+          wget "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.APPS_WEBAPI_METAMIND_KEY }}&suffix=tar.gz" -O GeoLite2-City.tar.gz
           tar -xzf GeoLite2-City.tar.gz
           mv `find . | grep GeoLite2-City.mmdb` ./
 
