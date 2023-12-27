@@ -54,8 +54,14 @@ jobs:
       - name: Check code errors
         run: go vet ./...
 
+      - name: Download GeoLite2 DB
+        run: |
+          wget https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.APPS_WEBAPI_METAMIND_KEY }}&suffix=tar.gz -O GeoLite2-City.tar.gz
+          tar -xzf GeoLite2-City.tar.gz
+          mv `find . | grep GeoLite2-City.mmdb` ./
+
       - name: Check unit tests
         env:
           MONGO_URI: mongodb://localhost:27017/provar-test
-          JWT_SECRET: 2A1HLr9OPmxrEUbFNfE18w2s6uAGp+MaHyqxIk9UnXwW38iT5xWMHw
+          GEOLITE2_DB: ./GeoLite2-City.mmdb
         run: go test ./... -p 1

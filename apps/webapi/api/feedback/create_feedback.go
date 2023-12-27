@@ -49,6 +49,8 @@ func SetupCreateFeedback(app *fiber.App) {
 		if err := data.Validate(); err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
+		data.Meta.SetRequestIP(c.IP())
+		data.Meta.SetLocationFromIP()
 		if err := repo.CreateFeedback(data); err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}

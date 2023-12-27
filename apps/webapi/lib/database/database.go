@@ -18,11 +18,11 @@ var (
 	ErrConnectionString = errors.New("the database connection string is not valid")
 )
 
-// Connect connects to a MongoDB database and caches the client and database.
+// Setup connects to a MongoDB database and caches the client and database.
 // The connection string is expected to be in the following format:
 //
 //	mongodb://<username>:<password>@<host>:<port>/<database>
-func Connect(mongoURI string) error {
+func Setup(mongoURI string) error {
 	if cachedClient != nil {
 		return nil
 	}
@@ -44,7 +44,7 @@ func Connect(mongoURI string) error {
 }
 
 // GetClient returns the connected MongoDB client.
-// NOTE: The Connect function must be called before this function.
+// NOTE: The setup function must be called before this function.
 func GetClient() *mongo.Client {
 	if cachedClient == nil {
 		log.Fatalln("Cannot to use MongoDB client before connecting")
@@ -53,7 +53,7 @@ func GetClient() *mongo.Client {
 }
 
 // GetDatabase returns the connected MongoDB database.
-// NOTE: The Connect function must be called before this function.
+// NOTE: The setup function must be called before this function.
 func GetDatabase() *mongo.Database {
 	if cachedClient == nil {
 		log.Fatalln("Cannot to use MongoDB client before connecting")
