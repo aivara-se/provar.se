@@ -34,7 +34,7 @@ func Create() *fiber.App {
 
 	// Setup shared components (eg: db, jwt, etc.)
 	if err := lib.Setup(config); err != nil {
-		log.Fatal("Error connecting to database")
+		log.Fatal("Error setting up dependencies: ", err)
 	}
 
 	// Create test credentials in the database

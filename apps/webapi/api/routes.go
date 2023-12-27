@@ -23,13 +23,15 @@ import (
 func CreateApp() *fiber.App {
 	// Create a new fiber application
 	app := fiber.New(fiber.Config{
-		AppName:         "Provar.se API v1.0",
-		ReadTimeout:     time.Second,
-		WriteTimeout:    time.Second,
-		WriteBufferSize: 2048,
-		BodyLimit:       10 * 1024,
-		JSONEncoder:     json.Marshal,
-		JSONDecoder:     json.Unmarshal,
+		AppName:            "Provar.se API v1.0",
+		ReadTimeout:        time.Second,
+		WriteTimeout:       time.Second,
+		WriteBufferSize:    2048,
+		BodyLimit:          10 * 1024,
+		JSONEncoder:        json.Marshal,
+		JSONDecoder:        json.Unmarshal,
+		EnableIPValidation: true,
+		ProxyHeader:        "X-Forwarded-For",
 	})
 
 	// Use rate limiter middleware

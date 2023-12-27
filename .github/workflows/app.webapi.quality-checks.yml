@@ -63,5 +63,5 @@ jobs:
       - name: Check unit tests
         env:
           MONGO_URI: mongodb://localhost:27017/provar-test
-          GEOLITE2_DB: ./GeoLite2-City.mmdb
+          GEOLITE2_DB: ../../GeoLite2-City.mmdb
         run: go test ./... -p 1
