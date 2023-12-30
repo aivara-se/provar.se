@@ -1,5 +1,6 @@
 import { generateCNPSFeedback } from './cnps.js';
 import { generateCSATFeedback } from './csat.js';
+import { generateMetadata } from './meta.js';
 import { generateTextFeedback } from './text.js';
 
 type FeedbackType = 'text' | 'csat' | 'cnps';
@@ -21,6 +22,7 @@ export function generateFeedback(type: FeedbackType, period: [Date, Date]) {
 	return {
 		type,
 		time: randomDate(start, end),
-		data: FeedbackGeneratorsMap[type]()
+		data: FeedbackGeneratorsMap[type](),
+		meta: generateMetadata()
 	};
 }
