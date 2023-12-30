@@ -59,14 +59,18 @@ if (isNaN(feedbackPeriod[1].getTime())) {
 // Generate mock feedbacks
 const feedbacks = [];
 for (let i = 0; i < feedbackCount; i++) {
-	const feedback = generateFeedback(feedbackType, feedbackPeriod);
-	feedbacks.push({
-		type: feedback.type,
-		time: feedback.time.toISOString(),
-		cnps: 'cnps' in feedback.data ? feedback.data.cnps : '',
-		csat: 'csat' in feedback.data ? feedback.data.csat : '',
-		text: feedback.data.text || ''
-	});
+	const record = generateFeedback(feedbackType, feedbackPeriod);
+	const csvrow: Record<string, unknown> = {
+		type: record.type,
+		time: record.time.toISOString(),
+		cnps: 'cnps' in record.data ? record.data.cnps : '',
+		csat: 'csat' in record.data ? record.data.csat : '',
+		text: record.data.text || ''
+	};
+	for (const [key, value] of Object.entries(record.meta)) {
+		csvrow[`meta.${key}`] = value;
+	}
+	feedbacks.push(csvrow);
 }
 
 // Convert feedbacks to CSV
