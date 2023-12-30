@@ -120,9 +120,6 @@ func (p *Parser) parseText(Record []string) (string, error) {
 		return "", ErrMissingTextColumn
 	}
 	str := Record[idx]
-	if str == "" {
-		return "", ErrInvalidTextColumn
-	}
 	return str, nil
 }
 

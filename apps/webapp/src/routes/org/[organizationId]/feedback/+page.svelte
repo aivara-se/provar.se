@@ -59,7 +59,9 @@
 	<main class="content">
 		<Heading customSize="font-semibold">Feedback Details</Heading>
 		{#if selectedFeedback}
-			<pre class="mt-6">{JSON.stringify(selectedFeedback, null, 2)}</pre>
+			<P class="mt-6 text-gray-500 text-sm font-mono">
+				{JSON.stringify(selectedFeedback, null, 2)}
+			</P>
 		{:else}
 			<P class="mt-6 text-gray-500 text-sm">Select a feedback from the list to see details</P>
 		{/if}
