@@ -2,7 +2,7 @@ package lib
 
 import (
 	"provar.se/webapi/lib/database"
-	"provar.se/webapi/lib/location"
+	"provar.se/webapi/lib/metadata"
 )
 
 // Setup initializes shared components
@@ -12,7 +12,7 @@ func Setup(config Config) error {
 		return err
 	}
 	// Connect to geolite2 database using GEOLITE2_DB
-	if err := location.Setup(config.Geolite2); err != nil {
+	if err := metadata.Setup(config.Geolite2); err != nil {
 		return err
 	}
 	return nil
