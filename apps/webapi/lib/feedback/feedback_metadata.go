@@ -2,19 +2,25 @@ package feedback
 
 import (
 	"fmt"
-	"net"
 	"strings"
 
-	"provar.se/webapi/lib/location"
+	"provar.se/webapi/lib/metadata"
 )
 
 const (
-	MetadataRequestIP         = "request.ip"
-	MetadataLocationCity      = "location.city"
-	MetadataLocationCountry   = "location.country"
-	MetadataLocationLatitude  = "location.latitude"
-	MetadataLocationLongitude = "location.longitude"
-	MetadataLocationAccuracy  = "location.accuracy"
+	MetadataRequestIP             = "request.ip"
+	MetadataRequestHeaderUA       = "request.header.user-agent"
+	MetadataRequestBrowser        = "request.device.browser"
+	MetadataRequestBrowserVersion = "request.device.browser-version"
+	MetadataRequestOS             = "request.device.os"
+	MetadataRequestOSVersion      = "request.device.os-version"
+	MetadataRequestDevice         = "request.device.name"
+	MetadataRequestDeviceType     = "request.device.type"
+	MetadataLocationCity          = "request.location.city"
+	MetadataLocationCountry       = "request.location.country"
+	MetadataLocationLatitude      = "request.location.latitude"
+	MetadataLocationLongitude     = "request.location.longitude"
+	MetadataLocationAccuracy      = "request.location.accuracy"
 )
 
 // RequestHeadersToMask are the headers that should be masked in the feedback
@@ -44,9 +50,9 @@ func (m *FeedbackMeta) SetRequestHeaders(headers map[string][]string) {
 	}
 }
 
-// SetLocationFromIP sets location metadata fields based on the IP address
+// SetMetadataFromIP sets location metadata fields based on the IP address
 // of the feedback message using the "request.ip" metadata field.
-func (m *FeedbackMeta) SetLocationFromIP() error {
+func (m *FeedbackMeta) SetMetadataFromIP() error {
 	maybeIP, ok := (*m)[MetadataRequestIP]
 	if !ok {
 		return nil
@@ -55,10 +61,8 @@ func (m *FeedbackMeta) SetLocationFromIP() error {
 	if !ok {
 		return nil
 	}
-	fmt.Println(IP)
-	rec, err := location.GetClient().City(net.ParseIP(IP))
+	rec, err := metadata.GetLocation(IP)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 	m.setIfMissing(MetadataRequestIP, IP)
@@ -67,6 +71,34 @@ func (m *FeedbackMeta) SetLocationFromIP() error {
 	m.setIfMissing(MetadataLocationLatitude, rec.Location.Latitude)
 	m.setIfMissing(MetadataLocationLongitude, rec.Location.Longitude)
 	m.setIfMissing(MetadataLocationAccuracy, float64(rec.Location.AccuracyRadius))
+	return nil
+}
+
+// SetMetadataFromUA sets metadata fields based on the user agent string.
+func (m *FeedbackMeta) SetMetadataFromUA() error {
+	maybeUA, ok := (*m)[MetadataRequestHeaderUA]
+	if !ok {
+		return nil
+	}
+	UA, ok := maybeUA.(string)
+	if !ok {
+		return nil
+	}
+	ua := metadata.ParseUserAgent(UA)
+	m.setIfMissing(MetadataRequestBrowser, ua.Name)
+	m.setIfMissing(MetadataRequestBrowserVersion, ua.Version)
+	m.setIfMissing(MetadataRequestOS, ua.OS)
+	m.setIfMissing(MetadataRequestOSVersion, ua.OSVersion)
+	m.setIfMissing(MetadataRequestDevice, ua.Device)
+	if ua.Mobile {
+		m.setIfMissing(MetadataRequestDeviceType, "mobile")
+	} else if ua.Tablet {
+		m.setIfMissing(MetadataRequestDeviceType, "tablet")
+	} else if ua.Desktop {
+		m.setIfMissing(MetadataRequestDeviceType, "desktop")
+	} else if ua.Bot {
+		m.setIfMissing(MetadataRequestDeviceType, "bot")
+	}
 	return nil
 }
 

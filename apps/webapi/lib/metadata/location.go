@@ -1,4 +1,4 @@
-package location
+package metadata
 
 import (
 	"log"
@@ -28,9 +28,14 @@ func Setup(databasePath string) error {
 	return nil
 }
 
-// GetClient returns the connected GeoIP database reader.
+// GetLocation returns the location of an IP address.
+func GetLocation(IP string) (*geoip2.City, error) {
+	return getLocationClient().City(net.ParseIP(IP))
+}
+
+// getLocationClient returns the connected GeoIP database reader.
 // NOTE: The setup function must be called before this function.
-func GetClient() *geoip2.Reader {
+func getLocationClient() *geoip2.Reader {
 	if cachedClient == nil {
 		log.Fatalln("Cannot to use GeoIP database before connecting")
 	}

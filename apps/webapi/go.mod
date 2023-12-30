@@ -38,6 +38,7 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
+	github.com/mileusna/useragent v1.3.4 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/oschwald/geoip2-golang v1.9.0 // indirect
 	github.com/oschwald/maxminddb-golang v1.11.0 // indirect

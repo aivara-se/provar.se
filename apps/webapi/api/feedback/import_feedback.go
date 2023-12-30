@@ -46,7 +46,7 @@ func SetupImportFeedback(app *fiber.App) {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
 		for _, data := range imp.ImportedData {
-			data.Meta.SetLocationFromIP()
+			data.Meta.SetMetadataFromIP()
 		}
 		if err := repo.ImportFeedback(imp.ImportedData); err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
