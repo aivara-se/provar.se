@@ -3,7 +3,7 @@ import { generateCSATFeedback } from './csat.js';
 import { generateMetadata } from './meta.js';
 import { generateTextFeedback } from './text.js';
 
-type FeedbackType = 'text' | 'csat' | 'cnps';
+export type FeedbackType = 'text' | 'csat' | 'cnps';
 
 const FeedbackGeneratorsMap = {
 	text: generateTextFeedback,
