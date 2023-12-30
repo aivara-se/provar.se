@@ -48,7 +48,9 @@
 	</div>
 </section>
 
-<FeedbackListPagination {pages} {currentPage} on:change={resetScroll} />
+{#if pages > 1}
+	<FeedbackListPagination {pages} {currentPage} on:change={resetScroll} />
+{/if}
 
 <style>
 	.filters {
