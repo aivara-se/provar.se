@@ -34,6 +34,5 @@
 	},
 	"repository": "git@github.com:aivara-se/provar.se.git",
 	"author": "Thanish Nizam <mnmtanish@gmail.com>",
-	"license": "MIT",
-	"private": false
+	"license": "MIT"
 }
