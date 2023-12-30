@@ -1,2 +1,2 @@
 export { getDefaultPeriod } from './generators/time.js';
-export { generateFeedback } from './generators/index.js';
+export { generateFeedback, FeedbackType } from './generators/index.js';

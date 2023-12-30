@@ -2,7 +2,7 @@
 
 import parse from 'yargs-parser';
 import Papa from 'papaparse';
-import { getDefaultPeriod, generateFeedback } from '../index.js';
+import { getDefaultPeriod, generateFeedback, FeedbackType } from '../index.js';
 
 function parsePeriod(periodStr: string): [Date, Date] | null {
 	if (!periodStr) {
@@ -26,20 +26,25 @@ if (help || h) {
 }
 
 // Validate and extract arguments
-const feedbackType = type || t || 'text';
+const feedbackTypes: FeedbackType[] = Array.isArray(type || t) ? type || t : [type || t];
 const feedbackCount = parseInt(count || c, 10) || 10;
 const feedbackPeriod = parsePeriod(period || p) || getDefaultPeriod();
 
 // Validate mandatory arguments
-if (!feedbackType || !feedbackCount || !feedbackPeriod) {
+if (!feedbackTypes.length) {
+	feedbackTypes.push('text');
+}
+if (!feedbackCount || !feedbackPeriod) {
 	console.error('Usage: mockgen --type <type> --count <count> --period <period>');
 	process.exit(1);
 }
 // Validate feedback type
 const validFeedbackTypes = ['text', 'csat', 'cnps'];
-if (!validFeedbackTypes.includes(feedbackType)) {
-	console.error(`Invalid feedback type. Please use one of: ${validFeedbackTypes.join(', ')}`);
-	process.exit(1);
+for (const feedbackType of feedbackTypes) {
+	if (!validFeedbackTypes.includes(feedbackType)) {
+		console.error(`Invalid feedback type. Please use one of: ${validFeedbackTypes.join(', ')}`);
+		process.exit(1);
+	}
 }
 // Validate feedback count
 if (isNaN(feedbackCount) || feedbackCount < 1) {
@@ -58,19 +63,21 @@ if (isNaN(feedbackPeriod[1].getTime())) {
 
 // Generate mock feedbacks
 const feedbacks = [];
-for (let i = 0; i < feedbackCount; i++) {
-	const record = generateFeedback(feedbackType, feedbackPeriod);
-	const csvrow: Record<string, unknown> = {
-		type: record.type,
-		time: record.time.toISOString(),
-		cnps: 'cnps' in record.data ? record.data.cnps : '',
-		csat: 'csat' in record.data ? record.data.csat : '',
-		text: record.data.text || ''
-	};
-	for (const [key, value] of Object.entries(record.meta)) {
-		csvrow[`meta.${key}`] = value;
+for (const feedbackType of feedbackTypes) {
+	for (let i = 0; i < Math.ceil(feedbackCount / feedbackTypes.length); i++) {
+		const record = generateFeedback(feedbackType, feedbackPeriod);
+		const csvrow: Record<string, unknown> = {
+			type: record.type,
+			time: record.time.toISOString(),
+			cnps: 'cnps' in record.data ? record.data.cnps : '',
+			csat: 'csat' in record.data ? record.data.csat : '',
+			text: record.data.text || ''
+		};
+		for (const [key, value] of Object.entries(record.meta)) {
+			csvrow[`meta.${key}`] = value;
+		}
+		feedbacks.push(csvrow);
 	}
-	feedbacks.push(csvrow);
 }
 
 // Convert feedbacks to CSV
