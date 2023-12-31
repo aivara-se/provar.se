@@ -1,15 +1,9 @@
 <script lang="ts">
-	import { applyAction, deserialize } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { Credential } from '$lib/types';
-	import type { ActionResult } from '@sveltejs/kit';
 	import {
 		Button,
 		Heading,
-		Input,
-		Label,
-		Modal,
 		P,
 		Table,
 		TableBody,
@@ -18,8 +12,8 @@
 		TableHead,
 		TableHeadCell
 	} from 'flowbite-svelte';
-
-	let name = '';
+	import CreateCredentialModal from './_components/CreateCredentialModal.svelte';
+	import CredentialDetailsModal from './_components/CredentialDetailsModal.svelte';
 
 	let selectedCredential: Credential;
 
@@ -31,35 +25,6 @@
 	function selectCredential(cred: Credential) {
 		selectedCredential = cred;
 		isDetailsModalOpen = true;
-	}
-
-	async function createCredential() {
-		const data = new FormData();
-		data.set('name', name);
-		const response = await fetch('?/createCredential', {
-			method: 'post',
-			body: data
-		});
-		const result: ActionResult = deserialize(await response.text());
-		if (result.type === 'success') {
-			await invalidateAll();
-		}
-		name = '';
-		applyAction(result);
-	}
-
-	async function revokeCredential(id: string) {
-		const data = new FormData();
-		data.set('id', id);
-		const response = await fetch('?/revokeCredential', {
-			method: 'post',
-			body: data
-		});
-		const result: ActionResult = deserialize(await response.text());
-		if (result.type === 'success') {
-			await invalidateAll();
-		}
-		applyAction(result);
 	}
 </script>
 
@@ -105,24 +70,5 @@
 	</Button>
 </section>
 
-<Modal title="Create API Key" bind:open={isCreateModalOpen} autoclose>
-	<Label for="name" class="block mb-2">Name:</Label>
-	<Input id="name" required bind:value={name} />
-	<svelte:fragment slot="footer">
-		<Button size="sm" color="primary" on:click={createCredential}>Create</Button>
-	</svelte:fragment>
-</Modal>
-
-<Modal title={selectedCredential?.name} bind:open={isDetailsModalOpen} autoclose>
-	<P class="mb-2">
-		<span class="font-semibold">API Key:</span>
-		<code class="block break-words text-xs mt-2 bg-gray-100 p-2 rounded">
-			{selectedCredential?.key}
-		</code>
-	</P>
-	<svelte:fragment slot="footer">
-		<Button size="sm" color="red" on:click={() => revokeCredential(selectedCredential.id)}>
-			Revoke
-		</Button>
-	</svelte:fragment>
-</Modal>
+<CreateCredentialModal bind:isOpen={isCreateModalOpen} />
+<CredentialDetailsModal bind:isOpen={isDetailsModalOpen} bind:credential={selectedCredential} />
