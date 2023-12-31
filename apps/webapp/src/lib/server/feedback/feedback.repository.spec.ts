@@ -59,14 +59,14 @@ describe('Feedback Repository', () => {
 
 	describe('findByOrganization', () => {
 		it('should return empty array if there are no matching documents', async () => {
-			const options = { page: 1, pageSize: 10 };
+			const options = { page: 1, limit: 10 };
 			const result = await findByOrganization(unknownId.toHexString(), options);
 			expect(result.count).toEqual(0);
 			expect(result.items).toEqual([]);
 		});
 
 		it('should return data if there are matching documents', async () => {
-			const options = { page: 1, pageSize: 10 };
+			const options = { page: 1, limit: 10 };
 			const result = await findByOrganization(organizationId1.toHexString(), options);
 			expect(result.count).toEqual(3);
 			expect(result.items).toEqual([
@@ -88,14 +88,14 @@ describe('Feedback Repository', () => {
 
 	describe('findByProject', () => {
 		it('should return empty array if there are no matching documents', async () => {
-			const options = { page: 1, pageSize: 10 };
+			const options = { page: 1, limit: 10 };
 			const result = await findByProject(unknownId.toHexString(), unknownId.toHexString(), options);
 			expect(result.count).toEqual(0);
 			expect(result.items).toEqual([]);
 		});
 
 		it('should return data if there are matching documents', async () => {
-			const options = { page: 1, pageSize: 10 };
+			const options = { page: 1, limit: 10 };
 			const result = await findByProject(
 				organizationId1.toHexString(),
 				projectId1.toHexString(),
