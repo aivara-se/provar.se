@@ -924,7 +924,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:*":
+"@types/lodash@npm:*, @types/lodash@npm:^4.14.202":
   version: 4.14.202
   resolution: "@types/lodash@npm:4.14.202"
   checksum: 1bb9760a5b1dda120132c4b987330d67979c95dbc22612678682cd61b00302e190f4207228f3728580059cdab5582362262e3819aea59960c1017bd2b9fb26f6
@@ -3437,6 +3437,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: c08619c038846ea6ac754abd6dd29d2568aa705feb69339e836dfa8d8b09abbb2f859371e86863eda41848221f9af43714491467b5b0299122431e202bb0c532
+  languageName: node
+  linkType: hard
+
 "loupe@npm:^2.3.6, loupe@npm:^2.3.7":
   version: 2.3.7
   resolution: "loupe@npm:2.3.7"
@@ -5664,6 +5671,7 @@ __metadata:
     "@sveltejs/adapter-node": "npm:^2.0.2"
     "@sveltejs/kit": "npm:^2.0.2"
     "@sveltejs/vite-plugin-svelte": "npm:^3.0.0"
+    "@types/lodash": "npm:^4.14.202"
     "@types/nodemailer": "npm:^6.4.14"
     "@types/qs": "npm:^6.9.11"
     "@typescript-eslint/eslint-plugin": "npm:^6.13.2"
@@ -5677,6 +5685,7 @@ __metadata:
     flowbite-svelte: "npm:^0.44.21"
     flowbite-svelte-blocks: "npm:^0.5.1"
     flowbite-svelte-icons: "npm:^0.4.5"
+    lodash: "npm:^4.17.21"
     mongodb: "npm:^6.3.0"
     nodemailer: "npm:^6.9.7"
     postcss: "npm:^8.4.31"
