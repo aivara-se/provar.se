@@ -1,9 +1,9 @@
 <script>
 	import { page } from '$app/stores';
 	import { Breadcrumb, BreadcrumbItem, Heading, TabItem, Tabs } from 'flowbite-svelte';
-	import CredentialsTabContent from './_tab-content/CredentialsTabContent.svelte';
-	import MembersTabContent from './_tab-content/MembersTabContent.svelte';
-	import OrganizationTabContent from './_tab-content/OrganizationTabContent.svelte';
+	import CredentialsTabContent from './credentials/CredentialsTabContent.svelte';
+	import MembersTabContent from './members/MembersTabContent.svelte';
+	import OrganizationTabContent from './organization/OrganizationTabContent.svelte';
 </script>
 
 <Breadcrumb class="mb-6">
