@@ -1,16 +1,10 @@
 <script lang="ts">
-	import { applyAction, deserialize } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { Invitation, User } from '$lib/types';
-	import type { ActionResult } from '@sveltejs/kit';
 	import {
 		Avatar,
 		Button,
 		Heading,
-		Input,
-		Label,
-		Modal,
 		P,
 		Table,
 		TableBody,
@@ -19,6 +13,9 @@
 		TableHead,
 		TableHeadCell
 	} from 'flowbite-svelte';
+	import CreateInviteModal from './_components/CreateInviteModal.svelte';
+	import InvitationDetailsModal from './_components/InvitationDetailsModal.svelte';
+	import MemberDetailsModal from './_components/MemberDetailsModal.svelte';
 
 	$: members = $page.data.members || [];
 	$: invitations = $page.data.invitations || [];
@@ -26,9 +23,6 @@
 	let isInviteMemberModalOpen = false;
 	let isMemberDetailsModalOpen = false;
 	let isInviteDetailsModalOpen = false;
-
-	let invitedUserName = '';
-	let invitedUserEmail = '';
 
 	let selectedMember: User;
 	let selectedInvitation: Invitation;
@@ -46,63 +40,6 @@
 	function getTimeString(ts: number) {
 		const date = new Date(ts);
 		return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-	}
-
-	async function inviteMember() {
-		const data = new FormData();
-		data.set('name', invitedUserName);
-		data.set('email', invitedUserEmail);
-		const response = await fetch('?/inviteMember', {
-			method: 'post',
-			body: data
-		});
-		const result: ActionResult = deserialize(await response.text());
-		if (result.type === 'success') {
-			await invalidateAll();
-		}
-		applyAction(result);
-	}
-
-	async function resendInvitation(id: string) {
-		const data = new FormData();
-		data.set('id', id);
-		const response = await fetch('?/resendInvitation', {
-			method: 'post',
-			body: data
-		});
-		const result: ActionResult = deserialize(await response.text());
-		if (result.type === 'success') {
-			await invalidateAll();
-		}
-		applyAction(result);
-	}
-
-	async function revokeInvitation(id: string) {
-		const data = new FormData();
-		data.set('id', id);
-		const response = await fetch('?/revokeInvitation', {
-			method: 'post',
-			body: data
-		});
-		const result: ActionResult = deserialize(await response.text());
-		if (result.type === 'success') {
-			await invalidateAll();
-		}
-		applyAction(result);
-	}
-
-	async function revokeMembership(id: string) {
-		const data = new FormData();
-		data.set('id', id);
-		const response = await fetch('?/revokeMembership', {
-			method: 'post',
-			body: data
-		});
-		const result: ActionResult = deserialize(await response.text());
-		if (result.type === 'success') {
-			await invalidateAll();
-		}
-		applyAction(result);
 	}
 </script>
 
@@ -182,43 +119,6 @@
 	</Button>
 </section>
 
-<Modal title="Invite member" bind:open={isInviteMemberModalOpen} autoclose>
-	<Label for="name" class="block mb-1">Name:</Label>
-	<Input id="name" required bind:value={invitedUserName} />
-	<Label for="email" class="block mb-1">Email:</Label>
-	<Input id="email" required bind:value={invitedUserEmail} />
-	<svelte:fragment slot="footer">
-		<Button size="sm" color="primary" on:click={inviteMember}>Invite</Button>
-	</svelte:fragment>
-</Modal>
-
-<Modal title={selectedMember?.name || ' '} bind:open={isMemberDetailsModalOpen} autoclose>
-	<P class="mb-2">
-		<span class="font-semibold">Email:</span>
-		<code class="block break-words text-xs mt-2 bg-gray-100 p-2 rounded">
-			{selectedMember?.email}
-		</code>
-	</P>
-	<svelte:fragment slot="footer">
-		<Button size="sm" color="red" on:click={() => revokeMembership(selectedMember.id)}>
-			Revoke
-		</Button>
-	</svelte:fragment>
-</Modal>
-
-<Modal title={selectedInvitation?.name || ' '} bind:open={isInviteDetailsModalOpen} autoclose>
-	<P class="mb-2">
-		<span class="font-semibold">Email:</span>
-		<code class="block break-words text-xs mt-2 bg-gray-100 p-2 rounded">
-			{selectedInvitation?.email}
-		</code>
-	</P>
-	<svelte:fragment slot="footer">
-		<Button size="sm" color="red" on:click={() => revokeInvitation(selectedInvitation.id)}>
-			Revoke
-		</Button>
-		<Button size="sm" color="dark" on:click={() => resendInvitation(selectedInvitation.id)}>
-			Resend
-		</Button>
-	</svelte:fragment>
-</Modal>
+<CreateInviteModal bind:isOpen={isInviteMemberModalOpen} />
+<MemberDetailsModal member={selectedMember} bind:isOpen={isMemberDetailsModalOpen} />
+<InvitationDetailsModal invitation={selectedInvitation} bind:isOpen={isInviteDetailsModalOpen} />
