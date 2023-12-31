@@ -3,7 +3,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import type { Organization } from '$lib/types';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { Button, Modal, P } from 'flowbite-svelte';
+	import { Button, Modal } from 'flowbite-svelte';
 	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
 
 	export let isOpen: boolean = false;
