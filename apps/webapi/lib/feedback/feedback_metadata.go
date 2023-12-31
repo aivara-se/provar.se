@@ -8,19 +8,19 @@ import (
 )
 
 const (
-	MetadataRequestIP             = "request.ip"
-	MetadataRequestHeaderUA       = "request.header.user-agent"
-	MetadataRequestBrowser        = "request.device.browser"
-	MetadataRequestBrowserVersion = "request.device.browser-version"
-	MetadataRequestOS             = "request.device.os"
-	MetadataRequestOSVersion      = "request.device.os-version"
-	MetadataRequestDevice         = "request.device.name"
-	MetadataRequestDeviceType     = "request.device.type"
-	MetadataLocationCity          = "request.location.city"
-	MetadataLocationCountry       = "request.location.country"
-	MetadataLocationLatitude      = "request.location.latitude"
-	MetadataLocationLongitude     = "request.location.longitude"
-	MetadataLocationAccuracy      = "request.location.accuracy"
+	MetadataRequestIP             = "request-ip"
+	MetadataRequestHeaderUA       = "request-header-user-agent"
+	MetadataRequestBrowser        = "request-device-browser"
+	MetadataRequestBrowserVersion = "request-device-browser-version"
+	MetadataRequestOS             = "request-device-os"
+	MetadataRequestOSVersion      = "request-device-os-version"
+	MetadataRequestDevice         = "request-device-name"
+	MetadataRequestDeviceType     = "request-device-type"
+	MetadataLocationCity          = "request-location-city"
+	MetadataLocationCountry       = "request-location-country"
+	MetadataLocationLatitude      = "request-location-latitude"
+	MetadataLocationLongitude     = "request-location-longitude"
+	MetadataLocationAccuracy      = "request-location-accuracy"
 )
 
 // RequestHeadersToMask are the headers that should be masked in the feedback
@@ -42,7 +42,7 @@ func (m *FeedbackMeta) SetRequestHeaders(headers map[string][]string) {
 	for key, val := range headers {
 		normalizedKey := strings.ToLower(key)
 		metadataVal := strings.Join(val, ",")
-		metadataKey := fmt.Sprintf("request.header.%s", normalizedKey)
+		metadataKey := fmt.Sprintf("request-header-%s", normalizedKey)
 		if shouldMaskHeader(normalizedKey) {
 			metadataVal = "*****"
 		}
