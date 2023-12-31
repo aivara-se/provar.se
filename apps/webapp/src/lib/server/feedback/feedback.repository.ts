@@ -104,8 +104,9 @@ export async function findById(organizationId: string, id: string): Promise<Feed
  */
 export interface FindOptions {
 	page: number;
-	pageSize: number;
-	range?: { from: Date; to: Date };
+	limit: number;
+	date?: { from: Date; to: Date };
+	search?: { text: string[]; meta: Record<string, string> };
 }
 
 /**
@@ -144,17 +145,25 @@ async function findByFilter(
 	options: FindOptions
 ): Promise<{ items: Feedback[]; count: number }> {
 	const coll = await getCollection();
-	if (options.range) {
+	if (options.date) {
 		query._id = {
-			$gte: ObjectId.createFromTime(Math.floor(options.range.from.getTime() / 1000)),
-			$lte: ObjectId.createFromTime(Math.floor(options.range.to.getTime() / 1000))
+			$gte: ObjectId.createFromTime(Math.floor(options.date.from.getTime() / 1000)),
+			$lte: ObjectId.createFromTime(Math.floor(options.date.to.getTime() / 1000))
 		};
+	}
+	if (options.search?.text.length) {
+		query['data.text'] = { $regex: options.search.text.join('.*'), $options: 'si' };
+	}
+	if (options.search?.meta) {
+		Object.entries(options.search.meta).forEach(([key, value]) => {
+			query[`meta.${key}`] = value;
+		});
 	}
 	const docs = await coll
 		.find(query, {
 			sort: { _id: -1 },
-			limit: options.pageSize,
-			skip: (options.page - 1) * options.pageSize
+			limit: options.limit,
+			skip: (options.page - 1) * options.limit
 		})
 		.toArray();
 	const items = docs.map(fromDocument);

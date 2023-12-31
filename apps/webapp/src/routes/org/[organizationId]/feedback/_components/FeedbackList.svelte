@@ -1,11 +1,10 @@
 <script lang="ts">
 	import type { Feedback } from '$lib/types';
-	import { Button, ButtonGroup, Input } from 'flowbite-svelte';
-	import { SearchOutline } from 'flowbite-svelte-icons';
 	import FeedbackListItemCNPS from './FeedbackListItemCNPS.svelte';
 	import FeedbackListItemCSAT from './FeedbackListItemCSAT.svelte';
 	import FeedbackListItemText from './FeedbackListItemText.svelte';
 	import FeedbackListPagination from './FeedbackListPagination.svelte';
+	import FeedbackSearchForm from './FeedbackSearchForm.svelte';
 
 	export let items: Feedback[] = [];
 	export let pages: number = 1;
@@ -21,16 +20,7 @@
 	}
 </script>
 
-<section class="filters">
-	<div>
-		<ButtonGroup class="w-full">
-			<Input id="search" size="sm" placeholder="Search ..." />
-			<Button color="light">
-				<SearchOutline class="w-3 h-3" />
-			</Button>
-		</ButtonGroup>
-	</div>
-</section>
+<FeedbackSearchForm />
 
 <section class="content">
 	<div class="content-scroll" bind:this={containerRef}>
@@ -53,11 +43,6 @@
 {/if}
 
 <style>
-	.filters {
-		display: flex;
-		flex-direction: column;
-	}
-
 	.content {
 		display: flex;
 		flex: 1;
