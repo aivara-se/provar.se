@@ -105,9 +105,23 @@ func (m *FeedbackMeta) SetMetadataFromUA() error {
 // setIfMissing sets a key/value pair in the metadata if not already set.
 func (m *FeedbackMeta) setIfMissing(key string, val interface{}) {
 	_, ok := (*m)[key]
-	if !ok {
-		(*m)[key] = val
+	if ok {
+		return
 	}
+	if isEmptyValue(val) {
+		return
+	}
+	(*m)[key] = val
+}
+
+func isEmptyValue(val interface{}) bool {
+	switch v := val.(type) {
+	case int:
+		return v == 0
+	case string:
+		return v == ""
+	}
+	return false
 }
 
 // shouldMaskHeader returns true if the header should be masked.
