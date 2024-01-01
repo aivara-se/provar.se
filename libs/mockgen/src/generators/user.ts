@@ -19,7 +19,10 @@ function generateName(): string {
 }
 
 function generateEmail(name: string): string {
-	const user = name.toLowerCase().replace(' ', '.');
+	const user = name
+		.toLowerCase()
+		.replace(' ', '.')
+		.replace(/[^a-zA-Z0-9]/g, '');
 	const host = ['gmail.com', 'outlook.com'][Math.floor(Math.random() * 2)];
 	return `${user}@${host}`;
 }
