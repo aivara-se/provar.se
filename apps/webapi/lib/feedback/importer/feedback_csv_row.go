@@ -163,6 +163,7 @@ func (p *Parser) parseUser(Record []string) feedback.FeedbackUser {
 		ID:    p.parseOptionalString(Record, "user.id"),
 		Name:  p.parseOptionalString(Record, "user.name"),
 		Email: p.parseOptionalString(Record, "user.email"),
+		Image: p.parseOptionalString(Record, "user.image"),
 	}
 }
 

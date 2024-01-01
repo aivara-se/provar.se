@@ -47,6 +47,7 @@ type FeedbackUser struct {
 	ID    string `bson:"id,omitempty"`
 	Name  string `bson:"name,omitempty"`
 	Email string `bson:"email,omitempty"`
+	Image string `bson:"image,omitempty"`
 }
 
 // FeedbackTags are used to group feedback messages into categories
