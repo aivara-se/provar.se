@@ -7,7 +7,7 @@
 	import DateRangeSelector from './_components/DateRangeSelector.svelte';
 	import FeedbackList from './(search)/FeedbackList.svelte';
 	import FeedbackPageActions from './_components/FeedbackPageActions.svelte';
-	import FeedbackDetail from './(detail)/FeedbackDetail.svelte';
+	import FeedbackDetail from './(details)/FeedbackDetail.svelte';
 
 	$: feedbacks = $page.data.feedbacks;
 	$: currentPage = Number.parseInt($page.url.searchParams.get('page') || '1');

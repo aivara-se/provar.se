@@ -10,9 +10,9 @@
 
 <div class="mt-2 flex items-center gap-2">
 	{#if user?.image}
-		<Avatar src={user?.image} size="sm" />
+		<Avatar src={user?.image} size="xs" />
 	{:else}
-		<Avatar size="sm" border />
+		<Avatar size="xs" border />
 	{/if}
 	{#if withName}
 		<cite class="text-sm font-semibold">{name}</cite>
