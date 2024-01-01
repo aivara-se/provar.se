@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { Feedback } from '$lib/types';
-	import FeedbackListItemCNPS from './FeedbackListItemCNPS.svelte';
-	import FeedbackListItemCSAT from './FeedbackListItemCSAT.svelte';
-	import FeedbackListItemText from './FeedbackListItemText.svelte';
-	import FeedbackListPagination from './FeedbackListPagination.svelte';
-	import FeedbackSearchForm from './FeedbackSearchForm.svelte';
+	import FeedbackListItemCNPS from './_components/FeedbackListItemCNPS.svelte';
+	import FeedbackListItemCSAT from './_components/FeedbackListItemCSAT.svelte';
+	import FeedbackListItemText from './_components/FeedbackListItemText.svelte';
+	import FeedbackListPagination from './_components/FeedbackListPagination.svelte';
+	import FeedbackSearchForm from './_components/FeedbackSearchForm.svelte';
 
 	export let items: Feedback[] = [];
 	export let pages: number = 1;

@@ -5,8 +5,9 @@
 	import type { Feedback } from '$lib/types';
 	import { Breadcrumb, BreadcrumbItem, Heading, P } from 'flowbite-svelte';
 	import DateRangeSelector from './_components/DateRangeSelector.svelte';
-	import FeedbackList from './_components/FeedbackList.svelte';
+	import FeedbackList from './(search)/FeedbackList.svelte';
 	import FeedbackPageActions from './_components/FeedbackPageActions.svelte';
+	import FeedbackDetail from './(detail)/FeedbackDetail.svelte';
 
 	$: feedbacks = $page.data.feedbacks;
 	$: currentPage = Number.parseInt($page.url.searchParams.get('page') || '1');
@@ -57,20 +58,14 @@
 		/>
 	</aside>
 	<main class="content">
-		<Heading customSize="font-semibold">Feedback Details</Heading>
-		{#if selectedFeedback}
-			<P class="mt-6 text-gray-500 text-sm font-mono">
-				{JSON.stringify(selectedFeedback, null, 2)}
-			</P>
-		{:else}
-			<P class="mt-6 text-gray-500 text-sm">Select a feedback from the list to see details</P>
-		{/if}
+		<FeedbackDetail feedback={selectedFeedback} />
 	</main>
 </section>
 
 <style>
 	.sidebar {
 		display: flex;
+		flex-shrink: 0;
 		padding: 20px 20px 0 0;
 		width: 360px;
 		flex-direction: column;
@@ -79,10 +74,7 @@
 	}
 
 	.content {
-		flex: 1;
 		display: flex;
-		flex-direction: column;
-		padding: 20px 0 0 20px;
-		box-sizing: border-box;
+		flex-grow: 1;
 	}
 </style>
