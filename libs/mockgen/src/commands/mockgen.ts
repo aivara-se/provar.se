@@ -79,6 +79,9 @@ for (const feedbackType of feedbackTypes) {
 		for (const [key, value] of Object.entries(record.user)) {
 			csvrow[`user.${key}`] = value;
 		}
+		for (const [key, value] of Object.entries(record.tags)) {
+			csvrow[`tags.${key}`] = value;
+		}
 		feedbacks.push(csvrow);
 	}
 }
