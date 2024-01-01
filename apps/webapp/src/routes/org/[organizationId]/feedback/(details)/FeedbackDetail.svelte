@@ -1,13 +1,12 @@
 <script lang="ts">
 	import type { Feedback } from '$lib/types';
 	import { P } from 'flowbite-svelte';
+	import FeedbackCNPS from './_components/FeedbackCNPS.svelte';
+	import FeedbackCSAT from './_components/FeedbackCSAT.svelte';
 	import FeedbackHead from './_components/FeedbackHead.svelte';
 	import FeedbackMeta from './_components/FeedbackMeta.svelte';
 	import FeedbackTags from './_components/FeedbackTags.svelte';
 	import FeedbackText from './_components/FeedbackText.svelte';
-	import FeedbackCNPS from './_components/FeedbackCNPS.svelte';
-	import FeedbackCSAT from './_components/FeedbackCSAT.svelte';
-	import { fade } from 'svelte/transition';
 
 	export let feedback: Feedback | null = null;
 </script>
