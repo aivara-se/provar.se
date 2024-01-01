@@ -24,7 +24,7 @@ export function generateFeedback(type: FeedbackType, period: [Date, Date]) {
 		type,
 		time: randomDate(start, end),
 		data: FeedbackGeneratorsMap[type](),
-		meta: generateMetadata(),
-		user: generateUserdata()
+		meta: Math.random() > 0.2 ? generateMetadata() : {},
+		user: Math.random() > 0.2 ? generateUserdata() : {}
 	};
 }
