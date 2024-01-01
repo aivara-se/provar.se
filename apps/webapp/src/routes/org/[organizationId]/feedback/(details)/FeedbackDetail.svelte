@@ -1,10 +1,13 @@
 <script lang="ts">
 	import type { Feedback } from '$lib/types';
 	import { P } from 'flowbite-svelte';
+	import FeedbackHead from './_components/FeedbackHead.svelte';
 	import FeedbackMeta from './_components/FeedbackMeta.svelte';
 	import FeedbackTags from './_components/FeedbackTags.svelte';
 	import FeedbackText from './_components/FeedbackText.svelte';
-	import FeedbackTime from './_components/FeedbackTime.svelte';
+	import FeedbackCNPS from './_components/FeedbackCNPS.svelte';
+	import FeedbackCSAT from './_components/FeedbackCSAT.svelte';
+	import { fade } from 'svelte/transition';
 
 	export let feedback: Feedback | null = null;
 </script>
@@ -19,10 +22,23 @@
 			{/if}
 
 			{#if feedback}
-				<FeedbackTime {feedback} />
-				<FeedbackText {feedback} />
-				<FeedbackTags {feedback} />
-				<FeedbackMeta {feedback} />
+				{#key feedback.id}
+					<section>
+						<FeedbackHead {feedback} />
+						<FeedbackText {feedback} />
+						<FeedbackTags {feedback} />
+
+						{#if feedback.type === 'cnps'}
+							<FeedbackCNPS {feedback} />
+						{/if}
+
+						{#if feedback.type === 'csat'}
+							<FeedbackCSAT {feedback} />
+						{/if}
+
+						<FeedbackMeta {feedback} />
+					</section>
+				{/key}
 			{/if}
 		</div>
 	</div>
