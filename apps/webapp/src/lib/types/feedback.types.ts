@@ -22,6 +22,7 @@ export interface FeedbackUser {
 	id?: string;
 	name?: string;
 	email?: string;
+	image?: string;
 }
 
 /**
