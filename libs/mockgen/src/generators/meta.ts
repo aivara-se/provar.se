@@ -11,7 +11,7 @@ function generateUserAgent(): string {
 
 export function generateMetadata(): Record<string, unknown> {
 	const meta: Record<string, unknown> = {};
-	meta['request-ip'] = Math.random() > 0.2 ? generateIpAddress() : '';
-	meta['request-header-user-agent'] = Math.random() > 0.2 ? generateUserAgent() : '';
+	meta['request-ip'] = Math.random() > 0.05 ? generateIpAddress() : '';
+	meta['request-header-user-agent'] = Math.random() > 0.05 ? generateUserAgent() : '';
 	return meta;
 }
