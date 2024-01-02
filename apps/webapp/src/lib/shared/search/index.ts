@@ -8,7 +8,7 @@ export interface SearchQuery {
 	type: FeedbackType[];
 	text: string[];
 	tags: Record<string, string>;
-	meta: Record<string, string>;
+	meta: Record<string, unknown>;
 }
 
 /**
