@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getSearchStore, getSearchValue, setSearchValue } from '$lib/client/search';
 	import { parseSearch, type SearchQuery } from '$lib/shared/search';
+	import type { FeedbackType } from '@provar/provar-js';
 	import { Badge, Button, ButtonGroup, Input } from 'flowbite-svelte';
 	import { SearchOutline } from 'flowbite-svelte-icons';
 	import pick from 'lodash/pick';
@@ -37,8 +38,11 @@
 	/**
 	 * Remove a type filter
 	 */
-	function removeTypeFilter(type: string) {
-		fields.query.type = fields.query.type.filter((t) => t !== type);
+	function removeTypeFilter(type: FeedbackType) {
+		const index = fields.query.type.indexOf(type);
+		if (index > -1) {
+			fields.query.type.splice(index, 1);
+		}
 		syncSearchValue();
 	}
 
@@ -70,11 +74,13 @@
 	</form>
 
 	<div class="my-2 flex flex-wrap gap-1">
-		{#each fields.query.type as type}
-			<Badge dismissable color="dark" on:close={() => removeTypeFilter(type)}>
-				Type: {type}
-			</Badge>
-		{/each}
+		{#key fields.query.type}
+			{#each fields.query.type as type}
+				<Badge dismissable color="dark" on:close={() => removeTypeFilter(type)}>
+					type: {type}
+				</Badge>
+			{/each}
+		{/key}
 
 		{#each Object.keys(fields.query.tags || {}).sort() as key}
 			<Badge dismissable color="blue" on:close={() => removeTagFilter(key)}>
