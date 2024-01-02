@@ -21,7 +21,7 @@
 		"@types/isomorphic-fetch": "^0.0.39",
 		"@types/papaparse": "^5.3.14",
 		"@types/yargs-parser": "^21.0.3",
-		"@typescript-eslint/eslint-plugin": "^6.13.2",
+		"@typescript-eslint/eslint-plugin": "^6.17.0",
 		"@typescript-eslint/parser": "^6.16.0",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
