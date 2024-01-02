@@ -19,14 +19,14 @@
 				description:
 					'Detractors are unhappy customers who can damage your brand and impede growth. They are unlikely to recommend your product or service.'
 			};
-		} else if (value >= 0.7 && value <= 0.8) {
+		} else if (value > 0.6 && value <= 0.8) {
 			return {
 				title: 'Passive',
 				rating: value * 10,
 				description:
 					'Passives are satisfied but unenthusiastic customers. They may switch to competitors and are less likely to spread positive word-of-mouth.'
 			};
-		} else if (value >= 0.9 && value <= 1) {
+		} else if (value > 0.8 && value <= 1) {
 			return {
 				title: 'Promoter',
 				rating: value * 10,
