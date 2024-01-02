@@ -45,7 +45,7 @@ export function parseSearch(search: string): SearchQuery {
 		const key = segments[0].trim();
 		const val = segments.slice(1).join('=')?.trim();
 		const maybeType = parseTypes(dequote(val));
-		if (key === 'type' && maybeType.length) {
+		if (key.toLowerCase() === 'type' && maybeType.length) {
 			query.type.push(...maybeType);
 		} else if (key[0] === '#' && val) {
 			query.tags[dequote(key.slice(1))] = dequote(val);
