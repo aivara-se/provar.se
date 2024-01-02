@@ -75,7 +75,7 @@
 	.pagination {
 		display: flex;
 		justify-content: center;
-		padding: 20px 0 0 0;
+		padding: 20px 0 20px 0;
 		box-sizing: border-box;
 	}
 </style>
