@@ -48,7 +48,7 @@
 		display: flex;
 		flex: 1;
 		min-height: 0px;
-		padding: 20px 0 0 20px;
+		padding: 0 0 0 20px;
 		box-sizing: border-box;
 	}
 

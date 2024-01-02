@@ -3,11 +3,11 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { Feedback } from '$lib/types';
-	import { Breadcrumb, BreadcrumbItem, Heading, P } from 'flowbite-svelte';
-	import DateRangeSelector from './_components/DateRangeSelector.svelte';
-	import FeedbackList from './(search)/FeedbackList.svelte';
-	import FeedbackPageActions from './_components/FeedbackPageActions.svelte';
+	import { Breadcrumb, BreadcrumbItem, Heading } from 'flowbite-svelte';
 	import FeedbackDetail from './(details)/FeedbackDetail.svelte';
+	import FeedbackList from './(search)/FeedbackList.svelte';
+	import DateRangeSelector from './_components/DateRangeSelector.svelte';
+	import FeedbackPageActions from './_components/FeedbackPageActions.svelte';
 
 	$: feedbacks = $page.data.feedbacks;
 	$: currentPage = Number.parseInt($page.url.searchParams.get('page') || '1');
@@ -47,26 +47,28 @@
 	</section>
 </section>
 
-<section class="flex flex-1">
-	<aside class="sidebar">
-		<FeedbackList
-			items={feedbacks.items}
-			pages={feedbacks.pages}
-			{currentPage}
-			selectedItem={selectedFeedback}
-			on:select={(event) => selectFeedback(event.detail)}
-		/>
-	</aside>
-	<main class="content">
-		<FeedbackDetail feedback={selectedFeedback} />
-	</main>
+<section class="flex flex-1 flex-col">
+	<section class="flex flex-1">
+		<aside class="sidebar">
+			<FeedbackList
+				items={feedbacks.items}
+				pages={feedbacks.pages}
+				{currentPage}
+				selectedItem={selectedFeedback}
+				on:select={(event) => selectFeedback(event.detail)}
+			/>
+		</aside>
+		<main class="content">
+			<FeedbackDetail feedback={selectedFeedback} />
+		</main>
+	</section>
 </section>
 
 <style>
 	.sidebar {
 		display: flex;
 		flex-shrink: 0;
-		padding: 20px 20px 0 0;
+		padding: 10px 20px 0 0;
 		width: 360px;
 		flex-direction: column;
 		box-sizing: border-box;

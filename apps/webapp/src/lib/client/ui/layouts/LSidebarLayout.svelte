@@ -37,7 +37,7 @@
 	.content {
 		display: flex;
 		flex: 1;
-		padding: 20px;
+		padding: 20px 20px 0 20px;
 		height: 100vh;
 		flex-direction: column;
 		overflow-y: auto;

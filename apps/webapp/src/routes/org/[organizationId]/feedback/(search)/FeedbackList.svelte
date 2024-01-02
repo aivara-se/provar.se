@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Feedback } from '$lib/types';
+	import { P } from 'flowbite-svelte';
 	import FeedbackListItemCNPS from './_components/FeedbackListItemCNPS.svelte';
 	import FeedbackListItemCSAT from './_components/FeedbackListItemCSAT.svelte';
 	import FeedbackListItemText from './_components/FeedbackListItemText.svelte';
@@ -47,8 +48,6 @@
 		display: flex;
 		flex: 1;
 		min-height: 0px;
-		padding: 20px 0 0 0;
-		box-sizing: border-box;
 	}
 
 	.content-scroll {
