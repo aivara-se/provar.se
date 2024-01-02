@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getSearchStore, getSearchValue, setSearchValue } from '$lib/client/search';
 	import { parseSearch, type SearchQuery } from '$lib/shared/search';
-	import { Badge, Button, ButtonGroup, Input, P } from 'flowbite-svelte';
+	import { Badge, Button, ButtonGroup, Input } from 'flowbite-svelte';
 	import { SearchOutline } from 'flowbite-svelte-icons';
 	import pick from 'lodash/pick';
 	import { onMount } from 'svelte';
@@ -69,25 +69,23 @@
 		</ButtonGroup>
 	</form>
 
-	<section class="flex mt-2 mb-2 flex-col">
-		<div class="flex flex-1 gap-1">
-			{#each fields.query.type as type}
-				<Badge dismissable color="dark" on:close={() => removeTypeFilter(type)}>
-					Type: {type}
-				</Badge>
-			{/each}
+	<div class="my-2 flex flex-wrap gap-1">
+		{#each fields.query.type as type}
+			<Badge dismissable color="dark" on:close={() => removeTypeFilter(type)}>
+				Type: {type}
+			</Badge>
+		{/each}
 
-			{#each Object.keys(fields.query.tags || {}).sort() as key}
-				<Badge dismissable color="blue" on:close={() => removeTagFilter(key)}>
-					{key}: {fields.query.tags?.[key]}
-				</Badge>
-			{/each}
+		{#each Object.keys(fields.query.tags || {}).sort() as key}
+			<Badge dismissable color="blue" on:close={() => removeTagFilter(key)}>
+				{key}: {fields.query.tags?.[key]}
+			</Badge>
+		{/each}
 
-			{#each Object.keys(fields.query.meta || {}).sort() as key}
-				<Badge dismissable color="pink" on:close={() => removeMetaFilter(key)}>
-					{key}: {fields.query.meta?.[key]}
-				</Badge>
-			{/each}
-		</div>
-	</section>
+		{#each Object.keys(fields.query.meta || {}).sort() as key}
+			<Badge dismissable color="pink" on:close={() => removeMetaFilter(key)}>
+				{key}: {fields.query.meta?.[key]}
+			</Badge>
+		{/each}
+	</div>
 </section>
