@@ -19,14 +19,14 @@
 				description:
 					'Customers have expressed low satisfaction levels with your product or service. Improvement is needed.'
 			};
-		} else if (value >= 0.7 && value <= 0.8) {
+		} else if (value > 0.6 && value <= 0.8) {
 			return {
 				title: 'Moderate Satisfaction',
 				rating: value * 10,
 				description:
 					'Customers are moderately satisfied, but there is room for enhancement to increase satisfaction levels.'
 			};
-		} else if (value >= 0.9 && value <= 1) {
+		} else if (value > 0.8 && value <= 1) {
 			return {
 				title: 'High Satisfaction',
 				rating: value * 10,
