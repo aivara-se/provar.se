@@ -1,4 +1,5 @@
 import { getMongoClient } from '$lib/server/database';
+import type { SearchQuery } from '$lib/shared/search';
 import type {
 	CNPSFeedbackData,
 	CSATFeedbackData,
@@ -106,7 +107,7 @@ export interface FindOptions {
 	page: number;
 	limit: number;
 	date?: { from: Date; to: Date };
-	search?: { text: string[]; meta: Record<string, string> };
+	search?: SearchQuery;
 }
 
 /**
@@ -153,6 +154,14 @@ async function findByFilter(
 	}
 	if (options.search?.text.length) {
 		query['data.text'] = { $regex: options.search.text.join('.*'), $options: 'si' };
+	}
+	if (options.search?.type?.length) {
+		query[`type`] = { $in: options.search.type };
+	}
+	if (options.search?.tags) {
+		Object.entries(options.search.tags).forEach(([key, value]) => {
+			query[`tags.${key}`] = value;
+		});
 	}
 	if (options.search?.meta) {
 		Object.entries(options.search.meta).forEach(([key, value]) => {

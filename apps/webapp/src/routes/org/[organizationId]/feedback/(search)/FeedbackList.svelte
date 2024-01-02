@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Feedback } from '$lib/types';
-	import { P } from 'flowbite-svelte';
 	import FeedbackListItemCNPS from './_components/FeedbackListItemCNPS.svelte';
 	import FeedbackListItemCSAT from './_components/FeedbackListItemCSAT.svelte';
 	import FeedbackListItemText from './_components/FeedbackListItemText.svelte';
