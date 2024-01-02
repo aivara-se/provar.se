@@ -82,16 +82,20 @@
 			{/each}
 		{/key}
 
-		{#each Object.keys(fields.query.tags || {}).sort() as key}
-			<Badge dismissable color="blue" on:close={() => removeTagFilter(key)}>
-				{key}: {fields.query.tags?.[key]}
-			</Badge>
-		{/each}
+		{#key fields.query.tags}
+			{#each Object.keys(fields.query.tags || {}).sort() as key}
+				<Badge dismissable color="blue" on:close={() => removeTagFilter(key)}>
+					{key}: {fields.query.tags?.[key]}
+				</Badge>
+			{/each}
+		{/key}
 
-		{#each Object.keys(fields.query.meta || {}).sort() as key}
-			<Badge dismissable color="pink" on:close={() => removeMetaFilter(key)}>
-				{key}: {fields.query.meta?.[key]}
-			</Badge>
-		{/each}
+		{#key fields.query.meta}
+			{#each Object.keys(fields.query.meta || {}).sort() as key}
+				<Badge dismissable color="pink" on:close={() => removeMetaFilter(key)}>
+					{key}: {fields.query.meta?.[key]}
+				</Badge>
+			{/each}
+		{/key}
 	</div>
 </section>
