@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { CenteredLayout, HorizontalSeparator } from '$lib/client/ui';
+	import { CenteredLayout } from '$lib/client/ui';
 	import { signIn } from '@auth/sveltekit/client';
 	import { Button, Input } from 'flowbite-svelte';
 	import { GithubSolid, GoogleSolid } from 'flowbite-svelte-icons';
+	import HorizontalSeparator from './_components/HorizontalSeparator.svelte';
 
 	let email: string;
 </script>

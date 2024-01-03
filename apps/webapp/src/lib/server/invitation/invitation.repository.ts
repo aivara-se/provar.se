@@ -1,6 +1,7 @@
 import { getMongoClient } from '$lib/server/database';
 import type { Invitation } from '$lib/types';
 import { ObjectId, type Collection } from 'mongodb';
+import { createInvitationLink } from './invitation.utils';
 
 /**
  * The name of the MongoDB collection for invitations.
@@ -26,6 +27,7 @@ function fromDocument(doc: InvitationDocument): Invitation {
 		id: doc._id.toHexString(),
 		key: doc.key,
 		name: doc.name,
+		link: createInvitationLink(doc.key),
 		email: doc.email,
 		organizationId: doc.organizationId.toHexString(),
 		createdAt: doc._id.getTimestamp()
