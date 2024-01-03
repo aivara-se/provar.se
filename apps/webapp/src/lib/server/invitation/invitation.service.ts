@@ -1,9 +1,9 @@
-import { PUBLIC_PROVAR_APP_URL } from '$env/static/public';
 import { OrganizationRepository } from '$lib/server/organization';
 import { secureRandom } from '$lib/server/random';
 import { UserRepository } from '$lib/server/user';
 import { EmailService, InvitationTemplate } from '../email-utils';
 import * as InvitationRepository from './invitation.repository';
+import { createInvitationLink } from './invitation.utils';
 
 /**
  * The length of the invitation key.
@@ -31,8 +31,9 @@ export async function invite(organizationId: string, name: string, email: string
 		throw new Error('User is already invited to this organization');
 	}
 	const key = createInvitationKey();
+	const link = createInvitationLink(key);
 	await InvitationRepository.create({ key, name, email, organizationId });
-	await sendInvitationEmail(name, email, key, organization.name);
+	await sendInvitationEmail(name, email, link, organization.name);
 }
 
 /**
@@ -50,8 +51,8 @@ export async function resend(organizationId: string, id: string): Promise<void> 
 	if (invitation.organizationId !== organizationId) {
 		throw new Error('Invitation does not belong to this organization');
 	}
-	const { name, email, key } = invitation;
-	await sendInvitationEmail(name, email, key, organization.name);
+	const { name, email, link } = invitation;
+	await sendInvitationEmail(name, email, link, organization.name);
 }
 
 /**
@@ -101,24 +102,17 @@ export function createInvitationKey() {
 }
 
 /**
- * Creates a link that can be used to accept an invitation.
- */
-function createInvitationLink(key: string): string {
-	return `${PUBLIC_PROVAR_APP_URL}/auth/accept/${key}`;
-}
-
-/**
  * Sends an invitation email with a link to accept the invite.
  */
 async function sendInvitationEmail(
 	name: string,
 	email: string,
-	key: string,
+	link: string,
 	organization: string
 ): Promise<void> {
 	await EmailService.send({
 		toEmail: email,
 		template: InvitationTemplate,
-		options: { name: name, link: createInvitationLink(key), organization }
+		options: { name: name, link, organization }
 	});
 }

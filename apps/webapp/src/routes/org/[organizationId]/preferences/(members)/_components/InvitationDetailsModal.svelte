@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { applyAction, deserialize } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import { CopyableCode } from '$lib/client/ui';
 	import type { Invitation } from '$lib/types';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { Button, Modal, P } from 'flowbite-svelte';
+	import { Button, Heading, Modal } from 'flowbite-svelte';
 
 	export let isOpen: boolean = false;
 	export let invitation: Invitation | null = null;
@@ -46,12 +47,16 @@
 </script>
 
 <Modal title={invitation?.name || ' '} bind:open={isOpen} autoclose>
-	<P class="mb-2">
-		<span class="font-semibold">Email:</span>
-		<code class="block break-words text-xs mt-2 bg-gray-100 p-2 rounded">
-			{invitation?.email}
-		</code>
-	</P>
+	<main>
+		<section>
+			<Heading customSize="font-semibold mb-2">Email:</Heading>
+			<CopyableCode text={invitation?.email} />
+		</section>
+		<section class="mt-3">
+			<Heading customSize="font-semibold mb-2">Link:</Heading>
+			<CopyableCode text={invitation?.link} />
+		</section>
+	</main>
 	<svelte:fragment slot="footer">
 		<Button size="sm" color="red" on:click={revokeInvitation}>Revoke</Button>
 		<Button size="sm" color="dark" on:click={resendInvitation}>Resend</Button>

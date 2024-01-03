@@ -71,4 +71,6 @@
 </section>
 
 <CreateCredentialModal bind:isOpen={isCreateModalOpen} />
-<CredentialDetailsModal bind:isOpen={isDetailsModalOpen} bind:credential={selectedCredential} />
+{#if selectedCredential}
+	<CredentialDetailsModal bind:isOpen={isDetailsModalOpen} bind:credential={selectedCredential} />
+{/if}
