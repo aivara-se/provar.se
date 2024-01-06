@@ -19,7 +19,7 @@
 		if (!selectedFeedback && id) {
 			const feedback = feedbacks.items.find((f: Feedback) => f.id === id);
 			if (feedback) {
-				selectFeedback(feedback);
+				selectedFeedback = feedback;
 			}
 		}
 	}
