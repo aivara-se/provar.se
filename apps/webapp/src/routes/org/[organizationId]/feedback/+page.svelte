@@ -22,14 +22,16 @@
 				selectFeedback(feedback);
 			}
 		}
-		if (!selectedFeedback && feedbacks.items.length > 0) {
-			selectFeedback(feedbacks.items[0]);
-		}
 	}
 
 	function selectFeedback(feedback: Feedback) {
-		selectedFeedback = feedback;
-		$page.url.searchParams.set('id', feedback.id);
+		if (selectedFeedback && selectedFeedback.id === feedback.id) {
+			selectedFeedback = null;
+			$page.url.searchParams.delete('id');
+		} else {
+			selectedFeedback = feedback;
+			$page.url.searchParams.set('id', feedback.id);
+		}
 		goto($page.url.toString());
 	}
 </script>
