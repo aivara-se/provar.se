@@ -27,9 +27,19 @@ export const load: PageServerLoad = async (event) => {
 	const date = parseRange(event.url.searchParams.get('range') ?? DEFAULT_RANGE);
 	const search = parseSearch(event.url.searchParams.get('search') ?? '');
 	const options: FeedbackRepository.FindOptions = { date, page, limit: ITEMS_PER_PAGE, search };
-	const { items, count } = await FeedbackRepository.findByOrganization(organization.id, options);
-	const feedbacks = { count, pages: Math.ceil(count / ITEMS_PER_PAGE), items };
-	return { feedbacks };
+	const [items, count, summary] = await Promise.all([
+		FeedbackRepository.findByOrganization(organization.id, options),
+		FeedbackRepository.countByOrganization(organization.id, options),
+		FeedbackService.getFeedbackSummary(organization.id, options)
+	]);
+	return {
+		feedbacks: {
+			count: count,
+			items: items,
+			summary: summary,
+			pages: Math.ceil(count / ITEMS_PER_PAGE)
+		}
+	};
 };
 
 export const actions: Actions = {

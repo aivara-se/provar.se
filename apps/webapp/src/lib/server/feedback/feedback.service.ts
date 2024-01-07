@@ -1,5 +1,7 @@
 import { env } from '$env/dynamic/private';
+import type { FeedbackSummary } from '$lib/types';
 import { Storage } from '@google-cloud/storage';
+import * as FeedbackRepository from './feedback.repository';
 
 /**
  * The expiration time for a signed URL in ms.
@@ -69,6 +71,21 @@ export async function createReadableUrl(organizationId: string, fileName: string
 			expires: Date.now() + IMPORT_URL_EXPIRATION
 		});
 	return { signedUrl };
+}
+
+/**
+ * Summarizes the feedbacks for given filters and the time duration.
+ */
+export async function getFeedbackSummary(
+	organizationId: string,
+	options: FeedbackRepository.FindOptions
+): Promise<FeedbackSummary> {
+	const [count, cnps, csat] = await Promise.all([
+		FeedbackRepository.summarizeCountByOrganization(organizationId, options),
+		FeedbackRepository.summarizeCNPSByOrganization(organizationId, options),
+		FeedbackRepository.summarizeCSATByOrganization(organizationId, options)
+	]);
+	return { count, cnps, csat };
 }
 
 /**

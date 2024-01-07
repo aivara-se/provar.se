@@ -8,6 +8,7 @@
 	import FeedbackList from './(search)/FeedbackList.svelte';
 	import DateRangeSelector from './_components/DateRangeSelector.svelte';
 	import FeedbackPageActions from './_components/FeedbackPageActions.svelte';
+	import FeedbackSumary from './(summary)/FeedbackSumary.svelte';
 
 	$: feedbacks = $page.data.feedbacks;
 	$: currentPage = Number.parseInt($page.url.searchParams.get('page') || '1');
@@ -61,7 +62,11 @@
 			/>
 		</aside>
 		<main class="content">
-			<FeedbackDetail feedback={selectedFeedback} />
+			{#if selectedFeedback}
+				<FeedbackDetail feedback={selectedFeedback} />
+			{:else}
+				<FeedbackSumary summary={feedbacks.summary} />
+			{/if}
 		</main>
 	</section>
 </section>

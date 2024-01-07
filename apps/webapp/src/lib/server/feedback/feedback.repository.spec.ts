@@ -61,15 +61,13 @@ describe('Feedback Repository', () => {
 		it('should return empty array if there are no matching documents', async () => {
 			const options = { page: 1, limit: 10 };
 			const result = await findByOrganization(unknownId.toHexString(), options);
-			expect(result.count).toEqual(0);
-			expect(result.items).toEqual([]);
+			expect(result).toEqual([]);
 		});
 
 		it('should return data if there are matching documents', async () => {
 			const options = { page: 1, limit: 10 };
 			const result = await findByOrganization(organizationId1.toHexString(), options);
-			expect(result.count).toEqual(3);
-			expect(result.items).toEqual([
+			expect(result).toEqual([
 				expect.objectContaining({
 					id: feedbackId3.toHexString(),
 					organizationId: organizationId1.toHexString()
@@ -90,8 +88,7 @@ describe('Feedback Repository', () => {
 		it('should return empty array if there are no matching documents', async () => {
 			const options = { page: 1, limit: 10 };
 			const result = await findByProject(unknownId.toHexString(), unknownId.toHexString(), options);
-			expect(result.count).toEqual(0);
-			expect(result.items).toEqual([]);
+			expect(result).toEqual([]);
 		});
 
 		it('should return data if there are matching documents', async () => {
@@ -101,8 +98,7 @@ describe('Feedback Repository', () => {
 				projectId1.toHexString(),
 				options
 			);
-			expect(result.count).toEqual(2);
-			expect(result.items).toEqual([
+			expect(result).toEqual([
 				expect.objectContaining({
 					id: feedbackId3.toHexString(),
 					organizationId: organizationId1.toHexString(),
