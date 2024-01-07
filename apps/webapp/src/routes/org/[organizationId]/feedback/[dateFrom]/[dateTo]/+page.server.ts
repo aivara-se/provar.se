@@ -2,21 +2,11 @@ import { getSelectedOrganization } from '$lib/server/action-utils';
 import { CredentialService } from '$lib/server/credential';
 import { FeedbackRepository, FeedbackService } from '$lib/server/feedback';
 import { importFeedback } from '$lib/server/provar-api';
+import { parseDateRange } from '$lib/shared/dates';
 import { parseSearch } from '$lib/shared/search';
 import type { Actions, PageServerLoad } from './$types';
 
-const ITEMS_PER_PAGE = 10;
-const DEFAULT_RANGE = '30d';
-
-/**
- * Converts a range string to a date range.
- */
-function parseRange(range: string): { from: Date; to: Date } {
-	const now = new Date();
-	const val = Number.parseInt(range.slice(0, -1));
-	const mul = 24 * 60 * 60 * 1000;
-	return { from: new Date(now.getTime() - val * mul), to: now };
-}
+const DEFAULT_LIMIT = 10;
 
 /**
  * Loads feedbacks to display on the page.
@@ -24,9 +14,9 @@ function parseRange(range: string): { from: Date; to: Date } {
 export const load: PageServerLoad = async (event) => {
 	const { organization } = await event.parent();
 	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');
-	const date = parseRange(event.url.searchParams.get('range') ?? DEFAULT_RANGE);
+	const date = parseDateRange({ from: event.params.dateFrom, to: event.params.dateTo });
 	const search = parseSearch(event.url.searchParams.get('search') ?? '');
-	const options: FeedbackRepository.FindOptions = { date, page, limit: ITEMS_PER_PAGE, search };
+	const options: FeedbackRepository.FindOptions = { date, page, limit: DEFAULT_LIMIT, search };
 	const [items, count, summary] = await Promise.all([
 		FeedbackRepository.findByOrganization(organization.id, options),
 		FeedbackRepository.countByOrganization(organization.id, options),
@@ -37,7 +27,7 @@ export const load: PageServerLoad = async (event) => {
 			count: count,
 			items: items,
 			summary: summary,
-			pages: Math.ceil(count / ITEMS_PER_PAGE)
+			pages: Math.ceil(count / DEFAULT_LIMIT)
 		}
 	};
 };

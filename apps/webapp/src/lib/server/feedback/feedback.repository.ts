@@ -9,7 +9,8 @@ import {
 	type FeedbackTags,
 	type FeedbackUser,
 	type TextFeedbackData,
-	type TimeSeries
+	type TimeSeries,
+	type DateRange
 } from '$lib/types';
 import { ObjectId, type Collection, type Filter } from 'mongodb';
 
@@ -107,7 +108,7 @@ export async function findById(organizationId: string, id: string): Promise<Feed
 export interface FindOptions {
 	page: number;
 	limit: number;
-	date?: { from: Date; to: Date };
+	date?: DateRange;
 	search?: SearchQuery;
 }
 
