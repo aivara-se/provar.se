@@ -495,6 +495,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@kurkle/color@npm:^0.3.0":
+  version: 0.3.2
+  resolution: "@kurkle/color@npm:0.3.2"
+  checksum: 079c4b7688061070f1d570cee4cf0e7c4085867b940688ff80356a56825a5ace7077257c9ec5863eb344a8eae78379388ab57cdf9d75c491389fad56f411cd43
+  languageName: node
+  linkType: hard
+
 "@mongodb-js/saslprep@npm:^1.1.0":
   version: 1.1.0
   resolution: "@mongodb-js/saslprep@npm:1.1.0"
@@ -1740,6 +1747,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chart.js@npm:^4.4.1":
+  version: 4.4.1
+  resolution: "chart.js@npm:4.4.1"
+  dependencies:
+    "@kurkle/color": "npm:^0.3.0"
+  checksum: bb58247349ed04b6a38c4c4b45d953d87dab40ecd70dd796da302cbcebf866dfc1ecf7bd32d95ecb44b89dccf9a4cfc6ff84f74ba69b024be9b5bd19b2930fbc
+  languageName: node
+  linkType: hard
+
+"chartjs-adapter-date-fns@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "chartjs-adapter-date-fns@npm:3.0.0"
+  peerDependencies:
+    chart.js: ">=2.8.0"
+    date-fns: ">=2.0.0"
+  checksum: 29a104882f865e5c674a4edc0a60a5e0cce1fad470ed133d218bd717069a5089475139df4016a976a18b07633b068cc6a31f8b6332f1d8b2d1987913eac475be
+  languageName: node
+  linkType: hard
+
 "check-error@npm:^1.0.3":
   version: 1.0.3
   resolution: "check-error@npm:1.0.3"
@@ -1914,6 +1940,13 @@ __metadata:
   bin:
     cssesc: bin/cssesc
   checksum: 0e161912c1306861d8f46e1883be1cbc8b1b2879f0f509287c0db71796e4ddfb97ac96bdfca38f77f452e2c10554e1bb5678c99b07a5cf947a12778f73e47e12
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "date-fns@npm:3.1.0"
+  checksum: d542977c57fbb2166a569e235af5e8dde884f9a15fd6778df41a81237dae2a49891b041c8e4b12dae5270f5f00e508907fe7eee07ad24291edad0d75de352006
   languageName: node
   linkType: hard
 
@@ -5680,6 +5713,9 @@ __metadata:
     "@typescript-eslint/parser": "npm:^6.16.0"
     "@vitest/coverage-v8": "npm:^0.34.6"
     autoprefixer: "npm:^10.4.16"
+    chart.js: "npm:^4.4.1"
+    chartjs-adapter-date-fns: "npm:^3.0.0"
+    date-fns: "npm:^3.1.0"
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-svelte: "npm:^2.35.1"

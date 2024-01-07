@@ -1,3 +1,5 @@
+import type { TimeSeries } from './timeseries.types';
+
 /**
  * The type of feedback. This determines what data is stored in the database,
  * hot it is analyzed and how it is displayed on UI.
@@ -97,3 +99,12 @@ export interface CSATFeedback extends BaseFeedback {
  * A union type of all available feedback types.
  */
 export type Feedback = TextFeedback | CNPSFeedback | CSATFeedback;
+
+/**
+ * Summary of feedbacks for a given time period.
+ */
+export interface FeedbackSummary {
+	count: TimeSeries<number>;
+	cnps?: TimeSeries<number>;
+	csat?: TimeSeries<number>;
+}

@@ -1,14 +1,15 @@
 import { getMongoClient } from '$lib/server/database';
 import type { SearchQuery } from '$lib/shared/search';
-import type {
-	CNPSFeedbackData,
-	CSATFeedbackData,
-	Feedback,
-	FeedbackMeta,
-	FeedbackTags,
+import {
 	FeedbackType,
-	FeedbackUser,
-	TextFeedbackData
+	type CNPSFeedbackData,
+	type CSATFeedbackData,
+	type Feedback,
+	type FeedbackMeta,
+	type FeedbackTags,
+	type FeedbackUser,
+	type TextFeedbackData,
+	type TimeSeries
 } from '$lib/types';
 import { ObjectId, type Collection, type Filter } from 'mongodb';
 
@@ -116,11 +117,125 @@ export interface FindOptions {
 export async function findByOrganization(
 	organizationId: string,
 	options: FindOptions
-): Promise<{ items: Feedback[]; count: number }> {
-	const query: Filter<FeedbackDocument> = {
+): Promise<Feedback[]> {
+	const coll = await getCollection();
+	const query: Filter<FeedbackDocument> = getFilterWithOptions(options, {
 		organizationId: new ObjectId(organizationId)
-	};
-	return findByFilter(query, options);
+	});
+	const docs = await coll
+		.find(query, {
+			sort: { _id: -1 },
+			limit: options.limit,
+			skip: (options.page - 1) * options.limit
+		})
+		.toArray();
+	return docs.map(fromDocument);
+}
+
+/**
+ * Count feedback by organization.
+ */
+export async function countByOrganization(
+	organizationId: string,
+	options: FindOptions
+): Promise<number> {
+	const coll = await getCollection();
+	const query: Filter<FeedbackDocument> = getFilterWithOptions(options, {
+		organizationId: new ObjectId(organizationId)
+	});
+	return coll.countDocuments(query);
+}
+
+/**
+ * Feedback count summary by date.
+ */
+export async function summarizeCountByOrganization(
+	organizationId: string,
+	options: FindOptions
+): Promise<TimeSeries<number>> {
+	const coll = await getCollection();
+	const pipiline = [
+		{
+			$match: getFilterWithOptions(options, {
+				organizationId: new ObjectId(organizationId)
+			})
+		},
+		{
+			$group: {
+				_id: { $dateToString: { date: { $toDate: '$_id' }, format: '%Y-%m-%d' } },
+				count: { $count: {} }
+			}
+		},
+		{
+			$sort: {
+				_id: 1
+			}
+		}
+	];
+	const docs = await coll.aggregate(pipiline).toArray();
+	return docs.map((doc) => ({ date: doc._id, value: doc.count }));
+}
+
+/**
+ * Feedback CNPS summary by date.
+ */
+export async function summarizeCNPSByOrganization(
+	organizationId: string,
+	options: FindOptions
+): Promise<TimeSeries<number>> {
+	const coll = await getCollection();
+	const pipiline = [
+		{
+			$match: getFilterWithOptions(options, {
+				organizationId: new ObjectId(organizationId),
+				type: FeedbackType.CNPS
+			})
+		},
+		{
+			$group: {
+				_id: { $dateToString: { date: { $toDate: '$_id' }, format: '%Y-%m-%d' } },
+				cnps: { $avg: '$data.cnps' }
+			}
+		},
+		{
+			$sort: {
+				_id: 1
+			}
+		}
+	];
+	const docs = await coll.aggregate(pipiline).toArray();
+	return docs.map((doc) => ({ date: doc._id, value: doc.cnps }));
+}
+
+/**
+ * Feedback CSAT summary by date.
+ */
+export async function summarizeCSATByOrganization(
+	organizationId: string,
+	options: FindOptions
+): Promise<TimeSeries<number>> {
+	const coll = await getCollection();
+	const pipiline = [
+		{
+			$match: getFilterWithOptions(options, {
+				organizationId: new ObjectId(organizationId),
+				type: FeedbackType.CSAT
+			})
+		},
+		{
+			$group: {
+				_id: { $dateToString: { date: { $toDate: '$_id' }, format: '%Y-%m-%d' } },
+				csat: { $avg: '$data.csat' }
+			}
+		},
+		{
+			$sort: {
+				_id: 1
+			}
+		}
+	];
+	const docs = await coll.aggregate(pipiline).toArray();
+	return docs.map((doc) => ({ date: doc._id, value: doc.csat }));
 }
 
 /**
@@ -130,44 +245,12 @@ export async function findByProject(
 	organizationId: string,
 	projectId: string,
 	options: FindOptions
-): Promise<{ items: Feedback[]; count: number }> {
-	const query: Filter<FeedbackDocument> = {
+): Promise<Feedback[]> {
+	const coll = await getCollection();
+	const query: Filter<FeedbackDocument> = getFilterWithOptions(options, {
 		organizationId: new ObjectId(organizationId),
 		projectId: new ObjectId(projectId)
-	};
-	return findByFilter(query, options);
-}
-
-/**
- * Find feedback by filter.
- */
-async function findByFilter(
-	query: Filter<FeedbackDocument>,
-	options: FindOptions
-): Promise<{ items: Feedback[]; count: number }> {
-	const coll = await getCollection();
-	if (options.date) {
-		query._id = {
-			$gte: ObjectId.createFromTime(Math.floor(options.date.from.getTime() / 1000)),
-			$lte: ObjectId.createFromTime(Math.floor(options.date.to.getTime() / 1000))
-		};
-	}
-	if (options.search?.text.length) {
-		query['data.text'] = { $regex: options.search.text.join('.*'), $options: 'si' };
-	}
-	if (options.search?.type?.length) {
-		query[`type`] = { $in: options.search.type };
-	}
-	if (options.search?.tags) {
-		Object.entries(options.search.tags).forEach(([key, value]) => {
-			query[`tags.${key}`] = value;
-		});
-	}
-	if (options.search?.meta) {
-		Object.entries(options.search.meta).forEach(([key, value]) => {
-			query[`meta.${key}`] = value;
-		});
-	}
+	});
 	const docs = await coll
 		.find(query, {
 			sort: { _id: -1 },
@@ -175,9 +258,23 @@ async function findByFilter(
 			skip: (options.page - 1) * options.limit
 		})
 		.toArray();
-	const items = docs.map(fromDocument);
-	const count = await coll.countDocuments(query);
-	return { items, count };
+	return docs.map(fromDocument);
+}
+
+/**
+ * Count feedback by project.
+ */
+export async function countByProject(
+	organizationId: string,
+	projectId: string,
+	options: FindOptions
+): Promise<number> {
+	const coll = await getCollection();
+	const query: Filter<FeedbackDocument> = getFilterWithOptions(options, {
+		organizationId: new ObjectId(organizationId),
+		projectId: new ObjectId(projectId)
+	});
+	return coll.countDocuments(query);
 }
 
 /**
@@ -186,4 +283,37 @@ async function findByFilter(
 export async function removeAll(organizationId: string): Promise<void> {
 	const coll = await getCollection();
 	await coll.deleteMany({ organizationId: new ObjectId(organizationId) });
+}
+
+/**
+ * Get filter with additional options.
+ */
+function getFilterWithOptions(
+	options: FindOptions,
+	query: Filter<FeedbackDocument> = {}
+): Filter<FeedbackDocument> {
+	const updatedQuery: Filter<FeedbackDocument> = {};
+	if (options.date) {
+		updatedQuery._id = {
+			$gte: ObjectId.createFromTime(Math.floor(options.date.from.getTime() / 1000)),
+			$lte: ObjectId.createFromTime(Math.floor(options.date.to.getTime() / 1000))
+		};
+	}
+	if (options.search?.text.length) {
+		updatedQuery['data.text'] = { $regex: options.search.text.join('.*'), $options: 'si' };
+	}
+	if (options.search?.type?.length) {
+		updatedQuery[`type`] = { $in: options.search.type };
+	}
+	if (options.search?.tags) {
+		Object.entries(options.search.tags).forEach(([key, value]) => {
+			updatedQuery[`tags.${key}`] = value;
+		});
+	}
+	if (options.search?.meta) {
+		Object.entries(options.search.meta).forEach(([key, value]) => {
+			updatedQuery[`meta.${key}`] = value;
+		});
+	}
+	return { ...updatedQuery, ...query };
 }
