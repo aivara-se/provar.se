@@ -71,11 +71,11 @@ const sveltekitauth: Handle = (input) =>
 		},
 		trustHost: true,
 		callbacks: {
-			async session({ session, token }) {
-				if (session.user) {
-					session.user.id = token.sub as string;
+			async session(params) {
+				if (params.session.user && 'token' in params) {
+					params.session.user.id = params.token.sub as string;
 				}
-				return session;
+				return params.session;
 			}
 		}
 	})(input);
