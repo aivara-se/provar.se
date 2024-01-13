@@ -39,12 +39,15 @@
 	}
 </script>
 
-<Breadcrumb class="mb-6">
-	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
-	<BreadcrumbItem>Getting Started</BreadcrumbItem>
-</Breadcrumb>
-
-<Heading customSize="mb-2 text-xl font-semibold">Getting started</Heading>
+<section class="flex items-start h-10 justify-between mb-1">
+	<section>
+		<Breadcrumb class="mb-6">
+			<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
+			<BreadcrumbItem>Getting Started</BreadcrumbItem>
+		</Breadcrumb>
+	</section>
+	<section class="flex gap-2 items-start"></section>
+</section>
 
 <Timeline>
 	<TimelineItem title="Create an API key" date="Step 1">

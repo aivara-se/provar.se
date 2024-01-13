@@ -1,17 +1,14 @@
 <script>
 	import { page } from '$app/stores';
-	import { Alert, Breadcrumb, BreadcrumbItem, Heading } from 'flowbite-svelte';
-	import { InfoCircleSolid } from 'flowbite-svelte-icons';
+	import { Breadcrumb, BreadcrumbItem } from 'flowbite-svelte';
 </script>
 
-<Breadcrumb class="mb-6">
-	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
-	<BreadcrumbItem>Overview</BreadcrumbItem>
-</Breadcrumb>
-
-<Heading customSize="mb-2 text-xl font-semibold">Overview</Heading>
-
-<Alert color="blue" rounded={false} class="border-t-4">
-	<InfoCircleSolid slot="icon" class="w-4 h-4" />
-	This page is under construction.
-</Alert>
+<section class="flex items-start h-10 justify-between mb-1">
+	<section>
+		<Breadcrumb class="mb-6">
+			<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
+			<BreadcrumbItem>Overview</BreadcrumbItem>
+		</Breadcrumb>
+	</section>
+	<section class="flex gap-2 items-start"></section>
+</section>
