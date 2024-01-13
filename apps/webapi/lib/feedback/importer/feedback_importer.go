@@ -45,8 +45,8 @@ func NewImporter(OrganizationID, ProjectID, CSVFileLink string) *Importer {
 	}
 }
 
-// Setup is used to setup the importer and prepare it for importing.
-func (i *Importer) Setup() error {
+// Import is used to setup the importer and import data from the given csv file.
+func (i *Importer) Import() error {
 	response, err := http.Get(i.CSVFileLink)
 	if err != nil {
 		return ErrFetchingFile
@@ -65,11 +65,6 @@ func (i *Importer) Setup() error {
 		columnMap[columnName] = idx
 	}
 	i.RecordParser = NewParser(i.OrganizationID, i.ProjectID, columnMap)
-	return nil
-}
-
-// ReadAll is used to read all the rows from the CSV file into an array.
-func (i *Importer) ReadAll() error {
 	for {
 		data, err := i.readOne()
 		if err == io.EOF {
@@ -79,6 +74,8 @@ func (i *Importer) ReadAll() error {
 			i.FailureCount++
 			continue
 		}
+		data.Meta.SetMetadataFromIP()
+		data.Meta.SetMetadataFromUA()
 		i.ImportedData = append(i.ImportedData, data)
 		i.SuccessCount++
 	}
