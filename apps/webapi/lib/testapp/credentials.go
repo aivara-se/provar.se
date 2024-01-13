@@ -2,6 +2,7 @@ package testapp
 
 import (
 	"context"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"provar.se/webapi/lib/credential"
@@ -29,7 +30,10 @@ func createTestCredentials() error {
 	if err != nil {
 		return err
 	}
-	_, err = coll.InsertOne(context.Background(), credential.CredentialDocument{
+	_, err = coll.InsertOne(context.TODO(), credential.CredentialDocument{
+		ID:             primitive.NewObjectID(),
+		CreatedAt:      time.Now(),
+		LastUsedAt:     time.Now(),
 		Name:           TestCredentialName,
 		OrganizationID: organizationID,
 		Key:            TestCredentialKey,

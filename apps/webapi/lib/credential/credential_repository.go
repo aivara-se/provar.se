@@ -3,6 +3,7 @@ package credential
 import (
 	"context"
 	"errors"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -25,6 +26,9 @@ var (
 
 // CredentialDocument is a MongoDB document for credentials
 type CredentialDocument struct {
+	ID             primitive.ObjectID `bson:"_id"`
+	CreatedAt      time.Time          `bson:"createdAt"`
+	LastUsedAt     time.Time          `bson:"lastUsedAt"`
 	Name           string             `bson:"name"`
 	OrganizationID primitive.ObjectID `bson:"organizationId"`
 	Key            string             `bson:"key"`
@@ -50,7 +54,8 @@ func GetCredentialRepository() *CredentialRepository {
 func (repo *CredentialRepository) FindCredenial(key string) (*CredentialDocument, error) {
 	var result CredentialDocument
 	filter := bson.M{"key": key}
-	err := repo.coll.FindOne(context.TODO(), filter).Decode(&result)
+	update := bson.M{"$set": bson.M{"lastUsedAt": time.Now()}}
+	err := repo.coll.FindOneAndUpdate(context.TODO(), filter, update).Decode(&result)
 	if err == mongo.ErrNoDocuments {
 		return nil, ErrCredentialNotFound
 	}
