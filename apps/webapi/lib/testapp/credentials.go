@@ -38,7 +38,6 @@ func createTestCredentials() error {
 	_, err = coll.InsertOne(context.TODO(), credential.CredentialDocument{
 		ID:             primitive.NewObjectID(),
 		CreatedAt:      time.Now(),
-		LastUsedAt:     time.Now(),
 		Name:           TestCredentialName,
 		OrganizationID: organizationID,
 		Key:            TestCredentialKey,

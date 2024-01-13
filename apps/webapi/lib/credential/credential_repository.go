@@ -28,7 +28,7 @@ var (
 type CredentialDocument struct {
 	ID             primitive.ObjectID `bson:"_id"`
 	CreatedAt      time.Time          `bson:"createdAt"`
-	LastUsedAt     time.Time          `bson:"lastUsedAt"`
+	LastUsedAt     time.Time          `bson:"lastUsedAt,omitempty"`
 	Name           string             `bson:"name"`
 	OrganizationID primitive.ObjectID `bson:"organizationId"`
 	Key            string             `bson:"key"`
