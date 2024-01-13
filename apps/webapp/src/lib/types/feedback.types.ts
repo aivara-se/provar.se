@@ -38,9 +38,9 @@ export type FeedbackTags = Record<string, string>;
  */
 interface BaseFeedback {
 	id: string;
+	createdAt: Date;
 	organizationId: string;
 	projectId?: string;
-	createdAt: Date;
 	type: FeedbackType;
 	meta?: FeedbackMeta;
 	user?: FeedbackUser;

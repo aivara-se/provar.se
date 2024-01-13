@@ -3,9 +3,9 @@
  */
 export interface Project {
 	id: string;
+	createdAt: Date;
 	name: string;
 	description: string;
 	organizationId: string;
 	collectionGoal: number | null;
-	createdAt: Date;
 }

@@ -12,6 +12,7 @@ const COLLECTION_NAME = 'organizations';
  */
 type OrganizationDocument = {
 	_id: ObjectId;
+	createdAt: Date;
 	name: string;
 	description?: string;
 	members: ObjectId[];
@@ -23,10 +24,10 @@ type OrganizationDocument = {
 function fromDocument(doc: OrganizationDocument): Organization {
 	return {
 		id: doc._id.toHexString(),
+		createdAt: doc.createdAt,
 		name: doc.name,
 		description: doc.description ?? '',
-		members: doc.members.map((id) => id.toHexString()),
-		createdAt: doc._id.getTimestamp()
+		members: doc.members.map((id) => id.toHexString())
 	};
 }
 
@@ -54,6 +55,7 @@ export async function create(userId: string, data: CreateOrganizationData): Prom
 	const id = new ObjectId();
 	await coll.insertOne({
 		_id: id,
+		createdAt: new Date(),
 		name: data.name,
 		description: '',
 		members: [new ObjectId(userId)]

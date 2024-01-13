@@ -13,6 +13,8 @@ const COLLECTION_NAME = 'invitations';
  */
 interface InvitationDocument {
 	_id: ObjectId;
+	createdAt: Date;
+	acceptedAt?: Date;
 	key: string;
 	name: string;
 	email: string;
@@ -25,12 +27,13 @@ interface InvitationDocument {
 function fromDocument(doc: InvitationDocument): Invitation {
 	return {
 		id: doc._id.toHexString(),
+		createdAt: doc.createdAt,
+		acceptedAt: doc.acceptedAt,
 		key: doc.key,
 		name: doc.name,
 		link: createInvitationLink(doc.key),
 		email: doc.email,
-		organizationId: doc.organizationId.toHexString(),
-		createdAt: doc._id.getTimestamp()
+		organizationId: doc.organizationId.toHexString()
 	};
 }
 
@@ -60,6 +63,7 @@ export async function create(data: CreateInvitationData): Promise<string> {
 	const id = new ObjectId();
 	await coll.insertOne({
 		_id: id,
+		createdAt: new Date(),
 		key: data.key,
 		name: data.name,
 		email: data.email,

@@ -12,6 +12,7 @@ const COLLECTION_NAME = 'projects';
  */
 interface ProjectDocument {
 	_id: ObjectId;
+	createdAt: Date;
 	name: string;
 	description?: string;
 	organizationId: ObjectId;
@@ -24,11 +25,11 @@ interface ProjectDocument {
 function fromDocument(doc: ProjectDocument): Project {
 	return {
 		id: doc._id.toHexString(),
+		createdAt: doc.createdAt,
 		name: doc.name,
 		description: doc.description ?? '',
 		organizationId: doc.organizationId.toHexString(),
-		collectionGoal: doc.collectionGoal ?? null,
-		createdAt: doc._id.getTimestamp()
+		collectionGoal: doc.collectionGoal ?? null
 	};
 }
 
@@ -56,6 +57,7 @@ export async function create(data: CreateProjectData): Promise<string> {
 	const id = new ObjectId();
 	await coll.insertOne({
 		_id: id,
+		createdAt: new Date(),
 		name: data.name,
 		organizationId: new ObjectId(data.organizationId)
 	});

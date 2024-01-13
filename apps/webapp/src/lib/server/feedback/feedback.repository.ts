@@ -25,6 +25,7 @@ const COLLECTION_NAME = 'feedbacks';
  */
 interface BaseFeedbackDocument {
 	_id: ObjectId;
+	createdAt: Date;
 	organizationId: ObjectId;
 	projectId?: ObjectId;
 	type: FeedbackType;
@@ -69,9 +70,9 @@ type FeedbackDocument = TextFeedbackDocument | CNPSFeedbackDocument | CSATFeedba
 function fromDocument(doc: FeedbackDocument): Feedback {
 	return {
 		id: doc._id.toHexString(),
+		createdAt: doc.createdAt,
 		organizationId: doc.organizationId.toHexString(),
 		projectId: doc.projectId?.toHexString(),
-		createdAt: doc._id.getTimestamp(),
 		type: doc.type,
 		meta: doc.meta,
 		user: doc.user,

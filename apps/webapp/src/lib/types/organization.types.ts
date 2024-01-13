@@ -3,8 +3,8 @@
  */
 export interface Organization {
 	id: string;
+	createdAt: Date;
 	name: string;
 	description: string;
 	members: string[];
-	createdAt: Date;
 }
