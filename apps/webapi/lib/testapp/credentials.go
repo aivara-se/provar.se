@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"provar.se/webapi/lib/credential"
 	"provar.se/webapi/lib/database"
@@ -29,6 +30,10 @@ func createTestCredentials() error {
 	organizationID, err := primitive.ObjectIDFromHex(TestOrganizationID)
 	if err != nil {
 		return err
+	}
+	err = coll.FindOne(context.TODO(), bson.M{"key": TestCredentialKey}).Err()
+	if err == nil {
+		return nil
 	}
 	_, err = coll.InsertOne(context.TODO(), credential.CredentialDocument{
 		ID:             primitive.NewObjectID(),
