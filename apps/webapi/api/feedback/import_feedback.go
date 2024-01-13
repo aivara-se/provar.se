@@ -36,18 +36,8 @@ func SetupImportFeedback(app *fiber.App) {
 		repo := feedback.GetFeedbackRepository()
 		imp := importer.NewImporter(organizationID, body.ProjectID, body.Link)
 		defer imp.Close()
-		if err := imp.Setup(); err != nil {
+		if err := imp.Import(); err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
-		}
-		if err := imp.ReadAll(); err != nil {
-			return c.SendStatus(fiber.StatusBadRequest)
-		}
-		if len(imp.ImportedData) == 0 {
-			return c.SendStatus(fiber.StatusBadRequest)
-		}
-		for _, data := range imp.ImportedData {
-			data.Meta.SetMetadataFromIP()
-			data.Meta.SetMetadataFromUA()
 		}
 		if err := repo.ImportFeedback(imp.ImportedData); err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
