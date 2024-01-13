@@ -33,12 +33,15 @@
 	}
 </script>
 
-<Breadcrumb class="mb-6">
-	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
-	<BreadcrumbItem>Projects</BreadcrumbItem>
-</Breadcrumb>
-
-<Heading customSize="mb-2 text-xl font-semibold">Projects</Heading>
+<section class="flex items-start h-10 justify-between mb-1">
+	<section>
+		<Breadcrumb class="mb-6">
+			<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
+			<BreadcrumbItem>Projects</BreadcrumbItem>
+		</Breadcrumb>
+	</section>
+	<section class="flex gap-2 items-start"></section>
+</section>
 
 <section>
 	{#each projectListItems as item}

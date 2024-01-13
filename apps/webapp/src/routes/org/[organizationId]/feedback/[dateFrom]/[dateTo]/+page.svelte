@@ -3,12 +3,12 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { Feedback } from '$lib/types';
-	import { Breadcrumb, BreadcrumbItem, Heading } from 'flowbite-svelte';
+	import { Breadcrumb, BreadcrumbItem } from 'flowbite-svelte';
 	import FeedbackDetail from './(details)/FeedbackDetail.svelte';
 	import FeedbackList from './(search)/FeedbackList.svelte';
+	import FeedbackSumary from './(summary)/FeedbackSumary.svelte';
 	import DateRangeSelector from './_components/DateRangeSelector.svelte';
 	import FeedbackPageActions from './_components/FeedbackPageActions.svelte';
-	import FeedbackSumary from './(summary)/FeedbackSumary.svelte';
 
 	$: feedbacks = $page.data.feedbacks;
 	$: currentPage = Number.parseInt($page.url.searchParams.get('page') || '1');
@@ -37,14 +37,14 @@
 	}
 </script>
 
-<Breadcrumb class="mb-6">
-	<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
-	<BreadcrumbItem>Feedback</BreadcrumbItem>
-</Breadcrumb>
-
-<section class="flex">
-	<Heading class="flex-1" customSize="text-xl font-semibold">Feedback</Heading>
-	<section class="flex gap-2 items-center">
+<section class="flex items-start h-10 justify-between mb-1">
+	<section>
+		<Breadcrumb>
+			<BreadcrumbItem href={`/org/${$page.params.organizationId}`} home>Home</BreadcrumbItem>
+			<BreadcrumbItem>Feedback</BreadcrumbItem>
+		</Breadcrumb>
+	</section>
+	<section class="flex gap-2 items-start">
 		<DateRangeSelector />
 		<FeedbackPageActions />
 	</section>
