@@ -3,8 +3,9 @@
  */
 export interface Credential {
 	id: string;
+	createdAt: Date;
+	lastUsedAt?: Date;
 	name: string;
 	organizationId: string;
 	key: string;
-	createdAt: Date;
 }

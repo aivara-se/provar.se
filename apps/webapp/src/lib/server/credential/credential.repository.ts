@@ -12,6 +12,8 @@ const COLLECTION_NAME = 'credentials';
  */
 type CredentialDocument = {
 	_id: ObjectId;
+	createdAt: Date;
+	lastUsedAt?: Date;
 	name: string;
 	organizationId: ObjectId;
 	key: string;
@@ -23,10 +25,11 @@ type CredentialDocument = {
 function fromDocument(doc: CredentialDocument): Credential {
 	return {
 		id: doc._id.toHexString(),
+		createdAt: doc.createdAt,
+		lastUsedAt: doc.lastUsedAt,
 		name: doc.name,
 		organizationId: doc.organizationId.toHexString(),
-		key: doc.key,
-		createdAt: doc._id.getTimestamp()
+		key: doc.key
 	};
 }
 
