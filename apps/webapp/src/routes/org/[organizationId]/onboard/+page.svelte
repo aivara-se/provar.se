@@ -7,7 +7,6 @@
 		Breadcrumb,
 		BreadcrumbItem,
 		Button,
-		Heading,
 		Input,
 		Label,
 		Modal,

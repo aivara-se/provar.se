@@ -8,7 +8,6 @@
 		Card,
 		Dropdown,
 		DropdownItem,
-		Heading,
 		Progressbar
 	} from 'flowbite-svelte';
 	import { DotsHorizontalOutline } from 'flowbite-svelte-icons';
