@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import { Breadcrumb, BreadcrumbItem, Heading, TabItem, Tabs } from 'flowbite-svelte';
+	import { Breadcrumb, BreadcrumbItem, TabItem, Tabs } from 'flowbite-svelte';
 	import CredentialsTabContent from './(credentials)/CredentialsTabContent.svelte';
 	import MembersTabContent from './(members)/MembersTabContent.svelte';
 	import OrganizationTabContent from './(organization)/OrganizationTabContent.svelte';
