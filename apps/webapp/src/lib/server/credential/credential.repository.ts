@@ -58,6 +58,7 @@ export async function create(data: CreateCredentialData): Promise<string> {
 	const id = new ObjectId();
 	await coll.insertOne({
 		_id: id,
+		createdAt: new Date(),
 		name: data.name,
 		organizationId: new ObjectId(data.organizationId),
 		key: data.key
