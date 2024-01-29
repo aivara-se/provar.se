@@ -18,7 +18,7 @@
 	},
 	"dependencies": {
 		"@auth/core": "^0.24.0",
-		"@auth/mongodb-adapter": "^2.0.10",
+		"@auth/mongodb-adapter": "^2.1.0",
 		"@auth/sveltekit": "^0.5.2",
 		"@google-cloud/storage": "^7.7.0",
 		"@provar/provar-js": "^1.3.1",
