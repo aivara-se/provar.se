@@ -69,9 +69,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:^0.18.6":
-  version: 0.18.6
-  resolution: "@auth/core@npm:0.18.6"
+"@auth/core@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "@auth/core@npm:0.24.0"
   dependencies:
     "@panva/hkdf": "npm:^1.1.1"
     "@types/cookie": "npm:0.6.0"
@@ -85,7 +85,7 @@ __metadata:
   peerDependenciesMeta:
     nodemailer:
       optional: true
-  checksum: 47b1b264aa8f1dc5a90f2c4c3a39b2c5d33a9265c28ce473323571e9922caa431c96fe4289a5e3979250d10e91f7c0b6f43a9d6207d17d6a541b1c44151b1923
+  checksum: 23bd859b28ea14f102273ea7cfff112156375a5f06e92996f92fabdca7f0fbc304287cb65a3c46d499d4a9835d70929d44e6309b80016ecc925913515e13ad48
   languageName: node
   linkType: hard
 
@@ -5968,7 +5968,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "webapp@workspace:apps/webapp"
   dependencies:
-    "@auth/core": "npm:^0.18.6"
+    "@auth/core": "npm:^0.24.0"
     "@auth/mongodb-adapter": "npm:^2.0.10"
     "@auth/sveltekit": "npm:^0.5.2"
     "@google-cloud/storage": "npm:^7.7.0"
