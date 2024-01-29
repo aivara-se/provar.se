@@ -2726,14 +2726,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flowbite-svelte-icons@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "flowbite-svelte-icons@npm:1.0.2"
+"flowbite-svelte-icons@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "flowbite-svelte-icons@npm:1.0.3"
   peerDependencies:
-    svelte: ^3.54.0 || ^4.0.0
+    svelte: ^3.54.0 || ^4.0.0 || ^5.0.0
     tailwind-merge: ^2.0.0
     tailwindcss: ^3.3.2
-  checksum: 8d9f54f1dbacf409869816b7a11a32ee6e7b3bdd458dda61f45ba4d233f60186e3f30fbb3b2b701f2279cfab3789c9e567abf0ca0234609d7c31b2f69ef2a563
+  checksum: f1559195d126a33f3ae4144a3128223ca04c7f9be0df4ddd272943f0c57a3e49e6205ce07a1b6c42525a87ad9fe35176220b5ac568387e8d85260d94b34b30d3
   languageName: node
   linkType: hard
 
@@ -5993,7 +5993,7 @@ __metadata:
     flowbite: "npm:^2.2.1"
     flowbite-svelte: "npm:^0.44.21"
     flowbite-svelte-blocks: "npm:^0.5.1"
-    flowbite-svelte-icons: "npm:^1.0.2"
+    flowbite-svelte-icons: "npm:^1.0.3"
     lodash: "npm:^4.17.21"
     mongodb: "npm:^6.3.0"
     nodemailer: "npm:^6.9.8"
