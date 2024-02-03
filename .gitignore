@@ -14,6 +14,11 @@ yarn.lock
 .env.*
 .secrets
 credentials.json
+local-saml.pem
+local-saml.crt
+local-openid.pem
+local-openid.pk8.pem
+local-openid.pub.pem
 
 # Temporary files
 build
