@@ -1,4 +1,5 @@
 services:
+  # MongoDB is used to store customer feedback
   mongodb:
     image: mongo:7
     restart: always
@@ -6,6 +7,15 @@ services:
       - database:/data/db
     ports:
       - 27017:27017
+
+  # Use Jackson to manage user accounts and SSO
+  accounts:
+    image: boxyhq/jackson
+    restart: always
+    ports:
+      - 5225:5225
+    env_file:
+      - apps/account/.env
 
 volumes:
   database: {}
