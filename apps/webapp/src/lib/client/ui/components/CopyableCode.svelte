@@ -23,7 +23,7 @@
 
 <section class="relative">
 	<pre
-		class="block w-full p-2 overflow-hidden resize-none bg-gray-100 border-0 break-words text-xs text-gray-900 leading-6 tracking-wide rounded">{text.trim()}</pre>
+		class="block w-full px-2 py-1 overflow-hidden resize-none bg-gray-100 border-0 break-words text-xs text-gray-900 leading-6 tracking-wide rounded">{text.trim()}</pre>
 	{#if copied}
 		<div transition:fade={{ delay: 100 }} class="absolute cursor-pointer top-2 right-2">
 			<ClipboardCheckOutline class="w-3.5 h-3.5 text-green-700" />
