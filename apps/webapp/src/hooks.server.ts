@@ -1,7 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { getMongoClient } from '$lib/server/database';
-import { EmailService, VerifyLoginTemplate } from '$lib/server/email-utils';
-import EmailProvider from '@auth/core/providers/email';
+import { EmailProvider } from '$lib/server/email-utils';
 import GitHubProvider from '@auth/core/providers/github';
 import GoogleProvider from '@auth/core/providers/google';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
@@ -37,16 +36,7 @@ const sveltekitauth: Handle = (input) =>
 	SvelteKitAuth({
 		adapter: MongoDBAdapter(getMongoClient()),
 		providers: [
-			EmailProvider({
-				async sendVerificationRequest(params) {
-					await EmailService.send({
-						toEmail: params.identifier,
-						options: { link: params.url },
-						template: VerifyLoginTemplate
-					});
-				}
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			}) as any,
+			EmailProvider(),
 			GoogleProvider({
 				clientId: env.AUTH_GOOGLE_ID,
 				clientSecret: env.AUTH_GOOGLE_SECRET,
