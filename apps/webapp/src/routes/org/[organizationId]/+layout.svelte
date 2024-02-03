@@ -7,7 +7,6 @@
 		ChartMixedOutline,
 		ClockOutline,
 		MessageDotsOutline,
-		MessagesOutline,
 		UserHeadsetOutline,
 		UserSettingsOutline
 	} from 'flowbite-svelte-icons';
@@ -23,14 +22,9 @@
 	 */
 	$: navigationItems = [
 		{
-			name: 'Overview',
-			href: `/org/${$page.params.organizationId}/overview`,
-			icon: ChartMixedOutline
-		},
-		{
 			name: 'Feedback',
 			href: `/org/${$page.params.organizationId}/feedback`,
-			icon: MessagesOutline
+			icon: ChartMixedOutline
 		},
 		{
 			name: 'Projects',
@@ -38,7 +32,7 @@
 			icon: ClockOutline
 		},
 		{
-			name: 'Preferences',
+			name: 'Settings',
 			href: `/org/${$page.params.organizationId}/preferences`,
 			icon: AdjustmentsHorizontalOutline
 		}

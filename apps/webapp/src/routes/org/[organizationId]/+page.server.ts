@@ -6,5 +6,5 @@ export const load: PageServerLoad = async (event) => {
 	if (credentials.length === 0) {
 		redirect(302, `/org/${organization.id}/onboard`);
 	}
-	redirect(302, `/org/${organization.id}/overview`);
+	redirect(302, `/org/${organization.id}/feedback`);
 };
