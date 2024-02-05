@@ -10,7 +10,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/mileusna/useragent v1.3.4
 	github.com/oschwald/geoip2-golang v1.9.0
-	github.com/swaggo/swag v1.16.2
+	github.com/swaggo/swag v1.16.3
 	go.mongodb.org/mongo-driver v1.13.1
 )
 
