@@ -6,7 +6,7 @@ require (
 	github.com/go-playground/validator/v10 v10.17.0
 	github.com/goccy/go-json v0.10.2
 	github.com/gofiber/fiber/v2 v2.52.0
-	github.com/gofiber/swagger v0.1.14
+	github.com/gofiber/swagger v1.0.0
 	github.com/joho/godotenv v1.5.1
 	github.com/mileusna/useragent v1.3.4
 	github.com/oschwald/geoip2-golang v1.9.0
