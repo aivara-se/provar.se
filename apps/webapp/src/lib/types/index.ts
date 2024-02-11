@@ -6,3 +6,4 @@ export * from './project.types';
 export * from './timeseries.types';
 export * from './user.types';
 export * from './utilities.types';
+export * from './route.types';

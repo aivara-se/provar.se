@@ -6,7 +6,7 @@ This application is built using the following frameworks and libraries:
 
 - **SvelteKit:** A full-stack framework that uses Svelte and NodeJS. [Read more](https://kit.svelte.dev)
 - **Auth.js:** Authentication library that supports SvelteKit. [Read more](https://authjs.dev/)
-- **Flowbite:** A UI component library to speed up development. [Read more](https://flowbite-svelte.com)
+- **Daisy UI:** A UI component library to speed up development. [Read more](https://daisyui.com/)
 
 ## Frontend Elements
 
