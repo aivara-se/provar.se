@@ -1,61 +1,36 @@
 <script lang="ts">
-	import { CenteredLayout } from '$lib/client/ui';
 	import { signIn } from '@auth/sveltekit/client';
-	import { Button, Input } from 'flowbite-svelte';
-	import { GithubSolid, GoogleSolid } from 'flowbite-svelte-icons';
-	import HorizontalSeparator from './_components/HorizontalSeparator.svelte';
+	import { AuthLayout } from '$lib/client/layout';
+	import route from './route.meta';
+	import GoogleIcon from './GoogleIcon.svelte';
+	import GithubIcon from './GithubIcon.svelte';
 
 	let email: string;
 </script>
 
-<CenteredLayout>
-	<div class="form">
-		<Input
-			class="rounded-none rounded-l-md"
-			id="email"
-			bind:value={email}
-			placeholder="myname@email.com"
-		/>
-		<Button
-			class="rounded-none rounded-r-md"
-			size="sm"
-			on:click={() => signIn('email', { email, callbackUrl: '/' })}
+<AuthLayout {route}>
+	<div class="flex flex-col w-80 gap-4">
+		<form
+			class="flex flex-col gap-4"
+			on:submit={() => signIn('email', { email, callbackUrl: '/' })}
 		>
-			Login
-		</Button>
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text">Email:</span>
+				</div>
+				<input type="text" class="input input-bordered w-full" bind:value={email} />
+			</label>
+			<input type="submit" class="btn btn-md btn-block" value="Login with email" />
+		</form>
+
+		<div class="divider">or</div>
+
+		<button class="btn btn-md btn-block" on:click={() => signIn('google', { callbackUrl: '/' })}>
+			<GoogleIcon /> Login with Google
+		</button>
+
+		<button class="btn btn-md btn-block" on:click={() => signIn('github', { callbackUrl: '/' })}>
+			<GithubIcon /> Login with Github
+		</button>
 	</div>
-
-	<HorizontalSeparator text="or" />
-
-	<div class="provider">
-		<Button size="sm" color="red" outline on:click={() => signIn('google', { callbackUrl: '/' })}>
-			<GoogleSolid class="w-3 h-3 mr-1" />
-			Login with Google
-		</Button>
-	</div>
-
-	<div class="provider">
-		<Button size="sm" color="dark" outline on:click={() => signIn('github', { callbackUrl: '/' })}>
-			<GithubSolid class="w-3 h-3 mr-1" />
-			Login with Github
-		</Button>
-	</div>
-</CenteredLayout>
-
-<style>
-	.form {
-		display: flex;
-		width: 250px;
-		text-align: left;
-	}
-
-	.provider {
-		width: 250px;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.provider + .provider {
-		margin-top: 20px;
-	}
-</style>
+</AuthLayout>

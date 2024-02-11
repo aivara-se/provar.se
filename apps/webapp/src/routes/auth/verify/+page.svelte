@@ -1,8 +1,14 @@
-<script>
-	import { CenteredLayout } from '$lib/client/ui';
+<script lang="ts">
+	import { AuthLayout } from '$lib/client/layout';
+	import route from './route.meta';
 </script>
 
-<CenteredLayout>
-	<p class="mb-4 text-xl font-bold">Login with Email</p>
-	<p class="mb-4">You will receive an email soon. Follow the link on the email to login.</p>
-</CenteredLayout>
+<AuthLayout {route}>
+	<div class="flex flex-col prose text-center">
+		<h2>Login with email</h2>
+		<p>
+			You will receive an email soon.<br />
+			Follow the link in the email to login
+		</p>
+	</div>
+</AuthLayout>
