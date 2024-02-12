@@ -49,7 +49,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:0.25.0, @auth/core@npm:^0.25.0":
+"@auth/core@npm:0.26.3":
+  version: 0.26.3
+  resolution: "@auth/core@npm:0.26.3"
+  dependencies:
+    "@panva/hkdf": "npm:^1.1.1"
+    "@types/cookie": "npm:0.6.0"
+    cookie: "npm:0.6.0"
+    jose: "npm:^5.1.3"
+    oauth4webapi: "npm:^2.4.0"
+    preact: "npm:10.11.3"
+    preact-render-to-string: "npm:5.2.3"
+  peerDependencies:
+    "@simplewebauthn/browser": ^9.0.1
+    "@simplewebauthn/server": ^9.0.1
+    nodemailer: ^6.8.0
+  peerDependenciesMeta:
+    "@simplewebauthn/browser":
+      optional: true
+    "@simplewebauthn/server":
+      optional: true
+    nodemailer:
+      optional: true
+  checksum: b50a19c41dfc9e4b93dcb2a7ff4f6f21ca4bcd4f3768819c16f072ca8b882dbf07717b411a8523611003ec077ff89292af2067e1745f157dc4cbe3e22788dee2
+  languageName: node
+  linkType: hard
+
+"@auth/core@npm:^0.25.0":
   version: 0.25.0
   resolution: "@auth/core@npm:0.25.0"
   dependencies:
@@ -80,16 +106,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/sveltekit@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "@auth/sveltekit@npm:0.11.0"
+"@auth/sveltekit@npm:^0.12.3":
+  version: 0.12.3
+  resolution: "@auth/sveltekit@npm:0.12.3"
   dependencies:
-    "@auth/core": "npm:0.25.0"
+    "@auth/core": "npm:0.26.3"
     set-cookie-parser: "npm:^2.6.0"
   peerDependencies:
     "@sveltejs/kit": ^1.0.0 || ^2.0.0
     svelte: ^3.54.0 || ^4.0.0 || ^5
-  checksum: f71ff628c6876bd4db4e803c3d49a8eadded3016d6f74d66ff2cad47527e157f22b1d0764e790b65a97c4159ec8db161cfa670a3a4b7afc0078aec8ddbc921b0
+  checksum: 0f4be995ab84f1080589da1929e6f6704c55c11b730fddc2f4334980bcd9075339ed2989421727cc7a9bcd6bd9ba2e1eeb6be817d427c9848979aea3822d3533
   languageName: node
   linkType: hard
 
@@ -5749,7 +5775,7 @@ __metadata:
   dependencies:
     "@auth/core": "npm:^0.25.0"
     "@auth/mongodb-adapter": "npm:^2.1.0"
-    "@auth/sveltekit": "npm:^0.11.0"
+    "@auth/sveltekit": "npm:^0.12.3"
     "@google-cloud/storage": "npm:^7.7.0"
     "@playwright/test": "npm:^1.41.2"
     "@provar/provar-js": "npm:^1.3.1"
