@@ -1,8 +1,7 @@
-import type { Route } from '$lib/types';
+import { defineRoute } from '$lib/client/routes';
 
-const route: Route = {
+export default defineRoute({
+	id: 'auth-logout',
 	getName: () => 'Logout',
 	getPath: () => '/auth/logout'
-};
-
-export default route;
+});

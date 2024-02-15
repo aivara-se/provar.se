@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { AuthLayout } from '$lib/client/layout';
-	import type { Route } from '$lib/types';
+	import type { Route } from '$lib/client/routes';
 
 	const route: Route = {
+		id: 'page-500',
 		getName: () => 'Someting went wrong',
 		getPath: () => '/'
 	};
