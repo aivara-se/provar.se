@@ -6,6 +6,6 @@
 
 <AuthLayout {route}>
 	<div class="flex flex-col w-80">
-		<button class="btn btn-block" on:click={() => signOut()}>Logout</button>
+		<button class="btn btn-md btn-block btn-neutral" on:click={() => signOut()}>Logout</button>
 	</div>
 </AuthLayout>

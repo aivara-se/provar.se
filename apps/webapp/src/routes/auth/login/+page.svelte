@@ -16,20 +16,26 @@
 		>
 			<label class="form-control w-full">
 				<div class="label">
-					<span class="label-text">Email:</span>
+					<span class="label-text">Email</span>
 				</div>
 				<input type="text" class="input input-bordered w-full" bind:value={email} />
 			</label>
-			<input type="submit" class="btn btn-md btn-block" value="Login with email" />
+			<input type="submit" class="btn btn-md btn-block btn-neutral" value="Login with email" />
 		</form>
 
 		<div class="divider">or</div>
 
-		<button class="btn btn-md btn-block" on:click={() => signIn('google', { callbackUrl: '/' })}>
+		<button
+			class="btn btn-md btn-block btn-neutral"
+			on:click={() => signIn('google', { callbackUrl: '/' })}
+		>
 			<GoogleIcon /> Login with Google
 		</button>
 
-		<button class="btn btn-md btn-block" on:click={() => signIn('github', { callbackUrl: '/' })}>
+		<button
+			class="btn btn-md btn-block btn-neutral"
+			on:click={() => signIn('github', { callbackUrl: '/' })}
+		>
 			<GithubIcon /> Login with Github
 		</button>
 	</div>
