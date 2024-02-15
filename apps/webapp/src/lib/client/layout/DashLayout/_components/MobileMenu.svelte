@@ -9,9 +9,9 @@
 		.map((route) => {
 			return {
 				id: route.id,
+				icon: route.icon,
 				href: route.getPath($page.params),
 				name: route.getName($page.params),
-				icon: route.sidebar!.icon,
 				active: route.isActive ? route.isActive($page.url.pathname, $page.params) : false
 			};
 		});
