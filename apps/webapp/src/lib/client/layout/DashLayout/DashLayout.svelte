@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { Route } from '$lib/client/routes';
+	import { type Route } from '$lib/client/routes';
 	import Breadcrumbs from './_components/Breadcrumbs.svelte';
+	import ContentTabs from './_components/ContentTabs.svelte';
 	import MobileMenu from './_components/MobileMenu.svelte';
 	import SidebarMenu from './_components/SidebarMenu.svelte';
 
@@ -21,6 +22,10 @@
 			<Breadcrumbs {route} />
 		</header>
 		<main class="w-full min-h-screen px-8 py-6 rounded-xl bg-white dark:bg-black/20 shadow">
+			{#if route.tabs && route.tabs.length > 0}
+				<ContentTabs tabs={route.tabs} />
+			{/if}
+
 			<slot />
 		</main>
 	</section>

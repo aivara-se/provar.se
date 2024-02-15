@@ -1,13 +1,18 @@
 export interface Route {
 	id: string;
 
+	// NOTE: The `SvelteComponent` type is not supported by icon libraries
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	icon?: any;
+
 	// The parent route
 	parent?: Route;
 
+	// Show child routes as tabs on the route page
+	tabs?: string[];
+
 	// Flag: the route should be shown on the sidebar
-	// NOTE: The `SvelteComponent` type is not supported by icon libraries
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	sidebar?: { weight: number; icon: any; mobile?: boolean };
+	sidebar?: { weight: number; mobile?: boolean };
 
 	// The page name with given route parameters
 	getName: (params: Record<string, string>) => string;

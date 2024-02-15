@@ -14,10 +14,24 @@ export function defineRoute(route: Route): Route {
 }
 
 /**
+ * Returns a route definition by the route id
+ */
+export function getRoute(id: string) {
+	return routes[id];
+}
+
+/**
  * Returns an array of all route definitions.
  */
 export function getRoutes() {
 	return Object.values(routes);
+}
+
+/**
+ * Returns an array of child route definitions.
+ */
+export function getChildRoutes(id: string) {
+	return getRoutes().filter((route) => route.parent?.id === id);
 }
 
 /**
