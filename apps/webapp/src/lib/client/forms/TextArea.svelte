@@ -8,6 +8,7 @@
 	export let label: string = '';
 	export let errors: any;
 	export let constraints: InputConstraints<any>[''];
+	export let className: string = '';
 </script>
 
 <label class="form-control">
@@ -19,7 +20,7 @@
 	<textarea
 		{name}
 		bind:value
-		class="textarea resize-none h-32 {errors ? 'textarea-error' : ''}"
+		class="textarea resize-none h-32 {errors ? 'textarea-error' : ''} {className}"
 		aria-invalid={errors ? 'true' : undefined}
 		{...constraints}
 	/>
