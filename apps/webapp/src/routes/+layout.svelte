@@ -1,6 +1,10 @@
 <script>
 	import '../app.css';
+	import { Toasts } from '$lib/client/toast';
 
+	/**
+	 * Import metadata for all routes
+	 */
 	import './auth/login/route.meta';
 	import './auth/logout/route.meta';
 	import './auth/verify/route.meta';
@@ -14,3 +18,4 @@
 </script>
 
 <slot />
+<Toasts />
