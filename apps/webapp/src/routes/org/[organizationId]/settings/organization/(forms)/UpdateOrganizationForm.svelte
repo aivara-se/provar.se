@@ -1,26 +1,16 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms';
+	import { toast } from '$lib/client/toast';
 
 	export let formData;
-
-	let toast: { type: string; message: string } | null = null;
 
 	const { form, errors, constraints, enhance } = superForm(formData, {
 		onResult: ({ result }) => {
 			if (result.type === 'failure') {
-				toast = {
-					type: 'error',
-					message: 'Failed to update organization details'
-				};
+				toast('error', 'Failed to update organization details');
 			} else if (result.type === 'success') {
-				toast = {
-					type: 'success',
-					message: 'Organization details updated successfully'
-				};
+				toast('success', 'Organization details updated successfully');
 			}
-			setTimeout(() => {
-				toast = null;
-			}, 3000);
 		}
 	});
 </script>
@@ -69,11 +59,3 @@
 		<button class="btn">Update organization details</button>
 	</div>
 </form>
-
-{#if toast}
-	<div class="toast toast-center">
-		<div class="alert alert-{toast.type} shadow-lg text-xs">
-			<span>{toast.message}</span>
-		</div>
-	</div>
-{/if}
