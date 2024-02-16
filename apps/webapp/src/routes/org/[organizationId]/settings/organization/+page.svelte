@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { UpdateOrganizationForm } from './(forms)/UpdateOrganizationForm';
+	import UpdateOrganizationForm from './(forms)/UpdateOrganizationForm.svelte';
 
 	export let data;
 </script>
