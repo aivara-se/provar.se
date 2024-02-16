@@ -20,16 +20,16 @@
 	<TextInput
 		name="name"
 		label="Name"
-		value={$form.name}
 		errors={$errors.name}
 		constraints={$constraints.name}
+		bind:value={$form.name}
 	/>
 	<TextArea
 		name="description"
 		label="Description"
-		value={$form.description}
 		errors={$errors.description}
 		constraints={$constraints.description}
+		bind:value={$form.description}
 	/>
 	<div class="flex mt-4">
 		<button class="btn">Update</button>
