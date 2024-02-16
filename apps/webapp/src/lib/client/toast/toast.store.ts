@@ -16,7 +16,7 @@ export const toasts = writable<Toast[]>([]);
  * Show a toast notification with given type and content
  */
 export function toast(type: Toast['type'], content: string, duration = DEFAULT_TIMEOUT) {
-	const toast = { id: createId(), type, content, duration };
+	const toast: Toast = { id: createId(), type, content, duration };
 	toasts.update((arr) => [...arr, toast]);
 	setTimeout(() => {
 		toasts.update((arr) => arr.filter((t) => t !== toast));
