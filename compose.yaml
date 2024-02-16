@@ -8,6 +8,17 @@ services:
     ports:
       - 27017:27017
 
+  # Use mailpit to test emails when developing
+  mailpit:
+    image: axllent/mailpit
+    restart: always
+    ports:
+      - 8025:8025
+      - 1025:1025
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+
   # Use Jackson to manage user accounts and SSO
   accounts:
     image: boxyhq/jackson
