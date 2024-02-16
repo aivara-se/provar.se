@@ -21,7 +21,7 @@
 		type="text"
 		{name}
 		bind:value
-		class="input {errors ? 'input-error' : ''} text-sm {className}"
+		class="input {errors ? 'input-error' : ''} text-sm {className} input-bordered"
 		aria-invalid={errors ? 'true' : undefined}
 		{...constraints}
 	/>
