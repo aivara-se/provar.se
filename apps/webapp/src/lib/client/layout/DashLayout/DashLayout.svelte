@@ -21,7 +21,7 @@
 		<header class="flex flex-row items-center h-12 px-2">
 			<Breadcrumbs {route} />
 		</header>
-		<main class="w-full min-h-screen px-8 py-6 rounded-xl bg-white dark:bg-black/20 shadow">
+		<main class="w-full min-h-screen p-4 md:p-8 rounded-xl bg-white dark:bg-black/20 shadow">
 			{#if route.tabs && route.tabs.length > 0}
 				<ContentTabs tabs={route.tabs} />
 			{/if}
