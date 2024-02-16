@@ -16,7 +16,7 @@
 	});
 </script>
 
-<div role="tablist" class="tabs tabs-boxed mb-4">
+<div role="tablist" class="tabs tabs-boxed mb-4 bg-transparent font-medium">
 	{#each items as item}
 		<a role="tab" href={item.href} class="tab {item.active ? 'tab-active' : ''}">
 			{#if item.icon}
