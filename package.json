@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "dev": "yarn start-local-env",
     "setup-local-env": "bash .scripts/setup-local-env.sh",
     "start-local-env": "bash .scripts/start-local-env.sh"
   },

@@ -39,7 +39,7 @@ EOF
 # Create .env file for webapp service
 cat << EOF > apps/webapp/.env
 AUTH_EMAIL_FROM=noreply@provar.se
-AUTH_EMAIL_SERVER=smtp://user:oass@localhost:1025
+AUTH_EMAIL_SERVER=smtp://user:pass@localhost:1025
 AUTH_GITHUB_ID=
 AUTH_GITHUB_SECRET=
 AUTH_GOOGLE_ID=
@@ -49,7 +49,7 @@ GCS_IMPORT_BUCKET=provar-imports-dev
 MONGODB_URL=mongodb://localhost:27017/provar
 PROVAR_API_URL=http://localhost:3001
 PUBLIC_PROVAR_APP_URL=http://localhost:5173
-PUBLIC_PROVAR_API_KEY=
+PUBLIC_PROVAR_API_KEY=placeholder
 
 # Local only
 GOOGLE_APPLICATION_CREDENTIALS=../../credentials.json
