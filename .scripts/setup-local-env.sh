@@ -5,6 +5,7 @@ go install github.com/swaggo/swag/cmd/swag@latest
 go install github.com/cosmtrek/air@latest
 
 # Create a key pair for SAML
+mkdir -p apps/account
 openssl req -x509 -newkey rsa:2048 -keyout apps/account/local-saml.pem -out apps/account/local-saml.crt -sha256 -days 365 -nodes -subj "/C=SE/ST=Uppsala/L=Knivsta/O=Security/OU=Operations/CN=provar.se"
 
 # Create a key pair for OpenID
@@ -38,7 +39,7 @@ EOF
 # Create .env file for webapp service
 cat << EOF > apps/webapp/.env
 AUTH_EMAIL_FROM=noreply@provar.se
-AUTH_EMAIL_SERVER=
+AUTH_EMAIL_SERVER=smtp://user:oass@localhost:1025
 AUTH_GITHUB_ID=
 AUTH_GITHUB_SECRET=
 AUTH_GOOGLE_ID=
