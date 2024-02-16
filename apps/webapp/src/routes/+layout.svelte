@@ -1,5 +1,6 @@
 <script>
 	import '../app.css';
+	import 'overlayscrollbars/overlayscrollbars.css';
 	import { Toasts } from '$lib/client/toast';
 
 	/**

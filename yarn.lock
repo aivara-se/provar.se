@@ -3857,6 +3857,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"overlayscrollbars-svelte@npm:^0.5.3":
+  version: 0.5.3
+  resolution: "overlayscrollbars-svelte@npm:0.5.3"
+  peerDependencies:
+    overlayscrollbars: ^2.0.0
+    svelte: ">=3.54.0"
+  checksum: 6ef252ae283f44cb976c7ebbb87ca4d5e25eff3d0f32f08b8506ea827c93af0341ec122043fce4a5b282e33d90791c4d794b483ba59b4999a75fbf256f26362d
+  languageName: node
+  linkType: hard
+
+"overlayscrollbars@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "overlayscrollbars@npm:2.5.0"
+  checksum: caa8a59cd6b5c2cd6985a5fb57f17fc4255617ccbdc19ff793e7937f70deb55955d7d04ca4c942fe3a3306925ebf2ea506ed8031f2aa7f97180d5900c0dd4aff
+  languageName: node
+  linkType: hard
+
 "p-limit@npm:^3.0.1, p-limit@npm:^3.0.2":
   version: 3.1.0
   resolution: "p-limit@npm:3.1.0"
@@ -5507,6 +5524,8 @@ __metadata:
     lucide-svelte: "npm:^0.323.0"
     mongodb: "npm:^6.3.0"
     nodemailer: "npm:^6.9.9"
+    overlayscrollbars: "npm:^2.5.0"
+    overlayscrollbars-svelte: "npm:^0.5.3"
     postcss: "npm:^8.4.35"
     prettier: "npm:^3.1.1"
     prettier-plugin-svelte: "npm:^3.1.2"
