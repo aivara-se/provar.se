@@ -8,6 +8,7 @@
 	export let label: string = '';
 	export let errors: any;
 	export let constraints: InputConstraints<any>[''];
+	export let className: string = '';
 </script>
 
 <label class="form-control w-full">
@@ -20,7 +21,7 @@
 		type="text"
 		{name}
 		bind:value
-		class="input {errors ? 'input-error' : ''}"
+		class="input {errors ? 'input-error' : ''} {className}"
 		aria-invalid={errors ? 'true' : undefined}
 		{...constraints}
 	/>
