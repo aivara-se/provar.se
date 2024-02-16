@@ -2,7 +2,6 @@
 
 # Install additional dependencies
 go install github.com/swaggo/swag/cmd/swag@latest
-go install github.com/cosmtrek/air@latest
 
 # Create a key pair for SAML
 mkdir -p apps/account
