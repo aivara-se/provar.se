@@ -9,8 +9,8 @@ export default {
 	},
 	plugins: [typography, daisyui],
 	daisyui: {
-		themes: ['nord', 'dim'],
-		darkTheme: 'dim',
+		themes: ['light', 'dark'],
+		darkTheme: 'dark',
 		logs: false
 	}
 } satisfies Config;
