@@ -1,5 +1,4 @@
 import { OrganizationService } from '$lib/server/organization';
-import type { Session } from '@auth/core/types';
 import { error, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
