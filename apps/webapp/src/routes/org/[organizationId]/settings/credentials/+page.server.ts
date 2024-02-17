@@ -1,6 +1,14 @@
 import { getSelectedOrganization } from '$lib/server/action-utils';
 import { CredentialRepository, CredentialService } from '$lib/server/credential';
-import type { Actions } from './$types';
+import { superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
+import type { Actions, PageServerLoad } from './$types';
+import { schema } from './(forms)/CreateCredentialForm.schema';
+
+export const load: PageServerLoad = async () => {
+	const form = await superValidate(zod(schema));
+	return { CreateCredentialForm: form };
+};
 
 export const actions: Actions = {
 	/**
@@ -8,23 +16,12 @@ export const actions: Actions = {
 	 */
 	createCredential: async (event) => {
 		const organization = await getSelectedOrganization(event);
-		const data = await event.request.formData();
+		const form = await superValidate(event.request, zod(schema));
 		const cred = {
-			name: String(data.get('name')),
+			name: form.data.name,
 			organizationId: organization.id,
 			key: CredentialService.createCredentialKey()
 		};
-		const id = await CredentialRepository.create(cred);
-		return { ...cred, id };
-	},
-
-	/**
-	 * Creates a new client credential for the organization.
-	 */
-	revokeCredential: async (event) => {
-		const organization = await getSelectedOrganization(event);
-		const data = await event.request.formData();
-		const id = String(data.get('id'));
-		await CredentialRepository.remove(organization.id, id);
+		await CredentialRepository.create(cred);
 	}
 };
