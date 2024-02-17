@@ -1,5 +1,4 @@
 import { OrganizationRepository } from '$lib/server/organization';
-import type { Session } from '@auth/core/types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 
 /**
@@ -11,7 +10,10 @@ export async function getSelectedOrganization(event: RequestEvent) {
 	if (!event.params.organizationId) {
 		error(404);
 	}
-	const session = (await event.locals.getSession()) as Session;
+	const session = await event.locals.auth();
+	if (!session || !session.user?.id) {
+		error(403);
+	}
 	const organization = await OrganizationRepository.findById(event.params.organizationId);
 	if (!organization || !organization?.members.includes(session.user.id)) {
 		error(404);

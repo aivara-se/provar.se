@@ -1,7 +1,6 @@
 import { getSelectedOrganization } from '$lib/server/action-utils';
 import { OrganizationRepository, OrganizationService } from '$lib/server/organization';
-import type { Session } from '@auth/core/types';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
@@ -29,7 +28,10 @@ export const actions: Actions = {
 	 * Leaves the organization and delete the organization if there are no other members.
 	 */
 	leaveOrganization: async (event) => {
-		const session = (await event.locals.getSession()) as Session;
+		const session = await event.locals.auth();
+		if (!session || !session.user?.id) {
+			return error(403);
+		}
 		const organization = await getSelectedOrganization(event);
 		await OrganizationService.removeMember(organization.id, session.user.id);
 		redirect(302, '/');
