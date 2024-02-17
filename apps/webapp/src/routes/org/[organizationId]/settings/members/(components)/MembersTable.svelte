@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowBigRightIcon } from 'lucide-svelte';
+	import { ChevronRightIcon } from 'lucide-svelte';
 	import type { User } from '$lib/types';
 
 	export let members: User[] = [];
@@ -29,7 +29,7 @@
 					<td>{member.email}</td>
 					<td class="text-right">
 						<a href="./members/{member.id}" role="button" class="btn btn-sm btn-ghost">
-							<ArrowBigRightIcon class="w-4 h-4" />
+							<ChevronRightIcon class="w-4 h-4" />
 						</a>
 					</td>
 				</tr>

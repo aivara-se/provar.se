@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowBigRightIcon } from 'lucide-svelte';
+	import { ChevronRightIcon } from 'lucide-svelte';
 	import type { Credential } from '$lib/types';
 
 	export let credentials: Credential[] = [];
@@ -23,7 +23,7 @@
 					<td>{credential.lastUsedAt?.toLocaleDateString()}</td>
 					<td class="text-right">
 						<a href="./credentials/{credential.id}" role="button" class="btn btn-sm btn-ghost">
-							<ArrowBigRightIcon class="w-4 h-4" />
+							<ChevronRightIcon class="w-4 h-4" />
 						</a>
 					</td>
 				</tr>

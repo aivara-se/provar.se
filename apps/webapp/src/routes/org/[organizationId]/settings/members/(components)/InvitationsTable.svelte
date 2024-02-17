@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowBigRightIcon } from 'lucide-svelte';
+	import { ChevronRightIcon } from 'lucide-svelte';
 	import type { Invitation } from '$lib/types';
 
 	export let invitations: Invitation[] = [];
@@ -34,7 +34,7 @@
 							role="button"
 							class="btn btn-sm btn-ghost"
 						>
-							<ArrowBigRightIcon class="w-4 h-4" />
+							<ChevronRightIcon class="w-4 h-4" />
 						</a>
 					</td>
 				</tr>
