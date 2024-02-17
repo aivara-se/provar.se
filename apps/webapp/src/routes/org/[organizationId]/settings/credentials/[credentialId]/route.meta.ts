@@ -5,7 +5,7 @@ export default defineRoute({
 	id: 'credential-details',
 	tabs: ['org-settings-organization', 'org-settings-members', 'org-settings-credentials'],
 	parent: parentRoute,
-	getName: () => 'Details',
+	getName: () => 'Credential Details',
 	getPath: (params) => `/org/${params.organizationId}/settings/credentials/${params.credentialId}`,
 	isActive: (path, params) =>
 		path.startsWith(`/org/${params.organizationId}/settings/credentials/${params.credentialId}`)
