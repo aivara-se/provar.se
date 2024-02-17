@@ -5,9 +5,7 @@
 
 	export let route: Route;
 
-	$: organizationLink = getHomeUrl($page.params);
-	$: organizationName = $page.data?.organization?.name || '';
-
+	$: homeLink = getHomeUrl($page.params);
 	$: segments = getBreadcrumbs(route).map((r) => ({
 		id: r.id,
 		name: r.getName($page.params),
@@ -18,10 +16,7 @@
 <div class="text-sm antialiased breadcrumbs items-end">
 	<ul>
 		<li>
-			<a href="/"><HomeIcon class="w-4 h-4" /></a>
-		</li>
-		<li>
-			<a href={organizationLink}>{organizationName}</a>
+			<a href={homeLink}><HomeIcon class="w-4 h-4" /></a>
 		</li>
 		{#each segments as segment (segment.id)}
 			<li>

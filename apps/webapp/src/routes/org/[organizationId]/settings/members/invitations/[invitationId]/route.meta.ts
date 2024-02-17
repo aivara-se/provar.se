@@ -5,7 +5,7 @@ export default defineRoute({
 	id: 'invitation-details',
 	tabs: ['org-settings-organization', 'org-settings-members', 'org-settings-credentials'],
 	parent: parentRoute,
-	getName: () => 'Invitation',
+	getName: () => 'Invitation Details',
 	getPath: (params) =>
 		`/org/${params.organizationId}/settings/members/invitations/${params.invitationId}`,
 	isActive: (path, params) =>
