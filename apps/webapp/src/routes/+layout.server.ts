@@ -1,4 +1,5 @@
 import { OrganizationRepository } from '$lib/server/organization';
+import { UserRepository } from '$lib/server/user';
 import type { Session } from '@auth/core/types';
 import type { LayoutServerLoad } from './$types';
 
@@ -8,8 +9,11 @@ import type { LayoutServerLoad } from './$types';
 export const load: LayoutServerLoad = async (event) => {
 	const session = (await event.locals.getSession()) as Session;
 	if (!session) {
-		return { session: null, organizations: [] };
+		return { session: null, profile: null, organizations: [] };
 	}
-	const organizations = await OrganizationRepository.findByMember(session.user.id);
-	return { session, organizations };
+	const [profile, organizations] = await Promise.all([
+		UserRepository.findById(session.user.id),
+		OrganizationRepository.findByMember(session.user.id)
+	]);
+	return { session, profile, organizations };
 };
