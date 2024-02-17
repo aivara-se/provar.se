@@ -6,7 +6,9 @@
 
 	export let type: string = 'text';
 	export let label: string = '';
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	export let errors: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	export let constraints: InputConstraints<any>[''];
 	export let className: string = '';
 </script>
