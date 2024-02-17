@@ -13,11 +13,9 @@
 		Delete the organization!
 		<AlertCircleIcon class="w-5 h-5" />
 	</h3>
-	<p class="text-sm">
+	<p class="text-sm mt-2">
 		Deleting this organization will permanently erase all collected feedback data, including
-		associated records and information. Proceeding with this action cannot be undone. Please ensure
-		that you have backed up any critical data or exported necessary information before deleting the
-		organization. This action cannot be reversed.
+		associated records and information. This action cannot be reversed.
 	</p>
 	<button class="btn btn-sm btn-neutral mt-4" on:click={() => (isOpen = true)}>
 		Delete {organization?.name}
