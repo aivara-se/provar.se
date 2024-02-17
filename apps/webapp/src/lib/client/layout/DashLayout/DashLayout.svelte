@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { type Route } from '$lib/client/routes';
+	import type { Route } from '$lib/client/routes';
+	import AvatarMenu from './_components/AvatarMenu.svelte';
 	import Breadcrumbs from './_components/Breadcrumbs.svelte';
 	import ContentTabs from './_components/ContentTabs.svelte';
 	import MobileMenu from './_components/MobileMenu.svelte';
@@ -18,8 +19,9 @@
 	</aside>
 
 	<section class="flex-1 mx-4">
-		<header class="flex flex-row items-center h-12 px-2">
+		<header class="flex flex-row items-center justify-between h-12 px-2">
 			<Breadcrumbs {route} />
+			<AvatarMenu />
 		</header>
 		<main class="w-full min-h-screen p-4 md:p-8 rounded-xl bg-white dark:bg-black/20 shadow">
 			{#if route.tabs && route.tabs.length > 0}

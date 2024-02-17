@@ -13,7 +13,7 @@
 	}));
 </script>
 
-<div class="text-sm antialiased breadcrumbs items-end">
+<div class="text-sm antialiased breadcrumbs">
 	<ul>
 		<li>
 			<a href={homeLink}><HomeIcon class="w-4 h-4" /></a>
