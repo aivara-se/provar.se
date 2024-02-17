@@ -9,5 +9,6 @@ export interface Invitation {
 	name: string;
 	link: string;
 	email: string;
+	image: string;
 	organizationId: string;
 }

@@ -5,13 +5,13 @@
 	export let credentials: Credential[] = [];
 </script>
 
-<div>
+{#if credentials.length}
 	<table class="table">
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Created At</th>
-				<th>Last Used</th>
+				<th>Created at</th>
+				<th>Last used</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -30,4 +30,4 @@
 			{/each}
 		</tbody>
 	</table>
-</div>
+{/if}

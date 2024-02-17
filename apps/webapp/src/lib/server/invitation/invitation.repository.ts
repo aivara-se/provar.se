@@ -1,6 +1,7 @@
 import { getMongoClient } from '$lib/server/database';
 import type { Invitation } from '$lib/types';
 import { ObjectId, type Collection } from 'mongodb';
+import { createGravatarLink } from '../gravatar';
 import { createInvitationLink } from './invitation.utils';
 
 /**
@@ -33,6 +34,7 @@ function fromDocument(doc: InvitationDocument): Invitation {
 		name: doc.name,
 		link: createInvitationLink(doc.key),
 		email: doc.email,
+		image: createGravatarLink(doc.email),
 		organizationId: doc.organizationId.toHexString()
 	};
 }

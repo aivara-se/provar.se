@@ -13,7 +13,7 @@
 		<slot />
 		<footer class="flex justify-around gap-4">
 			<form method="POST" action={submitPath} use:enhance>
-				<button class="btn btn-neutral">{submitText}</button>
+				<button class="btn btn-neutral" on:click={() => (isOpen = false)}>{submitText}</button>
 			</form>
 			<button class="btn btn-ghost" on:click={() => (isOpen = false)}> Cancel </button>
 		</footer>
