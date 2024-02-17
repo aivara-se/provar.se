@@ -5,8 +5,10 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "vite build && ./scripts/postbuild.sh",
+		"build:docker": "docker build -t provar-webapp:latest .",
 		"preview": "vite preview",
+		"preview:docker": "docker run -it --rm --env-file ./.env -p 5173:5173 provar-webapp:latest",
 		"test": "npm run test:integration && npm run test:unit",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -39,7 +41,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
-		"@sveltejs/adapter-auto": "^3.1.1",
+		"@sveltejs/adapter-node": "^4.0.1",
 		"@sveltejs/kit": "^2.5.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
 		"@tailwindcss/typography": "^0.5.10",
