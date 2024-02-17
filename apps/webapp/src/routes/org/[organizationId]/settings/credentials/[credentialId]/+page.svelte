@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { DashLayout } from '$lib/client/layout';
-	import { Delete } from 'lucide-svelte';
-	import route from './route.meta';
 	import DeleteCredentialBlock from './(components)/DeleteCredentialBlock.svelte';
+	import route from './route.meta';
 
 	export let data;
 

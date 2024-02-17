@@ -17,6 +17,6 @@ export const actions: Actions = {
 		const form = await superValidate(event.request, zod(schema));
 		const { name } = form.data;
 		const orgId = await OrganizationService.create(session.user.id, name);
-		redirect(303, `/org/${orgId}`);
+		redirect(302, `/org/${orgId}`);
 	}
 };

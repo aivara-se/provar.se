@@ -1,17 +1,13 @@
 import { getSelectedOrganization } from '$lib/server/action-utils';
-import { InvitationRepository, InvitationService } from '$lib/server/invitation';
-import { OrganizationService } from '$lib/server/organization';
-import { UserRepository } from '$lib/server/user';
+import { InvitationService } from '$lib/server/invitation';
+import { superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
+import { schema } from './(forms)/InviteMemberForm.schema';
 
-/**
- * Loads the organization's members.
- */
-export const load: PageServerLoad = async (event) => {
-	const { organization } = await event.parent();
-	const members = await UserRepository.findByIds(organization.members);
-	const invitations = await InvitationRepository.findByOrganization(organization.id);
-	return { members, invitations };
+export const load: PageServerLoad = async () => {
+	const form = await superValidate(zod(schema));
+	return { InviteMemberForm: form };
 };
 
 export const actions: Actions = {
@@ -20,39 +16,8 @@ export const actions: Actions = {
 	 */
 	inviteMember: async (event) => {
 		const organization = await getSelectedOrganization(event);
-		const data = await event.request.formData();
-		const name = String(data.get('name'));
-		const email = String(data.get('email'));
+		const form = await superValidate(event.request, zod(schema));
+		const { name, email } = form.data;
 		await InvitationService.invite(organization.id, name, email);
-	},
-
-	/**
-	 * Resends an invitation email.
-	 */
-	resendInvitation: async (event) => {
-		const organization = await getSelectedOrganization(event);
-		const data = await event.request.formData();
-		const invitationId = String(data.get('id'));
-		await InvitationService.resend(organization.id, invitationId);
-	},
-
-	/**
-	 * Revokes an invitation to join the organization.
-	 */
-	revokeInvitation: async (event) => {
-		const organization = await getSelectedOrganization(event);
-		const data = await event.request.formData();
-		const invitationId = String(data.get('id'));
-		await InvitationRepository.remove(organization.id, invitationId);
-	},
-
-	/**
-	 * Remove a member from the organization.
-	 */
-	revokeMembership: async (event) => {
-		const organization = await getSelectedOrganization(event);
-		const data = await event.request.formData();
-		const userId = String(data.get('id'));
-		await OrganizationService.removeMember(organization.id, userId);
 	}
 };

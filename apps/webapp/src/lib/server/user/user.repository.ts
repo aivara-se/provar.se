@@ -1,6 +1,8 @@
 import { getMongoClient } from '$lib/server/database';
-import { ObjectId, type Collection } from 'mongodb';
 import type { User } from '$lib/types';
+import { ObjectId, type Collection } from 'mongodb';
+import { createGravatarLink } from '../gravatar';
+import { getUserInitials, getUserName } from './user.utils';
 
 /**
  * The name of the MongoDB collection for users.
@@ -24,9 +26,10 @@ type UserDocument = {
 function fromDocument(doc: UserDocument): User {
 	return {
 		id: doc._id.toHexString(),
-		name: doc.name,
+		name: getUserName(doc.name, doc.email),
 		email: doc.email,
-		image: doc.image
+		image: doc.image || createGravatarLink(doc.email),
+		initials: getUserInitials(doc.name, doc.email)
 	};
 }
 
