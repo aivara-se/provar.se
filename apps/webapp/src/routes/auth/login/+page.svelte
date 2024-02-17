@@ -18,7 +18,7 @@
 				<div class="label">
 					<span class="label-text">Email</span>
 				</div>
-				<input type="text" class="input input-bordered w-full" bind:value={email} />
+				<input type="text" name="email" class="input input-bordered w-full" bind:value={email} />
 			</label>
 			<input type="submit" class="btn btn-md btn-block btn-neutral" value="Login with email" />
 		</form>
