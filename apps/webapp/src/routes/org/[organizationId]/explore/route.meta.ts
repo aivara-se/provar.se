@@ -6,6 +6,5 @@ export default defineRoute({
 	icon: SearchIcon,
 	sidebar: { weight: 10, mobile: true },
 	getName: () => 'Explore',
-	getPath: (params) => `/org/${params.organizationId}/explore`,
-	isActive: (path, params) => path.startsWith(`/org/${params.organizationId}/explore`)
+	getPath: (params) => `/org/${params.organizationId}/explore`
 });

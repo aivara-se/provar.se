@@ -6,6 +6,5 @@ export default defineRoute({
 	icon: FoldersIcon,
 	sidebar: { weight: 20, mobile: true },
 	getName: () => 'Projects',
-	getPath: (params) => `/org/${params.organizationId}/projects`,
-	isActive: (path, params) => path.startsWith(`/org/${params.organizationId}/projects`)
+	getPath: (params) => `/org/${params.organizationId}/projects`
 });
