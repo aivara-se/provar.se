@@ -4,14 +4,31 @@
 	import { signOut } from '@auth/sveltekit/client';
 	import { AsteriskIcon, LogOutIcon } from 'lucide-svelte';
 
+	let element: HTMLDetailsElement;
+
 	$: items = $profile.organizations.map((organization) => ({
 		id: organization.id,
 		name: organization.name,
 		isActive: $page.url.pathname.includes(`/org/${organization.id}`)
 	}));
+
+	function closeDropdown() {
+		element.removeAttribute('open');
+	}
+
+	function onKeyDown(event: KeyboardEvent) {
+		if (event.key !== 'Escape') {
+			return;
+		}
+		event.preventDefault();
+		closeDropdown();
+		if (document.activeElement instanceof HTMLElement) {
+			document.activeElement.blur();
+		}
+	}
 </script>
 
-<details class="dropdown dropdown-end">
+<details bind:this={element} class="dropdown dropdown-end">
 	<summary class="flex list-none">
 		<div class="avatar">
 			<div class="w-8 h-8 rounded-full shadow-lg">
@@ -51,3 +68,5 @@
 		</ul>
 	</section>
 </details>
+
+<svelte:window on:keydown={onKeyDown} />

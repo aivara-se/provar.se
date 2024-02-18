@@ -1,3 +1,5 @@
+import type { Action } from '$lib/client/action';
+
 export interface Route {
 	id: string;
 
@@ -14,6 +16,9 @@ export interface Route {
 	// Flag: the route should be shown on the sidebar
 	sidebar?: { weight: number; mobile?: boolean };
 
+	// Flag: the route should be hidden from breadcrumbs
+	hidden?: boolean;
+
 	// The page name with given route parameters
 	getName: (params: Record<string, string>) => string;
 
@@ -22,4 +27,7 @@ export interface Route {
 
 	// Checks if the route is active for the given path and parameters
 	isActive?: (path: string, params: Record<string, string>) => boolean;
+
+	// Get actions the user can perform on a route and parent routes
+	getActions?(path: string, params: Record<string, string>): Action[];
 }

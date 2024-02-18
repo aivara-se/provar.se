@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { getMenuItems } from '$lib/client/routes';
 	import { BookIcon } from 'lucide-svelte';
-	import { getMenuItems, type Route } from '$lib/client/routes';
-
-	export let route: Route;
 
 	$: items = getMenuItems().map((route) => {
 		return {
