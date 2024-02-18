@@ -4,7 +4,6 @@
 	export let name: string;
 	export let value: string;
 
-	export let type: string = 'text';
 	export let label: string = '';
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	export let errors: any;

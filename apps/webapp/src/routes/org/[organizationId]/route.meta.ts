@@ -2,9 +2,9 @@ import { defineRoute } from '$lib/client/routes';
 import parentRoute from '../route.meta';
 
 export default defineRoute({
-	id: 'org-list',
+	id: 'org-root',
 	hidden: true,
 	parent: parentRoute,
-	getName: () => 'Organizations',
-	getPath: () => '/org'
+	getName: () => 'Organization',
+	getPath: (params) => `/org/${params.organizationId}`
 });

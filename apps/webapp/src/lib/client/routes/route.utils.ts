@@ -38,6 +38,15 @@ export function getChildRoutes(id: string) {
 }
 
 /**
+ * Returns an array of active route definitions for a given path.
+ */
+export function getActiveRoutes(path: string, params: Record<string, string>): Route[] {
+	return getRoutes()
+		.filter((route) => route.isActive && route.isActive(path, params))
+		.sort((a, b) => b.getPath(params).length - a.getPath(params).length);
+}
+
+/**
  * Returns routes that should be shown in the sidebar.
  */
 export function getMenuItems(): Route[] {
@@ -64,7 +73,9 @@ export function getBreadcrumbs(route: Route): Route[] {
 	const breadcrumbs: Route[] = [];
 	let currentRoute: Route | null = route;
 	while (currentRoute) {
-		breadcrumbs.unshift(currentRoute);
+		if (!currentRoute.hidden) {
+			breadcrumbs.unshift(currentRoute);
+		}
 		currentRoute = currentRoute.parent ? routes[currentRoute.parent.id] : null;
 	}
 	return breadcrumbs;

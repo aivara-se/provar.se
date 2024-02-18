@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { getMenuItems, type Route } from '$lib/client/routes';
-
-	export let route: Route;
+	import { getMenuItems } from '$lib/client/routes';
 
 	$: items = getMenuItems()
 		.filter((route) => route.sidebar?.mobile)

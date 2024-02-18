@@ -13,7 +13,7 @@
 	<aside class="hidden md:flex flex-col w-32 ml-4 relative">
 		<div class="fixed flex flex-col items-center top-12 bottom-0 left-4 w-32">
 			<div class="flex flex-1">
-				<SidebarMenu {route} />
+				<SidebarMenu />
 			</div>
 		</div>
 	</aside>
@@ -33,6 +33,6 @@
 	</section>
 
 	<nav class="flex md:hidden">
-		<MobileMenu {route} />
+		<MobileMenu />
 	</nav>
 </div>
