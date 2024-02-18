@@ -10,6 +10,9 @@ const routes: Record<string, Route> = {};
  */
 export function defineRoute(route: Route): Route {
 	routes[route.id] = route;
+	if (!route.isActive) {
+		route.isActive = (path, params) => path.startsWith(route.getPath(params));
+	}
 	return route;
 }
 

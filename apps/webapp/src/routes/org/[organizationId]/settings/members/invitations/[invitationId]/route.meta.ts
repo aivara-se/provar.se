@@ -7,9 +7,5 @@ export default defineRoute({
 	parent: parentRoute,
 	getName: () => 'Invitation Details',
 	getPath: (params) =>
-		`/org/${params.organizationId}/settings/members/invitations/${params.invitationId}`,
-	isActive: (path, params) =>
-		path.startsWith(
-			`/org/${params.organizationId}/settings/members/invitations/${params.invitationId}`
-		)
+		`/org/${params.organizationId}/settings/members/invitations/${params.invitationId}`
 });
