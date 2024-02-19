@@ -825,13 +825,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.56.0":
-  version: 8.56.0
-  resolution: "@types/eslint@npm:8.56.0"
+"@types/eslint@npm:8.56.2":
+  version: 8.56.2
+  resolution: "@types/eslint@npm:8.56.2"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 10/0405403788b9b8b3dbce59b668cdf5f7dc3b3fe5f82a4bf335cd7c936b95df83d892bd70af69f0d4f463125b45d15084dc5c0eeda9982d80ddbd988aa6758b63
+  checksum: 10/9e4805e770ea90a561e1f69e5edce28b8f66e92e290705100e853c7c252cf87bef654168d0d47fc60c0effbe4517dd7a8d2fa6d3f04c7f831367d568009fd368
   languageName: node
   linkType: hard
 
@@ -5539,7 +5539,7 @@ __metadata:
     "@sveltejs/kit": "npm:^2.5.0"
     "@sveltejs/vite-plugin-svelte": "npm:^3.0.2"
     "@tailwindcss/typography": "npm:^0.5.10"
-    "@types/eslint": "npm:8.56.0"
+    "@types/eslint": "npm:8.56.2"
     "@types/lodash": "npm:^4.14.202"
     "@types/nodemailer": "npm:^6.4.14"
     "@types/qs": "npm:^6.9.11"
