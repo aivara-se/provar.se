@@ -1847,15 +1847,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^4.6.2":
-  version: 4.6.2
-  resolution: "daisyui@npm:4.6.2"
+"daisyui@npm:^4.7.2":
+  version: 4.7.2
+  resolution: "daisyui@npm:4.7.2"
   dependencies:
     css-selector-tokenizer: "npm:^0.8"
     culori: "npm:^3"
     picocolors: "npm:^1"
     postcss-js: "npm:^4"
-  checksum: 10/25f930ff533a57a5296fc487734c298ef8048b5582673f84d4f87021dd916a3ae1e9db58055deff3e685d2bf2714ce5b5fb5545ac2b7c7cd19e9d9a6907e2bd8
+  checksum: 10/998caa986ff5bab19aa1fdd73d26c8b6fc08bfb4f020ac57807530706a01ec6f8e01c96b37361cba53f16957eaddd40af62842afd8548bf2347ef64df88f8ed2
   languageName: node
   linkType: hard
 
@@ -5548,7 +5548,7 @@ __metadata:
     autoprefixer: "npm:^10.4.17"
     chart.js: "npm:^4.4.1"
     chartjs-adapter-date-fns: "npm:^3.0.0"
-    daisyui: "npm:^4.6.2"
+    daisyui: "npm:^4.7.2"
     date-fns: "npm:^3.3.1"
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^9.1.0"
