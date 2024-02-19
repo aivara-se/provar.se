@@ -3346,12 +3346,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-svelte@npm:^0.323.0":
-  version: 0.323.0
-  resolution: "lucide-svelte@npm:0.323.0"
+"lucide-svelte@npm:^0.334.0":
+  version: 0.334.0
+  resolution: "lucide-svelte@npm:0.334.0"
   peerDependencies:
     svelte: ^3 || ^4 || ^5.0.0-next.42
-  checksum: 10/499cb6f801955b9f6ec454b2e1baa1a7d39378da9f9c9973c16864930e32f563bddc6ebb5139911a7378c1f29ae9b5a1c783cba6cf4b6f180a11c66c1269232d
+  checksum: 10/3f5e1f4b7ce5bda4e2f44cc1cd1a4dee3db5e1104e03a6107a487d648a09f70bdb66c118982524fb52b32b09493e6da0d7942b8b237905a48371abbc3635d598
   languageName: node
   linkType: hard
 
@@ -5555,7 +5555,7 @@ __metadata:
     eslint-plugin-svelte: "npm:^2.36.0-next.5"
     js-sha256: "npm:^0.11.0"
     lodash: "npm:^4.17.21"
-    lucide-svelte: "npm:^0.323.0"
+    lucide-svelte: "npm:^0.334.0"
     mongodb: "npm:^6.3.0"
     nodemailer: "npm:^6.9.9"
     overlayscrollbars: "npm:^2.5.0"
