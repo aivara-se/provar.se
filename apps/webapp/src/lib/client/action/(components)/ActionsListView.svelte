@@ -88,7 +88,7 @@
 				<div
 					tabindex="0"
 					role="button"
-					class="flex p-2 items-center rounded justify-between text-sm cursor-pointer hover:bg-gray-200 hover:dark:bg-gray-700 transition-all {focused ===
+					class="flex px-3 py-2 items-center rounded justify-between text-sm cursor-pointer hover:bg-gray-200 hover:dark:bg-gray-700 transition-all {focused ===
 					action
 						? 'bg-gray-200 dark:bg-gray-700'
 						: ''}"

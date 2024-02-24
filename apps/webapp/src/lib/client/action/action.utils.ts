@@ -7,7 +7,8 @@ import type { Action, ActionGroup } from './action.types';
 export function getActions(path: string, params: Record<string, string>): ActionGroup[] {
 	const routes = getActiveRoutes(path, params).filter((route) => route.getActions);
 	const actions = routes.flatMap((route) => route.getActions!(path, params));
-	return groupActions(actions);
+	const groups = groupActions(actions).map((group) => sortGroupActions(group));
+	return groups;
 }
 
 /**
@@ -23,6 +24,14 @@ function groupActions(actions: Action[]): ActionGroup[] {
 		}
 		return groups;
 	}, [] as ActionGroup[]);
+}
+
+/**
+ * Sorts actions in a group by their name in-place.
+ */
+function sortGroupActions(group: ActionGroup): ActionGroup {
+	group.actions.sort((a, b) => (a.name > b.name ? 1 : -1));
+	return group;
 }
 
 /**
