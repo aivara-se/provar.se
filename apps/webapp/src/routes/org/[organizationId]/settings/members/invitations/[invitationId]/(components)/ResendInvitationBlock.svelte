@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { ConfirmModal } from '$lib/client/forms';
-	import type { Invitation } from '$lib/types';
-
-	export let invitation: Invitation;
 
 	let isOpen = false;
 </script>

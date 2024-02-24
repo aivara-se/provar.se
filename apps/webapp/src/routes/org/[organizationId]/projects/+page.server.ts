@@ -19,7 +19,8 @@ export const actions: Actions = {
 		const form = await superValidate(event.request, zod(schema));
 		const cred = {
 			name: form.data.name,
-			organizationId: organization.id
+			organizationId: organization.id,
+			feedbackType: form.data.feedbackType
 		};
 		await ProjectRepository.create(cred);
 	}

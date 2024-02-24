@@ -30,6 +30,14 @@
 			constraints={$constraints.name}
 			bind:value={$form.name}
 		/>
+		<TextInput
+			name="feedbackType"
+			label="Feedback type"
+			className="border-none bg-black/10 dark:bg-white/10"
+			errors={$errors.feedbackType}
+			constraints={$constraints.feedbackType}
+			bind:value={$form.feedbackType}
+		/>
 		<button class="btn btn-sm w-24 btn-neutral mt-4">Create</button>
 	</form>
 </section>

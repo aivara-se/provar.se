@@ -35,6 +35,6 @@
 		</tbody>
 	</table>
 
-	<ResendInvitationBlock {invitation} />
-	<RevokeInvitationBlock {invitation} />
+	<ResendInvitationBlock />
+	<RevokeInvitationBlock />
 </DashLayout>

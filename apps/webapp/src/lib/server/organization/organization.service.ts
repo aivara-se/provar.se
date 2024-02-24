@@ -9,7 +9,6 @@ import * as OrganizationRepository from './organization.repository';
  */
 export async function create(userId: string, name: string): Promise<string> {
 	const id = await OrganizationRepository.create(userId, { name });
-	await ProjectRepository.create({ organizationId: id, name: 'Default' });
 	await CredentialRepository.create({
 		organizationId: id,
 		name: 'Default',
