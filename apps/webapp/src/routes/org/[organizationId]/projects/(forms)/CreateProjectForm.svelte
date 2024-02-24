@@ -1,9 +1,16 @@
 <script lang="ts">
-	import { TextInput } from '$lib/client/forms';
+	import { SelectInput, TextInput } from '$lib/client/forms';
 	import { toast } from '$lib/client/toast';
+	import { FeedbackType } from '$lib/types';
 	import { superForm } from 'sveltekit-superforms';
 
 	export let formData;
+
+	const FEEDBACK_TYPE_OPTIONS: { label: string; value: FeedbackType }[] = [
+		{ label: 'Simple Text Feedback', value: FeedbackType.Text },
+		{ label: 'Customer Satisfaction', value: FeedbackType.CSAT },
+		{ label: 'Net Promoter Score', value: FeedbackType.CNPS }
+	];
 
 	const { form, errors, constraints, enhance } = superForm(formData, {
 		onResult: ({ result }) => {
@@ -30,9 +37,10 @@
 			constraints={$constraints.name}
 			bind:value={$form.name}
 		/>
-		<TextInput
+		<SelectInput
 			name="feedbackType"
 			label="Feedback type"
+			options={FEEDBACK_TYPE_OPTIONS}
 			className="border-none bg-black/10 dark:bg-white/10"
 			errors={$errors.feedbackType}
 			constraints={$constraints.feedbackType}
