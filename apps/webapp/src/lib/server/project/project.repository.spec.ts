@@ -9,6 +9,7 @@ import {
 	removeAll,
 	update
 } from './project.repository';
+import { FeedbackType } from '../../types';
 
 const unknownId = new ObjectId();
 const projectId1 = new ObjectId();
@@ -38,7 +39,8 @@ describe('Project Repository', () => {
 		it('should create a new project', async () => {
 			const projectId = await create({
 				name: 'Test Project',
-				organizationId: organizationId1.toHexString()
+				organizationId: organizationId1.toHexString(),
+				feedbackType: FeedbackType.Text
 			});
 			const result = await collection.findOne({ _id: new ObjectId(projectId) });
 			expect(result).toEqual(
@@ -55,7 +57,8 @@ describe('Project Repository', () => {
 		it('should update an existing project', async () => {
 			const projectId = await create({
 				name: 'oldName',
-				organizationId: organizationId1.toHexString()
+				organizationId: organizationId1.toHexString(),
+				feedbackType: FeedbackType.Text
 			});
 			const organizationId = organizationId1.toHexString();
 			const newValues = { name: 'newName' };
@@ -74,7 +77,8 @@ describe('Project Repository', () => {
 		it('should remove a project', async () => {
 			const projectId = await create({
 				name: 'Test',
-				organizationId: organizationId1.toHexString()
+				organizationId: organizationId1.toHexString(),
+				feedbackType: FeedbackType.Text
 			});
 			await remove(organizationId1.toHexString(), projectId);
 			const result = await collection.findOne({ _id: new ObjectId(projectId) });
@@ -86,11 +90,13 @@ describe('Project Repository', () => {
 		it('should remove all projects of an organization', async () => {
 			await create({
 				name: 'Test1',
-				organizationId: organizationId1.toHexString()
+				organizationId: organizationId1.toHexString(),
+				feedbackType: FeedbackType.Text
 			});
 			await create({
 				name: 'Test2',
-				organizationId: organizationId1.toHexString()
+				organizationId: organizationId1.toHexString(),
+				feedbackType: FeedbackType.Text
 			});
 			await removeAll(organizationId1.toHexString());
 			const result = await collection.find({ organizationId: organizationId1 }).toArray();

@@ -1,9 +1,6 @@
 <script lang="ts">
-	import { AlertCircleIcon } from 'lucide-svelte';
 	import { ConfirmModal } from '$lib/client/forms';
-	import type { Invitation } from '$lib/types';
-
-	export let invitation: Invitation;
+	import { AlertCircleIcon } from 'lucide-svelte';
 
 	let isOpen = false;
 </script>
