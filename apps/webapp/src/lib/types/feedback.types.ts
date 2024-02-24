@@ -38,8 +38,8 @@ export type FeedbackTags = Record<string, string>;
  */
 interface BaseFeedback {
 	id: string;
-	createdAt: Date;
 	organizationId: string;
+	createdAt: Date;
 	projectId?: string;
 	type: FeedbackType;
 	meta?: FeedbackMeta;

@@ -1,5 +1,5 @@
 import { getMongoClient } from '$lib/server/database';
-import type { Project } from '$lib/types';
+import { ProjectStatus, type FeedbackType, type Project } from '$lib/types';
 import { ObjectId, type Collection } from 'mongodb';
 
 /**
@@ -15,8 +15,9 @@ interface ProjectDocument {
 	createdAt: Date;
 	name: string;
 	description?: string;
+	status: ProjectStatus;
 	organizationId: ObjectId;
-	collectionGoal?: number;
+	feedbackType: FeedbackType;
 }
 
 /**
@@ -28,8 +29,9 @@ function fromDocument(doc: ProjectDocument): Project {
 		createdAt: doc.createdAt,
 		name: doc.name,
 		description: doc.description ?? '',
+		status: doc.status,
 		organizationId: doc.organizationId.toHexString(),
-		collectionGoal: doc.collectionGoal ?? null
+		feedbackType: doc.feedbackType
 	};
 }
 
@@ -47,6 +49,7 @@ async function getCollection(): Promise<Collection<ProjectDocument>> {
 export interface CreateProjectData {
 	name: string;
 	organizationId: string;
+	feedbackType: FeedbackType;
 }
 
 /**
@@ -59,7 +62,9 @@ export async function create(data: CreateProjectData): Promise<string> {
 		_id: id,
 		createdAt: new Date(),
 		name: data.name,
-		organizationId: new ObjectId(data.organizationId)
+		organizationId: new ObjectId(data.organizationId),
+		status: ProjectStatus.Backlog,
+		feedbackType: data.feedbackType
 	});
 	return id.toHexString();
 }
