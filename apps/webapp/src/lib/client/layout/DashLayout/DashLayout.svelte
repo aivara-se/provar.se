@@ -23,7 +23,7 @@
 			<Breadcrumbs {route} />
 			<AvatarMenu />
 		</header>
-		<main class="w-full min-h-screen p-4 md:p-8 rounded-xl bg-white dark:bg-black/20 shadow">
+		<main class="w-full p-4 md:p-8 rounded-xl bg-white dark:bg-black/20 shadow">
 			{#if route.tabs && route.tabs.length > 0}
 				<ContentTabs tabs={route.tabs} />
 			{/if}
