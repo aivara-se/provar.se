@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { AuthLayout } from '$lib/client/layout';
-	</script>
+</script>
 
 <AuthLayout>
 	<div class="flex flex-col prose text-center">
