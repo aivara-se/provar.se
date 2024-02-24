@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { profile } from '$lib/client/profile';
 	import { signOut } from '@auth/sveltekit/client';
-	import { AsteriskIcon, LogOutIcon } from 'lucide-svelte';
+	import { LogOutIcon } from 'lucide-svelte';
 
 	let element: HTMLDetailsElement;
 
@@ -42,11 +42,8 @@
 		<ul class="mt-2">
 			{#each items as item (item.id)}
 				<li>
-					<a class="flex justify-between" href="/org/{item.id}">
+					<a class="flex justify-between" class:opacity-50={!item.isActive} href="/org/{item.id}">
 						{item.name}
-						{#if item.isActive}
-							<AsteriskIcon class="w-3 h-3" />
-						{/if}
 					</a>
 				</li>
 			{/each}
