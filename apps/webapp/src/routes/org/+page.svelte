@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { AuthLayout } from '$lib/client/layout';
-	import route from './route.meta';
 
 	$: organizations = $page.data.organizations || [];
 </script>
 
-<AuthLayout {route}>
+<AuthLayout>
 	<div class="flex flex-col w-80 gap-4">
 		<h1 class="text-lg font-medium antialiased">Organizations</h1>
 		{#each organizations as organization}

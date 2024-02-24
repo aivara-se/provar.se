@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { signIn } from '@auth/sveltekit/client';
 	import { AuthLayout } from '$lib/client/layout';
-	import route from './route.meta';
-	import GoogleIcon from './GoogleIcon.svelte';
+	import { signIn } from '@auth/sveltekit/client';
 	import GithubIcon from './GithubIcon.svelte';
+	import GoogleIcon from './GoogleIcon.svelte';
 
 	let email: string;
 </script>
 
-<AuthLayout {route}>
+<AuthLayout>
 	<div class="flex flex-col w-80 gap-4">
 		<form
 			class="flex flex-col gap-4"
