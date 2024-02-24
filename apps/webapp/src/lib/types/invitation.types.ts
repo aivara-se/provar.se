@@ -3,6 +3,7 @@
  */
 export interface Invitation {
 	id: string;
+	organizationId: string;
 	createdAt: Date;
 	acceptedAt?: Date;
 	key: string;
@@ -10,5 +11,4 @@ export interface Invitation {
 	link: string;
 	email: string;
 	image: string;
-	organizationId: string;
 }
