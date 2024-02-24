@@ -1,15 +1,8 @@
 <script lang="ts">
 	import { AuthLayout } from '$lib/client/layout';
-	import type { Route } from '$lib/client/routes';
-
-	const route: Route = {
-		id: 'page-500',
-		getName: () => 'Someting went wrong',
-		getPath: () => '/'
-	};
 </script>
 
-<AuthLayout {route}>
+<AuthLayout>
 	<div class="flex flex-col prose text-center">
 		<h2>Someting went wrong</h2>
 		<p>

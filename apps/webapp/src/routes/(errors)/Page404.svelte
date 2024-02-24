@@ -1,15 +1,8 @@
 <script lang="ts">
 	import { AuthLayout } from '$lib/client/layout';
-	import type { Route } from '$lib/client/routes';
+	</script>
 
-	const route: Route = {
-		id: 'page-404',
-		getName: () => 'Page not found',
-		getPath: () => '/'
-	};
-</script>
-
-<AuthLayout {route}>
+<AuthLayout>
 	<div class="flex flex-col prose text-center">
 		<h2>Page not found</h2>
 		<p>
