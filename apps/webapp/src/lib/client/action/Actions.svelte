@@ -62,9 +62,18 @@
 			}
 		}
 	}
+
+	function onClickOutside() {
+		closeModal();
+	}
 </script>
 
-<dialog class="modal p-8" class:modal-open={visible}>
+<div
+	role="presentation"
+	class="modal p-8"
+	class:modal-open={visible}
+	on:click|self={onClickOutside}
+>
 	<div class="w-full max-w-lg rounded-lg shadow-lg p-4 bg-gray-100 dark:bg-gray-800">
 		<header>
 			<ActionSearchInput bind:element={input} bind:value />
@@ -76,6 +85,6 @@
 			on:focus-search={() => focusSearch()}
 		/>
 	</div>
-</dialog>
+</div>
 
 <svelte:window on:keydown={onKeyDown} />
