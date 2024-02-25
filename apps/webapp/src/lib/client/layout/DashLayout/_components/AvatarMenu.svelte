@@ -66,4 +66,4 @@
 	</section>
 </details>
 
-<svelte:window on:keydown={onKeyDown} />
+<svelte:window on:keydown={onKeyDown} on:click={closeDropdown} />

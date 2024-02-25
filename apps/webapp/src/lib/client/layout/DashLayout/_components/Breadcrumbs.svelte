@@ -18,13 +18,13 @@
 </script>
 
 <button class="btn btn-sm pl-1 pr-2 gap-0.5 btn-ghost md:hidden" on:click={handleBack}>
-	<ChevronLeftIcon class="w-4 h-4" />Back
+	<ChevronLeftIcon class="w-3.5 h-3.5" />Back
 </button>
 
 <div class="text-sm antialiased breadcrumbs hidden md:flex">
 	<ul>
 		<li>
-			<a href={homeLink}><HomeIcon class="w-4 h-4" /></a>
+			<a href={homeLink}><HomeIcon class="w-3.5 h-3.5" /></a>
 		</li>
 		{#each segments as segment (segment.id)}
 			<li>
