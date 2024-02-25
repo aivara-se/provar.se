@@ -6,7 +6,7 @@
 </script>
 
 <DashLayout {route}>
-	<section slot="actions" class="flex gap-1 items-center">
+	<section slot="actions" class="flex gap-2 items-center">
 		<DurationPicker />
 		<ActionsDropdown />
 	</section>
