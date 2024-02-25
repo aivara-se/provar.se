@@ -1,5 +1,6 @@
 import { getSelectedOrganization } from '$lib/server/action-utils';
 import { ProjectRepository } from '$lib/server/project';
+import { redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
@@ -17,11 +18,12 @@ export const actions: Actions = {
 	createProject: async (event) => {
 		const organization = await getSelectedOrganization(event);
 		const form = await superValidate(event.request, zod(schema));
-		const cred = {
+		const project = {
 			name: form.data.name,
 			organizationId: organization.id,
 			feedbackType: form.data.feedbackType
 		};
-		await ProjectRepository.create(cred);
+		const projectId = await ProjectRepository.create(project);
+		redirect(302, `/org/${organization.id}/projects/${projectId}`);
 	}
 };
