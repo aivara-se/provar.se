@@ -4,5 +4,6 @@
 </script>
 
 <DashLayout {route}>
-	<p>[feedback]</p>
+	<p slot="actions">[actions]</p>
+	<p>[explore]</p>
 </DashLayout>

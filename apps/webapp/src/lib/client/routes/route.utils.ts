@@ -67,6 +67,16 @@ export function getHomeUrl(params: Record<string, string>) {
 }
 
 /**
+ * Returns link to the parent route on the breadcrumb
+ */
+export function getParentUrl(route: Route, params: Record<string, string>) {
+	if (route.parent) {
+		return route.parent.getPath(params);
+	}
+	return getHomeUrl(params);
+}
+
+/**
  * Returns breadcrumbs for a given route definition
  */
 export function getBreadcrumbs(route: Route): Route[] {
