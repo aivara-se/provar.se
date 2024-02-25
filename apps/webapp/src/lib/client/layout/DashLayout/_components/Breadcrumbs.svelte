@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getBreadcrumbs, getHomeUrl, type Route } from '$lib/client/routes';
-	import { HomeIcon } from 'lucide-svelte';
+	import { HomeIcon, ChevronLeftIcon } from 'lucide-svelte';
 
 	export let route: Route;
 
@@ -11,9 +11,17 @@
 		name: r.getName($page.params),
 		path: r.getPath($page.params)
 	}));
+
+	function handleBack() {
+		history.back();
+	}
 </script>
 
-<div class="text-sm antialiased breadcrumbs">
+<button class="btn btn-sm pl-1 pr-2 gap-0.5 btn-ghost md:hidden" on:click={handleBack}>
+	<ChevronLeftIcon class="w-4 h-4" />Back
+</button>
+
+<div class="text-sm antialiased breadcrumbs hidden md:flex">
 	<ul>
 		<li>
 			<a href={homeLink}><HomeIcon class="w-4 h-4" /></a>

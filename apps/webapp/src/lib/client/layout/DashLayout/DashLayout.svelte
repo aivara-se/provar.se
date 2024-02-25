@@ -21,7 +21,10 @@
 	<section class="flex-1 mx-4">
 		<header class="flex flex-row items-center justify-between h-12 px-2">
 			<Breadcrumbs {route} />
-			<AvatarMenu />
+			<div class="flex gap-2 items-center">
+				<slot name="actions" />
+				<AvatarMenu />
+			</div>
 		</header>
 		<main class="w-full p-4 md:p-8 rounded-xl bg-white dark:bg-black/20 shadow">
 			{#if route.tabs && route.tabs.length > 0}
