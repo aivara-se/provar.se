@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { DashLayout } from '$lib/client/layout';
-	import DurationPicker from './(components)/DurationPicker.svelte';
 	import ActionsDropdown from './(components)/ActionsDropdown.svelte';
+	import DurationPicker from './(components)/DurationPicker.svelte';
+	import FeedbackResults from './(components)/FeedbackResults.svelte';
+	import SearchAndFilter from './(components)/SearchAndFilter.svelte';
 	import route from './route.meta';
 </script>
 
@@ -11,5 +13,6 @@
 		<ActionsDropdown />
 	</section>
 
-	<p>[explore]</p>
+	<SearchAndFilter />
+	<FeedbackResults />
 </DashLayout>
