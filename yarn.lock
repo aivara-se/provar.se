@@ -776,7 +776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinclair/typebox@npm:^0.32.13":
+"@sinclair/typebox@npm:^0.32.14":
   version: 0.32.14
   resolution: "@sinclair/typebox@npm:0.32.14"
   checksum: 10/3faaf7090c101a3b3eb594531f387b3348e21af127795bc1de12ecfe4acb5682ae84211f286d1ac9034d66aff967b696b2038d33aff9f5cd10c17dcaf4c5d06c
@@ -3242,16 +3242,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"joi@npm:^17.12.1":
-  version: 17.12.1
-  resolution: "joi@npm:17.12.1"
+"joi@npm:^17.12.2":
+  version: 17.12.2
+  resolution: "joi@npm:17.12.2"
   dependencies:
     "@hapi/hoek": "npm:^9.3.0"
     "@hapi/topo": "npm:^5.1.0"
     "@sideway/address": "npm:^4.1.5"
     "@sideway/formula": "npm:^3.0.1"
     "@sideway/pinpoint": "npm:^2.0.0"
-  checksum: 10/6c48ed73e091d6328d9062aa9647b83e971004f2ab7a58a0e8bdee68cd4295e4141981a79461f85bd70333a77d6865fc2420bf9b392e2287384008f4f781ea71
+  checksum: 10/42257382802f622a4152cc4dbf5bca226a312a8315bf826262f5643d8e450d2f2d9c753abfef247b8c3121423639a02945b322ccac5abde17402dedcb26b9365
   languageName: node
   linkType: hard
 
@@ -5158,17 +5158,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sveltekit-superforms@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "sveltekit-superforms@npm:2.2.0"
+"sveltekit-superforms@npm:^2.6.2":
+  version: 2.6.2
+  resolution: "sveltekit-superforms@npm:2.6.2"
   dependencies:
     "@gcornut/valibot-json-schema": "npm:^0.0.22"
-    "@sinclair/typebox": "npm:^0.32.13"
+    "@sinclair/typebox": "npm:^0.32.14"
     "@sodaru/yup-to-json-schema": "npm:^2.0.1"
     "@vinejs/vine": "npm:^1.7.1"
     arktype: "npm:1.0.29-alpha"
     devalue: "npm:^4.3.2"
-    joi: "npm:^17.12.1"
+    joi: "npm:^17.12.2"
     just-clone: "npm:^6.2.0"
     memoize-weak: "npm:^1.0.2"
     superstruct: "npm:^1.0.3"
@@ -5228,7 +5228,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10/f02075cf9a245d0747f1b91d928c756cc5149396c868d2966ea2046ab0b4bd015543a596c711ab6a9299ebd6cb7f5b053ea1543e01f2f954fbd56c7b00512202
+  checksum: 10/859b2cd964ab238301c9216746613e0770ce548f2988d197579bdf0ab148788e4ac08436319d5d6350e7a2eec607d1d27563f6e1a7a659f20cbecc7ca6690f10
   languageName: node
   linkType: hard
 
@@ -5733,7 +5733,7 @@ __metadata:
     qs: "npm:^6.11.2"
     svelte: "npm:^4.2.12"
     svelte-check: "npm:^3.6.4"
-    sveltekit-superforms: "npm:^2.2.0"
+    sveltekit-superforms: "npm:^2.6.2"
     tailwindcss: "npm:^3.4.1"
     tslib: "npm:^2.4.1"
     typescript: "npm:^5.3.3"
