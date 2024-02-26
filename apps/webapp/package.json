@@ -35,7 +35,7 @@
 		"overlayscrollbars": "^2.5.0",
 		"overlayscrollbars-svelte": "^0.5.3",
 		"qs": "^6.11.2",
-		"sveltekit-superforms": "^2.2.0",
+		"sveltekit-superforms": "^2.6.2",
 		"tslib": "^2.4.1",
 		"zod": "^3.22.4"
 	},
