@@ -2,6 +2,7 @@ import { getSelectedOrganization } from '$lib/server/action-utils';
 import { CredentialService } from '$lib/server/credential';
 import { FeedbackService } from '$lib/server/feedback';
 import { importFeedback } from '$lib/server/provar-api';
+import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
@@ -24,5 +25,6 @@ export const actions: Actions = {
 		const { signedUrl } = await FeedbackService.createReadableUrl(organization.id, name);
 		const credential = await CredentialService.getImportCredential(organization.id);
 		await importFeedback(credential.key, signedUrl);
+		redirect(302, `/org/${organization.id}`);
 	}
 };
