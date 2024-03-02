@@ -1,9 +1,14 @@
 <script lang="ts">
-	import { endOfToday, startOfDay, endOfDay, format } from 'date-fns';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { addDays, endOfDay, endOfToday, format, startOfDay } from 'date-fns';
 	import { CalendarRangeIcon } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
-	export let endDate = endOfToday();
-	export let begDate = withOffset(endDate, -30);
+	export let range = {
+		beg: startOfDay(addDays(endOfToday(), -29)),
+		end: endOfToday()
+	};
 
 	let dateRangePresets = [
 		{ label: '1 Day', days: 1, isActive: false },
@@ -11,30 +16,52 @@
 		{ label: '1 Month', days: 30, isActive: false }
 	];
 
+	onMount(() => {
+		const begDateParam = $page.url.searchParams.get('beg');
+		const endDateParam = $page.url.searchParams.get('end');
+		if (!begDateParam || !endDateParam) {
+			setDateRange(range);
+		}
+	});
+
+	$: {
+		const begDateParam = $page.url.searchParams.get('beg');
+		const endDateParam = $page.url.searchParams.get('end');
+		if (begDateParam && endDateParam) {
+			range = {
+				beg: startOfDay(new Date(begDateParam)),
+				end: endOfDay(new Date(endDateParam))
+			};
+		}
+	}
+
 	$: {
 		const ONE_DAY = 24 * 60 * 60 * 1000;
-		const current = Math.ceil((endDate.getTime() - begDate.getTime()) / ONE_DAY);
-		const endsToday = endDate.getTime() === endOfToday().getTime();
+		const current = Math.ceil((range.end.getTime() - range.beg.getTime()) / ONE_DAY);
+		const endsToday = range.end.getTime() === endOfToday().getTime();
 		for (const preset of dateRangePresets) {
 			preset.isActive = endsToday && preset.days === current;
 		}
 		dateRangePresets = dateRangePresets;
 	}
 
-	function withOffset(base: Date, days: number) {
-		const ts = base.getTime() + days * 24 * 60 * 60 * 1000;
-		return new Date(ts);
+	function setDuration(days: number) {
+		const newEndDate = endOfToday();
+		const newBegDate = startOfDay(addDays(newEndDate, 1 + -1 * days));
+		setDateRange({ beg: newBegDate, end: newEndDate });
 	}
 
-	function setDuration(days: number) {
-		endDate = endOfToday();
-		begDate = withOffset(endDate, -1 * days);
+	function setDateRange(range: { beg: Date; end: Date }) {
+		const url = new URL($page.url.toString());
+		url.searchParams.set('beg', format(range.beg, 'yyyy-MM-dd'));
+		url.searchParams.set('end', format(range.end, 'yyyy-MM-dd'));
+		goto(url.toString());
 	}
 </script>
 
 <div class="dropdown dropdown-end">
 	<div tabindex="0" role="button" class="btn btn-ghost btn-sm">
-		{format(begDate, 'MMM dd')} - {format(endDate, 'MMM dd')}
+		{format(range.beg, 'MMM dd')} - {format(range.end, 'MMM dd')}
 		<CalendarRangeIcon class="w-3.5 h-3.5 ml-1" />
 	</div>
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -56,14 +83,14 @@
 			<input
 				type="date"
 				class="input input-bordered input-sm mt-1"
-				value={format(begDate, 'yyyy-MM-dd')}
-				on:change={(e) => (begDate = startOfDay(e.currentTarget.value))}
+				value={format(range.beg, 'yyyy-MM-dd')}
+				on:change={(e) => setDateRange({ beg: startOfDay(e.currentTarget.value), end: range.end })}
 			/>
 			<input
 				type="date"
 				class="input input-bordered input-sm"
-				value={format(endDate, 'yyyy-MM-dd')}
-				on:change={(e) => (endDate = endOfDay(e.currentTarget.value))}
+				value={format(range.end, 'yyyy-MM-dd')}
+				on:change={(e) => setDateRange({ beg: range.beg, end: endOfDay(e.currentTarget.value) })}
 			/>
 		</div>
 	</div>
