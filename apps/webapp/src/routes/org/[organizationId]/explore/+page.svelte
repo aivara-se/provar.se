@@ -7,6 +7,8 @@
 	import SearchAndFilter from './(components)/SearchAndFilter.svelte';
 	import route from './route.meta';
 
+	export let data;
+
 	let range = {
 		beg: startOfDay(addDays(endOfToday(), -29)),
 		end: endOfToday()
@@ -20,5 +22,5 @@
 	</section>
 
 	<SearchAndFilter />
-	<FeedbackResults />
+	<FeedbackResults feedbacks={data.feedbacks} />
 </DashLayout>
