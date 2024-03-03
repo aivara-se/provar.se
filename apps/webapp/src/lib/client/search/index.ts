@@ -121,3 +121,13 @@ export function mergeSearchValue(...values: Partial<SearchQuery>[]) {
 	}
 	setValue(acc);
 }
+
+/**
+ * Merges the search query parameter and navigates to the explore page.
+ */
+export function exploreWithValue(organizationId: string, ...values: Partial<SearchQuery>[]) {
+	mergeSearchValue(...values);
+	const url = new URL(location.href);
+	url.pathname = `/org/${organizationId}/explore`;
+	goto(url.toString());
+}

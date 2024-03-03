@@ -94,7 +94,7 @@
 
 			{#key fields.query.tags}
 				{#each Object.keys(fields.query.tags || {}).sort() as key}
-					<button class="badge text-xs uppercase" on:click={() => removeTagFilter(key)}>
+					<button class="badge text-xs" on:click={() => removeTagFilter(key)}>
 						#{key}: {fields.query.tags?.[key]}
 					</button>
 				{/each}
@@ -102,7 +102,7 @@
 
 			{#key fields.query.meta}
 				{#each Object.keys(fields.query.meta || {}).sort() as key}
-					<button class="badge text-xs uppercase" on:click={() => removeMetaFilter(key)}>
+					<button class="badge text-xs" on:click={() => removeMetaFilter(key)}>
 						${key}: {fields.query.meta?.[key]}
 					</button>
 				{/each}
