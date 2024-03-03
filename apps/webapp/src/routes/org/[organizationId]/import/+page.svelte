@@ -6,11 +6,6 @@
 	import route from './route.meta';
 	import { toast } from '../../../../lib/client/toast';
 
-	interface PreviewImports {
-		head: string[];
-		rows: string[][];
-	}
-
 	let importedFileRefs: FileList;
 
 	async function uploadFeedbackFile(signedUrl: string) {

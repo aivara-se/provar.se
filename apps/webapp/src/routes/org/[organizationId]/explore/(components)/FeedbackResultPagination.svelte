@@ -48,7 +48,7 @@
 	}
 
 	function selectPage(page: number) {
-		const url = new URL($page.url.toString());
+		const url = new URL(window.location.href);
 		url.searchParams.set('page', String(page));
 		goto(url.toString());
 	}

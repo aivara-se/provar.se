@@ -3,7 +3,7 @@ import { parseDateRange } from '$lib/shared/dates';
 import { parseSearch } from '$lib/shared/search';
 import type { PageServerLoad } from './$types';
 
-const DEFAULT_LIMIT = 20;
+const DEFAULT_LIMIT = 10;
 
 const EMPTY_RESPONSE = {
 	count: 0,

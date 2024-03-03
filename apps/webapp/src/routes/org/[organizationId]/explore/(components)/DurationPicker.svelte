@@ -52,7 +52,7 @@
 	}
 
 	function setDateRange(range: { beg: Date; end: Date }) {
-		const url = new URL($page.url.toString());
+		const url = new URL(window.location.href);
 		url.searchParams.set('beg', format(range.beg, 'yyyy-MM-dd'));
 		url.searchParams.set('end', format(range.end, 'yyyy-MM-dd'));
 		goto(url.toString());
