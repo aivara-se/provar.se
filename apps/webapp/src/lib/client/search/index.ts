@@ -59,7 +59,7 @@ function updateUrl(value: SearchQuery) {
 		return;
 	}
 	const str = stringifySearch(value);
-	const url = new URL(window.location.toString());
+	const url = new URL(window.location.href);
 	if (str) {
 		url.searchParams.set(SEARCH_QUERY_PARAM, str);
 	} else {
@@ -127,7 +127,7 @@ export function mergeSearchValue(...values: Partial<SearchQuery>[]) {
  */
 export function exploreWithValue(organizationId: string, ...values: Partial<SearchQuery>[]) {
 	mergeSearchValue(...values);
-	const url = new URL(location.href);
+	const url = new URL(window.location.href);
 	url.pathname = `/org/${organizationId}/explore`;
 	goto(url.toString());
 }
