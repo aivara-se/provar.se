@@ -3,7 +3,7 @@ import { parseDateRange } from '$lib/shared/dates';
 import { parseSearch } from '$lib/shared/search';
 import type { PageServerLoad } from './$types';
 
-const DEFAULT_LIMIT = 10;
+const DEFAULT_LIMIT = 20;
 
 const EMPTY_RESPONSE = {
 	count: 0,
@@ -23,8 +23,8 @@ export const load: PageServerLoad = async (event) => {
 	if (!range.from && !range.to) {
 		return EMPTY_RESPONSE;
 	}
-	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');
 	const date = parseDateRange(range);
+	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');
 	const search = parseSearch(event.url.searchParams.get('search') ?? '');
 	const options: FeedbackRepository.FindOptions = { date, page, limit: DEFAULT_LIMIT, search };
 	const [items, count] = await Promise.all([

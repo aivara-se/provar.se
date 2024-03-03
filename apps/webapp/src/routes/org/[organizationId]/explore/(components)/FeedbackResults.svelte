@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { FeedbackType, type Feedback } from '$lib/types';
+	import { type Feedback } from '$lib/types';
 	import { format } from 'date-fns';
 	import { ChevronRightIcon } from 'lucide-svelte';
+	import FeedbackResultPagination from './FeedbackResultPagination.svelte';
 
 	export let feedbacks = {
 		count: 0,
@@ -12,14 +13,6 @@
 
 {#if feedbacks.items.length}
 	<table class="table mt-4">
-		<thead>
-			<tr>
-				<th class="hidden md:table-cell">Created At</th>
-				<th>Type</th>
-				<th>Text</th>
-				<th></th>
-			</tr>
-		</thead>
 		<tbody>
 			{#each feedbacks.items as feedback}
 				<tr>
@@ -35,4 +28,8 @@
 			{/each}
 		</tbody>
 	</table>
+{/if}
+
+{#if feedbacks.pages > 1}
+	<FeedbackResultPagination pages={feedbacks.pages} />
 {/if}
