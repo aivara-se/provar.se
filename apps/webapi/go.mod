@@ -3,7 +3,7 @@ module provar.se/webapi
 go 1.21.3
 
 require (
-	github.com/go-playground/validator/v10 v10.18.0
+	github.com/go-playground/validator/v10 v10.19.0
 	github.com/goccy/go-json v0.10.2
 	github.com/gofiber/fiber/v2 v2.52.1
 	github.com/gofiber/swagger v1.0.0
