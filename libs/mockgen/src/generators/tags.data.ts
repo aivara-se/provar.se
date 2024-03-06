@@ -1,14 +1,14 @@
 export const POSSIBLE_TAGS = {
 	version: () => {
 		const segment = (n: number) => Math.floor(Math.random() * n);
-		return `${segment(10)}.${segment(10)}.${segment(10)}`;
+		return `${segment(2)}.${segment(5)}.${segment(5)}`;
 	},
 	feature: () => {
-		const values = ['feature-x', 'feature-y', 'feature-z'];
+		const values = ['signup', 'onboarding', 'settings'];
 		return values[Math.floor(Math.random() * values.length)];
 	},
 	package: () => {
-		const values = ['free', 'basic', 'premium', 'enterprise'];
+		const values = ['essential', 'premium'];
 		return values[Math.floor(Math.random() * values.length)];
 	}
 };
