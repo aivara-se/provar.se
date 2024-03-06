@@ -1,12 +1,16 @@
 services:
-  # MongoDB is used to store customer feedback
-  mongodb:
-    image: mongo:7
+  # PostgreSQL is used to store customer feedback
+  postgresql:
+    image: postgres:16-alpine
     restart: always
     volumes:
-      - database:/data/db
+      - database:/var/lib/postgresql/data
     ports:
-      - 27017:27017
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: provar
 
   # Use mailpit to test emails when developing
   mailpit:
@@ -18,15 +22,6 @@ services:
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
-
-  # Use Jackson to manage user accounts and SSO
-  accounts:
-    image: boxyhq/jackson
-    restart: always
-    ports:
-      - 5225:5225
-    env_file:
-      - apps/account/.env
 
 volumes:
   database: {}
