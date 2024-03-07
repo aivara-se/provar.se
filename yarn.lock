@@ -3105,6 +3105,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"infrastructure@workspace:infra/migrations":
+  version: 0.0.0-use.local
+  resolution: "infrastructure@workspace:infra/migrations"
+  languageName: unknown
+  linkType: soft
+
 "inherits@npm:2, inherits@npm:^2.0.3":
   version: 2.0.4
   resolution: "inherits@npm:2.0.4"
