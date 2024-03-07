@@ -1,4 +1,4 @@
-package lib
+package config
 
 import (
 	"os"
@@ -11,8 +11,8 @@ type Config struct {
 	Address     string
 }
 
-// ReadConfig loads configuration from environment variables
-func ReadConfig() Config {
+// FromEnv loads configuration from environment variables
+func FromEnv() Config {
 	// Load configuration from environment
 	return Config{
 		DatabaseURI: os.Getenv("DATABASE_URI"),

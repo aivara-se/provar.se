@@ -6,6 +6,7 @@ import (
 	"github.com/joho/godotenv"
 	"provar.se/webapi/api"
 	"provar.se/webapi/lib"
+	"provar.se/webapi/lib/config"
 )
 
 func main() {
@@ -13,16 +14,16 @@ func main() {
 	godotenv.Load()
 
 	// Load configuration from environment variables
-	config := lib.ReadConfig()
+	cfg := config.FromEnv()
 
 	// Setup shared components (eg: db, jwt, etc.)
-	if err := lib.Setup(config); err != nil {
+	if err := lib.Setup(cfg); err != nil {
 		log.Fatal("Error connecting to database")
 	}
 
 	// Start the server
-	app := api.CreateApp()
-	if err := app.Listen(config.Address); err != nil {
+	app := api.Create()
+	if err := app.Listen(cfg.Address); err != nil {
 		log.Fatal(err)
 	}
 }

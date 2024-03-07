@@ -9,6 +9,7 @@ import (
 	"github.com/joho/godotenv"
 	"provar.se/webapi/api"
 	"provar.se/webapi/lib"
+	"provar.se/webapi/lib/config"
 )
 
 var (
@@ -30,14 +31,14 @@ func Create() *fiber.App {
 	godotenv.Load(envfpath)
 
 	// Load configuration from environment variables
-	config := lib.ReadConfig()
+	cfg := config.FromEnv()
 
 	// Setup shared components (eg: db, jwt, etc.)
-	if err := lib.Setup(config); err != nil {
+	if err := lib.Setup(cfg); err != nil {
 		log.Fatal("Error setting up dependencies: ", err)
 	}
 
-	app = api.CreateApp()
+	app = api.Create()
 	go startFileServer()
 
 	return app

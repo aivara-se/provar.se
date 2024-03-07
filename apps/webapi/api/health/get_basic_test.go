@@ -11,7 +11,7 @@ func TestBasicHealthcheck(t *testing.T) {
 	app := testapp.Create()
 
 	t.Run("success", func(t *testing.T) {
-		req := httptest.NewRequest("GET", "/ping", nil)
+		req := httptest.NewRequest("GET", "/health/basic", nil)
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 204 {
 			t.Fail()
