@@ -18,12 +18,6 @@ jobs:
   deploy-production:
     runs-on: ubuntu-latest
 
-    services:
-      mongodb:
-        image: mongo
-        ports:
-          - 27017:27017
-
     # Add 'id-token' with the intended permissions for workload identity federation
     permissions:
       contents: "read"
@@ -32,9 +26,6 @@ jobs:
     defaults:
       run:
         working-directory: ./apps/webapp
-
-    env:
-      MONGODB_URL: mongodb://localhost:27017
 
     steps:
       - name: Checkout
@@ -67,8 +58,8 @@ jobs:
 
       - name: Build the service
         env:
-          PUBLIC_PROVAR_API_KEY: ${{ secrets.APPS_WEBAPP_APP_PROVAR_API_KEY }}
-          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBAPP_APP_PROVAR_APP_URL }}
+          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_APP_URL }}
+          PUBLIC_PROVAR_API_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_API_URL }}
         run: yarn build
 
       - name: Build docker image
@@ -86,16 +77,6 @@ jobs:
           region: "${{ secrets.APPS_WEBAPP_GCP_REGION }}"
           image: "${{ secrets.APPS_WEBAPP_GCP_GAR_REPOSITORY }}/webapp:${{ github.sha }}"
           env_vars: |
-            AUTH_SECRET=${{ secrets.APPS_WEBAPP_APP_AUTH_SECRET }}
-            AUTH_GITHUB_ID=${{ secrets.APPS_WEBAPP_APP_AUTH_GITHUB_ID }}
-            AUTH_GITHUB_SECRET=${{ secrets.APPS_WEBAPP_APP_AUTH_GITHUB_SECRET }}
-            AUTH_GOOGLE_ID=${{ secrets.APPS_WEBAPP_APP_AUTH_GOOGLE_ID }}
-            AUTH_GOOGLE_SECRET=${{ secrets.APPS_WEBAPP_APP_AUTH_GOOGLE_SECRET }}
-            AUTH_EMAIL_SERVER=${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_SERVER }}
-            AUTH_EMAIL_FROM=${{ secrets.APPS_WEBAPP_APP_AUTH_EMAIL_FROM }}
-            MONGODB_URL=${{ secrets.APPS_WEBAPP_APP_MONGODB_URL }}
-            GCS_IMPORT_BUCKET=${{ secrets.APPS_WEBAPP_APP_GCS_IMPORT_BUCKET }}
-            PROVAR_API_URL=${{ secrets.APPS_WEBAPP_APP_PROVAR_API_URL }}
             ORIGIN=https://app.provar.se
 
       - name: Show Output
