@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Install global dependencies
+go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
 # Source apps/webapi/.secrets file if it exists
 if [ -f apps/webapi/.secrets ]; then
   source apps/webapi/.secrets
