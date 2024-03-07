@@ -22,19 +22,12 @@ jobs:
       contents: read
       security-events: write
 
-    services:
-      mongodb:
-        image: mongo
-        ports:
-          - 27017:27017
-
     defaults:
       run:
         working-directory: ./apps/webapp
 
     env:
-      MONGODB_URL: mongodb://localhost:27017
-      PUBLIC_PROVAR_API_KEY: "test-api-key"
+      PUBLIC_PROVAR_API_URL: "test-api-url"
       PUBLIC_PROVAR_APP_URL: "test-app-url"
 
     steps:
@@ -67,14 +60,4 @@ jobs:
         run: yarn playwright install --with-deps
 
       - name: Check integration tests
-        env:
-          AUTH_SECRET: 2iJuAJXSKxMa1ASPKCpcXRQFCBnO/K/0sqXh8r77LBs
-          AUTH_GITHUB_ID: test-github-id
-          AUTH_GITHUB_SECRET: test-github-secret
-          AUTH_GOOGLE_ID: test-google-id
-          AUTH_GOOGLE_SECRET: test-google-secret
-          AUTH_EMAIL_SERVER: test-email-server
-          AUTH_EMAIL_FROM: tests@provar.se
-          GCS_IMPORT_BUCKET: test-import-bucket
-          PROVAR_API_URL: http://localhost:3001
         run: yarn test:integration
