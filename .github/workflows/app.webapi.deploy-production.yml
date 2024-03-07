@@ -58,6 +58,14 @@ jobs:
       - name: Push docker image
         run: docker push "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}"
 
+      - name: Database migrations
+        env:
+          DATABASE_URI: ${{ secrets.APPS_WEBAPI_APP_DATABASE_URI }}
+        working-directory: ./infra/migration
+        run: |
+          go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+          migrate -database $DATABASE_URI -path db/migrations up
+
       - name: Deploy the service
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v2
