@@ -11,10 +11,10 @@ import (
 	"provar.se/webapi/api/health"
 )
 
-func CreateApp() *fiber.App {
+func Create() *fiber.App {
 	// Create a new fiber application
 	app := fiber.New(fiber.Config{
-		AppName:            "Provar.se API v1.0",
+		AppName:            "Provar API",
 		ReadTimeout:        time.Second,
 		WriteTimeout:       time.Second,
 		WriteBufferSize:    2048,
@@ -39,6 +39,7 @@ func CreateApp() *fiber.App {
 
 	// Load all app routes
 	health.SetupBasicHealthcheck(app)
+	health.SetupSecureHealthcheck(app)
 
 	return app
 }
