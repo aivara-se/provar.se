@@ -7,7 +7,6 @@
     "dev": "go run .",
     "setup": "go get .",
     "build": "go build -o ./build/webapi",
-    "build:swagger": "swag init",
     "build:docker": "docker build -t provar-webapi:latest .",
     "preview": "yarn build &&  ./build/webapi",
     "preview:docker": "docker run -it --rm --env-file ./.env -p 3001:3001 provar-webapi:latest",

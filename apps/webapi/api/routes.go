@@ -8,18 +8,9 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/swagger"
-	"provar.se/webapi/api/feedback"
 	"provar.se/webapi/api/health"
 )
 
-// @title       Provar API
-// @version		  1.0
-// @description	Provar.se API
-// @host			  https://api.provar.se
-// @BasePath		/
-// @accept			json
-// @produce     json
 func CreateApp() *fiber.App {
 	// Create a new fiber application
 	app := fiber.New(fiber.Config{
@@ -46,14 +37,8 @@ func CreateApp() *fiber.App {
 	// Use logger middleware
 	app.Use(logger.New())
 
-	// Serve swagger API UI
-	app.Get("/swagger/*", swagger.HandlerDefault)
-
 	// Load all app routes
-	feedback.SetupCreateFeedback(app)
-	feedback.SetupImportFeedback(app)
 	health.SetupBasicHealthcheck(app)
-	health.SetupSecureHealthcheck(app)
 
 	return app
 }

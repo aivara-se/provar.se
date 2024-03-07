@@ -8,7 +8,7 @@ import (
 // Setup initializes shared components
 func Setup(config Config) error {
 	// Connect to the mongo database using MONGO_URI
-	if err := database.Setup(config.MongoURI); err != nil {
+	if err := database.Setup(config.DatabaseURI); err != nil {
 		return err
 	}
 	// Connect to geolite2 database using GEOLITE2_DB

@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	// requestBodyKey is the key used to store the organization id
+	// requestBodyKey is the key used to store the request body in locals
 	requestBodyKey = "app:requestBody"
 
 	// validate is the validator instance used to validate requests

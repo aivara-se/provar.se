@@ -6,8 +6,6 @@ import (
 	"github.com/joho/godotenv"
 	"provar.se/webapi/api"
 	"provar.se/webapi/lib"
-
-	_ "provar.se/webapi/docs"
 )
 
 func main() {
