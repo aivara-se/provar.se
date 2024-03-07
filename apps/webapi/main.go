@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	// Load environment variables from .env
+	// Load environment variables from .env file
 	godotenv.Load()
 
 	// Load configuration from environment variables
