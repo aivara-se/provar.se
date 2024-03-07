@@ -37,11 +37,6 @@ func Create() *fiber.App {
 		log.Fatal("Error setting up dependencies: ", err)
 	}
 
-	// Create test credentials in the database
-	if err := createTestCredentials(); err != nil {
-		log.Fatal("Error creating test credentials")
-	}
-
 	app = api.CreateApp()
 	go startFileServer()
 
