@@ -6,10 +6,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-const FeedbackCSV = `type,time,cnps,csat,text
-text,2023-01-21T16:34:59.512Z,,,The experience was average. There's room for enhancement.
-text,2023-05-16T15:39:02.789Z,,,"The platform is reliable, but it lacks some features."
-text,2023-03-06T02:31:53.609Z,,,"The service is decent, but there's room for enhancement."`
+const FeedbackCSV = `type,time,text
+text,2023-01-21T16:34:59.512Z,The experience was average. There's room for enhancement.
+text,2023-05-16T15:39:02.789Z,"The platform is reliable, but it lacks some features."
+text,2023-03-06T02:31:53.609Z,"The service is decent, but there's room for enhancement."`
 
 var (
 	// IsRunning is true if the test app is running

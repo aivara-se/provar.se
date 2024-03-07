@@ -1,98 +1,61 @@
 package database
 
 import (
-	"context"
+	"database/sql"
 	"errors"
 	"log"
-	"net/url"
 
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	_ "github.com/lib/pq"
 )
 
 var (
-	cachedClient   *mongo.Client
-	cachedDatabase *mongo.Database
+	cachedDB *sql.DB
 
 	ErrConnectionString = errors.New("the database connection string is not valid")
 )
 
-// Setup connects to a MongoDB database and caches the client and database.
+// Setup connects to a PostgreSQL database and caches the DB connection.
 // The connection string is expected to be in the following format:
 //
-//	mongodb://<username>:<password>@<host>:<port>/<database>
-func Setup(mongoURI string) error {
-	if cachedClient != nil {
+//	postgres://<username>:<password>@<host>:<port>/<database>?sslmode=<mode>
+func Setup(databaseURI string) error {
+	if cachedDB != nil {
 		return nil
 	}
-	client, err := createClient(mongoURI)
+	db, err := connect(databaseURI)
 	if err != nil {
 		return err
 	}
-	db, err := getDatabase(client, mongoURI)
+	err = ping(db)
 	if err != nil {
 		return err
 	}
-	err = testConnection(db)
-	if err != nil {
-		return err
-	}
-	cachedClient = client
-	cachedDatabase = db
+	cachedDB = db
 	return nil
 }
 
-// GetClient returns the connected MongoDB client.
+// DB returns the connected PostgreSQL database if it is available.
 // NOTE: The setup function must be called before this function.
-func GetClient() *mongo.Client {
-	if cachedClient == nil {
-		log.Fatalln("Cannot to use MongoDB client before connecting")
+func DB() *sql.DB {
+	if cachedDB == nil {
+		log.Fatalln("Cannot use PostgreSQL database before connecting")
 	}
-	return cachedClient
+	return cachedDB
 }
 
-// GetDatabase returns the connected MongoDB database.
-// NOTE: The setup function must be called before this function.
-func GetDatabase() *mongo.Database {
-	if cachedClient == nil {
-		log.Fatalln("Cannot to use MongoDB client before connecting")
-	}
-	return cachedDatabase
-}
-
-// createClient creates a new MongoDB client with given connection string.
-func createClient(mongoURI string) (*mongo.Client, error) {
-	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI(mongoURI).SetServerAPIOptions(serverAPI)
-	client, err := mongo.Connect(context.TODO(), opts)
+// connect creates a new PostgreSQL database connection with the given connection string.
+func connect(databaseURI string) (*sql.DB, error) {
+	db, err := sql.Open("postgres", databaseURI)
 	if err != nil {
 		return nil, err
 	}
-	return client, nil
-}
-
-// getDatabase returns the database from a MongoDB client. The database name is
-// extracted from the connection string. It expects the database name to be the
-// "path" of the connection string.
-func getDatabase(client *mongo.Client, mongoURI string) (*mongo.Database, error) {
-	u, err := url.Parse(mongoURI)
-	if err != nil {
-		return nil, err
-	}
-	name := u.Path[1:]
-	if name == "" {
-		return nil, ErrConnectionString
-	}
-	db := client.Database(name)
 	return db, nil
 }
 
-// testConnection tests the connection to a MongoDB database.
-func testConnection(db *mongo.Database) error {
-	query := bson.D{{Key: "ping", Value: 1}}
-	var result bson.M
-	if err := db.RunCommand(context.TODO(), query).Decode(&result); err != nil {
+// ping tests the connection to a PostgreSQL database.
+func ping(db *sql.DB) error {
+	err := db.Ping()
+	if err != nil {
 		return err
 	}
 	return nil
