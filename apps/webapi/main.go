@@ -23,7 +23,7 @@ func main() {
 
 	// Start the server
 	app := api.Create()
-	if err := app.Listen(cfg.Address); err != nil {
+	if err := app.Listen(cfg.HostPort); err != nil {
 		log.Fatal(err)
 	}
 }

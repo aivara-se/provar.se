@@ -1,15 +1,15 @@
 package database
 
 import (
-	"database/sql"
 	"errors"
 	"log"
 
+	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
 
 var (
-	cachedDB *sql.DB
+	cachedDB *sqlx.DB
 
 	ErrConnectionString = errors.New("the database connection string is not valid")
 )
@@ -36,7 +36,7 @@ func Setup(databaseURI string) error {
 
 // DB returns the connected PostgreSQL database if it is available.
 // NOTE: The setup function must be called before this function.
-func DB() *sql.DB {
+func DB() *sqlx.DB {
 	if cachedDB == nil {
 		log.Fatalln("Cannot use PostgreSQL database before connecting")
 	}
@@ -44,8 +44,8 @@ func DB() *sql.DB {
 }
 
 // connect creates a new PostgreSQL database connection with the given connection string.
-func connect(databaseURI string) (*sql.DB, error) {
-	db, err := sql.Open("postgres", databaseURI)
+func connect(databaseURI string) (*sqlx.DB, error) {
+	db, err := sqlx.Open("postgres", databaseURI)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func connect(databaseURI string) (*sql.DB, error) {
 }
 
 // ping tests the connection to a PostgreSQL database.
-func ping(db *sql.DB) error {
+func ping(db *sqlx.DB) error {
 	err := db.Ping()
 	if err != nil {
 		return err
