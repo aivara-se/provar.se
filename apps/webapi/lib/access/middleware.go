@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
+	"provar.se/webapi/lib/credential"
 )
 
 const (
@@ -42,14 +43,27 @@ func Middleware() fiber.Handler {
 		if key == "" {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
-		// TODO: check whether the key is valid JWT, if yes, load user details
-		// TODO: check whether the key is valid credential, if yes, load details
-		c.Locals(principalKey, "")
-		return c.Next()
+		user, err := ValidateAccessToken(key)
+		if err == nil {
+			c.Locals(principalKey, &Principal{
+				Type: User,
+				User: user,
+			})
+			return c.Next()
+		}
+		cred, err := credential.FindBySecret(key)
+		if err == nil {
+			c.Locals(principalKey, &Principal{
+				Type: Credential,
+				Cred: cred,
+			})
+			return c.Next()
+		}
+		return c.SendStatus(fiber.StatusForbidden)
 	}
 }
 
-// GetAccessToken returns the access token from the fiber context
-func GetAccessToken(c *fiber.Ctx) interface{} {
+// GetPrincipal returns the access token from the fiber context
+func GetPrincipal(c *fiber.Ctx) interface{} {
 	return c.Locals(principalKey)
 }

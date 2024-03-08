@@ -40,7 +40,18 @@ func Create(name, email string, verified bool) (*User, error) {
 	return user, err
 }
 
-// FindByEmail returns a user with the given email.
+// FindByID returns a user with the given id
+func FindByID(id string) (*User, error) {
+	user := &User{}
+	query := "SELECT * FROM user WHERE id = ?"
+	err := database.DB().Get(user, query, id)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
+// FindByEmail returns a user with the given email
 func FindByEmail(email string) (*User, error) {
 	user := &User{}
 	query := "SELECT * FROM user WHERE email = ?"
