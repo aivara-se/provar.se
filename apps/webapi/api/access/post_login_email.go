@@ -8,7 +8,7 @@ import (
 
 // LoginWithEmailRequestBody is the request body for logging in with email magic link
 type LoginWithEmailRequestBody struct {
-	Email string `json:"email" validate:"required"`
+	Email string `json:"email" validate:"required,email"`
 }
 
 // NewLoginWithEmailRequestBody returns a new LoginWithEmailRequestBody
@@ -16,7 +16,7 @@ func NewLoginWithEmailRequestBody() interface{} {
 	return new(LoginWithEmailRequestBody)
 }
 
-func SetupBasicHealthcheck(app *fiber.App) {
+func SetupLoginWithEmail(app *fiber.App) {
 	app.Post("/access/login/email", validator.Middleware(NewLoginWithEmailRequestBody))
 	app.Post("/access/login/email", func(c *fiber.Ctx) error {
 		body := validator.GetRequestBody(c).(*LoginWithEmailRequestBody)
