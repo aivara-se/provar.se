@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/config"
 	"provar.se/webapi/lib/database"
 	"provar.se/webapi/lib/emails"
@@ -19,6 +20,10 @@ func Setup(cfg config.Config) error {
 	}
 	// Setup the email server helper for sending emails
 	if err := emails.Setup(cfg.Email); err != nil {
+		return err
+	}
+	// Setup the access token helper with the secret key
+	if err := access.Setup(cfg.Auth.Secret); err != nil {
 		return err
 	}
 	return nil
