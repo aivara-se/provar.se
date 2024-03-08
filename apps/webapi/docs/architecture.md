@@ -10,11 +10,11 @@ This application is built using the following frameworks and libraries:
 
 ## Authentication
 
-Incoming requests are authenticated using API keys. Users would create API keys by logging into the Provar Webapp. These keys are also used to identify to which organization the feedback should be linked to.
+Incoming requests are authenticated using JWT access tokens or api keys. Users would create API keys by logging into the Provar Webapp.
 
 ## Persisting Data
 
-The application uses MongoDB to persist data which is hosted by MongoDB Atlas. Check `*.repository.ts` files for code using the database. Database migrations are done by engineers using the MongoDB Shell.
+The application uses PostgreSQL to persist data which is hosted by Neon. Check `*_repository.go` files for code using the database.
 
 ## Deployment (prod)
 
