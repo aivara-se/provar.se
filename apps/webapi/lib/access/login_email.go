@@ -1,11 +1,13 @@
 package access
 
 import (
+	"provar.se/webapi/lib/emails"
+	"provar.se/webapi/lib/emails/templates"
 	"provar.se/webapi/lib/magiclink"
 	"provar.se/webapi/lib/user"
 )
 
-func LoginWithEmail(email string) {
+func PrepareLoginWithEmail(email string) {
 	user, err := user.FindByEmail(email)
 	if err != nil {
 		return
@@ -14,7 +16,17 @@ func LoginWithEmail(email string) {
 	if err != nil {
 		return
 	}
-	// TODO: send a magic link to the user's email
+	tmpl := &templates.LoginEmailTemplate{}
+	data := map[string]string{"link": magicLink.Token}
+	opts := &emails.EmailOptions{
+		RecvAddress: email,
+		SubjectData: data,
+		ContentData: data,
+	}
+	err = emails.Sender().Send(tmpl, opts)
+	if err != nil {
+		return
+	}
 }
 
 func ConfirmLoginWithEmail(token string) error {

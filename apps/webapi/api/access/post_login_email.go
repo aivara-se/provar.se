@@ -20,7 +20,7 @@ func SetupLoginWithEmail(app *fiber.App) {
 	app.Post("/access/login/email", validator.Middleware(NewLoginWithEmailRequestBody))
 	app.Post("/access/login/email", func(c *fiber.Ctx) error {
 		body := validator.GetRequestBody(c).(*LoginWithEmailRequestBody)
-		access.LoginWithEmail(body.Email)
+		access.PrepareLoginWithEmail(body.Email)
 		return c.SendStatus(fiber.StatusNoContent)
 	})
 }
