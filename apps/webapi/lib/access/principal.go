@@ -8,9 +8,10 @@ import (
 type PrincipalType int
 
 const (
-	Unknown PrincipalType = iota
-	Credential
-	User
+	PrincipalTypeUnknown PrincipalType = iota
+	PrincipalTypeCredential
+	PrincipalTypeUser
+	PrincipalTypeSystem
 )
 
 type Principal struct {

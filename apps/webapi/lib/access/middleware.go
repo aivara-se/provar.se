@@ -46,7 +46,7 @@ func Middleware() fiber.Handler {
 		user, err := ValidateAccessToken(key)
 		if err == nil {
 			c.Locals(principalKey, &Principal{
-				Type: User,
+				Type: PrincipalTypeUser,
 				User: user,
 			})
 			return c.Next()
@@ -54,7 +54,7 @@ func Middleware() fiber.Handler {
 		cred, err := credential.FindBySecret(key)
 		if err == nil {
 			c.Locals(principalKey, &Principal{
-				Type: Credential,
+				Type: PrincipalTypeCredential,
 				Cred: cred,
 			})
 			return c.Next()
