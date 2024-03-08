@@ -14,9 +14,6 @@ var (
 	cachedSender *EmailSender
 )
 
-// TemplateFunction is a function that acts as a template
-type TemplateFunction func(map[string]string) string
-
 // EmailSender is a helper struct for sending email messages
 type EmailSender struct {
 	emailServer *url.URL
@@ -24,15 +21,15 @@ type EmailSender struct {
 }
 
 // EmailTemplate represents a template for an email message
-type EmailTemplate struct {
-	SubjectText TemplateFunction
-	ContentText TemplateFunction
-	ContentHTML TemplateFunction
+type EmailTemplate interface {
+	SubjectText(map[string]string) string
+	ContentText(map[string]string) string
+	ContentHTML(map[string]string) string
 }
 
 // EmailOptions represents the options for sending an email
 type EmailOptions struct {
-	toAddress   string
+	RecvAddress string
 	SubjectData map[string]string
 	ContentData map[string]string
 }
@@ -61,17 +58,17 @@ func Sender() *EmailSender {
 }
 
 // Send sends an email to the given email address with the given options.
-func (s *EmailSender) Send(template *EmailTemplate, options *EmailOptions) error {
+func (s *EmailSender) Send(template EmailTemplate, options *EmailOptions) error {
 	subject := template.SubjectText(options.SubjectData)
 	contentText := template.ContentText(options.ContentData)
 	contentHTML := template.ContentHTML(options.ContentData)
-	message, err := s.createMessage(options.toAddress, subject, contentText, contentHTML)
+	message, err := s.createMessage(options.RecvAddress, subject, contentText, contentHTML)
 	if err != nil {
 		return err
 	}
 	user := s.emailServer.User.Username()
 	pass, _ := s.emailServer.User.Password()
-	recv := []string{options.toAddress}
+	recv := []string{options.RecvAddress}
 	auth := smtp.PlainAuth("", user, pass, s.emailServer.Host)
 	err = smtp.SendMail(s.emailServer.Host+":"+s.emailServer.Port(), auth, s.fromAddress, recv, message)
 	if err != nil {
