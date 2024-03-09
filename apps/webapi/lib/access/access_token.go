@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"provar.se/webapi/lib/config"
 	"provar.se/webapi/lib/user"
 )
 
@@ -13,14 +14,17 @@ const (
 )
 
 var (
-	hmacSecret = []byte("your-secret-key")
-
 	ErrInvalidToken = errors.New("invalid token")
 )
 
+var (
+	hmacSecret []byte
+)
+
 // Setup sets the secret key used to sign the JWT tokens
-func Setup(secret string) error {
-	hmacSecret = []byte(secret)
+func Setup() error {
+	cfg := config.Get()
+	hmacSecret = []byte(cfg.Auth.Secret)
 	return nil
 }
 

@@ -5,6 +5,7 @@ import (
 	"net"
 
 	"github.com/oschwald/geoip2-golang"
+	"provar.se/webapi/lib/config"
 )
 
 var (
@@ -12,11 +13,12 @@ var (
 )
 
 // Setup connects to a GeoIP database and caches the client.
-func Setup(databasePath string) error {
+func Setup() error {
 	if cachedClient != nil {
 		return nil
 	}
-	db, err := geoip2.Open(databasePath)
+	cfg := config.Get()
+	db, err := geoip2.Open(cfg.Geolite2)
 	if err != nil {
 		return err
 	}
