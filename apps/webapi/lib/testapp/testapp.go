@@ -39,7 +39,6 @@ func Create() *fiber.App {
 	}
 
 	app = api.Create()
-	go startFileServer()
 
 	return app
 }

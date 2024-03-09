@@ -24,7 +24,7 @@ func Create(userID string) (*MagicLink, error) {
 		Token:     random.String(64),
 	}
 	query := `
-		INSERT INTO user (id, user_id, created_at, token)
+		INSERT INTO public.magiclink (id, user_id, created_at, token)
 		VALUES (:id, :user_id, :created_at, :token)
 	`
 	_, err := database.DB().NamedExec(query, magicLink)
