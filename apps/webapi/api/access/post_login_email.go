@@ -11,13 +11,13 @@ type LoginWithEmailRequestBody struct {
 	Email string `json:"email" validate:"required,email"`
 }
 
-// NewLoginWithEmailRequestBody returns a new LoginWithEmailRequestBody
-func NewLoginWithEmailRequestBody() interface{} {
+// CreateLoginWithEmailRequestBody returns a new LoginWithEmailRequestBody
+func CreateLoginWithEmailRequestBody() interface{} {
 	return new(LoginWithEmailRequestBody)
 }
 
 func SetupLoginWithEmail(app *fiber.App) {
-	app.Post("/access/login/email", validator.Middleware(NewLoginWithEmailRequestBody))
+	app.Post("/access/login/email", validator.Middleware(CreateLoginWithEmailRequestBody))
 	app.Post("/access/login/email", func(c *fiber.Ctx) error {
 		body := validator.GetRequestBody(c).(*LoginWithEmailRequestBody)
 		access.PrepareLoginWithEmail(body.Email)
