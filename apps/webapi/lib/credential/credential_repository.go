@@ -21,7 +21,7 @@ type Credential struct {
 // FindBySecret returns a credential by its secret
 func FindBySecret(secret string) (*Credential, error) {
 	cred := &Credential{}
-	query := "SELECT * FROM credential WHERE secret = ?"
+	query := "SELECT * FROM public.credential WHERE secret = $1"
 	err := database.DB().Get(cred, query, secret)
 	if err != nil {
 		return nil, err

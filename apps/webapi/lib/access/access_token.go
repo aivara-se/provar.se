@@ -55,7 +55,7 @@ func ValidateAccessToken(tokenString string) (*user.User, error) {
 	if !ok {
 		return nil, ErrInvalidToken
 	}
-	userId, ok := claims["userId"].(string)
+	userId, ok := claims["sub"].(string)
 	if !ok {
 		return nil, ErrInvalidToken
 	}

@@ -33,7 +33,7 @@ func Create(name, email string, verified bool) (*User, error) {
 		}
 	}
 	query := `
-		INSERT INTO user (id, created_at, modified_at, email, name, email_verified_at)
+		INSERT INTO public.user (id, created_at, modified_at, email, name, email_verified_at)
 		VALUES (:id, :created_at, :modified_at, :email, :name, :email_verified_at)
 	`
 	_, err := database.DB().NamedExec(query, user)
@@ -43,7 +43,7 @@ func Create(name, email string, verified bool) (*User, error) {
 // FindByID returns a user with the given id
 func FindByID(id string) (*User, error) {
 	user := &User{}
-	query := "SELECT * FROM user WHERE id = ?"
+	query := "SELECT * FROM public.user WHERE id = $1"
 	err := database.DB().Get(user, query, id)
 	if err != nil {
 		return nil, err
@@ -54,10 +54,22 @@ func FindByID(id string) (*User, error) {
 // FindByEmail returns a user with the given email
 func FindByEmail(email string) (*User, error) {
 	user := &User{}
-	query := "SELECT * FROM user WHERE email = ?"
+	query := "SELECT * FROM public.user WHERE email = $1"
 	err := database.DB().Get(user, query, email)
 	if err != nil {
 		return nil, err
 	}
 	return user, nil
+}
+
+// DeleteByID deletes a user with the given id
+func DeleteByID(id string) error {
+	query := "DELETE FROM public.user WHERE id = $1"
+	_, err := database.DB().Exec(query, id)
+	return err
+}
+
+// DeleteByID deletes a user with the given id
+func (u *User) Delete() error {
+	return DeleteByID(u.ID)
 }
