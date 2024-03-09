@@ -42,6 +42,7 @@ func Create() *fiber.App {
 	health.SetupBasicHealthcheck(app)
 	health.SetupSecureHealthcheck(app)
 	access.SetupLoginWithEmail(app)
+	access.SetupLoginWithEmailConfirm(app)
 
 	return app
 }

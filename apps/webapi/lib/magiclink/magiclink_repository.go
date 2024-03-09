@@ -3,6 +3,7 @@ package magiclink
 import (
 	"time"
 
+	"provar.se/webapi/lib/config"
 	"provar.se/webapi/lib/database"
 	"provar.se/webapi/lib/random"
 )
@@ -15,7 +16,7 @@ type MagicLink struct {
 	Token     string    `db:"token"`
 }
 
-// NewMagicLink creates a new magiclink in the database
+// Create creates a new magiclink in the database
 func Create(userID string) (*MagicLink, error) {
 	magicLink := &MagicLink{
 		ID:        database.NewID(),
@@ -29,4 +30,34 @@ func Create(userID string) (*MagicLink, error) {
 	`
 	_, err := database.DB().NamedExec(query, magicLink)
 	return magicLink, err
+}
+
+// FindByUserID returns magic links for a user
+func FindByUserID(id string) ([]*MagicLink, error) {
+	magicLinks := []*MagicLink{}
+	query := "SELECT * FROM public.magiclink WHERE user_id = $1"
+	err := database.DB().Select(&magicLinks, query, id)
+	if err != nil {
+		return nil, err
+	}
+	return magicLinks, nil
+}
+
+// Confirm confirms the magiclink token and returns the magiclink if it exists.
+// The magiclink will be invalid after this function is called.
+func Confirm(token string) (*MagicLink, error) {
+	magicLink := &MagicLink{}
+	query := `
+		DELETE FROM public.magiclink WHERE token = $1
+		RETURNING *
+	`
+	err := database.DB().Get(magicLink, query, token)
+	return magicLink, err
+}
+
+// Link returns the link to the application page where it is possible to login
+// with the magiclink. The link is absolute and includes the magiclink token.
+func (m *MagicLink) Link() string {
+	cfg := config.Get()
+	return cfg.Provar.AppURL + "/auth/verify/" + m.Token
 }

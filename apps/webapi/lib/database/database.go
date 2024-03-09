@@ -6,6 +6,7 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
+	"provar.se/webapi/lib/config"
 )
 
 var (
@@ -18,11 +19,12 @@ var (
 // The connection string is expected to be in the following format:
 //
 //	postgres://<username>:<password>@<host>:<port>/<database>?sslmode=<mode>
-func Setup(databaseURI string) error {
+func Setup() error {
 	if cachedDB != nil {
 		return nil
 	}
-	db, err := connect(databaseURI)
+	cfg := config.Get()
+	db, err := connect(cfg.DatabaseURI)
 	if err != nil {
 		return err
 	}

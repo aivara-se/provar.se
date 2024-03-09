@@ -5,6 +5,10 @@ import (
 	"os"
 )
 
+var (
+	cachedConfig *Config
+)
+
 type AuthConfig struct {
 	Secret       string
 	GithubID     string
@@ -18,6 +22,11 @@ type EmailConfig struct {
 	EmailServer *url.URL
 }
 
+type ProvarConfig struct {
+	AppURL string
+	APIURL string
+}
+
 // Config holds configuration for the application
 type Config struct {
 	DatabaseURI string
@@ -25,15 +34,19 @@ type Config struct {
 	HostPort    string
 	Auth        AuthConfig
 	Email       EmailConfig
+	Provar      ProvarConfig
 }
 
-// FromEnv loads configuration from environment variables
-func FromEnv() Config {
+// SetupFromEnv loads configuration from environment variables
+func SetupFromEnv() *Config {
+	if cachedConfig != nil {
+		return cachedConfig
+	}
 	emailServer, err := url.Parse(os.Getenv("EMAIL_SERVER"))
 	if err != nil {
 		panic(err)
 	}
-	return Config{
+	cachedConfig = &Config{
 		DatabaseURI: os.Getenv("DATABASE_URI"),
 		Geolite2:    os.Getenv("GEOLITE2_DB"),
 		HostPort:    ":" + os.Getenv("PORT"),
@@ -48,5 +61,18 @@ func FromEnv() Config {
 			EmailFrom:   os.Getenv("EMAIL_FROM"),
 			EmailServer: emailServer,
 		},
+		Provar: ProvarConfig{
+			AppURL: os.Getenv("PROVAR_APP_URL"),
+			APIURL: os.Getenv("PROVAR_API_URL"),
+		},
 	}
+	return cachedConfig
+}
+
+// Get returns the cached configuration, loads from env if not cached
+func Get() *Config {
+	if cachedConfig == nil {
+		SetupFromEnv()
+	}
+	return cachedConfig
 }
