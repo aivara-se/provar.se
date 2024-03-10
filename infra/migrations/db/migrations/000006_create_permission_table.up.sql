@@ -2,6 +2,7 @@
 CREATE TABLE private.permission (
     id VARCHAR(8) PRIMARY KEY,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(8) REFERENCES private.user(id),
     organization_id VARCHAR(8) REFERENCES private.organization(id),
     principal_type VARCHAR(16) NOT NULL,
     principal VARCHAR(8) NOT NULL,

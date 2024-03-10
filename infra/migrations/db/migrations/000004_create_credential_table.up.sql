@@ -2,6 +2,7 @@
 CREATE TABLE private.credential (
     id VARCHAR(8) PRIMARY KEY,
     created_at TIMESTAMP NOT NULL,
+    created_by VARCHAR(8) REFERENCES private.user(id),
     modified_at TIMESTAMP NOT NULL,
     last_used_at TIMESTAMP,
     organization_id VARCHAR(8) REFERENCES private.organization(id),

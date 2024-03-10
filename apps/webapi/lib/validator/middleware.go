@@ -17,8 +17,8 @@ var (
 // that will be used to parse and validate the request body.
 type BodyFactory func() interface{}
 
-// ValidateRequestBodyMiddleware returns a fiber middleware to validate credentials
-func ValidateRequestBodyMiddleware(factory BodyFactory) fiber.Handler {
+// ValidateMiddleware returns a fiber middleware to validate credentials
+func ValidateMiddleware(factory BodyFactory) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		body := factory()
 		if err := c.BodyParser(body); err != nil {

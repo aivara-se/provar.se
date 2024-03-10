@@ -1,14 +1,14 @@
-package access_test
+package auth_test
 
 import (
 	"net/http/httptest"
 	"strings"
 	"testing"
 
-	accessAPI "provar.se/webapi/api/access"
+	"provar.se/webapi/api/auth"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/magiclink"
-	testutils "provar.se/webapi/lib/testutils"
+	"provar.se/webapi/lib/testutils"
 	"provar.se/webapi/lib/user"
 )
 
@@ -25,7 +25,7 @@ func TestLoginWithEmailConfirm(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 		usr, token := PrepareMagicLink()
 		requestBody := strings.NewReader(`{"token":"` + token + `"}`)
-		req := httptest.NewRequest("POST", "/access/login/email/confirm", requestBody)
+		req := httptest.NewRequest("POST", "/auth/email/confirm", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 200 {
@@ -35,7 +35,7 @@ func TestLoginWithEmailConfirm(t *testing.T) {
 		if err != nil || len(storedLinks) != 0 {
 			t.Fatalf("expected stored magic link to be deleted")
 		}
-		responseBody := testutils.ReadJSON(res.Body, &accessAPI.LoginWithEmailConfirmResponseBody{})
+		responseBody := testutils.ReadJSON(res.Body, &auth.LoginWithEmailConfirmResponseBody{})
 		if responseBody.AccessToken == "" {
 			t.Fatalf("expected access token in response")
 		}
@@ -47,7 +47,7 @@ func TestLoginWithEmailConfirm(t *testing.T) {
 
 	t.Run("fail with non-json body", func(t *testing.T) {
 		requestBody := strings.NewReader(`not a json`)
-		req := httptest.NewRequest("POST", "/access/login/email/confirm", requestBody)
+		req := httptest.NewRequest("POST", "/auth/email/confirm", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 400 {
@@ -57,7 +57,7 @@ func TestLoginWithEmailConfirm(t *testing.T) {
 
 	t.Run("fail with missing token", func(t *testing.T) {
 		requestBody := strings.NewReader(`{}`)
-		req := httptest.NewRequest("POST", "/access/login/email/confirm", requestBody)
+		req := httptest.NewRequest("POST", "/auth/email/confirm", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 400 {
@@ -67,7 +67,7 @@ func TestLoginWithEmailConfirm(t *testing.T) {
 
 	t.Run("fail with unknown token", func(t *testing.T) {
 		requestBody := strings.NewReader(`{"token":"not-a-real-token"}`)
-		req := httptest.NewRequest("POST", "/access/login/email/confirm", requestBody)
+		req := httptest.NewRequest("POST", "/auth/email/confirm", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 403 {

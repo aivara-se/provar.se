@@ -1,4 +1,4 @@
-package access
+package auth
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -16,8 +16,8 @@ type GetLoginDetailsResponseBody struct {
 }
 
 func SetupGetLoginDetails(app *fiber.App) {
-	app.Get("/access/login/details", access.AuthenticatedGuard())
-	app.Get("/access/login/details", func(c *fiber.Ctx) error {
+	app.Get("/auth/whoami", access.AuthenticatedGuard())
+	app.Get("/auth/whoami", func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)
 		if principal.Type == permission.PrincipalTypeUser {
 			return c.JSON(GetLoginDetailsResponseBody{

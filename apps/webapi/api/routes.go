@@ -8,8 +8,9 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"provar.se/webapi/api/access"
-	"provar.se/webapi/api/health"
+	"provar.se/webapi/api/auth"
+	"provar.se/webapi/api/organization"
+	"provar.se/webapi/api/ping"
 )
 
 func Create() *fiber.App {
@@ -39,11 +40,12 @@ func Create() *fiber.App {
 	app.Use(logger.New())
 
 	// Load all app routes
-	access.SetupGetLoginDetails(app)
-	access.SetupLoginWithEmail(app)
-	access.SetupLoginWithEmailConfirm(app)
-	health.SetupBasicHealthcheck(app)
-	health.SetupSecureHealthcheck(app)
+	auth.SetupGetLoginDetails(app)
+	auth.SetupLoginWithEmail(app)
+	auth.SetupLoginWithEmailConfirm(app)
+	organization.SetupCreateOrganization(app)
+	ping.SetupBasicHealthcheck(app)
+	ping.SetupSecureHealthcheck(app)
 
 	return app
 }

@@ -39,7 +39,7 @@ func FindBySecret(secret string) (*Credential, error) {
 
 // DeleteByID deletes a credential with the given id
 func DeleteByID(id string) error {
-	query := "DELETE FROM public.credential WHERE id = $1"
+	query := "DELETE FROM private.credential WHERE id = $1"
 	_, err := database.DB().Exec(query, id)
 	return err
 }

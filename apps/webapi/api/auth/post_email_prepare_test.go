@@ -1,4 +1,4 @@
-package access_test
+package auth_test
 
 import (
 	"net/http/httptest"
@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"provar.se/webapi/lib/magiclink"
-	testutils "provar.se/webapi/lib/testutils"
+	"provar.se/webapi/lib/testutils"
 )
 
 func TestLoginWithEmail(t *testing.T) {
@@ -15,7 +15,7 @@ func TestLoginWithEmail(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 		usr, _ := testutils.CreateUser()
 		requestBody := strings.NewReader(`{"email":"` + usr.Email + `"}`)
-		req := httptest.NewRequest("POST", "/access/login/email", requestBody)
+		req := httptest.NewRequest("POST", "/auth/email/prepare", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 204 {
@@ -38,7 +38,7 @@ func TestLoginWithEmail(t *testing.T) {
 
 	t.Run("fail with non-json body", func(t *testing.T) {
 		requestBody := strings.NewReader(`not a json`)
-		req := httptest.NewRequest("POST", "/access/login/email", requestBody)
+		req := httptest.NewRequest("POST", "/auth/email/prepare", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 400 {
@@ -48,7 +48,7 @@ func TestLoginWithEmail(t *testing.T) {
 
 	t.Run("fail with missing email", func(t *testing.T) {
 		requestBody := strings.NewReader(`{}`)
-		req := httptest.NewRequest("POST", "/access/login/email", requestBody)
+		req := httptest.NewRequest("POST", "/auth/email/prepare", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 400 {
@@ -58,7 +58,7 @@ func TestLoginWithEmail(t *testing.T) {
 
 	t.Run("fail with invalid email", func(t *testing.T) {
 		requestBody := strings.NewReader(`{"email":"invalid"}`)
-		req := httptest.NewRequest("POST", "/access/login/email", requestBody)
+		req := httptest.NewRequest("POST", "/auth/email/prepare", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 400 {
@@ -69,7 +69,7 @@ func TestLoginWithEmail(t *testing.T) {
 	t.Run("fail with unknown user", func(t *testing.T) {
 		randomEmail := testutils.RandomEmailAddress()
 		requestBody := strings.NewReader(`{"email":"` + randomEmail + `"}`)
-		req := httptest.NewRequest("POST", "/access/login/email", requestBody)
+		req := httptest.NewRequest("POST", "/auth/email/prepare", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 204 {
