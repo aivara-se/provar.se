@@ -4,14 +4,14 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"provar.se/webapi/lib/testapp"
+	testutils "provar.se/webapi/lib/testutils"
 )
 
 func TestSecureHealthcheck(t *testing.T) {
-	app := testapp.Create()
+	app := testutils.Create()
 
 	t.Run("success - user", func(t *testing.T) {
-		_, key := testapp.CreateUser()
+		_, key := testutils.CreateUser()
 		req := httptest.NewRequest("GET", "/health/secure", nil)
 		req.Header.Add("Authorization", "bearer "+key)
 		res, _ := app.Test(req, -1)
@@ -38,7 +38,7 @@ func TestSecureHealthcheck(t *testing.T) {
 	})
 
 	t.Run("fail with deleted user", func(t *testing.T) {
-		usr, key := testapp.CreateUser()
+		usr, key := testutils.CreateUser()
 		usr.Delete()
 		req := httptest.NewRequest("GET", "/health/secure", nil)
 		req.Header.Add("Authorization", "bearer "+key)

@@ -7,19 +7,19 @@ import (
 
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/magiclink"
-	"provar.se/webapi/lib/testapp"
+	testutils "provar.se/webapi/lib/testutils"
 	"provar.se/webapi/lib/user"
 )
 
 func PrepareMagicLink() (*user.User, string) {
-	usr, _ := testapp.CreateUser()
+	usr, _ := testutils.CreateUser()
 	access.PrepareLoginWithEmail(usr.Email)
 	magicLinks, _ := magiclink.FindByUserID(usr.ID)
 	return usr, magicLinks[0].Token
 }
 
 func TestLoginWithEmailConfirm(t *testing.T) {
-	app := testapp.Create()
+	app := testutils.Create()
 
 	t.Run("success", func(t *testing.T) {
 		usr, token := PrepareMagicLink()
@@ -34,7 +34,7 @@ func TestLoginWithEmailConfirm(t *testing.T) {
 		if err != nil || len(storedLinks) != 0 {
 			t.Fatalf("expected stored magic link to be deleted")
 		}
-		responseBody := testapp.ReadJSON(res.Body, map[string]string{})
+		responseBody := testutils.ReadJSON(res.Body, map[string]string{})
 		if responseBody["accessToken"] == "" {
 			t.Fatalf("expected access token in response")
 		}

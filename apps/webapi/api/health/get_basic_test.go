@@ -4,11 +4,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"provar.se/webapi/lib/testapp"
+	"provar.se/webapi/lib/testutils"
 )
 
 func TestBasicHealthcheck(t *testing.T) {
-	app := testapp.Create()
+	app := testutils.Create()
 
 	t.Run("success", func(t *testing.T) {
 		req := httptest.NewRequest("GET", "/health/basic", nil)
