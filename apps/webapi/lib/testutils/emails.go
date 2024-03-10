@@ -1,4 +1,4 @@
-package testapp
+package testutils
 
 import (
 	"github.com/go-resty/resty/v2"
