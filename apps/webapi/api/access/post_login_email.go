@@ -17,7 +17,7 @@ func CreateLoginWithEmailRequestBody() interface{} {
 }
 
 func SetupLoginWithEmail(app *fiber.App) {
-	app.Post("/access/login/email", validator.Middleware(CreateLoginWithEmailRequestBody))
+	app.Post("/access/login/email", validator.ValidateRequestBodyMiddleware(CreateLoginWithEmailRequestBody))
 	app.Post("/access/login/email", func(c *fiber.Ctx) error {
 		body := validator.GetRequestBody(c).(*LoginWithEmailRequestBody)
 		access.PrepareLoginWithEmail(body.Email)

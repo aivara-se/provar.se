@@ -12,3 +12,7 @@ CREATE TABLE private.permission (
 
 -- Index on organization_id column of private.permission table
 CREATE INDEX idx_permission_organization_id ON private.permission(organization_id);
+
+-- Create public.permission view
+CREATE OR REPLACE VIEW public.permission AS
+SELECT * FROM private.permission;

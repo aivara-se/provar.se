@@ -14,3 +14,7 @@ CREATE INDEX idx_credential_secret ON private.credential(secret);
 
 -- Index on organization_id column of private.credential table
 CREATE INDEX idx_credential_organization_id ON private.credential(organization_id);
+
+-- Create public.credential view
+CREATE OR REPLACE VIEW public.credential AS
+SELECT * FROM private.credential;

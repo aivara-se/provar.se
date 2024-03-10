@@ -1,2 +1,2 @@
 -- Create private schema
-CREATE SCHEMA private;
+CREATE SCHEMA IF NOT EXISTS private;
