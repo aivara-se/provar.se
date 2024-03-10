@@ -28,3 +28,15 @@ func FindBySecret(secret string) (*Credential, error) {
 	}
 	return cred, nil
 }
+
+// DeleteByID deletes a credential with the given id
+func DeleteByID(id string) error {
+	query := "DELETE FROM public.credential WHERE id = $1"
+	_, err := database.DB().Exec(query, id)
+	return err
+}
+
+// DeleteByID deletes a credential with the given id
+func (c *Credential) Delete() error {
+	return DeleteByID(c.ID)
+}

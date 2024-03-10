@@ -3105,12 +3105,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"infrastructure@workspace:infra/migrations":
-  version: 0.0.0-use.local
-  resolution: "infrastructure@workspace:infra/migrations"
-  languageName: unknown
-  linkType: soft
-
 "inherits@npm:2, inherits@npm:^2.0.3":
   version: 2.0.4
   resolution: "inherits@npm:2.0.4"
@@ -3618,6 +3612,12 @@ __metadata:
   checksum: 10/a749888789fc15cac0e03273844dbd749f9f8e8d64e70c564bcf06a033129554c789bb9e30d7566d7ff6596611a08e58ac12cf2a05f6e3c9c47c50c4c7e12fa2
   languageName: node
   linkType: hard
+
+"migrations@workspace:infra/migrations":
+  version: 0.0.0-use.local
+  resolution: "migrations@workspace:infra/migrations"
+  languageName: unknown
+  linkType: soft
 
 "mime-db@npm:1.52.0, mime-db@npm:>= 1.43.0 < 2":
   version: 1.52.0

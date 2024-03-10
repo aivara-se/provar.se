@@ -5,6 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"provar.se/webapi/lib/credential"
+	"provar.se/webapi/lib/permission"
 )
 
 const (
@@ -35,9 +36,9 @@ func extractTokenFromRequest(c *fiber.Ctx) string {
 	return auth[authHeaderPrefixLength:]
 }
 
-// Middleware returns a fiber middleware to authenticate users
+// EnsureUserLoggedInMiddleware returns a fiber middleware to authenticate users
 // or credentials (API keys) created on the application.
-func Middleware() fiber.Handler {
+func EnsureUserLoggedInMiddleware() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		key := extractTokenFromRequest(c)
 		if key == "" {
@@ -45,16 +46,16 @@ func Middleware() fiber.Handler {
 		}
 		user, err := ValidateAccessToken(key)
 		if err == nil {
-			c.Locals(principalKey, &Principal{
-				Type: PrincipalTypeUser,
+			c.Locals(principalKey, &permission.Principal{
+				Type: permission.PrincipalTypeUser,
 				User: user,
 			})
 			return c.Next()
 		}
 		cred, err := credential.FindBySecret(key)
 		if err == nil {
-			c.Locals(principalKey, &Principal{
-				Type: PrincipalTypeCredential,
+			c.Locals(principalKey, &permission.Principal{
+				Type: permission.PrincipalTypeCredential,
 				Cred: cred,
 			})
 			return c.Next()
@@ -64,6 +65,6 @@ func Middleware() fiber.Handler {
 }
 
 // GetPrincipal returns the access token from the fiber context
-func GetPrincipal(c *fiber.Ctx) interface{} {
-	return c.Locals(principalKey)
+func GetPrincipal(c *fiber.Ctx) *permission.Principal {
+	return c.Locals(principalKey).(*permission.Principal)
 }

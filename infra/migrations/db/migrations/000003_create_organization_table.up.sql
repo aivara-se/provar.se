@@ -10,3 +10,7 @@ CREATE TABLE private.organization (
 
 -- Index on slug column of private.organization table
 CREATE INDEX idx_permission_slug ON private.organization(slug);
+
+-- Create public.organization view
+CREATE OR REPLACE VIEW public.organization AS
+SELECT * FROM private.organization;

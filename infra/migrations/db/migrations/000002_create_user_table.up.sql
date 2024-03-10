@@ -10,3 +10,7 @@ CREATE TABLE private.user (
 
 -- Index on email column of private.user table
 CREATE INDEX idx_user_email ON private.user(email);
+
+-- Create public.user view
+CREATE OR REPLACE VIEW public.user AS
+SELECT * FROM private.user;

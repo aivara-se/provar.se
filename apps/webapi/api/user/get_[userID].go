@@ -1,4 +1,4 @@
-package health
+package user
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -6,8 +6,8 @@ import (
 )
 
 func SetupSecureHealthcheck(app *fiber.App) {
-	app.Get("/health/secure", access.EnsureUserLoggedInMiddleware())
-	app.Get("/health/secure", func(c *fiber.Ctx) error {
+	app.Get("/user/:userID", access.EnsureUserLoggedInMiddleware())
+	app.Get("/user/:userID", func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNoContent)
 	})
 }

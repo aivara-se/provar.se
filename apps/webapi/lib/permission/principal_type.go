@@ -1,17 +1,15 @@
-package access
+package permission
 
 import (
 	"provar.se/webapi/lib/credential"
 	"provar.se/webapi/lib/user"
 )
 
-type PrincipalType int
+type PrincipalType string
 
 const (
-	PrincipalTypeUnknown PrincipalType = iota
-	PrincipalTypeCredential
-	PrincipalTypeUser
-	PrincipalTypeSystem
+	PrincipalTypeCredential PrincipalType = "credential"
+	PrincipalTypeUser       PrincipalType = "user"
 )
 
 type Principal struct {

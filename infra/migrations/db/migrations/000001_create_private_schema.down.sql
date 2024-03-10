@@ -1,2 +1,2 @@
 -- Drop private schema
-DROP SCHEMA private;
+DROP SCHEMA IF EXISTS private CASCADE;
