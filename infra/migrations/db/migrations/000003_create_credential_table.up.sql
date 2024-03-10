@@ -11,3 +11,6 @@ CREATE TABLE credential (
 
 -- Index on secret column of "credential" table
 CREATE INDEX idx_credential_secret ON credential(secret);
+
+-- Index on organization_id column of "credential" table
+CREATE INDEX idx_credential_organization_id ON credential(organization_id);
