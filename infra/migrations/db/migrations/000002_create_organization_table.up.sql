@@ -7,3 +7,6 @@ CREATE TABLE organization (
     owner_id VARCHAR(8) REFERENCES "user"(id),
     name VARCHAR(64) NOT NULL
 );
+
+-- Index on slug column of "organization" table
+CREATE INDEX idx_permission_slug ON organization(slug);
