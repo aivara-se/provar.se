@@ -59,7 +59,7 @@ func FindByPrincipal(principalID string) ([]*Permission, error) {
 
 // DeleteByID deletes a permission with the given id
 func DeleteByID(id string) error {
-	query := "DELETE FROM public.permission WHERE id = $1"
+	query := "DELETE FROM private.permission WHERE id = $1"
 	_, err := database.DB().Exec(query, id)
 	return err
 }

@@ -14,9 +14,9 @@ func CreateUser() (*user.User, string) {
 	if err != nil {
 		panic(err)
 	}
-	key, err := access.CreateAccessToken(usr.ID)
+	token, err := access.CreateAccessToken(usr.ID)
 	if err != nil {
 		panic(err)
 	}
-	return usr, key
+	return usr, token
 }

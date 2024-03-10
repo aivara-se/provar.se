@@ -41,7 +41,7 @@ func Create(name, email string, verified bool) (*User, error) {
 		}
 	}
 	query := `
-		INSERT INTO public.user (id, created_at, modified_at, email, name, email_verified_at)
+		INSERT INTO private.user (id, created_at, modified_at, email, name, email_verified_at)
 		VALUES (:id, :created_at, :modified_at, :email, :name, :email_verified_at)
 	`
 	_, err := database.DB().NamedExec(query, user)
@@ -72,7 +72,7 @@ func FindByEmail(email string) (*User, error) {
 
 // DeleteByID deletes a user with the given id
 func DeleteByID(id string) error {
-	query := "DELETE FROM public.user WHERE id = $1"
+	query := "DELETE FROM private.user WHERE id = $1"
 	_, err := database.DB().Exec(query, id)
 	return err
 }

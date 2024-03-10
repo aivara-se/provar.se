@@ -1,4 +1,4 @@
-package access
+package auth
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -17,8 +17,8 @@ func CreateLoginWithEmailRequestBody() interface{} {
 }
 
 func SetupLoginWithEmail(app *fiber.App) {
-	app.Post("/access/login/email", validator.ValidateRequestBodyMiddleware(CreateLoginWithEmailRequestBody))
-	app.Post("/access/login/email", func(c *fiber.Ctx) error {
+	app.Post("/auth/email/prepare", validator.ValidateMiddleware(CreateLoginWithEmailRequestBody))
+	app.Post("/auth/email/prepare", func(c *fiber.Ctx) error {
 		body := validator.GetRequestBody(c).(*LoginWithEmailRequestBody)
 		access.PrepareLoginWithEmail(body.Email)
 		return c.SendStatus(fiber.StatusNoContent)

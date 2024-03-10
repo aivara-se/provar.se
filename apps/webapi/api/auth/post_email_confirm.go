@@ -1,4 +1,4 @@
-package access
+package auth
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -24,8 +24,8 @@ type LoginWithEmailConfirmResponseBody struct {
 }
 
 func SetupLoginWithEmailConfirm(app *fiber.App) {
-	app.Post("/access/login/email/confirm", validator.ValidateRequestBodyMiddleware(CreateLoginWithEmailConfirmRequestBody))
-	app.Post("/access/login/email/confirm", func(c *fiber.Ctx) error {
+	app.Post("/auth/email/confirm", validator.ValidateMiddleware(CreateLoginWithEmailConfirmRequestBody))
+	app.Post("/auth/email/confirm", func(c *fiber.Ctx) error {
 		body := validator.GetRequestBody(c).(*LoginWithEmailConfirmRequestBody)
 		accessToken, err := access.ConfirmLoginWithEmail(body.Token)
 		if err != nil {

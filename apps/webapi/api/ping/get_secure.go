@@ -1,4 +1,4 @@
-package health
+package ping
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -6,8 +6,8 @@ import (
 )
 
 func SetupSecureHealthcheck(app *fiber.App) {
-	app.Get("/health/secure", access.AuthenticatedGuard())
-	app.Get("/health/secure", func(c *fiber.Ctx) error {
+	app.Get("/ping/secure", access.AuthenticatedGuard())
+	app.Get("/ping/secure", func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNoContent)
 	})
 }
