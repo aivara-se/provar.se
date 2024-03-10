@@ -39,10 +39,11 @@ func Create() *fiber.App {
 	app.Use(logger.New())
 
 	// Load all app routes
-	health.SetupBasicHealthcheck(app)
-	health.SetupSecureHealthcheck(app)
+	access.SetupGetLoginDetails(app)
 	access.SetupLoginWithEmail(app)
 	access.SetupLoginWithEmailConfirm(app)
+	health.SetupBasicHealthcheck(app)
+	health.SetupSecureHealthcheck(app)
 
 	return app
 }

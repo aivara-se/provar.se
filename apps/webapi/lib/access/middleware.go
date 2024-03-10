@@ -36,9 +36,9 @@ func extractTokenFromRequest(c *fiber.Ctx) string {
 	return auth[authHeaderPrefixLength:]
 }
 
-// EnsureUserLoggedInMiddleware returns a fiber middleware to authenticate users
-// or credentials (API keys) created on the application.
-func EnsureUserLoggedInMiddleware() fiber.Handler {
+// AuthenticatedGuard returns a fiber middleware to authenticate users
+// or credentials (API keys). Returns 401 if the user is not authenticated.
+func AuthenticatedGuard() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		key := extractTokenFromRequest(c)
 		if key == "" {
