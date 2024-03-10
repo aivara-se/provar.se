@@ -5,6 +5,7 @@ import (
 	"strings"
 	"testing"
 
+	accessAPI "provar.se/webapi/api/access"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/magiclink"
 	testutils "provar.se/webapi/lib/testutils"
@@ -34,11 +35,11 @@ func TestLoginWithEmailConfirm(t *testing.T) {
 		if err != nil || len(storedLinks) != 0 {
 			t.Fatalf("expected stored magic link to be deleted")
 		}
-		responseBody := testutils.ReadJSON(res.Body, map[string]string{})
-		if responseBody["accessToken"] == "" {
+		responseBody := testutils.ReadJSON(res.Body, &accessAPI.LoginWithEmailConfirmResponseBody{})
+		if responseBody.AccessToken == "" {
 			t.Fatalf("expected access token in response")
 		}
-		validatedUser, err := access.ValidateAccessToken(responseBody["accessToken"])
+		validatedUser, err := access.ValidateAccessToken(responseBody.AccessToken)
 		if err != nil || validatedUser.ID != usr.ID {
 			t.Fatalf("expected access token to be valid")
 		}

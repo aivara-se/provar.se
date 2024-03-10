@@ -17,6 +17,14 @@ type User struct {
 	Name            string       `db:"name"`
 }
 
+// PublicUser represents a user with sensitive information
+// removed. This is used to send user information to the client.
+type PublicUser struct {
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
 // Create creates a new user in the database
 func Create(name, email string, verified bool) (*User, error) {
 	user := &User{
@@ -67,6 +75,15 @@ func DeleteByID(id string) error {
 	query := "DELETE FROM public.user WHERE id = $1"
 	_, err := database.DB().Exec(query, id)
 	return err
+}
+
+// Public returns a public user from a user
+func (u *User) Public() *PublicUser {
+	return &PublicUser{
+		ID:    u.ID,
+		Name:  u.Name,
+		Email: u.Email,
+	}
 }
 
 // DeleteByID deletes a user with the given id

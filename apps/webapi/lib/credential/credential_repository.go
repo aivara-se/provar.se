@@ -18,6 +18,14 @@ type Credential struct {
 	Secret         string       `db:"secret"`
 }
 
+// PublicCredential represents a credential with sensitive information
+// removed. This is used to send credential information to the client.
+type PublicCredential struct {
+	ID             string `json:"id"`
+	OrganizationID string `json:"organization_id"`
+	Name           string `json:"name"`
+}
+
 // FindBySecret returns a credential by its secret
 func FindBySecret(secret string) (*Credential, error) {
 	cred := &Credential{}
@@ -34,6 +42,15 @@ func DeleteByID(id string) error {
 	query := "DELETE FROM public.credential WHERE id = $1"
 	_, err := database.DB().Exec(query, id)
 	return err
+}
+
+// Public returns a public version of the credential
+func (c *Credential) Public() *PublicCredential {
+	return &PublicCredential{
+		ID:             c.ID,
+		OrganizationID: c.OrganizationID,
+		Name:           c.Name,
+	}
 }
 
 // DeleteByID deletes a credential with the given id
