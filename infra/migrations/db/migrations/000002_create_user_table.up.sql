@@ -1,5 +1,5 @@
--- Create "user" table
-CREATE TABLE "user" (
+-- Create private.user table
+CREATE TABLE private.user (
     id VARCHAR(8) PRIMARY KEY,
     created_at TIMESTAMP NOT NULL,
     modified_at TIMESTAMP NOT NULL,
@@ -8,5 +8,5 @@ CREATE TABLE "user" (
     name VARCHAR(64) NOT NULL
 );
 
--- Index on email column of "user" table
-CREATE INDEX idx_user_email ON "user"(email);
+-- Index on email column of private.user table
+CREATE INDEX idx_user_email ON private.user(email);
