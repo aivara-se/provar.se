@@ -25,10 +25,6 @@ jobs:
       run:
         working-directory: ./apps/webapp
 
-    env:
-      PUBLIC_PROVAR_API_URL: "test-api-url"
-      PUBLIC_PROVAR_APP_URL: "test-app-url"
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,6 +40,9 @@ jobs:
         run: yarn install --silent
 
       - name: Build the application
+        env:
+          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_APP_URL }}
+          PUBLIC_PROVAR_API_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_API_URL }}
         run: yarn build
 
       - name: Check code formatting
