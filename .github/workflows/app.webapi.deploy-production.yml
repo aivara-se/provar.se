@@ -63,7 +63,7 @@ jobs:
         working-directory: ./infra/migration
         run: |
           go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-          migrate -database $DATABASE_URI -path db/migrations up
+          migrate -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
 
       - name: Deploy the service
         id: deploy
