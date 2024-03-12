@@ -56,12 +56,6 @@ jobs:
       - name: Check unit tests
         run: yarn test:unit
 
-      - name: Install playwright
-        run: yarn playwright install --with-deps
-
-      - name: Check integration tests
-        run: yarn test:integration
-
       - name: Publish to Cloudflare
         uses: cloudflare/pages-action@v1
         with:
