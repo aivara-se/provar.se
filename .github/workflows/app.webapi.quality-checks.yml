@@ -52,8 +52,7 @@ jobs:
         run: |
           docker-compose -f "../../compose.yaml" up -d
           bash ../../.scripts/wait-for-postgres.sh
-          go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-          migrate -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
+          go run -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
 
       - name: Download GeoLite2 DB
         run: |
