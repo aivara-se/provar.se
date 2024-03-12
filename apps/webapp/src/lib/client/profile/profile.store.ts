@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { Organization, User } from '$lib/types';
+import type { Organization, User } from '$lib/client/types';
 
 export interface Profile extends User {
 	organizations: Organization[];
