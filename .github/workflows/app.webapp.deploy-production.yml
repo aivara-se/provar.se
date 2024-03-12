@@ -40,7 +40,7 @@ jobs:
       - name: Setup Yarn
         run: yarn install --silent
 
-      - name: Build the service
+      - name: Build the application
         env:
           PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_APP_URL }}
           PUBLIC_PROVAR_API_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_API_URL }}
