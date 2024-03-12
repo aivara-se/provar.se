@@ -49,20 +49,19 @@ jobs:
         run: go vet ./...
 
       - name: Start dependencies
-        run: docker-compose -f "../../compose.yaml" up -d
+        env:
+          DATABASE_URI: postgresql://postgres:postgres@localhost/provar?sslmode=disable
+        run: |
+          docker-compose -f "../../compose.yaml" up -d
+          bash ../../.scripts/wait-for-postgres.sh
+          go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+          migrate -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
 
       - name: Download GeoLite2 DB
         run: |
           wget "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.APPS_WEBAPI_METAMIND_KEY }}&suffix=tar.gz" -O GeoLite2-City.tar.gz
           tar -xzf GeoLite2-City.tar.gz
           mv `find . | grep GeoLite2-City.mmdb` ./
-
-      - name: Database migrations
-        env:
-          DATABASE_URI: postgresql://postgres:postgres@localhost/provar?sslmode=disable
-        run: |
-          go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-          migrate -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
 
       - name: Check unit tests
         env:
