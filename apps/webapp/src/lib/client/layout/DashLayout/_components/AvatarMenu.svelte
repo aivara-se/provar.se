@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { signOut } from '$lib/client/auth';
 	import { profile } from '$lib/client/profile';
-	import { signOut } from '@auth/sveltekit/client';
 	import { LogOutIcon } from 'lucide-svelte';
 
 	let element: HTMLDetailsElement;
