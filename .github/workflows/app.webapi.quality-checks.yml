@@ -49,8 +49,7 @@ jobs:
         run: go vet ./...
 
       - name: Start dependencies
-        if: always()
-        run: docker-compose -f "compose.yml" up -d
+        run: docker-compose -f "../../compose.yaml" up -d
 
       - name: Download GeoLite2 DB
         run: |
@@ -61,10 +60,9 @@ jobs:
       - name: Database migrations
         env:
           DATABASE_URI: postgresql://postgres:postgres@localhost/provar-test?sslmode=disable
-        working-directory: ./infra/migrations
         run: |
           go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-          migrate -database $DATABASE_URI -path db/migrations up
+          migrate -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
 
       - name: Check unit tests
         env:
@@ -79,4 +77,4 @@ jobs:
 
       - name: Stop dependencies
         if: always()
-        run: docker-compose -f "compose.yml" down
+        run: docker-compose -f "../../compose.yaml" down
