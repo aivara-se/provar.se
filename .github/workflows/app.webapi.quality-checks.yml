@@ -59,7 +59,7 @@ jobs:
 
       - name: Database migrations
         env:
-          DATABASE_URI: postgresql://postgres:postgres@localhost/provar-test?sslmode=disable
+          DATABASE_URI: postgresql://postgres:postgres@localhost/provar?sslmode=disable
         run: |
           go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
           migrate -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
@@ -67,7 +67,7 @@ jobs:
       - name: Check unit tests
         env:
           AUTH_SECRET: lsYOrIgN9GmEa+4ycD8q/Z5ZD/KiN89I/LhFNzqZsE3A0Pek5bLKmg==
-          DATABASE_URI: postgresql://postgres:postgres@localhost/provar-test?sslmode=disable
+          DATABASE_URI: postgresql://postgres:postgres@localhost/provar?sslmode=disable
           EMAIL_FROM: noreply@provar.se
           EMAIL_SERVER: smtp://user:pass@localhost:1025
           GEOLITE2_DB: ../../GeoLite2-City.mmdb
