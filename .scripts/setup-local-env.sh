@@ -10,15 +10,17 @@ fi
 
 # Create .env file for webapi service
 cat << EOF > apps/webapi/.env
-AUTH_SECRET=$(openssl rand -base64 40)
 AUTH_GITHUB_ID=$APPS_WEBAPI_APP_AUTH_GITHUB_ID
 AUTH_GITHUB_SECRET=$APPS_WEBAPI_APP_AUTH_GITHUB_SECRET
 AUTH_GOOGLE_ID=$APPS_WEBAPI_APP_AUTH_GOOGLE_ID
 AUTH_GOOGLE_SECRET=$APPS_WEBAPI_APP_AUTH_GOOGLE_SECRET
+AUTH_SECRET=$(openssl rand -base64 40)
+DATABASE_URI=postgresql://postgres:postgres@localhost/provar?sslmode=disable
 EMAIL_FROM=noreply@provar.se
 EMAIL_SERVER=smtp://user:pass@localhost:1025
-DATABASE_URI=postgresql://postgres:postgres@localhost/provar?sslmode=disable
 GEOLITE2_DB=./GeoLite2-City.mmdb
+PROVAR_API_URL=http://localhost:3001
+PROVAR_APP_URL=http://localhost:3002
 
 # Local only environment variables
 GOOGLE_APPLICATION_CREDENTIALS=../../credentials.json
