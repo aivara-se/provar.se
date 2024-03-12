@@ -67,7 +67,7 @@ jobs:
       - name: Database migrations
         env:
           DATABASE_URI: postgresql://postgres:postgres@localhost/provar-test?sslmode=disable
-        working-directory: ./infra/migration
+        working-directory: ./infra/migrations
         run: |
           go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
           migrate -database $DATABASE_URI -path db/migrations up
