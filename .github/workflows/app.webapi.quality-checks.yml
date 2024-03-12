@@ -22,16 +22,6 @@ jobs:
       contents: read
       security-events: write
 
-    services:
-      postgres:
-        image: postgres:16
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: provar-test
-
     defaults:
       run:
         working-directory: ./apps/webapi
@@ -58,6 +48,10 @@ jobs:
       - name: Check code errors
         run: go vet ./...
 
+      - name: Start dependencies
+        if: always()
+        run: docker-compose -f "compose.yml" up -d
+
       - name: Download GeoLite2 DB
         run: |
           wget "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.APPS_WEBAPI_METAMIND_KEY }}&suffix=tar.gz" -O GeoLite2-City.tar.gz
@@ -82,3 +76,7 @@ jobs:
           PROVAR_API_URL: http://localhost:3001
           PROVAR_APP_URL: http://localhost:3002
         run: go test ./... -v
+
+      - name: Stop dependencies
+        if: always()
+        run: docker-compose -f "compose.yml" down
