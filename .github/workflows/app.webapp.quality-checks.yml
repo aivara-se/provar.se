@@ -44,7 +44,7 @@ jobs:
       - name: Setup Yarn
         run: yarn install --silent
 
-      - name: Build the service
+      - name: Build the application
         run: yarn build
 
       - name: Check code formatting
@@ -61,3 +61,12 @@ jobs:
 
       - name: Check integration tests
         run: yarn test:integration
+
+      - name: Publish to Cloudflare
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.APPS_WEBAPP_CLOUDFLARE_TOKEN }}
+          accountId: ${{ secrets.APPS_WEBAPP_CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ secrets.APPS_WEBAPP_CLOUDFLARE_PROJECT_NAME }}
+          directory: ./apps/webapp/.svelte-kit/cloudflare
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
