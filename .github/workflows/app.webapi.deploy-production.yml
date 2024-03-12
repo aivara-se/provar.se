@@ -78,8 +78,13 @@ jobs:
             AUTH_GITHUB_SECRET=${{ secrets.APPS_WEBAPI_APP_AUTH_GITHUB_SECRET }}
             AUTH_GOOGLE_ID=${{ secrets.APPS_WEBAPI_APP_AUTH_GOOGLE_ID }}
             AUTH_GOOGLE_SECRET=${{ secrets.APPS_WEBAPI_APP_AUTH_GOOGLE_SECRET }}
+            AUTH_SECRET=${{ secrets.APPS_WEBAPI_APP_AUTH_SECRET }}
             DATABASE_URI=${{ secrets.APPS_WEBAPI_APP_DATABASE_URI }}
+            EMAIL_FROM=${{ secrets.APPS_WEBAPI_APP_EMAIL_FROM }}
+            EMAIL_SERVER=${{ secrets.APPS_WEBAPI_APP_EMAIL_SERVER }}
             GEOLITE2_DB=${{ secrets.APPS_WEBAPI_APP_GEOLITE2_DB }}
+            PROVAR_API_URL=${{ secrets.APPS_WEBAPI_APP_PROVAR_API_URL }}
+            PROVAR_APP_URL=${{ secrets.APPS_WEBAPI_APP_PROVAR_APP_URL }}
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
