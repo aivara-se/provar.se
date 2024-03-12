@@ -1,4 +1,4 @@
-import { signOut } from '@auth/sveltekit/client';
+import { signOut } from '$lib/client/auth';
 import { defineRoute } from '$lib/client/routes';
 import type { FrontentAction } from '$lib/client/action';
 
