@@ -77,6 +77,13 @@ func FindByEmail(email string) (*User, error) {
 	return user, nil
 }
 
+// SetEmailVerified sets the user's email as verified
+func SetEmailVerified(id string) error {
+	query := "UPDATE private.user SET email_verified_at = $1 WHERE id = $2"
+	_, err := database.DB().Exec(query, time.Now)
+	return err
+}
+
 // DeleteByID deletes a user with the given id
 func DeleteByID(id string) error {
 	query := "DELETE FROM private.user WHERE id = $1"
