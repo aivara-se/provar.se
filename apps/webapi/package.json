@@ -8,7 +8,7 @@
     "setup": "go get .",
     "build": "go build -o ./build/webapi",
     "build:docker": "docker build -t provar-webapi:latest .",
-    "build:swagger": "tsp compile . --output-dir ./build && cp ./build/@typespec/openapi3/openapi.yaml ./static/",
+    "build:swagger": "tsp compile . --output-dir ./build && cp ./build/@typespec/openapi3/openapi.yaml ./public/",
     "preview": "yarn build &&  ./build/webapi",
     "preview:docker": "docker run -it --rm --env-file ./.env -p 3001:3001 provar-webapi:latest",
     "format": "go fmt ./...",

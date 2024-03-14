@@ -47,5 +47,8 @@ func Create() *fiber.App {
 	ping.SetupBasicHealthcheck(app)
 	ping.SetupSecureHealthcheck(app)
 
+	// Serve static files
+	app.Static("/", "./public")
+
 	return app
 }
