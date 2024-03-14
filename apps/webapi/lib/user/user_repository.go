@@ -2,6 +2,7 @@ package user
 
 import (
 	"database/sql"
+	"strings"
 	"time"
 
 	"provar.se/webapi/lib/database"
@@ -33,6 +34,12 @@ func Create(name, email string, verified bool) (*User, error) {
 		ModifiedAt: time.Now(),
 		Email:      email,
 		Name:       name,
+	}
+	if name == "" {
+		emailParts := strings.Split(email, "@")
+		if len(emailParts) > 0 {
+			user.Name = emailParts[0]
+		}
 	}
 	if verified {
 		user.EmailVerifiedAt = sql.NullTime{
