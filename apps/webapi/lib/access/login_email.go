@@ -1,6 +1,8 @@
 package access
 
 import (
+	"database/sql"
+
 	"provar.se/webapi/lib/emails"
 	"provar.se/webapi/lib/emails/templates"
 	"provar.se/webapi/lib/magiclink"
@@ -9,11 +11,14 @@ import (
 
 // PrepareLoginWithEmail sends a magic link to the user's email address.
 func PrepareLoginWithEmail(email string) {
-	user, err := user.FindByEmail(email)
+	usr, err := user.FindByEmail(email)
+	if err == sql.ErrNoRows {
+		usr, err = user.Create("", email, false)
+	}
 	if err != nil {
 		return
 	}
-	magicLink, err := magiclink.Create(user.ID)
+	magicLink, err := magiclink.Create(usr.ID)
 	if err != nil {
 		return
 	}

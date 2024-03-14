@@ -36,6 +36,21 @@ func TestLoginWithEmail(t *testing.T) {
 		}
 	})
 
+	t.Run("success - new user", func(t *testing.T) {
+		email := testutils.RandomEmailAddress()
+		requestBody := strings.NewReader(`{"email":"` + email + `"}`)
+		req := httptest.NewRequest("POST", "/auth/email/prepare", requestBody)
+		req.Header.Add("Content-Type", "application/json")
+		res, _ := app.Test(req, -1)
+		if res.StatusCode != 204 {
+			t.Fatalf("unexpected status code: %d", res.StatusCode)
+		}
+		emails := testutils.GetSentEmails(email)
+		if len(emails) != 1 {
+			t.Fatalf("expected an email to be sent to user")
+		}
+	})
+
 	t.Run("fail with non-json body", func(t *testing.T) {
 		requestBody := strings.NewReader(`not a json`)
 		req := httptest.NewRequest("POST", "/auth/email/prepare", requestBody)
@@ -63,21 +78,6 @@ func TestLoginWithEmail(t *testing.T) {
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 400 {
 			t.Fatalf("unexpected status code: %d", res.StatusCode)
-		}
-	})
-
-	t.Run("fail with unknown user", func(t *testing.T) {
-		randomEmail := testutils.RandomEmailAddress()
-		requestBody := strings.NewReader(`{"email":"` + randomEmail + `"}`)
-		req := httptest.NewRequest("POST", "/auth/email/prepare", requestBody)
-		req.Header.Add("Content-Type", "application/json")
-		res, _ := app.Test(req, -1)
-		if res.StatusCode != 204 {
-			t.Fatalf("unexpected status code: %d", res.StatusCode)
-		}
-		emails := testutils.GetSentEmails(randomEmail)
-		if len(emails) != 0 {
-			t.Fatalf("unexpected email sent to user")
 		}
 	})
 }
