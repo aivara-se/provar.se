@@ -43,5 +43,9 @@ func ConfirmLoginWithEmail(token string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	err = user.SetEmailVerified(magicLink.UserID)
+	if err != nil {
+		return "", err
+	}
 	return CreateAccessToken(magicLink.UserID)
 }
