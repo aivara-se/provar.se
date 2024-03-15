@@ -1,9 +1,9 @@
 /**
  * Import metadata for all routes
  */
+// import './auth/login/email/wait/route.meta';
 // import './auth/login/route.meta';
 // import './auth/logout/route.meta';
-// import './auth/verify/route.meta';
 // import './org/[organizationId]/explore/[feedbackId]/route.meta';
 // import './org/[organizationId]/explore/route.meta';
 // import './org/[organizationId]/projects/[projectId]/route.meta';

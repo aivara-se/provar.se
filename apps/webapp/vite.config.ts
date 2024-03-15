@@ -5,5 +5,11 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
+	},
+	server: {
+		port: 3002
+	},
+	preview: {
+		port: 3002
 	}
 });

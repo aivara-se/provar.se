@@ -66,7 +66,7 @@ func DeleteByID(id string) error {
 // with the magiclink. The link is absolute and includes the magiclink token.
 func (m *MagicLink) Link() string {
 	cfg := config.Get()
-	return cfg.Provar.AppURL + "/auth/verify/" + m.Token
+	return cfg.Provar.AppURL + "/auth/login/email/verify/" + m.Token
 }
 
 // DeleteByID deletes a magiclink with the given id

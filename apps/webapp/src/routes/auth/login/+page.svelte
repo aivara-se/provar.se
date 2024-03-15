@@ -9,7 +9,7 @@
 
 <AuthLayout>
 	<div class="flex flex-col w-80 gap-4">
-		<form class="flex flex-col gap-4" on:submit={() => signInWithEmail(email)}>
+		<form class="flex flex-col gap-4" on:submit|preventDefault={() => signInWithEmail(email)}>
 			<label class="form-control w-full">
 				<div class="label">
 					<span class="label-text">Email</span>
