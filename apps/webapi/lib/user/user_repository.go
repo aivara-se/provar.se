@@ -80,7 +80,7 @@ func FindByEmail(email string) (*User, error) {
 // SetEmailVerified sets the user's email as verified
 func SetEmailVerified(id string) error {
 	query := "UPDATE private.user SET email_verified_at = $1 WHERE id = $2"
-	_, err := database.DB().Exec(query, time.Now)
+	_, err := database.DB().Exec(query, time.Now(), id)
 	return err
 }
 

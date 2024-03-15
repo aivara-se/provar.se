@@ -49,6 +49,9 @@ jobs:
         run: yarn lint
 
       - name: Check code errors
+        env:
+          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_APP_URL }}
+          PUBLIC_PROVAR_API_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_API_URL }}
         run: yarn check
 
       - name: Check unit tests

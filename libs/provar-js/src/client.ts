@@ -21,10 +21,10 @@ export class ProvarClient {
 	/**
 	 * Grouped API endpoints
 	 */
-	EmailAuthenticationEndpoints;
-	AuthenticationEndpoints;
-	OrganizationEndpoints;
-	HealthCheckEndpoints;
+	EmailAuthentication;
+	Authentication;
+	Organization;
+	HealthCheck;
 
 	/**
 	 * The fetcher to use for sending requests.
@@ -36,9 +36,9 @@ export class ProvarClient {
 	 */
 	constructor(options: ClientOptions) {
 		this.fetcher = options.fetcher || new DefaultFetcher(options.token);
-		this.EmailAuthenticationEndpoints = createEmailAuthenticationEndpoints(this.fetcher);
-		this.AuthenticationEndpoints = createAuthenticationEndpoints(this.fetcher);
-		this.OrganizationEndpoints = createOrganizationEndpoints(this.fetcher);
-		this.HealthCheckEndpoints = createHealthCheckEndpoints(this.fetcher);
+		this.EmailAuthentication = createEmailAuthenticationEndpoints(this.fetcher);
+		this.Authentication = createAuthenticationEndpoints(this.fetcher);
+		this.Organization = createOrganizationEndpoints(this.fetcher);
+		this.HealthCheck = createHealthCheckEndpoints(this.fetcher);
 	}
 }

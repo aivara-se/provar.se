@@ -1,11 +1,22 @@
-import { clearAccessToken, getAccessToken } from './token.store';
+import { goto } from '$app/navigation';
+import { getApi } from '../api';
+import { clearAccessToken, getAccessToken, setAccessToken } from './token.store';
 
 /**
  * This function is used to sign in with magic email link.
  */
-export function signInWithEmail(email: string) {
-	// TODO: implement
-	console.log('email:', email);
+export async function signInWithEmail(email: string) {
+	await getApi().EmailAuthentication.prepare({ email });
+	goto('/auth/login/email/sent');
+}
+
+/**
+ * This function is used to verify the email login token.
+ */
+export async function verifyEmailLogin(token: string) {
+	const response = await getApi().EmailAuthentication.confirm({ token });
+	setAccessToken(response.accessToken);
+	goto('/');
 }
 
 /**
@@ -27,7 +38,7 @@ export function signInWithGithub() {
  */
 export function signOut() {
 	clearAccessToken();
-	// TODO: Redirect to the sign in page
+	goto('/auth/login');
 }
 
 /**
