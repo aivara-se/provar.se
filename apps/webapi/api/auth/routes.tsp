@@ -1,4 +1,5 @@
 import "@typespec/http";
+import "../models.tsp";
 
 using TypeSpec.Http;
 
@@ -6,7 +7,11 @@ using TypeSpec.Http;
 @useAuth(BearerAuth)
 interface Authentication {
   @route("whoami")
-  whoami(): void;
+  whoami(): {
+    type: "user" | "credential";
+    user?: User;
+    credential?: Credential;
+  };
 }
 
 @route("/auth/email")
@@ -17,5 +22,7 @@ interface EmailAuthentication {
 
   @post()
   @route("confirm")
-  confirm(@body req: { token: string }): void;
+  confirm(@body req: { token: string }): {
+    accessToken: string;
+  };
 }

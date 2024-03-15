@@ -9,8 +9,17 @@ paths:
       operationId: EmailAuthentication_confirm
       parameters: []
       responses:
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                required:
+                  - accessToken
       requestBody:
         required: true
         content:
@@ -45,8 +54,24 @@ paths:
       operationId: Authentication_whoami
       parameters: []
       responses:
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                      - user
+                      - credential
+                  user:
+                    $ref: '#/components/schemas/User'
+                  credential:
+                    $ref: '#/components/schemas/Credential'
+                required:
+                  - type
       security:
         - BearerAuth: []
   /organization:
@@ -94,6 +119,19 @@ paths:
         - BearerAuth: []
 components:
   schemas:
+    Credential:
+      type: object
+      required:
+        - id
+        - organization_id
+        - name
+      properties:
+        id:
+          type: string
+        organization_id:
+          type: string
+        name:
+          type: string
     OrganizationDetails:
       type: object
       required:
@@ -106,6 +144,19 @@ components:
         name:
           type: string
         slug:
+          type: string
+    User:
+      type: object
+      required:
+        - id
+        - email
+        - name
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
           type: string
   securitySchemes:
     BearerAuth:

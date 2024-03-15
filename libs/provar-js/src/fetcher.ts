@@ -5,7 +5,11 @@ import { config } from './config.js';
  * Fetcher is the interface for classes sending requests to the Provar API.
  */
 export interface Fetcher {
-	fetch<TRes, TReq extends object>(method: string, path: string, body: TReq): Promise<TRes>;
+	fetch<TRes, TReq extends object = object>(
+		method: string,
+		path: string,
+		body?: TReq
+	): Promise<TRes>;
 }
 
 /**
@@ -20,11 +24,11 @@ export class DefaultFetcher implements Fetcher {
 	/**
 	 * Creates a new ProvarClient instance.
 	 */
-	constructor(apiKey: string) {
+	constructor(token: string) {
 		this.headers = {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${apiKey}`
+			Authorization: `Bearer ${token}`
 		};
 	}
 
@@ -35,13 +39,16 @@ export class DefaultFetcher implements Fetcher {
 	async fetch<TRes, TReq extends object = object>(
 		method: string,
 		path: string,
-		body: TReq
+		body?: TReq
 	): Promise<TRes> {
-		const fetchResponse = await fetch(`${config.baseUrl}${path}`, {
+		const options: RequestInit = {
 			method,
-			headers: this.headers,
-			body: JSON.stringify(body)
-		});
+			headers: this.headers
+		};
+		if (body) {
+			options.body = JSON.stringify(body);
+		}
+		const fetchResponse = await fetch(`${config.baseUrl}${path}`, options);
 		if (fetchResponse.status >= 400) {
 			throw new Error(`Provar: request failed with status ${fetchResponse.status}`);
 		}
