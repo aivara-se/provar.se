@@ -17,7 +17,7 @@
 		"test:unit": "vitest"
 	},
 	"dependencies": {
-		"@provar/provar-js": "^1.4.1",
+		"@provar/provar-js": "^1.5.0",
 		"chart.js": "^4.4.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"daisyui": "^4.7.2",
@@ -26,6 +26,7 @@
 		"lucide-svelte": "^0.338.0",
 		"overlayscrollbars": "^2.5.0",
 		"overlayscrollbars-svelte": "^0.5.3",
+		"sveltekit-superforms": "^2.9.0",
 		"tslib": "^2.4.1"
 	},
 	"devDependencies": {

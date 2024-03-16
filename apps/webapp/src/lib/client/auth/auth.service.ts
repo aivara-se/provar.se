@@ -42,6 +42,21 @@ export function signOut() {
 }
 
 /**
+ * This function is used to get the current user details.
+ */
+export async function getCurrentUser() {
+	const token = getAccessToken();
+	if (!token) {
+		return null;
+	}
+	const response = await getApi().Authentication.whoami();
+	if (response.type !== 'user') {
+		return null;
+	}
+	return response.user;
+}
+
+/**
  * This function is used to check whether the user is authorized to access
  * the current page. If the user is not authorized, it will return false.
  */
