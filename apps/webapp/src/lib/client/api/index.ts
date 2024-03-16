@@ -1,7 +1,6 @@
 import { PUBLIC_PROVAR_API_URL } from '$env/static/public';
 import { ProvarClient, _overrideConfig } from '@provar/provar-js';
-import { derived } from 'svelte/store';
-import { accessToken } from '../auth/token.store';
+import { accessToken, getAccessToken } from '../auth/token.store';
 
 if (PUBLIC_PROVAR_API_URL) {
 	_overrideConfig({ baseUrl: PUBLIC_PROVAR_API_URL });
@@ -15,9 +14,9 @@ let snapshot = createClient();
 /**
  * This store is used to keep the Provar client in sync with the access token.
  */
-export const api = derived(accessToken, (_claims, set) => {
-	snapshot = createClient();
-	set(snapshot);
+accessToken.subscribe(() => {
+	const token = getAccessToken();
+	snapshot = createClient(token ?? '');
 });
 
 /**
@@ -30,6 +29,6 @@ export function getApi() {
 /**
  * This function is used to create a new Provar client.
  */
-function createClient() {
-	return new ProvarClient({ token: '' });
+function createClient(token = '') {
+	return new ProvarClient({ token });
 }

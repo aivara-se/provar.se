@@ -39,6 +39,9 @@ export function parseAccessToken(tokenStr: string): AccessTokenClaims | null {
  * null if the access token is not valid or expired.
  */
 export function getAccessToken(): string | null {
+	if (typeof localStorage === 'undefined') {
+		return null;
+	}
 	const tokenStr = localStorage.getItem(ACCESS_TOKEN_KEY);
 	if (!tokenStr) {
 		return null;
@@ -56,6 +59,9 @@ export function getAccessToken(): string | null {
  * Also returns null if the access token is not valid or expired.
  */
 export function getAccessTokenClaims(): AccessTokenClaims | null {
+	if (typeof localStorage === 'undefined') {
+		return null;
+	}
 	const tokenStr = localStorage.getItem(ACCESS_TOKEN_KEY);
 	if (!tokenStr) {
 		return null;
