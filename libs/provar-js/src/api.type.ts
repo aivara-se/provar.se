@@ -16,6 +16,9 @@ export interface paths {
 	'/organization': {
 		post: operations['Organization_create'];
 	};
+	'/organization/list': {
+		get: operations['Organization_list'];
+	};
 	'/ping': {
 		get: operations['HealthCheck_basic'];
 	};
@@ -37,6 +40,11 @@ export interface components {
 			id: string;
 			name: string;
 			slug: string;
+			/** Format: double */
+			created_at: number;
+			created_by: string;
+			/** Format: double */
+			modified_at: number;
 		};
 		User: {
 			id: string;
@@ -119,6 +127,16 @@ export interface operations {
 			200: {
 				content: {
 					'application/json': components['schemas']['OrganizationDetails'];
+				};
+			};
+		};
+	};
+	Organization_list: {
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['OrganizationDetails'][];
 				};
 			};
 		};

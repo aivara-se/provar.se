@@ -9,12 +9,12 @@ import (
 
 // Organization struct represents the organization table in the database
 type Organization struct {
-	ID         string    `db:"id"`
-	CreatedAt  time.Time `db:"created_at"`
-	CreatedBy  string    `db:"created_by"`
-	ModifiedAt time.Time `db:"modified_at"`
-	Name       string    `db:"name"`
-	Slug       string    `db:"slug"`
+	ID         string    `db:"id" json:"id"`
+	CreatedAt  time.Time `db:"created_at" json:"created_at"`
+	CreatedBy  string    `db:"created_by" json:"created_by"`
+	ModifiedAt time.Time `db:"modified_at" json:"modified_at"`
+	Name       string    `db:"name" json:"name"`
+	Slug       string    `db:"slug" json:"slug"`
 }
 
 // OrganizationMember struct represents the organizationmember table in the database
@@ -22,14 +22,6 @@ type OrganizationMember struct {
 	ID             string `db:"id"`
 	UserID         string `db:"user_id"`
 	OrganizationID string `db:"organization_id"`
-}
-
-// PublicOrganization represents an organization with sensitive information
-// removed. This is used to send organization information to the client.
-type PublicOrganization struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
-	Slug string `json:"slug"`
 }
 
 // Create creates a new organization in the database
@@ -102,6 +94,7 @@ func FindMemberOrganizations(id string) ([]*Organization, error) {
 		FROM public.organizationmember om
 		JOIN public.organization o ON om.organization_id = o.id
 		WHERE om.user_id = $1
+		ORDER BY o.name
 	`
 	err := database.DB().Select(&orgs, query, id)
 	if err != nil {
@@ -118,21 +111,13 @@ func FindOrganizationMembers(id string) ([]*user.User, error) {
 		FROM public.organizationmember om
 		JOIN public.user u ON om.user_id = u.id
 		WHERE om.organization_id = $1
+		ORDER BY u.name
 	`
 	err := database.DB().Select(&users, query, id)
 	if err != nil {
 		return nil, err
 	}
 	return users, nil
-}
-
-// Public returns a public organization from an organization
-func (o *Organization) Public() *PublicOrganization {
-	return &PublicOrganization{
-		ID:   o.ID,
-		Name: o.Name,
-		Slug: o.Slug,
-	}
 }
 
 // DeleteByID deletes an organization with the given id

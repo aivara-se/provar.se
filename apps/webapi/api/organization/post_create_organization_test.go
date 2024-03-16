@@ -25,7 +25,7 @@ func TestCreateOrganization(t *testing.T) {
 		if res.StatusCode != 200 {
 			t.Fatalf("unexpected status code: %d", res.StatusCode)
 		}
-		responseBody := testutils.ReadJSON(res.Body, &organization.PublicOrganization{})
+		responseBody := testutils.ReadJSON(res.Body, &organization.Organization{})
 		if responseBody.Name != "Test."+usr.ID || responseBody.Slug != "test-"+usr.ID {
 			t.Fatalf("unexpected response body: %+v", responseBody)
 		}

@@ -33,6 +33,6 @@ func SetupCreateOrganization(app *fiber.App) {
 		if err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}
-		return c.JSON(organization.Public())
+		return c.JSON(organization)
 	})
 }

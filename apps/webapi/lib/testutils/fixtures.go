@@ -2,6 +2,7 @@ package testutils
 
 import (
 	"provar.se/webapi/lib/access"
+	"provar.se/webapi/lib/organization"
 	"provar.se/webapi/lib/random"
 	"provar.se/webapi/lib/user"
 )
@@ -19,4 +20,15 @@ func CreateUser() (*user.User, string) {
 		panic(err)
 	}
 	return usr, token
+}
+
+// CreateOrganization creates a new test organization for the given user and returns
+// the organization.
+func CreateOrganization(userID string) *organization.Organization {
+	rnd := random.String(5)
+	org, err := organization.Create("Test Org "+rnd, "test-org-"+rnd, userID)
+	if err != nil {
+		panic(err)
+	}
+	return org
 }
