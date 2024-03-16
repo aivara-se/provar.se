@@ -39,6 +39,10 @@ func TestCreateOrganization(t *testing.T) {
 		if storedOrg.CreatedBy != usr.ID {
 			t.Fatalf("expected organization to be created by test user")
 		}
+		members, err := storedOrg.Members()
+		if err != nil || len(members) != 1 || members[0].ID != usr.ID {
+			t.Fatalf("expected test user to be a member of the organization")
+		}
 	})
 
 	t.Run("fail with missing access token", func(t *testing.T) {
