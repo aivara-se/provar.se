@@ -24,6 +24,10 @@ export type Organization = {
 		RequestBody: paths['/organization']['post']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization']['post']['responses'][200]['content']['application/json'];
 	};
+	list: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/list']['get']['responses'][200]['content']['application/json'];
+	};
 };
 
 export type HealthCheck = {
@@ -76,6 +80,9 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 				'/organization',
 				body
 			);
+		},
+		list: async (): Promise<Organization['list']['ResponseBody']> => {
+			return f.fetch<Organization['list']['ResponseBody']>('get', '/organization/list');
 		}
 	};
 };

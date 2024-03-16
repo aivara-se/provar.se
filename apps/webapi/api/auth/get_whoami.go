@@ -10,9 +10,9 @@ import (
 
 // GetLoginDetailsResponseBody is the response body for getting login details.
 type GetLoginDetailsResponseBody struct {
-	Type       permission.PrincipalType     `json:"type" validate:"required"`
-	User       *user.PublicUser             `json:"user,omitempty"`
-	Credential *credential.PublicCredential `json:"credential,omitempty"`
+	Type       permission.PrincipalType `json:"type" validate:"required"`
+	User       *user.User               `json:"user,omitempty"`
+	Credential *credential.Credential   `json:"credential,omitempty"`
 }
 
 func SetupGetLoginDetails(app *fiber.App) {
@@ -22,13 +22,13 @@ func SetupGetLoginDetails(app *fiber.App) {
 		if principal.Type == permission.PrincipalTypeUser {
 			return c.JSON(GetLoginDetailsResponseBody{
 				Type: principal.Type,
-				User: principal.User.Public(),
+				User: principal.User,
 			})
 		}
 		if principal.Type == permission.PrincipalTypeCredential {
 			return c.JSON(GetLoginDetailsResponseBody{
 				Type:       principal.Type,
-				Credential: principal.Cred.Public(),
+				Credential: principal.Cred,
 			})
 		}
 		return c.SendStatus(fiber.StatusInternalServerError)

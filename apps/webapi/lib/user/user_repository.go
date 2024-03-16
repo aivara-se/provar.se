@@ -10,20 +10,12 @@ import (
 
 // User struct represents the user table in the database
 type User struct {
-	ID              string       `db:"id"`
-	CreatedAt       time.Time    `db:"created_at"`
-	ModifiedAt      time.Time    `db:"modified_at"`
-	Email           string       `db:"email"`
-	EmailVerifiedAt sql.NullTime `db:"email_verified_at"`
-	Name            string       `db:"name"`
-}
-
-// PublicUser represents a user with sensitive information
-// removed. This is used to send user information to the client.
-type PublicUser struct {
-	ID    string `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	ID              string       `db:"id" json:"id"`
+	CreatedAt       time.Time    `db:"created_at" json:"created_at"`
+	ModifiedAt      time.Time    `db:"modified_at" json:"modified_at"`
+	Email           string       `db:"email" json:"email"`
+	EmailVerifiedAt sql.NullTime `db:"email_verified_at" json:"email_verified_at"`
+	Name            string       `db:"name" json:"name"`
 }
 
 // Create creates a new user in the database
@@ -89,15 +81,6 @@ func DeleteByID(id string) error {
 	query := "DELETE FROM private.user WHERE id = $1"
 	_, err := database.DB().Exec(query, id)
 	return err
-}
-
-// Public returns a public user from a user
-func (u *User) Public() *PublicUser {
-	return &PublicUser{
-		ID:    u.ID,
-		Name:  u.Name,
-		Email: u.Email,
-	}
 }
 
 // DeleteByID deletes a user with the given id

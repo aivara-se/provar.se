@@ -101,6 +101,21 @@ paths:
                 - slug
       security:
         - BearerAuth: []
+  /organization/list:
+    get:
+      operationId: Organization_list
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationDetails'
+      security:
+        - BearerAuth: []
   /ping:
     get:
       operationId: HealthCheck_basic
@@ -138,6 +153,9 @@ components:
         - id
         - name
         - slug
+        - created_at
+        - created_by
+        - modified_at
       properties:
         id:
           type: string
@@ -145,6 +163,14 @@ components:
           type: string
         slug:
           type: string
+        created_at:
+          type: number
+          format: double
+        created_by:
+          type: string
+        modified_at:
+          type: number
+          format: double
     User:
       type: object
       required:
