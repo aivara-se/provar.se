@@ -21,7 +21,7 @@
 		"chart.js": "^4.4.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"daisyui": "^4.7.2",
-		"date-fns": "^3.3.1",
+		"date-fns": "^3.6.0",
 		"lodash": "^4.17.21",
 		"lucide-svelte": "^0.338.0",
 		"overlayscrollbars": "^2.5.0",
