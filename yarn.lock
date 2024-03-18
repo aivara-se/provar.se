@@ -502,9 +502,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gcornut/valibot-json-schema@npm:^0.0.25":
-  version: 0.0.25
-  resolution: "@gcornut/valibot-json-schema@npm:0.0.25"
+"@gcornut/valibot-json-schema@npm:^0.0.26":
+  version: 0.0.26
+  resolution: "@gcornut/valibot-json-schema@npm:0.0.26"
   peerDependencies:
     "@types/json-schema": ">= 7.0.14"
     esbuild: ">= 0.18.20"
@@ -512,7 +512,7 @@ __metadata:
     valibot: ">= 0.21.0"
   bin:
     valibot-json-schema: bin/index.js
-  checksum: 10/26ecb247ea19c0849ad5f2daa6bdebf3c7b81c923b5ba8c608e27603ed546ce3c4708d9edca5e72a245517e7af0fcbb6e3968517c77f9760f41977d00eea7231
+  checksum: 10/14e089b019f9f37d52935d282356b018212f2d15a3974113034a202c3dc14a8c53a222389db1ba4c5dab018926ccdd8a714dbe6e4ddb8a0ec29fe0b1a7976ca6
   languageName: node
   linkType: hard
 
@@ -1348,7 +1348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vinejs/vine@npm:^1.7.1":
+"@vinejs/vine@npm:^1.8.0":
   version: 1.8.0
   resolution: "@vinejs/vine@npm:1.8.0"
   dependencies:
@@ -4949,7 +4949,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superstruct@npm:^1.0.3":
+"superstruct@npm:^1.0.4":
   version: 1.0.4
   resolution: "superstruct@npm:1.0.4"
   checksum: 10/9b3fd70a08c5ad3ea78b5c6b7ab90d31dde71af10448208d296c3d29ba2e55dfd817dfef75957163ee032163d04c4b2e0cb2fddff30313516aa60f748c1a48da
@@ -5103,22 +5103,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sveltekit-superforms@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "sveltekit-superforms@npm:2.9.0"
+"sveltekit-superforms@npm:^2.10.1":
+  version: 2.10.1
+  resolution: "sveltekit-superforms@npm:2.10.1"
   dependencies:
-    "@gcornut/valibot-json-schema": "npm:^0.0.25"
+    "@gcornut/valibot-json-schema": "npm:^0.0.26"
     "@sinclair/typebox": "npm:^0.32.15"
     "@sodaru/yup-to-json-schema": "npm:^2.0.1"
-    "@vinejs/vine": "npm:^1.7.1"
+    "@vinejs/vine": "npm:^1.8.0"
     arktype: "npm:1.0.29-alpha"
     devalue: "npm:^4.3.2"
     joi: "npm:^17.12.2"
     just-clone: "npm:^6.2.0"
     memoize-weak: "npm:^1.0.2"
-    superstruct: "npm:^1.0.3"
+    superstruct: "npm:^1.0.4"
     ts-deepmerge: "npm:^7.0.0"
-    valibot: "npm:^0.29.0"
+    valibot: "npm:^0.30.0"
     yup: "npm:^1.4.0"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.4"
@@ -5173,7 +5173,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10/93bfbf3bbbd1f5913a1810b30debb28fbf05525c1d15bdeedd05cc96862537a55eb69d78b2e168ec67439e0509ee15b2d401ee14c7ad7da12999a9c3b68995ec
+  checksum: 10/0194b51227d47ae558c1199a0a436b7a29135d02fe388d00162add2bbb3863f698445bc120d4d0cc55145c6e99a96dedda47b2bd55bd71a600310eaced24741c
   languageName: node
   linkType: hard
 
@@ -5484,10 +5484,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"valibot@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "valibot@npm:0.29.0"
-  checksum: 10/039ee54708518a9985ac040ca022fe6a20651e526c7585f42532747a6354a7c0c14535c8d2bbd141b036a2ac8b8f2760104cc64a4073a059d134fde1ea91c45f
+"valibot@npm:^0.30.0":
+  version: 0.30.0
+  resolution: "valibot@npm:0.30.0"
+  checksum: 10/59a1d4201459dfc7b173a8e2cc1490d03115cf8f2140e9aa176fb1945131e1b37c499acab5e2d6c60684f78995792e24dd5adb87b8e7946bfec3a0c90529f091
   languageName: node
   linkType: hard
 
@@ -5701,7 +5701,7 @@ __metadata:
     prettier-plugin-svelte: "npm:^3.2.2"
     svelte: "npm:^4.2.12"
     svelte-check: "npm:^3.6.4"
-    sveltekit-superforms: "npm:^2.9.0"
+    sveltekit-superforms: "npm:^2.10.1"
     tailwindcss: "npm:^3.4.1"
     tslib: "npm:^2.4.1"
     typescript: "npm:^5.3.3"
