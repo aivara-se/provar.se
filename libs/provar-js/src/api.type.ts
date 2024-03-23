@@ -31,7 +31,7 @@ export type webhooks = Record<string, never>;
 
 export interface components {
 	schemas: {
-		Credential: {
+		CredentialDetails: {
 			id: string;
 			organizationId: string;
 			name: string;
@@ -46,11 +46,15 @@ export interface components {
 			/** Format: double */
 			modifiedAt: number;
 		};
-		User: {
+		UserDetails: {
 			id: string;
 			email: string;
 			name: string;
 			avatar: string;
+			/** Format: double */
+			createdAt: number;
+			/** Format: double */
+			modifiedAt: number;
 		};
 	};
 	responses: never;
@@ -107,8 +111,8 @@ export interface operations {
 					'application/json': {
 						/** @enum {string} */
 						type: 'user' | 'credential';
-						user?: components['schemas']['User'];
-						credential?: components['schemas']['Credential'];
+						user?: components['schemas']['UserDetails'];
+						credential?: components['schemas']['CredentialDetails'];
 					};
 				};
 			};
