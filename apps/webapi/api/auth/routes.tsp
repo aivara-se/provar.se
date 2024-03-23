@@ -9,8 +9,8 @@ interface Authentication {
   @route("whoami")
   whoami(): {
     type: "user" | "credential";
-    user?: User;
-    credential?: Credential;
+    user?: UserDetails;
+    credential?: CredentialDetails;
   };
 }
 

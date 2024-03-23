@@ -67,9 +67,9 @@ paths:
                       - user
                       - credential
                   user:
-                    $ref: '#/components/schemas/User'
+                    $ref: '#/components/schemas/UserDetails'
                   credential:
-                    $ref: '#/components/schemas/Credential'
+                    $ref: '#/components/schemas/CredentialDetails'
                 required:
                   - type
       security:
@@ -134,7 +134,7 @@ paths:
         - BearerAuth: []
 components:
   schemas:
-    Credential:
+    CredentialDetails:
       type: object
       required:
         - id
@@ -171,13 +171,15 @@ components:
         modifiedAt:
           type: number
           format: double
-    User:
+    UserDetails:
       type: object
       required:
         - id
         - email
         - name
         - avatar
+        - createdAt
+        - modifiedAt
       properties:
         id:
           type: string
@@ -187,6 +189,12 @@ components:
           type: string
         avatar:
           type: string
+        createdAt:
+          type: number
+          format: double
+        modifiedAt:
+          type: number
+          format: double
   securitySchemes:
     BearerAuth:
       type: http
