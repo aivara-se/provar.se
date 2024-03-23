@@ -138,12 +138,12 @@ components:
       type: object
       required:
         - id
-        - organization_id
+        - organizationId
         - name
       properties:
         id:
           type: string
-        organization_id:
+        organizationId:
           type: string
         name:
           type: string
@@ -153,9 +153,9 @@ components:
         - id
         - name
         - slug
-        - created_at
-        - created_by
-        - modified_at
+        - createdAt
+        - createdBy
+        - modifiedAt
       properties:
         id:
           type: string
@@ -163,12 +163,12 @@ components:
           type: string
         slug:
           type: string
-        created_at:
+        createdAt:
           type: number
           format: double
-        created_by:
+        createdBy:
           type: string
-        modified_at:
+        modifiedAt:
           type: number
           format: double
     User:

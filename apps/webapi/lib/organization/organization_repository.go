@@ -10,9 +10,9 @@ import (
 // Organization struct represents the organization table in the database
 type Organization struct {
 	ID         string    `db:"id" json:"id"`
-	CreatedAt  time.Time `db:"created_at" json:"created_at"`
-	CreatedBy  string    `db:"created_by" json:"created_by"`
-	ModifiedAt time.Time `db:"modified_at" json:"modified_at"`
+	CreatedAt  time.Time `db:"created_at" json:"createdAt"`
+	CreatedBy  string    `db:"created_by" json:"createdBy"`
+	ModifiedAt time.Time `db:"modified_at" json:"modifiedAt"`
 	Name       string    `db:"name" json:"name"`
 	Slug       string    `db:"slug" json:"slug"`
 }
