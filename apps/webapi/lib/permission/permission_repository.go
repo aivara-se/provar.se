@@ -32,7 +32,7 @@ type PermissionQuery struct {
 func HasPermission(q PermissionQuery) bool {
 	permissions := []*Permission{}
 	query := `
-		SELECT * FROM public.permission
+		SELECT * FROM private.permission
 		WHERE
 			(organization_id = $1 OR organization_id = '*') AND
 			(principal_type = $2 OR principal_type = '*') AND
@@ -49,7 +49,7 @@ func HasPermission(q PermissionQuery) bool {
 // FindByPrincipal returns permissions for the given principal
 func FindByPrincipal(principalID string) ([]*Permission, error) {
 	permissions := []*Permission{}
-	query := "SELECT * FROM public.permission WHERE principal = $1"
+	query := "SELECT * FROM private.permission WHERE principal = $1"
 	err := database.DB().Get(permissions, query, principalID)
 	if err != nil {
 		return nil, err

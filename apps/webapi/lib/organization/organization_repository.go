@@ -71,7 +71,7 @@ func Create(name, slug, createdBy string) (*Organization, error) {
 // FindByID returns an organization with the given id
 func FindByID(id string) (*Organization, error) {
 	org := &Organization{}
-	query := "SELECT * FROM public.organization WHERE id = $1"
+	query := "SELECT * FROM private.organization WHERE id = $1"
 	err := database.DB().Get(org, query, id)
 	if err != nil {
 		return nil, err
@@ -91,8 +91,8 @@ func FindMemberOrganizations(id string) ([]*Organization, error) {
 	orgs := []*Organization{}
 	query := `
 		SELECT o.*
-		FROM public.organizationmember om
-		JOIN public.organization o ON om.organization_id = o.id
+		FROM private.organizationmember om
+		JOIN private.organization o ON om.organization_id = o.id
 		WHERE om.user_id = $1
 		ORDER BY o.name
 	`
@@ -108,8 +108,8 @@ func FindOrganizationMembers(id string) ([]*user.User, error) {
 	users := []*user.User{}
 	query := `
 		SELECT u.*
-		FROM public.organizationmember om
-		JOIN public.user u ON om.user_id = u.id
+		FROM private.organizationmember om
+		JOIN private.user u ON om.user_id = u.id
 		WHERE om.organization_id = $1
 		ORDER BY u.name
 	`

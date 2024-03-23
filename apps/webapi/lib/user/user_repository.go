@@ -4,6 +4,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/automattic/go-gravatar"
 	"provar.se/webapi/lib/database"
 	"provar.se/webapi/lib/types"
 )
@@ -13,9 +14,15 @@ type User struct {
 	ID              string         `db:"id" json:"id"`
 	CreatedAt       time.Time      `db:"created_at" json:"createdAt"`
 	ModifiedAt      time.Time      `db:"modified_at" json:"modifiedAt"`
+	Avatar          string         `db:"avatar" json:"avatar"`
 	Email           string         `db:"email" json:"email"`
 	EmailVerifiedAt types.NullTime `db:"email_verified_at" json:"emailVerifiedAt"`
 	Name            string         `db:"name" json:"name"`
+}
+
+// GravatarURL returns the gravatar url for the given email
+func GravatarURL(email string) string {
+	return gravatar.NewGravatarFromEmail(email).GetURL()
 }
 
 // Create creates a new user in the database
@@ -24,6 +31,7 @@ func Create(name, email string, verified bool) (*User, error) {
 		ID:         database.NewID(),
 		CreatedAt:  time.Now(),
 		ModifiedAt: time.Now(),
+		Avatar:     GravatarURL(email),
 		Email:      email,
 		Name:       name,
 	}
@@ -37,8 +45,8 @@ func Create(name, email string, verified bool) (*User, error) {
 		user.EmailVerifiedAt = types.NewNullTime(time.Now())
 	}
 	query := `
-		INSERT INTO private.user (id, created_at, modified_at, email, name, email_verified_at)
-		VALUES (:id, :created_at, :modified_at, :email, :name, :email_verified_at)
+		INSERT INTO private.user (id, created_at, modified_at, email, name, email_verified_at, avatar)
+		VALUES (:id, :created_at, :modified_at, :email, :name, :email_verified_at, :avatar)
 	`
 	_, err := database.DB().NamedExec(query, user)
 	return user, err
@@ -47,7 +55,7 @@ func Create(name, email string, verified bool) (*User, error) {
 // FindByID returns a user with the given id
 func FindByID(id string) (*User, error) {
 	user := &User{}
-	query := "SELECT * FROM public.user WHERE id = $1"
+	query := "SELECT * FROM private.user WHERE id = $1"
 	err := database.DB().Get(user, query, id)
 	if err != nil {
 		return nil, err
@@ -58,7 +66,7 @@ func FindByID(id string) (*User, error) {
 // FindByEmail returns a user with the given email
 func FindByEmail(email string) (*User, error) {
 	user := &User{}
-	query := "SELECT * FROM public.user WHERE email = $1"
+	query := "SELECT * FROM private.user WHERE email = $1"
 	err := database.DB().Get(user, query, email)
 	if err != nil {
 		return nil, err

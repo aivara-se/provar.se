@@ -50,6 +50,7 @@ export interface components {
 			id: string;
 			email: string;
 			name: string;
+			avatar: string;
 		};
 	};
 	responses: never;

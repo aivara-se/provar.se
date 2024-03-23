@@ -25,7 +25,7 @@ func Create(userID string) (*MagicLink, error) {
 		Token:     random.String(64),
 	}
 	query := `
-		INSERT INTO public.magiclink (id, user_id, created_at, token)
+		INSERT INTO private.magiclink (id, user_id, created_at, token)
 		VALUES (:id, :user_id, :created_at, :token)
 	`
 	_, err := database.DB().NamedExec(query, magicLink)
@@ -35,7 +35,7 @@ func Create(userID string) (*MagicLink, error) {
 // FindByUserID returns magic links for a user
 func FindByUserID(id string) ([]*MagicLink, error) {
 	magicLinks := []*MagicLink{}
-	query := "SELECT * FROM public.magiclink WHERE user_id = $1"
+	query := "SELECT * FROM private.magiclink WHERE user_id = $1"
 	err := database.DB().Select(&magicLinks, query, id)
 	if err != nil {
 		return nil, err
