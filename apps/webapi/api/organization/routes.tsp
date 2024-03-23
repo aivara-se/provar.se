@@ -6,9 +6,9 @@ model OrganizationDetails {
   id: string;
   name: string;
   slug: string;
-  created_at: float64;
-  created_by: string;
-  modified_at: float64;
+  createdAt: float64;
+  createdBy: string;
+  modifiedAt: float64;
 };
 
 @route("/organization")

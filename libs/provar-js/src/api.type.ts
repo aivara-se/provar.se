@@ -33,7 +33,7 @@ export interface components {
 	schemas: {
 		Credential: {
 			id: string;
-			organization_id: string;
+			organizationId: string;
 			name: string;
 		};
 		OrganizationDetails: {
@@ -41,10 +41,10 @@ export interface components {
 			name: string;
 			slug: string;
 			/** Format: double */
-			created_at: number;
-			created_by: string;
+			createdAt: number;
+			createdBy: string;
 			/** Format: double */
-			modified_at: number;
+			modifiedAt: number;
 		};
 		User: {
 			id: string;
