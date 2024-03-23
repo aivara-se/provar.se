@@ -3,8 +3,9 @@
  */
 export interface Organization {
 	id: string;
-	createdAt: Date;
 	name: string;
-	description: string;
-	members: string[];
+	slug: string;
+	createdAt: string;
+	createdBy: string;
+	modifiedAt: string;
 }

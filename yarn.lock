@@ -752,13 +752,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@provar/provar-js@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "@provar/provar-js@npm:1.5.0"
+"@provar/provar-js@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "@provar/provar-js@npm:1.9.0"
   dependencies:
     isomorphic-fetch: "npm:^3.0.0"
     lodash.merge: "npm:^4.6.2"
-  checksum: 10/af24759184f579dd3eb4e7cac082cc8eac02ad34dd0fbfdc8e070203148f9b471cd6afce41bed71692c921e80bb6bd453bad9313255cca3d221e92595720328c
+  checksum: 10/0fa292662bdc250951f47ee6fa45155895fe928f5276e2ee85c95600dfa3c345ccfc5a3c7e976fdee6d479ae250398365175649bbd713c38b2390e0f3eedf79d
   languageName: node
   linkType: hard
 
@@ -5739,7 +5739,7 @@ __metadata:
   resolution: "webapp@workspace:apps/webapp"
   dependencies:
     "@playwright/test": "npm:^1.28.1"
-    "@provar/provar-js": "npm:^1.5.0"
+    "@provar/provar-js": "npm:^1.9.0"
     "@sveltejs/adapter-cloudflare": "npm:^4.1.0"
     "@sveltejs/kit": "npm:^2.5.1"
     "@sveltejs/vite-plugin-svelte": "npm:^3.0.2"
