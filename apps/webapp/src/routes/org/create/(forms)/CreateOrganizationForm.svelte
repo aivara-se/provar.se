@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getApi } from '$lib/client/api';
+	import { api } from '$lib/client/api';
 	import { TextInput } from '$lib/client/forms';
 	import { kebabCase } from 'lodash';
 	import { superForm } from 'sveltekit-superforms';
@@ -13,7 +13,7 @@
 		SPA: true,
 		validators: zod(schema),
 		onUpdate: async ({ form }) => {
-			const response = await getApi().Organization.create({
+			const response = await api().Organization.create({
 				name: form.data.name,
 				slug: kebabCase(form.data.name)
 			});

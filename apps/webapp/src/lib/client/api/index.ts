@@ -1,5 +1,5 @@
 import { PUBLIC_PROVAR_API_URL } from '$env/static/public';
-import { ProvarClient, _overrideConfig } from '@provar/provar-js';
+import { DefaultFetcher, ProvarClient, _overrideConfig } from '@provar/provar-js';
 import { accessToken, getAccessToken } from '../auth/token.store';
 
 if (PUBLIC_PROVAR_API_URL) {
@@ -15,20 +15,20 @@ let snapshot = createClient();
  * This store is used to keep the Provar client in sync with the access token.
  */
 accessToken.subscribe(() => {
-	const token = getAccessToken();
-	snapshot = createClient(token ?? '');
+	snapshot = createClient();
 });
 
 /**
  * This function is used to get the current snapshot of the Provar client.
  */
-export function getApi() {
+export function api() {
 	return snapshot;
 }
 
 /**
  * This function is used to create a new Provar client.
  */
-function createClient(token = '') {
+export function createClient() {
+	const token = getAccessToken() || '';
 	return new ProvarClient({ token });
 }

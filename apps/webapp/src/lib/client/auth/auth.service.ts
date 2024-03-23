@@ -1,12 +1,12 @@
 import { goto } from '$app/navigation';
-import { getApi } from '../api';
+import { api } from '../api';
 import { clearAccessToken, getAccessToken, setAccessToken } from './token.store';
 
 /**
  * This function is used to sign in with magic email link.
  */
 export async function signInWithEmail(email: string) {
-	await getApi().EmailAuthentication.prepare({ email });
+	await api().EmailAuthentication.prepare({ email });
 	goto('/auth/login/email/sent');
 }
 
@@ -14,7 +14,7 @@ export async function signInWithEmail(email: string) {
  * This function is used to verify the email login token.
  */
 export async function verifyEmailLogin(token: string) {
-	const response = await getApi().EmailAuthentication.confirm({ token });
+	const response = await api().EmailAuthentication.confirm({ token });
 	setAccessToken(response.accessToken);
 	goto('/');
 }
@@ -49,7 +49,7 @@ export async function getCurrentUser() {
 	if (!token) {
 		return null;
 	}
-	const response = await getApi().Authentication.whoami();
+	const response = await api().Authentication.whoami();
 	if (response.type !== 'user') {
 		return null;
 	}

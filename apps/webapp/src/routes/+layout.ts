@@ -1,7 +1,7 @@
-import { redirect } from '@sveltejs/kit';
 import { canAccessRoute, getCurrentUser } from '$lib/client/auth';
+import { redirect } from '@sveltejs/kit';
+import { api } from '../lib/client/api';
 import type { LayoutLoad } from './$types';
-import { getApi } from '../lib/client/api';
 
 /**
  * Disable server-side rendering.
@@ -22,8 +22,8 @@ export const load: LayoutLoad = async (event) => {
 	}
 	const user = await getCurrentUser();
 	if (!user) {
-		return { session: null, organizations: [] };
+		return { user: null, organizations: [] };
 	}
-	const organizations = await getApi().Organization.list();
-	return { session: { user }, organizations };
+	const organizations = await api().Organization.list();
+	return { user, organizations };
 };
