@@ -24,11 +24,14 @@ export class DefaultFetcher implements Fetcher {
 	/**
 	 * Creates a new ProvarClient instance.
 	 */
-	constructor(token: string) {
+	constructor(
+		private _token: string,
+		private _fetch: typeof window.fetch = fetch
+	) {
 		this.headers = {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${this._token}`
 		};
 	}
 
@@ -48,7 +51,7 @@ export class DefaultFetcher implements Fetcher {
 		if (body) {
 			options.body = JSON.stringify(body);
 		}
-		const fetchResponse = await fetch(`${config.baseUrl}${path}`, options);
+		const fetchResponse = await this._fetch(`${config.baseUrl}${path}`, options);
 		if (fetchResponse.status >= 400) {
 			throw new Error(`Provar: request failed with status ${fetchResponse.status}`);
 		}
