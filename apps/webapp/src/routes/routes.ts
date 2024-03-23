@@ -1,21 +1,20 @@
 /**
  * Import metadata for all routes
  */
-// import './auth/login/email/wait/route.meta';
-// import './auth/login/route.meta';
-// import './auth/logout/route.meta';
-// import './org/[organizationId]/explore/[feedbackId]/route.meta';
-// import './org/[organizationId]/explore/route.meta';
-// import './org/[organizationId]/projects/[projectId]/route.meta';
-// import './org/[organizationId]/projects/route.meta';
-// import './org/[organizationId]/route.meta';
-// import './org/[organizationId]/settings/credentials/[credentialId]/route.meta';
-// import './org/[organizationId]/settings/credentials/route.meta';
-// import './org/[organizationId]/settings/members/[memberId]/route.meta';
-// import './org/[organizationId]/settings/members/invitations/[invitationId]/route.meta';
-// import './org/[organizationId]/settings/members/route.meta';
-// import './org/[organizationId]/settings/organization/route.meta';
-// import './org/[organizationId]/settings/route.meta';
-// import './org/create/route.meta';
-// import './org/route.meta';
+import './auth/login/email/sent/route.meta';
+import './auth/login/email/verify/[token]/route.meta';
+import './auth/login/route.meta';
+import './auth/logout/route.meta';
+import './org/[slug]/explore/[feedbackId]/route.meta';
+import './org/[slug]/explore/route.meta';
+import './org/[slug]/route.meta';
+// import './org/[slug]/settings/credentials/[credentialId]/route.meta';
+// import './org/[slug]/settings/credentials/route.meta';
+// import './org/[slug]/settings/members/[memberId]/route.meta';
+// import './org/[slug]/settings/members/invitations/[invitationId]/route.meta';
+// import './org/[slug]/settings/members/route.meta';
+// import './org/[slug]/settings/organization/route.meta';
+// import './org/[slug]/settings/route.meta';
+import './org/create/route.meta';
+import './org/route.meta';
 import './route.meta';
