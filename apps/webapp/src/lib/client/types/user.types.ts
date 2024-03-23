@@ -5,6 +5,7 @@ export interface User {
 	id: string;
 	name: string;
 	email: string;
-	image: string;
-	initials: string;
+	avatar: string;
+	createdAt: string;
+	modifiedAt: string;
 }

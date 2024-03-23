@@ -1,15 +1,16 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { signOut } from '$lib/client/auth';
-	import { profile } from '$lib/client/profile';
+	import { user, organizations } from '$lib/client/stores';
 	import { LogOutIcon } from 'lucide-svelte';
 
 	let element: HTMLDetailsElement;
 
-	$: items = $profile.organizations.map((organization) => ({
+	$: items = $organizations.map((organization) => ({
 		id: organization.id,
 		name: organization.name,
-		isActive: $page.url.pathname.includes(`/org/${organization.id}`)
+		slug: organization.slug,
+		isActive: $page.url.pathname.includes(`/org/${organization.slug}`)
 	}));
 
 	function closeDropdown() {
@@ -32,7 +33,7 @@
 	<summary class="flex list-none">
 		<div class="avatar">
 			<div class="w-8 h-8 rounded-full shadow-lg">
-				<img src={$profile.image} alt={$profile.name} />
+				<img src={$user?.avatar} alt={$user?.name} />
 			</div>
 		</div>
 	</summary>
@@ -42,7 +43,7 @@
 		<ul class="mt-2">
 			{#each items as item (item.id)}
 				<li>
-					<a class="flex justify-between" class:opacity-50={!item.isActive} href="/org/{item.id}">
+					<a class="flex justify-between" class:opacity-50={!item.isActive} href="/org/{item.slug}">
 						{item.name}
 					</a>
 				</li>
