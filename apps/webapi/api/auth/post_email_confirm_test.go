@@ -15,7 +15,10 @@ import (
 func PrepareMagicLink() (*user.User, string) {
 	usr, _ := testutils.CreateUser()
 	access.PrepareLoginWithEmail(usr.Email)
-	magicLinks, _ := magiclink.FindByUserID(usr.ID)
+	magicLinks, err := magiclink.FindByUserID(usr.ID)
+	if err != nil || len(magicLinks) != 1 {
+		panic(err)
+	}
 	return usr, magicLinks[0].Token
 }
 

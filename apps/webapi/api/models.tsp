@@ -6,6 +6,6 @@ model User {
 
 model Credential {
   id: string;
-  organization_id: string;
+  organizationId: string;
   name: string;
 }

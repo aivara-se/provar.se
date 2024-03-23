@@ -1,21 +1,21 @@
 package user
 
 import (
-	"database/sql"
 	"strings"
 	"time"
 
 	"provar.se/webapi/lib/database"
+	"provar.se/webapi/lib/types"
 )
 
 // User struct represents the user table in the database
 type User struct {
-	ID              string       `db:"id" json:"id"`
-	CreatedAt       time.Time    `db:"created_at" json:"created_at"`
-	ModifiedAt      time.Time    `db:"modified_at" json:"modified_at"`
-	Email           string       `db:"email" json:"email"`
-	EmailVerifiedAt sql.NullTime `db:"email_verified_at" json:"email_verified_at"`
-	Name            string       `db:"name" json:"name"`
+	ID              string         `db:"id" json:"id"`
+	CreatedAt       time.Time      `db:"created_at" json:"createdAt"`
+	ModifiedAt      time.Time      `db:"modified_at" json:"modifiedAt"`
+	Email           string         `db:"email" json:"email"`
+	EmailVerifiedAt types.NullTime `db:"email_verified_at" json:"emailVerifiedAt"`
+	Name            string         `db:"name" json:"name"`
 }
 
 // Create creates a new user in the database
@@ -34,10 +34,7 @@ func Create(name, email string, verified bool) (*User, error) {
 		}
 	}
 	if verified {
-		user.EmailVerifiedAt = sql.NullTime{
-			Time:  time.Now(),
-			Valid: true,
-		}
+		user.EmailVerifiedAt = types.NewNullTime(time.Now())
 	}
 	query := `
 		INSERT INTO private.user (id, created_at, modified_at, email, name, email_verified_at)
