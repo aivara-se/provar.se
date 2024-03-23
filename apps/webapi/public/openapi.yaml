@@ -177,12 +177,15 @@ components:
         - id
         - email
         - name
+        - avatar
       properties:
         id:
           type: string
         email:
           type: string
         name:
+          type: string
+        avatar:
           type: string
   securitySchemes:
     BearerAuth:
