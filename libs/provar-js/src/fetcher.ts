@@ -29,7 +29,6 @@ export class DefaultFetcher implements Fetcher {
 		private _fetch: typeof window.fetch = fetch
 	) {
 		this.headers = {
-			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${this._token}`
 		};
