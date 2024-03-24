@@ -40,37 +40,29 @@ export interface components {
 	schemas: {
 		CredentialDetails: {
 			id: string;
-			/** Format: double */
-			createdAt: number;
-			/** Format: double */
-			modifiedAt: number;
-			/** Format: double */
-			lastUsedAt: number;
+			createdAt: string;
+			modifiedAt: string;
+			lastUsedAt: string;
 			organizationId: string;
 			name: string;
 			secret: string;
 		};
 		OrganizationDetails: {
 			id: string;
-			/** Format: double */
-			createdAt: number;
+			createdAt: string;
 			createdBy: string;
-			/** Format: double */
-			modifiedAt: number;
+			modifiedAt: string;
 			name: string;
 			slug: string;
 			description: string;
 		};
 		UserDetails: {
 			id: string;
-			/** Format: double */
-			createdAt: number;
-			/** Format: double */
-			modifiedAt: number;
+			createdAt: string;
+			modifiedAt: string;
 			avatar: string;
 			email: string;
-			/** Format: double */
-			emailVerifiedAt?: number;
+			emailVerifiedAt?: string;
 			name: string;
 		};
 	};

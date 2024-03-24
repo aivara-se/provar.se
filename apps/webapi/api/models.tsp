@@ -1,18 +1,18 @@
 model UserDetails {
   id: string;
-  createdAt: float64;
-  modifiedAt: float64;
+  createdAt: string;
+  modifiedAt: string;
   avatar: string;
   email: string;
-  emailVerifiedAt?: float64;
+  emailVerifiedAt?: string;
   name: string;
 }
 
 model OrganizationDetails {
   id: string;
-  createdAt: float64;
+  createdAt: string;
   createdBy: string;
-  modifiedAt: float64;
+  modifiedAt: string;
   name: string;
   slug: string;
   description: string;
@@ -20,9 +20,9 @@ model OrganizationDetails {
 
 model CredentialDetails {
   id: string;
-  createdAt: float64;
-  modifiedAt: float64;
-  lastUsedAt: float64;
+  createdAt: string;
+  modifiedAt: string;
+  lastUsedAt: string;
   organizationId: string;
   name: string;
   secret: string;
