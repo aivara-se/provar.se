@@ -19,6 +19,12 @@ export interface paths {
 	'/organization/list': {
 		get: operations['Organization_list'];
 	};
+	'/organization/{id}/details': {
+		get: operations['Organization_details'];
+	};
+	'/organization/{id}/settings': {
+		get: operations['Organization_settings'];
+	};
 	'/ping': {
 		get: operations['HealthCheck_basic'];
 	};
@@ -142,6 +148,38 @@ export interface operations {
 			200: {
 				content: {
 					'application/json': components['schemas']['OrganizationDetails'][];
+				};
+			};
+		};
+	};
+	Organization_details: {
+		parameters: {
+			path: {
+				id: string;
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['OrganizationDetails'];
+				};
+			};
+		};
+	};
+	Organization_settings: {
+		parameters: {
+			path: {
+				id: string;
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': {
+						[key: string]: string;
+					};
 				};
 			};
 		};

@@ -116,6 +116,44 @@ paths:
                   $ref: '#/components/schemas/OrganizationDetails'
       security:
         - BearerAuth: []
+  /organization/{id}/details:
+    get:
+      operationId: Organization_details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDetails'
+      security:
+        - BearerAuth: []
+  /organization/{id}/settings:
+    get:
+      operationId: Organization_settings
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      security:
+        - BearerAuth: []
   /ping:
     get:
       operationId: HealthCheck_basic
