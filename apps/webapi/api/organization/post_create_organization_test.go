@@ -16,7 +16,8 @@ func TestCreateOrganization(t *testing.T) {
 		usr, token := testutils.CreateUser()
 		requestBody := strings.NewReader(`{
 			"name": "Test.` + usr.ID + `",
-			"slug": "test-` + usr.ID + `"
+			"slug": "test-` + usr.ID + `",
+			"description": "test-description-` + usr.ID + `"
 		}`)
 		req := httptest.NewRequest("POST", "/organization", requestBody)
 		req.Header.Add("Content-Type", "application/json")
@@ -49,7 +50,8 @@ func TestCreateOrganization(t *testing.T) {
 		usr, _ := testutils.CreateUser()
 		requestBody := strings.NewReader(`{
 			"name": "Test.` + usr.ID + `",
-			"slug": "test-` + usr.ID + `"
+			"slug": "test-` + usr.ID + `",
+			"description": "test-description-` + usr.ID + `"
 		}`)
 		req := httptest.NewRequest("POST", "/organization", requestBody)
 		req.Header.Add("Content-Type", "application/json")
@@ -73,7 +75,7 @@ func TestCreateOrganization(t *testing.T) {
 
 	t.Run("fail with missing name", func(t *testing.T) {
 		_, token := testutils.CreateUser()
-		requestBody := strings.NewReader(`{"slug": "test"}`)
+		requestBody := strings.NewReader(`{"slug": "test", "description": "test"}`)
 		req := httptest.NewRequest("POST", "/organization", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bearer "+token)
@@ -85,7 +87,7 @@ func TestCreateOrganization(t *testing.T) {
 
 	t.Run("fail with missing slug", func(t *testing.T) {
 		_, token := testutils.CreateUser()
-		requestBody := strings.NewReader(`{"name": "Test"}`)
+		requestBody := strings.NewReader(`{"name": "Test", "description": "test"}`)
 		req := httptest.NewRequest("POST", "/organization", requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bearer "+token)

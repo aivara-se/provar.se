@@ -35,22 +35,23 @@ type OrganizationSetting struct {
 }
 
 // Create creates a new organization in the database
-func Create(name, slug, createdBy string) (*Organization, error) {
+func Create(name, slug, description, createdBy string) (*Organization, error) {
 	tx, err := database.DB().Beginx()
 	if err != nil {
 		return nil, err
 	}
 	org := &Organization{
-		ID:         database.NewID(),
-		CreatedAt:  time.Now(),
-		ModifiedAt: time.Now(),
-		CreatedBy:  createdBy,
-		Name:       name,
-		Slug:       slug,
+		ID:          database.NewID(),
+		CreatedAt:   time.Now(),
+		ModifiedAt:  time.Now(),
+		CreatedBy:   createdBy,
+		Name:        name,
+		Slug:        slug,
+		Description: description,
 	}
 	query := `
-		INSERT INTO private.organization (id, created_at, modified_at, created_by, name, slug)
-		VALUES (:id, :created_at, :modified_at, :created_by, :name, :slug)
+		INSERT INTO private.organization (id, created_at, modified_at, created_by, name, slug, description)
+		VALUES (:id, :created_at, :modified_at, :created_by, :name, :slug, :description)
 	`
 	_, err = tx.NamedExec(query, org)
 	if err != nil {
@@ -78,6 +79,7 @@ func Create(name, slug, createdBy string) (*Organization, error) {
 	permission := permission.Permission{
 		ID:             database.NewID(),
 		CreatedAt:      time.Now(),
+		CreatedBy:      createdBy,
 		OrganizationID: org.ID,
 		PrincipalType:  permission.PrincipalTypeUser,
 		Principal:      createdBy,
@@ -101,6 +103,17 @@ func FindByID(id string) (*Organization, error) {
 		return nil, err
 	}
 	return org, nil
+}
+
+// UpdateByID updates an organization with the given details
+func UpdateByID(id, name, slug, description string) error {
+	query := `
+		UPDATE private.organization
+		SET name = $2, slug = $3, description = $4
+		WHERE id = $1
+	`
+	_, err := database.DB().Exec(query, id, name, slug, description)
+	return err
 }
 
 // DeleteByID deletes an organization with the given id
@@ -127,8 +140,8 @@ func FindMemberOrganizations(userID string) ([]*Organization, error) {
 	return orgs, nil
 }
 
-// IsOrganizationMember returns whether a user is a member of an organization
-func IsOrganizationMember(orgID, userID string) (bool, error) {
+// IsMember returns whether a user is a member of an organization
+func IsMember(orgID, userID string) (bool, error) {
 	membership := &OrganizationMember{}
 	query := `
 		SELECT * FROM private.organizationmember
@@ -143,8 +156,8 @@ func IsOrganizationMember(orgID, userID string) (bool, error) {
 	return true, nil
 }
 
-// FindOrganizationMembers returns all members of an organization
-func FindOrganizationMembers(id string) ([]*user.User, error) {
+// FindMembers returns all members of an organization
+func FindMembers(id string) ([]*user.User, error) {
 	users := []*user.User{}
 	query := `
 		SELECT u.*
@@ -160,8 +173,8 @@ func FindOrganizationMembers(id string) ([]*user.User, error) {
 	return users, nil
 }
 
-// FindOrganizationSettings returns all members of an organization
-func FindOrganizationSettings(id string) (map[string]string, error) {
+// FindSettings returns all members of an organization
+func FindSettings(id string) (map[string]string, error) {
 	settingsList := []*OrganizationSetting{}
 	query := `SELECT * from private.organizationsetting WHERE organization_id = $1`
 	err := database.DB().Select(&settingsList, query, id)
@@ -175,6 +188,11 @@ func FindOrganizationSettings(id string) (map[string]string, error) {
 	return settings, nil
 }
 
+// Update deletes an organization with the given id
+func (o *Organization) Update() error {
+	return UpdateByID(o.ID, o.Name, o.Slug, o.Description)
+}
+
 // DeleteByID deletes an organization with the given id
 func (o *Organization) Delete() error {
 	return DeleteByID(o.ID)
@@ -182,15 +200,15 @@ func (o *Organization) Delete() error {
 
 // IsMember returns all members of an organization
 func (o *Organization) IsMember(userID string) (bool, error) {
-	return IsOrganizationMember(o.ID, userID)
+	return IsMember(o.ID, userID)
 }
 
 // Members returns all members of an organization
 func (o *Organization) Members() ([]*user.User, error) {
-	return FindOrganizationMembers(o.ID)
+	return FindMembers(o.ID)
 }
 
 // Settings returns organization settings as a map
 func (o *Organization) Settings() (map[string]string, error) {
-	return FindOrganizationSettings(o.ID)
+	return FindSettings(o.ID)
 }

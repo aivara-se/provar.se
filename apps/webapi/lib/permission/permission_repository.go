@@ -10,6 +10,7 @@ import (
 type Permission struct {
 	ID             string         `db:"id"`
 	CreatedAt      time.Time      `db:"created_at"`
+	CreatedBy      string         `db:"created_by"`
 	OrganizationID string         `db:"organization_id"`
 	PrincipalType  PrincipalType  `db:"principal_type"`
 	Principal      string         `db:"principal"`
@@ -37,20 +38,20 @@ func HasPermission(q *PermissionQuery) bool {
 			(organization_id = $1 OR organization_id = '*') AND
 			(principal_type = $2 OR principal_type = '*') AND
 			(principal = $3 OR principal = '*') AND
-			(resourceType = $4 OR resourceType = '*') AND
+			(resource_type = $4 OR resource_type = '*') AND
 			(resources = $5 OR resources = '*') AND
 			permission = $6
 		LIMIT 1
 	`
 	err := database.DB().Get(permissions, query, q.OrganizationID, q.PrincipalType, q.PrincipalID, q.ResourceType, q.ResourceID, q.Permission)
-	return err != nil
+	return err == nil
 }
 
 // Create stores the permission in the database
 func (p *Permission) Create() error {
 	query := `
-		INSERT INTO private.permission (id, created_at, organization_id, principal_type, principal, resource_type, resources, permission)
-		VALUES (:id, :created_at, :organization_id, :principal_type, :principal, :resource_type, :resources, :permission)
+		INSERT INTO private.permission (id, created_at, created_by, organization_id, principal_type, principal, resource_type, resources, permission)
+		VALUES (:id, :created_at, :created_by, :organization_id, :principal_type, :principal, :resource_type, :resources, :permission)
 	`
 	_, err := database.DB().NamedExec(query, p)
 	return err
