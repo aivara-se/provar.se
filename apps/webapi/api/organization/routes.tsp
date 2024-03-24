@@ -11,4 +11,10 @@ interface Organization {
 
   @route("/list")
   list(): OrganizationDetails[];
+
+  @route("/{id}/details")
+  details(id: string): OrganizationDetails;
+
+  @route("/{id}/settings")
+  settings(id: string): Record<string>;
 }

@@ -28,6 +28,14 @@ export type Organization = {
 		RequestBody: void;
 		ResponseBody: paths['/organization/list']['get']['responses'][200]['content']['application/json'];
 	};
+	details: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{id}/details']['get']['responses'][200]['content']['application/json'];
+	};
+	settings: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{id}/settings']['get']['responses'][200]['content']['application/json'];
+	};
 };
 
 export type HealthCheck = {
@@ -83,6 +91,15 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 		},
 		list: async (): Promise<Organization['list']['ResponseBody']> => {
 			return f.fetch<Organization['list']['ResponseBody']>('get', '/organization/list');
+		},
+		details: async (id: string): Promise<Organization['details']['ResponseBody']> => {
+			return f.fetch<Organization['details']['ResponseBody']>('get', `/organization/${id}/details`);
+		},
+		settings: async (id: string): Promise<Organization['settings']['ResponseBody']> => {
+			return f.fetch<Organization['settings']['ResponseBody']>(
+				'get',
+				`/organization/${id}/settings`
+			);
 		}
 	};
 };

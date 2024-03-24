@@ -17,3 +17,14 @@ type Principal struct {
 	User *user.User
 	Cred *credential.Credential
 }
+
+// ID returns the ID of the principal
+func (p *Principal) ID() string {
+	if p.Type == PrincipalTypeUser {
+		return p.User.ID
+	}
+	if p.Type == PrincipalTypeCredential {
+		return p.Cred.ID
+	}
+	return ""
+}

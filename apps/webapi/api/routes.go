@@ -45,6 +45,8 @@ func Create() *fiber.App {
 	auth.SetupLoginWithEmailConfirm(app)
 	organization.SetupCreateOrganization(app)
 	organization.SetupMemberOrganizations(app)
+	organization.SetupOrganizationDetails(app)
+	organization.SetupOrganizationSettings(app)
 	ping.SetupBasicHealthcheck(app)
 	ping.SetupSecureHealthcheck(app)
 
