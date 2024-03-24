@@ -10,8 +10,9 @@ import (
 
 // CreateOrganizationRequestBody is the request body for creating an organization
 type CreateOrganizationRequestBody struct {
-	Name string `json:"name" validate:"required"`
-	Slug string `json:"slug" validate:"required"`
+	Name        string `json:"name" validate:"required"`
+	Slug        string `json:"slug" validate:"required"`
+	Description string `json:"description" validate:"required"`
 }
 
 // CreateCreateOrganizationRequestBody returns a new CreateOrganizationRequestBody
@@ -29,7 +30,7 @@ func SetupCreateOrganization(app *fiber.App) {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 		body := validator.GetRequestBody(c).(*CreateOrganizationRequestBody)
-		organization, err := organization.Create(body.Name, body.Slug, principal.User.ID)
+		organization, err := organization.Create(body.Name, body.Slug, body.Description, principal.User.ID)
 		if err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}

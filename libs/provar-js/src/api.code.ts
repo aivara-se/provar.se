@@ -32,6 +32,10 @@ export type Organization = {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{id}/details']['get']['responses'][200]['content']['application/json'];
 	};
+	updateDetails: {
+		RequestBody: paths['/organization/{id}/details']['patch']['requestBody']['content']['application/json'];
+		ResponseBody: paths['/organization/{id}/details']['patch']['responses'][204]['content']['application/json'];
+	};
 	settings: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{id}/settings']['get']['responses'][200]['content']['application/json'];
@@ -94,6 +98,15 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 		},
 		details: async (id: string): Promise<Organization['details']['ResponseBody']> => {
 			return f.fetch<Organization['details']['ResponseBody']>('get', `/organization/${id}/details`);
+		},
+		updateDetails: async (
+			id: string,
+			body: Organization['updateDetails']['RequestBody']
+		): Promise<Organization['updateDetails']['ResponseBody']> => {
+			return f.fetch<
+				Organization['updateDetails']['ResponseBody'],
+				Organization['updateDetails']['RequestBody']
+			>('patch', `/organization/${id}/details`, body);
 		},
 		settings: async (id: string): Promise<Organization['settings']['ResponseBody']> => {
 			return f.fetch<Organization['settings']['ResponseBody']>(

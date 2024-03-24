@@ -28,7 +28,7 @@ func PermissionGuard(opts *PermissionGuardOptions) fiber.Handler {
 			Permission:     opts.Permission,
 		})
 		if !isAllowed {
-			return c.SendStatus(fiber.StatusUnauthorized)
+			return c.SendStatus(fiber.StatusForbidden)
 		}
 		return c.Next()
 	}

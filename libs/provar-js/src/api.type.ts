@@ -21,6 +21,7 @@ export interface paths {
 	};
 	'/organization/{id}/details': {
 		get: operations['Organization_details'];
+		patch: operations['Organization_updateDetails'];
 	};
 	'/organization/{id}/settings': {
 		get: operations['Organization_settings'];
@@ -39,28 +40,38 @@ export interface components {
 	schemas: {
 		CredentialDetails: {
 			id: string;
+			/** Format: double */
+			createdAt: number;
+			/** Format: double */
+			modifiedAt: number;
+			/** Format: double */
+			lastUsedAt: number;
 			organizationId: string;
 			name: string;
+			secret: string;
 		};
 		OrganizationDetails: {
 			id: string;
-			name: string;
-			slug: string;
 			/** Format: double */
 			createdAt: number;
 			createdBy: string;
 			/** Format: double */
 			modifiedAt: number;
+			name: string;
+			slug: string;
+			description: string;
 		};
 		UserDetails: {
 			id: string;
-			email: string;
-			name: string;
-			avatar: string;
 			/** Format: double */
 			createdAt: number;
 			/** Format: double */
 			modifiedAt: number;
+			avatar: string;
+			email: string;
+			/** Format: double */
+			emailVerifiedAt?: number;
+			name: string;
 		};
 	};
 	responses: never;
@@ -130,6 +141,7 @@ export interface operations {
 				'application/json': {
 					name: string;
 					slug: string;
+					description: string;
 				};
 			};
 		};
@@ -164,6 +176,28 @@ export interface operations {
 				content: {
 					'application/json': components['schemas']['OrganizationDetails'];
 				};
+			};
+		};
+	};
+	Organization_updateDetails: {
+		parameters: {
+			path: {
+				id: string;
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': {
+					name?: string;
+					slug?: string;
+					description?: string;
+				};
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
 			};
 		};
 	};

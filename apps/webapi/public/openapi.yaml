@@ -96,9 +96,12 @@ paths:
                   type: string
                 slug:
                   type: string
+                description:
+                  type: string
               required:
                 - name
                 - slug
+                - description
       security:
         - BearerAuth: []
   /organization/list:
@@ -132,6 +135,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrganizationDetails'
+      security:
+        - BearerAuth: []
+    patch:
+      operationId: Organization_updateDetails
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                slug:
+                  type: string
+                description:
+                  type: string
       security:
         - BearerAuth: []
   /organization/{id}/settings:
@@ -176,30 +205,42 @@ components:
       type: object
       required:
         - id
+        - createdAt
+        - modifiedAt
+        - lastUsedAt
         - organizationId
         - name
+        - secret
       properties:
         id:
           type: string
+        createdAt:
+          type: number
+          format: double
+        modifiedAt:
+          type: number
+          format: double
+        lastUsedAt:
+          type: number
+          format: double
         organizationId:
           type: string
         name:
+          type: string
+        secret:
           type: string
     OrganizationDetails:
       type: object
       required:
         - id
-        - name
-        - slug
         - createdAt
         - createdBy
         - modifiedAt
+        - name
+        - slug
+        - description
       properties:
         id:
-          type: string
-        name:
-          type: string
-        slug:
           type: string
         createdAt:
           type: number
@@ -209,23 +250,23 @@ components:
         modifiedAt:
           type: number
           format: double
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
     UserDetails:
       type: object
       required:
         - id
-        - email
-        - name
-        - avatar
         - createdAt
         - modifiedAt
+        - avatar
+        - email
+        - name
       properties:
         id:
-          type: string
-        email:
-          type: string
-        name:
-          type: string
-        avatar:
           type: string
         createdAt:
           type: number
@@ -233,6 +274,15 @@ components:
         modifiedAt:
           type: number
           format: double
+        avatar:
+          type: string
+        email:
+          type: string
+        emailVerifiedAt:
+          type: number
+          format: double
+        name:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http
