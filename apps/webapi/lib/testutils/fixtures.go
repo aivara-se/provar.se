@@ -26,7 +26,7 @@ func CreateUser() (*user.User, string) {
 // the organization.
 func CreateOrganization(userID string) *organization.Organization {
 	rnd := random.String(5)
-	org, err := organization.Create("Test Org "+rnd, "test-org-"+rnd, userID)
+	org, err := organization.Create("Test Org "+rnd, "test-org-"+rnd, "test-description", userID)
 	if err != nil {
 		panic(err)
 	}
