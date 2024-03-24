@@ -5,12 +5,9 @@ CREATE TABLE private.user (
     modified_at TIMESTAMP NOT NULL,
     email VARCHAR(64) UNIQUE NOT NULL,
     email_verified_at TIMESTAMP,
-    name VARCHAR(64) NOT NULL
+    name VARCHAR(64) NOT NULL,
+    avatar VARCHAR(128) DEFAULT ''
 );
 
 -- Index on email column of private.user table
 CREATE INDEX idx_user_email ON private.user(email);
-
--- Create public.user view
-CREATE OR REPLACE VIEW public.user AS
-SELECT * FROM private.user;

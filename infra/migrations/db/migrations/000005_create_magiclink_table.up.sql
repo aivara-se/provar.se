@@ -8,7 +8,3 @@ CREATE TABLE private.magiclink (
 
 -- Index on token column of private.magiclink table
 CREATE INDEX idx_magiclink_token ON private.magiclink(token);
-
--- Create public.magiclink view
-CREATE OR REPLACE VIEW public.magiclink AS
-SELECT * FROM private.magiclink;
