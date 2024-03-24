@@ -215,14 +215,11 @@ components:
         id:
           type: string
         createdAt:
-          type: number
-          format: double
+          type: string
         modifiedAt:
-          type: number
-          format: double
+          type: string
         lastUsedAt:
-          type: number
-          format: double
+          type: string
         organizationId:
           type: string
         name:
@@ -243,13 +240,11 @@ components:
         id:
           type: string
         createdAt:
-          type: number
-          format: double
+          type: string
         createdBy:
           type: string
         modifiedAt:
-          type: number
-          format: double
+          type: string
         name:
           type: string
         slug:
@@ -269,18 +264,15 @@ components:
         id:
           type: string
         createdAt:
-          type: number
-          format: double
+          type: string
         modifiedAt:
-          type: number
-          format: double
+          type: string
         avatar:
           type: string
         email:
           type: string
         emailVerifiedAt:
-          type: number
-          format: double
+          type: string
         name:
           type: string
   securitySchemes:
