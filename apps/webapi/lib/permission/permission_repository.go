@@ -29,8 +29,8 @@ type PermissionQuery struct {
 }
 
 // HasPermission checks if the principal has the given permission for the given resources
-func HasPermission(q PermissionQuery) bool {
-	permissions := []*Permission{}
+func HasPermission(q *PermissionQuery) bool {
+	permissions := &Permission{}
 	query := `
 		SELECT * FROM private.permission
 		WHERE
@@ -44,6 +44,16 @@ func HasPermission(q PermissionQuery) bool {
 	`
 	err := database.DB().Get(permissions, query, q.OrganizationID, q.PrincipalType, q.PrincipalID, q.ResourceType, q.ResourceID, q.Permission)
 	return err != nil
+}
+
+// Create stores the permission in the database
+func (p *Permission) Create() error {
+	query := `
+		INSERT INTO private.permission (id, created_at, organization_id, principal_type, principal, resource_type, resources, permission)
+		VALUES (:id, :created_at, :organization_id, :principal_type, :principal, :resource_type, :resources, :permission)
+	`
+	_, err := database.DB().NamedExec(query, p)
+	return err
 }
 
 // FindByPrincipal returns permissions for the given principal

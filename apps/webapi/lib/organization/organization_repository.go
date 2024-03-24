@@ -4,17 +4,19 @@ import (
 	"time"
 
 	"provar.se/webapi/lib/database"
+	"provar.se/webapi/lib/permission"
 	"provar.se/webapi/lib/user"
 )
 
 // Organization struct represents the organization table in the database
 type Organization struct {
-	ID         string    `db:"id" json:"id"`
-	CreatedAt  time.Time `db:"created_at" json:"createdAt"`
-	CreatedBy  string    `db:"created_by" json:"createdBy"`
-	ModifiedAt time.Time `db:"modified_at" json:"modifiedAt"`
-	Name       string    `db:"name" json:"name"`
-	Slug       string    `db:"slug" json:"slug"`
+	ID          string    `db:"id" json:"id"`
+	CreatedAt   time.Time `db:"created_at" json:"createdAt"`
+	CreatedBy   string    `db:"created_by" json:"createdBy"`
+	ModifiedAt  time.Time `db:"modified_at" json:"modifiedAt"`
+	Name        string    `db:"name" json:"name"`
+	Slug        string    `db:"slug" json:"slug"`
+	Description string    `db:"description" json:"description"`
 }
 
 // OrganizationMember struct represents the organizationmember table in the database
@@ -22,6 +24,14 @@ type OrganizationMember struct {
 	ID             string `db:"id"`
 	UserID         string `db:"user_id"`
 	OrganizationID string `db:"organization_id"`
+}
+
+// OrganizationSetting struct represents the organizationsetting table in the database
+type OrganizationSetting struct {
+	ID             string `db:"id"`
+	OrganizationID string `db:"organization_id"`
+	Key            string `db:"key"`
+	Val            string `db:"val"`
 }
 
 // Create creates a new organization in the database
@@ -65,6 +75,20 @@ func Create(name, slug, createdBy string) (*Organization, error) {
 	if err != nil {
 		return nil, err
 	}
+	permission := permission.Permission{
+		ID:             database.NewID(),
+		CreatedAt:      time.Now(),
+		OrganizationID: org.ID,
+		PrincipalType:  permission.PrincipalTypeUser,
+		Principal:      createdBy,
+		ResourceType:   permission.ResourceTypeOrganization,
+		Resources:      org.ID,
+		Permission:     permission.PermissionTypeOrganizationAdmin,
+	}
+	err = permission.Create()
+	if err != nil {
+		return nil, err
+	}
 	return org, nil
 }
 
@@ -87,7 +111,7 @@ func DeleteByID(id string) error {
 }
 
 // FindMemberOrganizations returns all organizations a user is a member of
-func FindMemberOrganizations(id string) ([]*Organization, error) {
+func FindMemberOrganizations(userID string) ([]*Organization, error) {
 	orgs := []*Organization{}
 	query := `
 		SELECT o.*
@@ -96,11 +120,27 @@ func FindMemberOrganizations(id string) ([]*Organization, error) {
 		WHERE om.user_id = $1
 		ORDER BY o.name
 	`
-	err := database.DB().Select(&orgs, query, id)
+	err := database.DB().Select(&orgs, query, userID)
 	if err != nil {
 		return nil, err
 	}
 	return orgs, nil
+}
+
+// IsOrganizationMember returns whether a user is a member of an organization
+func IsOrganizationMember(orgID, userID string) (bool, error) {
+	membership := &OrganizationMember{}
+	query := `
+		SELECT * FROM private.organizationmember
+		WHERE
+			organization_id = $1 AND
+			user_id = $2
+	`
+	err := database.DB().Get(membership, query, orgID, userID)
+	if err != nil {
+		return false, err
+	}
+	return true, nil
 }
 
 // FindOrganizationMembers returns all members of an organization
@@ -120,12 +160,37 @@ func FindOrganizationMembers(id string) ([]*user.User, error) {
 	return users, nil
 }
 
+// FindOrganizationSettings returns all members of an organization
+func FindOrganizationSettings(id string) (map[string]string, error) {
+	settingsList := []*OrganizationSetting{}
+	query := `SELECT * from private.organizationsetting WHERE organization_id = $1`
+	err := database.DB().Select(&settingsList, query, id)
+	if err != nil {
+		return nil, err
+	}
+	settings := make(map[string]string, len(settingsList))
+	for _, setting := range settingsList {
+		settings[setting.Key] = setting.Val
+	}
+	return settings, nil
+}
+
 // DeleteByID deletes an organization with the given id
 func (o *Organization) Delete() error {
 	return DeleteByID(o.ID)
 }
 
+// IsMember returns all members of an organization
+func (o *Organization) IsMember(userID string) (bool, error) {
+	return IsOrganizationMember(o.ID, userID)
+}
+
 // Members returns all members of an organization
 func (o *Organization) Members() ([]*user.User, error) {
 	return FindOrganizationMembers(o.ID)
+}
+
+// Settings returns organization settings as a map
+func (o *Organization) Settings() (map[string]string, error) {
+	return FindOrganizationSettings(o.ID)
 }

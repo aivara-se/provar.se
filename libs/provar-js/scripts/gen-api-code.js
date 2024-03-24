@@ -33,6 +33,12 @@ for (const path of Object.keys(openapiFileYAML.paths)) {
 				}
 			}
 		}
+		if (methodObject.parameters.length) {
+			operation.hasPathParameters = true;
+			operation.pathParameters = methodObject.parameters
+				.filter((p) => p.in === 'path')
+				.map((p) => p.name);
+		}
 	}
 }
 
@@ -77,6 +83,11 @@ for (const groupName of Object.keys(parsed.groups)) {
 		// function head
 		lines.push(`${operationName}: async (`);
 		const operation = group[operationName];
+		if (operation.hasPathParameters) {
+			for (const pathParam of operation.pathParameters) {
+				lines.push(`${pathParam}: string,`);
+			}
+		}
 		if (operation.hasRequestBody) {
 			lines.push(`body: ${groupName}['${operationName}']['RequestBody'],`);
 		}
@@ -100,7 +111,15 @@ for (const groupName of Object.keys(parsed.groups)) {
 			lines.push(`return f.fetch<null>(`);
 		}
 		lines.push(`'${operation.method}',`);
-		lines.push(`'${operation.path}',`);
+		if (operation.hasPathParameters) {
+			let formattedPath = operation.path;
+			for (const pathParam of operation.pathParameters) {
+				formattedPath = formattedPath.replace(`{${pathParam}}`, `\${${pathParam}}`);
+			}
+			lines.push(`\`${formattedPath}\`,`);
+		} else {
+			lines.push(`'${operation.path}',`);
+		}
 		if (operation.hasRequestBody) {
 			lines.push(`body,`);
 		}
