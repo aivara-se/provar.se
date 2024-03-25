@@ -61,7 +61,7 @@ export const createEmailAuthenticationEndpoints = (f: Fetcher) => {
 			return f.fetch<
 				EmailAuthentication['confirm']['ResponseBody'],
 				EmailAuthentication['confirm']['RequestBody']
-			>('post', '/auth/email/confirm', body);
+			>('POST', '/auth/email/confirm', body);
 		},
 		prepare: async (
 			body: EmailAuthentication['prepare']['RequestBody']
@@ -69,7 +69,7 @@ export const createEmailAuthenticationEndpoints = (f: Fetcher) => {
 			return f.fetch<
 				EmailAuthentication['prepare']['ResponseBody'],
 				EmailAuthentication['prepare']['RequestBody']
-			>('post', '/auth/email/prepare', body);
+			>('POST', '/auth/email/prepare', body);
 		}
 	};
 };
@@ -77,7 +77,7 @@ export const createEmailAuthenticationEndpoints = (f: Fetcher) => {
 export const createAuthenticationEndpoints = (f: Fetcher) => {
 	return {
 		whoami: async (): Promise<Authentication['whoami']['ResponseBody']> => {
-			return f.fetch<Authentication['whoami']['ResponseBody']>('get', '/auth/whoami');
+			return f.fetch<Authentication['whoami']['ResponseBody']>('GET', '/auth/whoami');
 		}
 	};
 };
@@ -88,16 +88,16 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 			body: Organization['create']['RequestBody']
 		): Promise<Organization['create']['ResponseBody']> => {
 			return f.fetch<Organization['create']['ResponseBody'], Organization['create']['RequestBody']>(
-				'post',
+				'POST',
 				'/organization',
 				body
 			);
 		},
 		list: async (): Promise<Organization['list']['ResponseBody']> => {
-			return f.fetch<Organization['list']['ResponseBody']>('get', '/organization/list');
+			return f.fetch<Organization['list']['ResponseBody']>('GET', '/organization/list');
 		},
 		details: async (id: string): Promise<Organization['details']['ResponseBody']> => {
-			return f.fetch<Organization['details']['ResponseBody']>('get', `/organization/${id}/details`);
+			return f.fetch<Organization['details']['ResponseBody']>('GET', `/organization/${id}/details`);
 		},
 		updateDetails: async (
 			id: string,
@@ -106,11 +106,11 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 			return f.fetch<
 				Organization['updateDetails']['ResponseBody'],
 				Organization['updateDetails']['RequestBody']
-			>('patch', `/organization/${id}/details`, body);
+			>('PATCH', `/organization/${id}/details`, body);
 		},
 		settings: async (id: string): Promise<Organization['settings']['ResponseBody']> => {
 			return f.fetch<Organization['settings']['ResponseBody']>(
-				'get',
+				'GET',
 				`/organization/${id}/settings`
 			);
 		}
@@ -120,10 +120,10 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 export const createHealthCheckEndpoints = (f: Fetcher) => {
 	return {
 		basic: async (): Promise<HealthCheck['basic']['ResponseBody']> => {
-			return f.fetch<HealthCheck['basic']['ResponseBody']>('get', '/ping');
+			return f.fetch<HealthCheck['basic']['ResponseBody']>('GET', '/ping');
 		},
 		secure: async (): Promise<HealthCheck['secure']['ResponseBody']> => {
-			return f.fetch<HealthCheck['secure']['ResponseBody']>('get', '/ping/secure');
+			return f.fetch<HealthCheck['secure']['ResponseBody']>('GET', '/ping/secure');
 		}
 	};
 };

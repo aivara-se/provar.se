@@ -110,7 +110,7 @@ for (const groupName of Object.keys(parsed.groups)) {
 		} else {
 			lines.push(`return f.fetch<null>(`);
 		}
-		lines.push(`'${operation.method}',`);
+		lines.push(`'${operation.method.toUpperCase()}',`);
 		if (operation.hasPathParameters) {
 			let formattedPath = operation.path;
 			for (const pathParam of operation.pathParameters) {
