@@ -5121,9 +5121,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sveltekit-superforms@npm:^2.10.1":
-  version: 2.10.1
-  resolution: "sveltekit-superforms@npm:2.10.1"
+"sveltekit-superforms@npm:^2.11.0":
+  version: 2.11.0
+  resolution: "sveltekit-superforms@npm:2.11.0"
   dependencies:
     "@gcornut/valibot-json-schema": "npm:^0.0.26"
     "@sinclair/typebox": "npm:^0.32.15"
@@ -5191,7 +5191,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10/0194b51227d47ae558c1199a0a436b7a29135d02fe388d00162add2bbb3863f698445bc120d4d0cc55145c6e99a96dedda47b2bd55bd71a600310eaced24741c
+  checksum: 10/42c2b009c929528a3a7eadfc46f95f462ad89a72a1cf7ba677a5a941f5a34dedbbcc68f0cdfa1d1f7525a48a95d27f463e1ea446728c8aec51ba9368e830972d
   languageName: node
   linkType: hard
 
@@ -5719,7 +5719,7 @@ __metadata:
     prettier-plugin-svelte: "npm:^3.2.2"
     svelte: "npm:^4.2.12"
     svelte-check: "npm:^3.6.4"
-    sveltekit-superforms: "npm:^2.10.1"
+    sveltekit-superforms: "npm:^2.11.0"
     tailwindcss: "npm:^3.4.1"
     tslib: "npm:^2.4.1"
     typescript: "npm:^5.3.3"
