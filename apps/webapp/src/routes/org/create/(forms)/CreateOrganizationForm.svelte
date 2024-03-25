@@ -1,11 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { api } from '$lib/client/api';
 	import { TextInput } from '$lib/client/forms';
 	import { kebabCase } from 'lodash';
 	import { superForm } from 'sveltekit-superforms';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { schema } from './CreateOrganizationForm.schema';
-	import { goto } from '$app/navigation';
 
 	export let formData;
 
@@ -15,7 +15,8 @@
 		onUpdate: async ({ form }) => {
 			const response = await api().Organization.create({
 				name: form.data.name,
-				slug: kebabCase(form.data.name)
+				slug: kebabCase(form.data.name),
+				description: `Description for ${form.data.name}`
 			});
 			goto(`/org/${response.slug}`);
 		}
