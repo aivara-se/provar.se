@@ -16,12 +16,13 @@
 		SPA: true,
 		validators: zod(schema),
 		onUpdate: async ({ form }) => {
+			const newOrganizationSlug = kebabCase(form.data.name);
 			await api().Organization.updateDetails(organization.id, {
 				name: form.data.name,
-				slug: kebabCase(form.data.name),
+				slug: newOrganizationSlug,
 				description: form.data.description
 			});
-			goto(`/org/${organization.slug}/settings/organization`);
+			await goto(`/org/${newOrganizationSlug}/settings/organization`);
 		},
 		onResult: ({ result }) => {
 			if (result.type === 'failure') {
