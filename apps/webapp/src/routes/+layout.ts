@@ -1,6 +1,6 @@
+import { api } from '$lib/client/api';
 import { canAccessRoute, getCurrentUser } from '$lib/client/auth';
 import { redirect } from '@sveltejs/kit';
-import { api } from '../lib/client/api';
 import type { LayoutLoad } from './$types';
 
 /**

@@ -4,8 +4,10 @@
 export interface Credential {
 	id: string;
 	organizationId: string;
-	createdAt: Date;
-	lastUsedAt?: Date;
+	createdAt: string;
+	createdBy: string;
+	modifiedAt: string;
+	lastUsedAt?: string;
 	name: string;
-	key: string;
+	secret: string;
 }
