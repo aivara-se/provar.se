@@ -2,12 +2,11 @@ import "@typespec/http";
 
 using TypeSpec.Http;
 
-@route("/ping")
 interface HealthCheck {
-  @route("/")
+  @route("/ping")
   basic(): void;
 
-  @route("/secure")
+  @route("/ping/secure")
   @useAuth(BearerAuth)
   secure(): void;
 }

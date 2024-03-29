@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"provar.se/webapi/api/auth"
+	"provar.se/webapi/api/credential"
 	"provar.se/webapi/api/organization"
 	"provar.se/webapi/api/ping"
 )
@@ -43,9 +44,10 @@ func Create() *fiber.App {
 	auth.SetupGetLoginDetails(app)
 	auth.SetupLoginWithEmail(app)
 	auth.SetupLoginWithEmailConfirm(app)
+	credential.SetupCreateCredential(app)
+	credential.SetupOrganizationCredentials(app)
 	organization.SetupCreateOrganization(app)
 	organization.SetupMemberOrganizations(app)
-	organization.SetupOrganizationCredentials(app)
 	organization.SetupOrganizationDetails(app)
 	organization.SetupOrganizationInvitations(app)
 	organization.SetupOrganizationMembers(app)

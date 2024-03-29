@@ -9,11 +9,13 @@ import (
 )
 
 func SetupOrganizationInvitations(app *fiber.App) {
-	app.Get("/organization/:id/invitation/list", access.AuthenticatedGuard())
-	app.Get("/organization/:id/invitation/list", organization.Loader(router.FromPathParam("id")))
-	app.Get("/organization/:id/invitation/list", access.MembershipGuard())
+	path := "/organization/:organizationId/invitation/list"
 
-	app.Get("/organization/:id/invitation/list", func(c *fiber.Ctx) error {
+	app.Get(path, access.AuthenticatedGuard())
+	app.Get(path, organization.Loader(router.FromPathParam("organizationId")))
+	app.Get(path, access.MembershipGuard())
+
+	app.Get(path, func(c *fiber.Ctx) error {
 		org := organization.GetOrganization(c)
 		invites, err := invitation.FindPendingByOrganizationID(org.ID)
 		if err != nil {

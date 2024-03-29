@@ -1,4 +1,4 @@
-package organization_test
+package credential_test
 
 import (
 	"net/http/httptest"
@@ -23,6 +23,26 @@ func TestOrganizationCredentials(t *testing.T) {
 		responseBody := testutils.ReadJSON(res.Body, []*credential.Credential{})
 		if len(responseBody) != 0 {
 			t.Fatalf("expected the list to be empty: %v", responseBody)
+		}
+	})
+
+	t.Run("success - multiple", func(t *testing.T) {
+		usr, key := testutils.CreateUser()
+		org := testutils.CreateOrganization(usr.ID)
+		c1 := testutils.CreateCredential(org.ID, usr.ID)
+		c2 := testutils.CreateCredential(org.ID, usr.ID)
+		req := httptest.NewRequest("GET", "/organization/"+org.ID+"/credential/list", nil)
+		req.Header.Add("Authorization", "bearer "+key)
+		res, _ := app.Test(req, -1)
+		if res.StatusCode != 200 {
+			t.Fatalf("unexpected status code: %d", res.StatusCode)
+		}
+		responseBody := testutils.ReadJSON(res.Body, []*credential.Credential{})
+		if len(responseBody) != 2 {
+			t.Fatalf("expected the list to have elements: %v", responseBody)
+		}
+		if (responseBody[0].ID != c1.ID || responseBody[1].ID != c2.ID) && (responseBody[1].ID != c1.ID || responseBody[0].ID != c2.ID) {
+			t.Fatalf("unexpected credentials: %v", responseBody)
 		}
 	})
 
