@@ -19,6 +19,9 @@ export interface paths {
 	'/organization/list': {
 		get: operations['Organization_list'];
 	};
+	'/organization/{organizationId}': {
+		delete: operations['Organization_delete'];
+	};
 	'/organization/{organizationId}/credential': {
 		post: operations['Credential_create'];
 	};
@@ -27,7 +30,7 @@ export interface paths {
 	};
 	'/organization/{organizationId}/details': {
 		get: operations['Organization_details'];
-		patch: operations['Organization_updateDetails'];
+		patch: operations['Organization_update'];
 	};
 	'/organization/{organizationId}/invitation/list': {
 		get: operations['Invitation_list'];
@@ -179,6 +182,19 @@ export interface operations {
 			};
 		};
 	};
+	Organization_delete: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
+			};
+		};
+	};
 	Credential_create: {
 		parameters: {
 			path: {
@@ -231,7 +247,7 @@ export interface operations {
 			};
 		};
 	};
-	Organization_updateDetails: {
+	Organization_update: {
 		parameters: {
 			path: {
 				organizationId: string;

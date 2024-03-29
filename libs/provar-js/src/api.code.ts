@@ -28,11 +28,15 @@ export type Organization = {
 		RequestBody: void;
 		ResponseBody: paths['/organization/list']['get']['responses'][200]['content']['application/json'];
 	};
+	delete: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}']['delete']['responses'][204]['content']['application/json'];
+	};
 	details: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/details']['get']['responses'][200]['content']['application/json'];
 	};
-	updateDetails: {
+	update: {
 		RequestBody: paths['/organization/{organizationId}/details']['patch']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization/{organizationId}/details']['patch']['responses'][204]['content']['application/json'];
 	};
@@ -118,20 +122,27 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 		list: async (): Promise<Organization['list']['ResponseBody']> => {
 			return f.fetch<Organization['list']['ResponseBody']>('GET', '/organization/list');
 		},
+		delete: async (organizationId: string): Promise<Organization['delete']['ResponseBody']> => {
+			return f.fetch<Organization['delete']['ResponseBody']>(
+				'DELETE',
+				`/organization/${organizationId}`
+			);
+		},
 		details: async (organizationId: string): Promise<Organization['details']['ResponseBody']> => {
 			return f.fetch<Organization['details']['ResponseBody']>(
 				'GET',
 				`/organization/${organizationId}/details`
 			);
 		},
-		updateDetails: async (
+		update: async (
 			organizationId: string,
-			body: Organization['updateDetails']['RequestBody']
-		): Promise<Organization['updateDetails']['ResponseBody']> => {
-			return f.fetch<
-				Organization['updateDetails']['ResponseBody'],
-				Organization['updateDetails']['RequestBody']
-			>('PATCH', `/organization/${organizationId}/details`, body);
+			body: Organization['update']['RequestBody']
+		): Promise<Organization['update']['ResponseBody']> => {
+			return f.fetch<Organization['update']['ResponseBody'], Organization['update']['RequestBody']>(
+				'PATCH',
+				`/organization/${organizationId}/details`,
+				body
+			);
 		},
 		members: async (organizationId: string): Promise<Organization['members']['ResponseBody']> => {
 			return f.fetch<Organization['members']['ResponseBody']>(

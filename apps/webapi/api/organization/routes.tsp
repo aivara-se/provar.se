@@ -23,5 +23,9 @@ interface Organization {
 
   @patch()
   @route("/organization/{organizationId}/details")
-  updateDetails(organizationId: string, @body req: { name: string; slug: string, description: string }): void;
+  update(organizationId: string, @body req: { name: string; slug: string, description: string }): void;
+
+  @delete()
+  @route("/organization/{organizationId}")
+  delete(organizationId: string): void;
 }
