@@ -28,4 +28,8 @@ interface Organization {
   @delete()
   @route("/organization/{organizationId}")
   delete(organizationId: string): void;
+
+  @delete()
+  @route("/organization/{organizationId}/member/{userId}")
+  removeMember(organizationId: string, userId: string): void;
 }

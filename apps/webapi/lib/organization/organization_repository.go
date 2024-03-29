@@ -37,6 +37,7 @@ type OrganizationSetting struct {
 func Create(name, slug, description, createdBy string) (*Organization, error) {
 	tx, err := database.DB().Beginx()
 	if err != nil {
+		tx.Rollback()
 		return nil, err
 	}
 	org := &Organization{
@@ -122,6 +123,68 @@ func DeleteByID(id string) error {
 	return err
 }
 
+// AddMember adds a member to an organization
+func AddMember(orgID, userID string) error {
+	member := &OrganizationMember{
+		ID:             database.NewID(),
+		UserID:         userID,
+		OrganizationID: orgID,
+	}
+	query := `
+		INSERT INTO private.organizationmember (id, user_id, organization_id)
+		VALUES (:id, :user_id, :organization_id)
+	`
+	_, err := database.DB().NamedExec(query, member)
+	return err
+}
+
+// RemoveMember removes a member from an organization
+func RemoveMember(orgID, userID string) error {
+	tx, err := database.DB().Beginx()
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	query := `
+		SELECT COUNT(*)
+		FROM private.organizationmember
+		WHERE
+			organization_id = $1 AND
+			user_id != $2
+	`
+	var count int
+	err = tx.Get(&count, query, orgID, userID)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	if count == 0 {
+		query = "DELETE FROM private.organization WHERE id = $1"
+		_, err = tx.Exec(query, orgID)
+		if err != nil {
+			tx.Rollback()
+			return err
+		}
+	} else {
+		query = `
+			DELETE FROM private.organizationmember
+			WHERE
+				organization_id = $1 AND
+				user_id = $2
+		`
+		_, err := tx.Exec(query, orgID, userID)
+		if err != nil {
+			tx.Rollback()
+			return err
+		}
+	}
+	err = tx.Commit()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // FindMemberOrganizations returns all organizations a user is a member of
 func FindMemberOrganizations(userID string) ([]*Organization, error) {
 	orgs := []*Organization{}
@@ -175,9 +238,19 @@ func (o *Organization) Update() error {
 	return UpdateByID(o.ID, o.Name, o.Slug, o.Description)
 }
 
-// DeleteByID deletes an organization with the given id
+// Delete deletes an organization with the given id
 func (o *Organization) Delete() error {
 	return DeleteByID(o.ID)
+}
+
+// AddMember adds a member to an organization
+func (o *Organization) AddMember(userID string) error {
+	return AddMember(o.ID, userID)
+}
+
+// RemoveMember removes a member from an organization
+func (o *Organization) RemoveMember(userID string) error {
+	return RemoveMember(o.ID, userID)
 }
 
 // IsMember returns all members of an organization

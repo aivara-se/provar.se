@@ -1,15 +1,15 @@
 package templates
 
-// LoginEmailTemplate implements EmailTemplate
-type LoginEmailTemplate struct{}
+// LoginEmail implements EmailTemplate
+type LoginEmail struct{}
 
 // SubjectText returns the subject of the email
-func (t *LoginEmailTemplate) SubjectText(data map[string]string) string {
+func (t *LoginEmail) SubjectText(data map[string]string) string {
 	return "You have requested a link to sign-in to Provar.se"
 }
 
 // ContentText returns the text content of the email
-func (t *LoginEmailTemplate) ContentText(data map[string]string) string {
+func (t *LoginEmail) ContentText(data map[string]string) string {
 	return `Hello,
 You have requested a link to sign-in to Provar.se. To access your account, click the link below:
 
@@ -22,7 +22,7 @@ The Provar Team`
 }
 
 // ContentHTML returns the HTML content of the email
-func (t *LoginEmailTemplate) ContentHTML(data map[string]string) string {
+func (t *LoginEmail) ContentHTML(data map[string]string) string {
 	return `<!DOCTYPE html>
 <html lang="en">
 <head>
