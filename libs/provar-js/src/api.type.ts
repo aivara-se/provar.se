@@ -68,6 +68,7 @@ export interface components {
 		CredentialDetails: {
 			id: string;
 			createdAt: string;
+			createdBy: string;
 			modifiedAt: string;
 			lastUsedAt: string;
 			organizationId: string;
@@ -224,7 +225,7 @@ export interface operations {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': components['schemas']['OrganizationDetails'];
+					'application/json': components['schemas']['CredentialDetails'];
 				};
 			};
 		};

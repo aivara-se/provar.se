@@ -21,6 +21,7 @@ model OrganizationDetails {
 model CredentialDetails {
   id: string;
   createdAt: string;
+  createdBy: string;
   modifiedAt: string;
   lastUsedAt: string;
   organizationId: string;
