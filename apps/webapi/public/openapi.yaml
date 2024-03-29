@@ -148,7 +148,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrganizationDetails'
+                $ref: '#/components/schemas/CredentialDetails'
       requestBody:
         required: true
         content:
@@ -398,6 +398,7 @@ components:
       required:
         - id
         - createdAt
+        - createdBy
         - modifiedAt
         - lastUsedAt
         - organizationId
@@ -407,6 +408,8 @@ components:
         id:
           type: string
         createdAt:
+          type: string
+        createdBy:
           type: string
         modifiedAt:
           type: string

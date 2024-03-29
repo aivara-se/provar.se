@@ -7,7 +7,7 @@ using TypeSpec.Http;
 interface Credential {
   @post()
   @route("/organization/{organizationId}/credential")
-  create(organizationId: string, @body req: { name: string }): OrganizationDetails;
+  create(organizationId: string, @body req: { name: string }): CredentialDetails;
 
   @route("/organization/{organizationId}/credential/list")
   list(organizationId: string): CredentialDetails[];

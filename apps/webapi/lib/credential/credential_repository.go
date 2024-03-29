@@ -1,23 +1,23 @@
 package credential
 
 import (
-	"database/sql"
 	"time"
 
 	"provar.se/webapi/lib/database"
 	"provar.se/webapi/lib/random"
+	"provar.se/webapi/lib/types"
 )
 
 // Credential struct represents the credential table in the database
 type Credential struct {
-	ID             string       `db:"id" json:"id"`
-	CreatedAt      time.Time    `db:"created_at" json:"createdAt"`
-	CreatedBy      string       `db:"created_by" json:"createdBy"`
-	ModifiedAt     time.Time    `db:"modified_at" json:"modifiedAt"`
-	LastUsedAt     sql.NullTime `db:"last_used_at" json:"lastUsedAt"`
-	OrganizationID string       `db:"organization_id" json:"organizationId"`
-	Name           string       `db:"name" json:"name"`
-	Secret         string       `db:"secret" json:"secret"`
+	ID             string         `db:"id" json:"id"`
+	CreatedAt      time.Time      `db:"created_at" json:"createdAt"`
+	CreatedBy      string         `db:"created_by" json:"createdBy"`
+	ModifiedAt     time.Time      `db:"modified_at" json:"modifiedAt"`
+	LastUsedAt     types.NullTime `db:"last_used_at" json:"lastUsedAt"`
+	OrganizationID string         `db:"organization_id" json:"organizationId"`
+	Name           string         `db:"name" json:"name"`
+	Secret         string         `db:"secret" json:"secret"`
 }
 
 // Create creates a new credential in the database
