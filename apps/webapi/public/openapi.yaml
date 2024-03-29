@@ -182,6 +182,25 @@ paths:
                   $ref: '#/components/schemas/CredentialDetails'
       security:
         - BearerAuth: []
+  /organization/{organizationId}/credential/{credentialId}:
+    delete:
+      operationId: Credential_delete
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: credentialId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
   /organization/{organizationId}/details:
     get:
       operationId: Organization_details

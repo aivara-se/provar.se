@@ -28,6 +28,9 @@ export interface paths {
 	'/organization/{organizationId}/credential/list': {
 		get: operations['Credential_list'];
 	};
+	'/organization/{organizationId}/credential/{credentialId}': {
+		delete: operations['Credential_delete'];
+	};
 	'/organization/{organizationId}/details': {
 		get: operations['Organization_details'];
 		patch: operations['Organization_update'];
@@ -242,6 +245,20 @@ export interface operations {
 				content: {
 					'application/json': components['schemas']['CredentialDetails'][];
 				};
+			};
+		};
+	};
+	Credential_delete: {
+		parameters: {
+			path: {
+				organizationId: string;
+				credentialId: string;
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
 			};
 		};
 	};

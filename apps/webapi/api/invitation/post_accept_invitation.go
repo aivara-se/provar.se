@@ -14,14 +14,13 @@ func SetupAcceptInvitation(app *fiber.App) {
 
 	app.Post(path, access.AuthenticatedGuard())
 	app.Post(path, access.OnlyUsersGuard())
-	app.Post(path, organization.Loader(router.FromPathParam("organizationId")))
 	app.Post(path, invitation.Loader(router.FromPathParam("secret")))
 
 	app.Post(path, func(c *fiber.Ctx) error {
+		orgID := c.Params("organizationId")
 		principal := access.GetPrincipal(c)
-		org := organization.GetOrganization(c)
 		invite := invitation.GetInvitation(c)
-		if invite.OrganizationID != org.ID {
+		if invite.OrganizationID != orgID {
 			return c.SendStatus(fiber.StatusNotFound)
 		}
 		invitedUser, err := user.FindByEmail(invite.Email)
@@ -31,7 +30,7 @@ func SetupAcceptInvitation(app *fiber.App) {
 		if !invite.IsAcceptable() || principal.User.ID != invitedUser.ID {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
-		err = org.AddMember(invitedUser.ID)
+		err = organization.AddMember(orgID, invitedUser.ID)
 		if err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}

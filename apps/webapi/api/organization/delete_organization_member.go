@@ -36,9 +36,9 @@ func SetupRemoveOrganizationMember(app *fiber.App) {
 	})
 
 	app.Delete(path, func(c *fiber.Ctx) error {
+		orgID := c.Params("organizationId")
 		userID := c.Params("userId")
-		org := organization.GetOrganization(c)
-		if err := org.RemoveMember(userID); err != nil {
+		if err := organization.RemoveMember(orgID, userID); err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}
 		return c.SendStatus(fiber.StatusNoContent)

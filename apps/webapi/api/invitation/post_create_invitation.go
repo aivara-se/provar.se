@@ -35,10 +35,10 @@ func SetupCreateInvitation(app *fiber.App) {
 	}))
 
 	app.Post(path, func(c *fiber.Ctx) error {
+		orgID := c.Params("organizationId")
 		principal := access.GetPrincipal(c)
-		org := organization.GetOrganization(c)
 		body := validator.GetRequestBody(c).(*CreateInvitationRequestBody)
-		err := invitation.Invite(org.ID, body.Name, body.Email, principal.ID())
+		err := invitation.Invite(orgID, body.Name, body.Email, principal.ID())
 		if err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}

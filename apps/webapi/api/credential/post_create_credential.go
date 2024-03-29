@@ -24,6 +24,7 @@ func SetupCreateCredential(app *fiber.App) {
 	path := "/organization/:organizationId/credential"
 
 	app.Post(path, access.AuthenticatedGuard())
+	app.Post(path, access.OnlyUsersGuard())
 	app.Post(path, validator.ValidateMiddleware(CreateCreateCredentialRequestBody))
 	app.Post(path, organization.Loader(router.FromPathParam("organizationId")))
 	app.Post(path, access.PermissionGuard(&access.PermissionGuardOptions{
@@ -35,10 +36,6 @@ func SetupCreateCredential(app *fiber.App) {
 
 	app.Post(path, func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)
-		if principal.Type != permission.PrincipalTypeUser {
-			// Note: only users can create credentials
-			return c.SendStatus(fiber.StatusUnauthorized)
-		}
 		org := organization.GetOrganization(c)
 		body := validator.GetRequestBody(c).(*CreateCredentialRequestBody)
 		cred, err := credential.Create(body.Name, org.ID, principal.User.ID)
