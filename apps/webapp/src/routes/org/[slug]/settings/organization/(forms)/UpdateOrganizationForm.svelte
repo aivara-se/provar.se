@@ -17,7 +17,7 @@
 		validators: zod(schema),
 		onUpdate: async ({ form }) => {
 			const newOrganizationSlug = kebabCase(form.data.name);
-			await api().Organization.updateDetails(organization.id, {
+			await api().Organization.update(organization.id, {
 				name: form.data.name,
 				slug: newOrganizationSlug,
 				description: form.data.description
