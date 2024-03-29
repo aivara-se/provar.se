@@ -1,9 +1,9 @@
 -- Create private.invitation table
 CREATE TABLE private.invitation (
     id VARCHAR(8) PRIMARY KEY,
-    organization_id VARCHAR(8) REFERENCES private.organization(id),
+    organization_id VARCHAR(8) REFERENCES private.organization(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    created_by VARCHAR(8) REFERENCES private.user(id),
+    created_by VARCHAR(8) REFERENCES private.user(id) ON DELETE CASCADE,
     expires_at TIMESTAMP NOT NULL,
     accepted_at TIMESTAMP,
     secret VARCHAR(64) NOT NULL,

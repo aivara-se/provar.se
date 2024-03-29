@@ -1,7 +1,7 @@
 -- Create private.organizationsetting table
 CREATE TABLE private.organizationsetting (
     id VARCHAR(8) PRIMARY KEY,
-    organization_id VARCHAR(8) REFERENCES private.organization(id),
+    organization_id VARCHAR(8) REFERENCES private.organization(id) ON DELETE CASCADE,
     key VARCHAR(128) NOT NULL,
     val VARCHAR(128) NOT NULL
 );
