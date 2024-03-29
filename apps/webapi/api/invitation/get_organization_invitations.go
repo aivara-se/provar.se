@@ -1,4 +1,4 @@
-package organization
+package invitation
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -8,7 +8,7 @@ import (
 	"provar.se/webapi/lib/router"
 )
 
-func SetupOrganizationInvitations(app *fiber.App) {
+func SetupInvitations(app *fiber.App) {
 	path := "/organization/:organizationId/invitation/list"
 
 	app.Get(path, access.AuthenticatedGuard())

@@ -23,14 +23,14 @@ export interface paths {
 		post: operations['Credential_create'];
 	};
 	'/organization/{organizationId}/credential/list': {
-		get: operations['Organization_credentials'];
+		get: operations['Credential_list'];
 	};
 	'/organization/{organizationId}/details': {
 		get: operations['Organization_details'];
 		patch: operations['Organization_updateDetails'];
 	};
 	'/organization/{organizationId}/invitation/list': {
-		get: operations['Organization_invitations'];
+		get: operations['Invitation_list'];
 	};
 	'/organization/{organizationId}/member/list': {
 		get: operations['Organization_members'];
@@ -201,7 +201,7 @@ export interface operations {
 			};
 		};
 	};
-	Organization_credentials: {
+	Credential_list: {
 		parameters: {
 			path: {
 				organizationId: string;
@@ -253,7 +253,7 @@ export interface operations {
 			};
 		};
 	};
-	Organization_invitations: {
+	Invitation_list: {
 		parameters: {
 			path: {
 				organizationId: string;

@@ -28,10 +28,6 @@ export type Organization = {
 		RequestBody: void;
 		ResponseBody: paths['/organization/list']['get']['responses'][200]['content']['application/json'];
 	};
-	credentials: {
-		RequestBody: void;
-		ResponseBody: paths['/organization/{organizationId}/credential/list']['get']['responses'][200]['content']['application/json'];
-	};
 	details: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/details']['get']['responses'][200]['content']['application/json'];
@@ -39,10 +35,6 @@ export type Organization = {
 	updateDetails: {
 		RequestBody: paths['/organization/{organizationId}/details']['patch']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization/{organizationId}/details']['patch']['responses'][204]['content']['application/json'];
-	};
-	invitations: {
-		RequestBody: void;
-		ResponseBody: paths['/organization/{organizationId}/invitation/list']['get']['responses'][200]['content']['application/json'];
 	};
 	members: {
 		RequestBody: void;
@@ -58,6 +50,17 @@ export type Credential = {
 	create: {
 		RequestBody: paths['/organization/{organizationId}/credential']['post']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization/{organizationId}/credential']['post']['responses'][200]['content']['application/json'];
+	};
+	list: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/credential/list']['get']['responses'][200]['content']['application/json'];
+	};
+};
+
+export type Invitation = {
+	list: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/invitation/list']['get']['responses'][200]['content']['application/json'];
 	};
 };
 
@@ -115,14 +118,6 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 		list: async (): Promise<Organization['list']['ResponseBody']> => {
 			return f.fetch<Organization['list']['ResponseBody']>('GET', '/organization/list');
 		},
-		credentials: async (
-			organizationId: string
-		): Promise<Organization['credentials']['ResponseBody']> => {
-			return f.fetch<Organization['credentials']['ResponseBody']>(
-				'GET',
-				`/organization/${organizationId}/credential/list`
-			);
-		},
 		details: async (organizationId: string): Promise<Organization['details']['ResponseBody']> => {
 			return f.fetch<Organization['details']['ResponseBody']>(
 				'GET',
@@ -137,14 +132,6 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 				Organization['updateDetails']['ResponseBody'],
 				Organization['updateDetails']['RequestBody']
 			>('PATCH', `/organization/${organizationId}/details`, body);
-		},
-		invitations: async (
-			organizationId: string
-		): Promise<Organization['invitations']['ResponseBody']> => {
-			return f.fetch<Organization['invitations']['ResponseBody']>(
-				'GET',
-				`/organization/${organizationId}/invitation/list`
-			);
 		},
 		members: async (organizationId: string): Promise<Organization['members']['ResponseBody']> => {
 			return f.fetch<Organization['members']['ResponseBody']>(
@@ -171,6 +158,23 @@ export const createCredentialEndpoints = (f: Fetcher) => {
 				'POST',
 				`/organization/${organizationId}/credential`,
 				body
+			);
+		},
+		list: async (organizationId: string): Promise<Credential['list']['ResponseBody']> => {
+			return f.fetch<Credential['list']['ResponseBody']>(
+				'GET',
+				`/organization/${organizationId}/credential/list`
+			);
+		}
+	};
+};
+
+export const createInvitationEndpoints = (f: Fetcher) => {
+	return {
+		list: async (organizationId: string): Promise<Invitation['list']['ResponseBody']> => {
+			return f.fetch<Invitation['list']['ResponseBody']>(
+				'GET',
+				`/organization/${organizationId}/invitation/list`
 			);
 		}
 	};
