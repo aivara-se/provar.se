@@ -26,6 +26,26 @@ func TestInvitations(t *testing.T) {
 		}
 	})
 
+	t.Run("success - multiple", func(t *testing.T) {
+		usr, key := testutils.CreateUser()
+		org := testutils.CreateOrganization(usr.ID)
+		inv1 := testutils.CreateInvitation(org.ID, usr.ID)
+		inv2 := testutils.CreateInvitation(org.ID, usr.ID)
+		req := httptest.NewRequest("GET", "/organization/"+org.ID+"/invitation/list", nil)
+		req.Header.Add("Authorization", "bearer "+key)
+		res, _ := app.Test(req, -1)
+		if res.StatusCode != 200 {
+			t.Fatalf("unexpected status code: %d", res.StatusCode)
+		}
+		responseBody := testutils.ReadJSON(res.Body, []*invitation.Invitation{})
+		if len(responseBody) != 2 {
+			t.Fatalf("expected the list to have 2 items: %v", responseBody)
+		}
+		if responseBody[0].ID != inv1.ID || responseBody[1].ID != inv2.ID {
+			t.Fatalf("unexpected list content: %v", responseBody)
+		}
+	})
+
 	t.Run("fail with unknown member", func(t *testing.T) {
 		u1, _ := testutils.CreateUser()
 		_, k2 := testutils.CreateUser()

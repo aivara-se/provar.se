@@ -74,6 +74,14 @@ export type Invitation = {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/invitation/list']['get']['responses'][200]['content']['application/json'];
 	};
+	details: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/invitation/{secret}']['get']['responses'][200]['content']['application/json'];
+	};
+	accept: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/invitation/{secret}/accept']['post']['responses'][204]['content']['application/json'];
+	};
 };
 
 export type HealthCheck = {
@@ -213,6 +221,24 @@ export const createInvitationEndpoints = (f: Fetcher) => {
 			return f.fetch<Invitation['list']['ResponseBody']>(
 				'GET',
 				`/organization/${organizationId}/invitation/list`
+			);
+		},
+		details: async (
+			organizationId: string,
+			secret: string
+		): Promise<Invitation['details']['ResponseBody']> => {
+			return f.fetch<Invitation['details']['ResponseBody']>(
+				'GET',
+				`/organization/${organizationId}/invitation/${secret}`
+			);
+		},
+		accept: async (
+			organizationId: string,
+			secret: string
+		): Promise<Invitation['accept']['ResponseBody']> => {
+			return f.fetch<Invitation['accept']['ResponseBody']>(
+				'POST',
+				`/organization/${organizationId}/invitation/${secret}/accept`
 			);
 		}
 	};

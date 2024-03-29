@@ -38,6 +38,12 @@ export interface paths {
 	'/organization/{organizationId}/invitation/list': {
 		get: operations['Invitation_list'];
 	};
+	'/organization/{organizationId}/invitation/{secret}': {
+		get: operations['Invitation_details'];
+	};
+	'/organization/{organizationId}/invitation/{secret}/accept': {
+		post: operations['Invitation_accept'];
+	};
 	'/organization/{organizationId}/member/list': {
 		get: operations['Organization_members'];
 	};
@@ -308,6 +314,36 @@ export interface operations {
 				content: {
 					'application/json': components['schemas']['InvitationDetails'][];
 				};
+			};
+		};
+	};
+	Invitation_details: {
+		parameters: {
+			path: {
+				organizationId: string;
+				secret: string;
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['InvitationDetails'];
+				};
+			};
+		};
+	};
+	Invitation_accept: {
+		parameters: {
+			path: {
+				organizationId: string;
+				secret: string;
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
 			};
 		};
 	};

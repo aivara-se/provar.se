@@ -64,6 +64,19 @@ func AuthenticatedGuard() fiber.Handler {
 	}
 }
 
+// OnlyUsersGuard returns a fiber middleware to ensure the request is
+// authenticated and the principal is a user. Returns 403 if the principal
+// is not a user.
+func OnlyUsersGuard() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		principal := GetPrincipal(c)
+		if principal.Type != permission.PrincipalTypeUser {
+			return c.SendStatus(fiber.StatusForbidden)
+		}
+		return c.Next()
+	}
+}
+
 // GetPrincipal returns the access token from the fiber context
 func GetPrincipal(c *fiber.Ctx) *permission.Principal {
 	return c.Locals(principalKey).(*permission.Principal)

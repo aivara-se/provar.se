@@ -36,13 +36,9 @@ func SetupCreateInvitation(app *fiber.App) {
 
 	app.Post(path, func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)
-		if principal.Type != permission.PrincipalTypeUser {
-			// Note: only users can create organizations
-			return c.SendStatus(fiber.StatusUnauthorized)
-		}
 		org := organization.GetOrganization(c)
 		body := validator.GetRequestBody(c).(*CreateInvitationRequestBody)
-		err := invitation.Invite(org.ID, body.Name, body.Email, principal.User.ID)
+		err := invitation.Invite(org.ID, body.Name, body.Email, principal.ID())
 		if err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}

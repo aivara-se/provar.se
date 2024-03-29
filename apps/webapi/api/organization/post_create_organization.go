@@ -4,7 +4,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/organization"
-	"provar.se/webapi/lib/permission"
 	"provar.se/webapi/lib/validator"
 )
 
@@ -24,14 +23,11 @@ func SetupCreateOrganization(app *fiber.App) {
 	path := "/organization"
 
 	app.Post(path, access.AuthenticatedGuard())
+	app.Post(path, access.OnlyUsersGuard())
 	app.Post(path, validator.ValidateMiddleware(CreateCreateOrganizationRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)
-		if principal.Type != permission.PrincipalTypeUser {
-			// Note: only users can create organizations
-			return c.SendStatus(fiber.StatusUnauthorized)
-		}
 		body := validator.GetRequestBody(c).(*CreateOrganizationRequestBody)
 		organization, err := organization.Create(body.Name, body.Slug, body.Description, principal.User.ID)
 		if err != nil {
