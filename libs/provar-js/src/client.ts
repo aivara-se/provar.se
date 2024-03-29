@@ -1,7 +1,9 @@
 import {
 	createAuthenticationEndpoints,
+	createCredentialEndpoints,
 	createEmailAuthenticationEndpoints,
 	createHealthCheckEndpoints,
+	createInvitationEndpoints,
 	createOrganizationEndpoints
 } from './api.code.js';
 import { DefaultFetcher, Fetcher } from './fetcher.js';
@@ -24,6 +26,8 @@ export class ProvarClient {
 	EmailAuthentication;
 	Authentication;
 	Organization;
+	Credential;
+	Invitation;
 	HealthCheck;
 
 	/**
@@ -39,6 +43,8 @@ export class ProvarClient {
 		this.EmailAuthentication = createEmailAuthenticationEndpoints(this.fetcher);
 		this.Authentication = createAuthenticationEndpoints(this.fetcher);
 		this.Organization = createOrganizationEndpoints(this.fetcher);
+		this.Credential = createCredentialEndpoints(this.fetcher);
+		this.Invitation = createInvitationEndpoints(this.fetcher);
 		this.HealthCheck = createHealthCheckEndpoints(this.fetcher);
 	}
 }
