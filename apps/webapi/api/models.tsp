@@ -39,4 +39,5 @@ model InvitationDetails {
   secret: string;
   name: string;
   email: string;
+  avatar: string;
 }

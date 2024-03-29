@@ -3,6 +3,7 @@ package invitation
 import (
 	"time"
 
+	"github.com/automattic/go-gravatar"
 	"provar.se/webapi/lib/config"
 	"provar.se/webapi/lib/database"
 	"provar.se/webapi/lib/random"
@@ -25,6 +26,7 @@ type Invitation struct {
 	Secret         string         `db:"secret" json:"secret"`
 	Name           string         `db:"name" json:"name"`
 	Email          string         `db:"email" json:"email"`
+	Avatar         string         `db:"avatar" json:"avatar"`
 }
 
 // Create creates a new invitation in the database
@@ -38,6 +40,7 @@ func Create(orgID, name, email, createdBy string) (*Invitation, error) {
 		Secret:         random.String(64),
 		Name:           name,
 		Email:          email,
+		Avatar:         gravatar.NewGravatarFromEmail(email).GetURL(),
 	}
 	query := `
 		INSERT INTO private.invitation (id, organization_id, created_at, created_by, expires_at, secret, name, email)

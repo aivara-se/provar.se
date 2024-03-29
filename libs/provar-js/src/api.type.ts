@@ -88,6 +88,7 @@ export interface components {
 			secret: string;
 			name: string;
 			email: string;
+			avatar: string;
 		};
 		OrganizationDetails: {
 			id: string;

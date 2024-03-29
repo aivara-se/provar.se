@@ -20,18 +20,13 @@ type User struct {
 	Name            string         `db:"name" json:"name"`
 }
 
-// GravatarURL returns the gravatar url for the given email
-func GravatarURL(email string) string {
-	return gravatar.NewGravatarFromEmail(email).GetURL()
-}
-
 // Create creates a new user in the database
 func Create(name, email string, verified bool) (*User, error) {
 	user := &User{
 		ID:         database.NewID(),
 		CreatedAt:  time.Now(),
 		ModifiedAt: time.Now(),
-		Avatar:     GravatarURL(email),
+		Avatar:     gravatar.NewGravatarFromEmail(email).GetURL(),
 		Email:      email,
 		Name:       name,
 	}
