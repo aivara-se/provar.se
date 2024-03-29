@@ -119,6 +119,20 @@ paths:
                   $ref: '#/components/schemas/OrganizationDetails'
       security:
         - BearerAuth: []
+  /organization/{organizationId}:
+    delete:
+      operationId: Organization_delete
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
   /organization/{organizationId}/credential:
     post:
       operationId: Credential_create
@@ -187,7 +201,7 @@ paths:
       security:
         - BearerAuth: []
     patch:
-      operationId: Organization_updateDetails
+      operationId: Organization_update
       parameters:
         - name: organizationId
           in: path
