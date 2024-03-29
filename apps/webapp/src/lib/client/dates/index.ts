@@ -1,6 +1,13 @@
 import type { DateRange, FormattedDateRange } from '../types';
 import { endOfDay, formatISO, parseISO, subDays } from 'date-fns';
 
+export function formatDateString(date?: string): string {
+	if (!date) {
+		return '';
+	}
+	return new Date(date).toLocaleDateString();
+}
+
 export function parseDateRange(range: FormattedDateRange): DateRange {
 	return {
 		from: parseISO(range.from + 'T00:00:00.000Z'),
