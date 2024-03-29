@@ -1,8 +1,8 @@
 -- Create private.organizationmember table
 CREATE TABLE private.organizationmember (
     id VARCHAR(8) PRIMARY KEY,
-    user_id VARCHAR(8) REFERENCES private.user(id),
-    organization_id VARCHAR(8) REFERENCES private.organization(id)
+    user_id VARCHAR(8) REFERENCES private.user(id) ON DELETE CASCADE,
+    organization_id VARCHAR(8) REFERENCES private.organization(id) ON DELETE CASCADE
 );
 
 -- Index on user_id column of private.organizationmember table
