@@ -44,6 +44,10 @@ export type Organization = {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/member/list']['get']['responses'][200]['content']['application/json'];
 	};
+	removeMember: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/member/{userId}']['delete']['responses'][204]['content']['application/json'];
+	};
 	settings: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/settings']['get']['responses'][200]['content']['application/json'];
@@ -62,6 +66,10 @@ export type Credential = {
 };
 
 export type Invitation = {
+	create: {
+		RequestBody: paths['/organization/{organizationId}/invitation']['post']['requestBody']['content']['application/json'];
+		ResponseBody: paths['/organization/{organizationId}/invitation']['post']['responses'][204]['content']['application/json'];
+	};
 	list: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/invitation/list']['get']['responses'][200]['content']['application/json'];
@@ -150,6 +158,15 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 				`/organization/${organizationId}/member/list`
 			);
 		},
+		removeMember: async (
+			organizationId: string,
+			userId: string
+		): Promise<Organization['removeMember']['ResponseBody']> => {
+			return f.fetch<Organization['removeMember']['ResponseBody']>(
+				'DELETE',
+				`/organization/${organizationId}/member/${userId}`
+			);
+		},
 		settings: async (organizationId: string): Promise<Organization['settings']['ResponseBody']> => {
 			return f.fetch<Organization['settings']['ResponseBody']>(
 				'GET',
@@ -182,6 +199,16 @@ export const createCredentialEndpoints = (f: Fetcher) => {
 
 export const createInvitationEndpoints = (f: Fetcher) => {
 	return {
+		create: async (
+			organizationId: string,
+			body: Invitation['create']['RequestBody']
+		): Promise<Invitation['create']['ResponseBody']> => {
+			return f.fetch<Invitation['create']['ResponseBody'], Invitation['create']['RequestBody']>(
+				'POST',
+				`/organization/${organizationId}/invitation`,
+				body
+			);
+		},
 		list: async (organizationId: string): Promise<Invitation['list']['ResponseBody']> => {
 			return f.fetch<Invitation['list']['ResponseBody']>(
 				'GET',

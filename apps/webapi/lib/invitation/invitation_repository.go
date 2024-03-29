@@ -3,8 +3,15 @@ package invitation
 import (
 	"time"
 
+	"provar.se/webapi/lib/config"
 	"provar.se/webapi/lib/database"
+	"provar.se/webapi/lib/random"
 	"provar.se/webapi/lib/types"
+)
+
+const (
+	// InvitationTTL is the time an invitation is valid for
+	InvitationTTL = time.Hour * 24 * 7
 )
 
 // Invitation struct represents the invitation table in the database
@@ -18,6 +25,26 @@ type Invitation struct {
 	Secret         string         `db:"secret" json:"secret"`
 	Name           string         `db:"name" json:"name"`
 	Email          string         `db:"email" json:"email"`
+}
+
+// Create creates a new invitation in the database
+func Create(orgID, name, email, createdBy string) (*Invitation, error) {
+	invite := &Invitation{
+		ID:             database.NewID(),
+		OrganizationID: orgID,
+		CreatedAt:      time.Now(),
+		CreatedBy:      createdBy,
+		ExpiresAt:      time.Now().Add(InvitationTTL),
+		Secret:         random.String(64),
+		Name:           name,
+		Email:          email,
+	}
+	query := `
+		INSERT INTO private.invitation (id, organization_id, created_at, created_by, expires_at, secret, name, email)
+		VALUES (:id, :organization_id, :created_at, :created_by, :expires_at, :secret, :name, :email)
+	`
+	_, err := database.DB().NamedExec(query, invite)
+	return invite, err
 }
 
 // FindPendingByOrganizationID returns all pending invitations for an organization
@@ -36,4 +63,11 @@ func FindPendingByOrganizationID(id string) ([]*Invitation, error) {
 		return nil, err
 	}
 	return invites, nil
+}
+
+// Link returns the link to the application page where it is possible to accept
+// the invitation
+func (i *Invitation) Link() string {
+	cfg := config.Get()
+	return cfg.Provar.AppURL + "/auth/invitation/accept/" + i.Secret
 }

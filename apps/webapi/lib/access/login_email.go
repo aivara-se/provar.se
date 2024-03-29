@@ -22,7 +22,7 @@ func PrepareLoginWithEmail(email string) {
 	if err != nil {
 		return
 	}
-	tmpl := &templates.LoginEmailTemplate{}
+	tmpl := &templates.LoginEmail{}
 	data := map[string]string{"link": magicLink.Link()}
 	opts := &emails.EmailOptions{
 		RecvAddress: email,

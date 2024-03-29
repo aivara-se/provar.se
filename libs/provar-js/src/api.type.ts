@@ -32,11 +32,17 @@ export interface paths {
 		get: operations['Organization_details'];
 		patch: operations['Organization_update'];
 	};
+	'/organization/{organizationId}/invitation': {
+		post: operations['Invitation_create'];
+	};
 	'/organization/{organizationId}/invitation/list': {
 		get: operations['Invitation_list'];
 	};
 	'/organization/{organizationId}/member/list': {
 		get: operations['Organization_members'];
+	};
+	'/organization/{organizationId}/member/{userId}': {
+		delete: operations['Organization_removeMember'];
 	};
 	'/organization/{organizationId}/settings': {
 		get: operations['Organization_settings'];
@@ -269,6 +275,27 @@ export interface operations {
 			};
 		};
 	};
+	Invitation_create: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': {
+					name: string;
+					email: string;
+				};
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
+			};
+		};
+	};
 	Invitation_list: {
 		parameters: {
 			path: {
@@ -296,6 +323,20 @@ export interface operations {
 				content: {
 					'application/json': components['schemas']['UserDetails'][];
 				};
+			};
+		};
+	};
+	Organization_removeMember: {
+		parameters: {
+			path: {
+				organizationId: string;
+				userId: string;
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
 			};
 		};
 	};
