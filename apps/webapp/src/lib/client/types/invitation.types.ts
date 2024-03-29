@@ -4,11 +4,12 @@
 export interface Invitation {
 	id: string;
 	organizationId: string;
-	createdAt: Date;
-	acceptedAt?: Date;
-	key: string;
+	createdAt: string;
+	createdBy: string;
+	expiresAt: string;
+	acceptedAt?: string;
+	secret: string;
 	name: string;
-	link: string;
 	email: string;
-	image: string;
+	avatar: string;
 }

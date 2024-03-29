@@ -451,6 +451,7 @@ components:
         - secret
         - name
         - email
+        - avatar
       properties:
         id:
           type: string
@@ -469,6 +470,8 @@ components:
         name:
           type: string
         email:
+          type: string
+        avatar:
           type: string
     OrganizationDetails:
       type: object

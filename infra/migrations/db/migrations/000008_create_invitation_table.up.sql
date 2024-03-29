@@ -8,7 +8,8 @@ CREATE TABLE private.invitation (
     accepted_at TIMESTAMP,
     secret VARCHAR(64) NOT NULL,
     email VARCHAR(64) UNIQUE NOT NULL,
-    name VARCHAR(64) NOT NULL
+    name VARCHAR(64) NOT NULL,
+    avatar VARCHAR(128) DEFAULT ''
 );
 
 -- Index on secret column of private.invitation table
