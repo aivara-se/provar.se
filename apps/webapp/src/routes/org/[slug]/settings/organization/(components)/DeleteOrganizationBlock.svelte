@@ -1,11 +1,22 @@
 <script lang="ts">
-	import { AlertCircleIcon } from 'lucide-svelte';
+	import { goto } from '$app/navigation';
+	import { api } from '$lib/client/api';
 	import { ConfirmModal } from '$lib/client/forms';
+	import { user } from '$lib/client/stores';
 	import type { Organization } from '$lib/client/types';
+	import { AlertCircleIcon } from 'lucide-svelte';
 
 	export let organization: Organization;
 
 	let isOpen = false;
+
+	async function deleteOrganization() {
+		if (!$user) {
+			return;
+		}
+		await api().Organization.delete(organization.id);
+		goto('/org');
+	}
 </script>
 
 <section class="mt-8 rounded-lg p-4 bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-gray-200">
@@ -20,11 +31,7 @@
 	<button class="btn btn-sm btn-neutral mt-4" on:click={() => (isOpen = true)}>
 		Delete {organization?.name}
 	</button>
-	<ConfirmModal
-		bind:isOpen
-		submitPath="?/deleteOrganization"
-		submitText="Delete {organization?.name}"
-	>
+	<ConfirmModal bind:isOpen action={deleteOrganization} submitText="Delete {organization?.name}">
 		<AlertCircleIcon class="w-8 h-8" />
 		<p class="py-4 text-center">
 			Are you sure you want to delete {organization?.name}?
