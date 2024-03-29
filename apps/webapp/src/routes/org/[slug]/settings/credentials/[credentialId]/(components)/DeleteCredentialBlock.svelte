@@ -1,15 +1,18 @@
 <script lang="ts">
-	import { AlertCircleIcon } from 'lucide-svelte';
-	import { ConfirmModal } from '$lib/client/forms';
+	import { goto } from '$app/navigation';
 	import { api } from '$lib/client/api';
-	import type { Credential } from '$lib/client/types';
+	import { ConfirmModal } from '$lib/client/forms';
+	import type { Credential, Organization } from '$lib/client/types';
+	import { AlertCircleIcon } from 'lucide-svelte';
 
 	export let credential: Credential;
+	export let organization: Organization;
 
 	let isOpen = false;
 
 	async function revokeCredential() {
-		await api().Credential.delete(credential.id);
+		await api().Credential.delete(credential.organizationId, credential.id);
+		goto(`/org/${organization.slug}/settings/credentials`);
 	}
 </script>
 
