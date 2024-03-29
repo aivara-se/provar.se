@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"provar.se/webapi/lib/database"
+	"provar.se/webapi/lib/random"
 )
 
 // Credential struct represents the credential table in the database
@@ -17,6 +18,25 @@ type Credential struct {
 	OrganizationID string       `db:"organization_id" json:"organizationId"`
 	Name           string       `db:"name" json:"name"`
 	Secret         string       `db:"secret" json:"secret"`
+}
+
+// Create creates a new credential in the database
+func Create(name, orgID, createdBy string) (*Credential, error) {
+	cred := &Credential{
+		ID:             database.NewID(),
+		OrganizationID: orgID,
+		CreatedAt:      time.Now(),
+		ModifiedAt:     time.Now(),
+		CreatedBy:      createdBy,
+		Name:           name,
+		Secret:         random.String(64),
+	}
+	query := `
+		INSERT INTO private.credential (id, created_at, created_by, modified_at, organization_id, name, secret)
+		VALUES (:id, :created_at, :created_by, :modified_at, :organization_id, :name, :secret)
+	`
+	_, err := database.DB().NamedExec(query, cred)
+	return cred, err
 }
 
 // FindBySecret returns a credential by its secret

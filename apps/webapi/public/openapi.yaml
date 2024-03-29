@@ -119,11 +119,40 @@ paths:
                   $ref: '#/components/schemas/OrganizationDetails'
       security:
         - BearerAuth: []
-  /organization/{id}/credential/list:
+  /organization/{organizationId}/credential:
+    post:
+      operationId: Credential_create
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDetails'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/credential/list:
     get:
       operationId: Organization_credentials
       parameters:
-        - name: id
+        - name: organizationId
           in: path
           required: true
           schema:
@@ -139,11 +168,11 @@ paths:
                   $ref: '#/components/schemas/CredentialDetails'
       security:
         - BearerAuth: []
-  /organization/{id}/details:
+  /organization/{organizationId}/details:
     get:
       operationId: Organization_details
       parameters:
-        - name: id
+        - name: organizationId
           in: path
           required: true
           schema:
@@ -160,7 +189,7 @@ paths:
     patch:
       operationId: Organization_updateDetails
       parameters:
-        - name: id
+        - name: organizationId
           in: path
           required: true
           schema:
@@ -183,11 +212,11 @@ paths:
                   type: string
       security:
         - BearerAuth: []
-  /organization/{id}/invitation/list:
+  /organization/{organizationId}/invitation/list:
     get:
       operationId: Organization_invitations
       parameters:
-        - name: id
+        - name: organizationId
           in: path
           required: true
           schema:
@@ -203,11 +232,11 @@ paths:
                   $ref: '#/components/schemas/InvitationDetails'
       security:
         - BearerAuth: []
-  /organization/{id}/member/list:
+  /organization/{organizationId}/member/list:
     get:
       operationId: Organization_members
       parameters:
-        - name: id
+        - name: organizationId
           in: path
           required: true
           schema:
@@ -223,11 +252,11 @@ paths:
                   $ref: '#/components/schemas/UserDetails'
       security:
         - BearerAuth: []
-  /organization/{id}/settings:
+  /organization/{organizationId}/settings:
     get:
       operationId: Organization_settings
       parameters:
-        - name: id
+        - name: organizationId
           in: path
           required: true
           schema:

@@ -8,11 +8,13 @@ import (
 )
 
 func SetupOrganizationSettings(app *fiber.App) {
-	app.Get("/organization/:id/settings", access.AuthenticatedGuard())
-	app.Get("/organization/:id/settings", organization.Loader(router.FromPathParam("id")))
-	app.Get("/organization/:id/settings", access.MembershipGuard())
+	path := "/organization/:organizationId/settings"
 
-	app.Get("/organization/:id/settings", func(c *fiber.Ctx) error {
+	app.Get(path, access.AuthenticatedGuard())
+	app.Get(path, organization.Loader(router.FromPathParam("organizationId")))
+	app.Get(path, access.MembershipGuard())
+
+	app.Get(path, func(c *fiber.Ctx) error {
 		org := organization.GetOrganization(c)
 		settings, err := org.Settings()
 		if err != nil {

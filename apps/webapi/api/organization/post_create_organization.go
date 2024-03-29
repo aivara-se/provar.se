@@ -21,9 +21,12 @@ func CreateCreateOrganizationRequestBody() interface{} {
 }
 
 func SetupCreateOrganization(app *fiber.App) {
-	app.Post("/organization", access.AuthenticatedGuard())
-	app.Post("/organization", validator.ValidateMiddleware(CreateCreateOrganizationRequestBody))
-	app.Post("/organization", func(c *fiber.Ctx) error {
+	path := "/organization"
+
+	app.Post(path, access.AuthenticatedGuard())
+	app.Post(path, validator.ValidateMiddleware(CreateCreateOrganizationRequestBody))
+
+	app.Post(path, func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)
 		if principal.Type != permission.PrincipalTypeUser {
 			// Note: only users can create organizations

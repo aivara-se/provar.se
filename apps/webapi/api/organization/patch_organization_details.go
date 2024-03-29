@@ -22,17 +22,19 @@ func CreateUpdateOrganizationRequestBody() interface{} {
 }
 
 func SetupUpdateOrganizationDetails(app *fiber.App) {
-	app.Patch("/organization/:id/details", access.AuthenticatedGuard())
-	app.Patch("/organization/:id/details", validator.ValidateMiddleware(CreateUpdateOrganizationRequestBody))
-	app.Patch("/organization/:id/details", organization.Loader(router.FromPathParam("id")))
-	app.Patch("/organization/:id/details", access.PermissionGuard(&access.PermissionGuardOptions{
-		OrganizationID: router.FromPathParam("id"),
+	path := "/organization/:organizationId/details"
+
+	app.Patch(path, access.AuthenticatedGuard())
+	app.Patch(path, validator.ValidateMiddleware(CreateUpdateOrganizationRequestBody))
+	app.Patch(path, organization.Loader(router.FromPathParam("organizationId")))
+	app.Patch(path, access.PermissionGuard(&access.PermissionGuardOptions{
+		OrganizationID: router.FromPathParam("organizationId"),
 		ResourceType:   permission.ResourceTypeOrganization,
-		ResourceID:     router.FromPathParam("id"),
+		ResourceID:     router.FromPathParam("organizationId"),
 		Permission:     permission.PermissionTypeOrganizationAdmin,
 	}))
 
-	app.Patch("/organization/:id/details", func(c *fiber.Ctx) error {
+	app.Patch(path, func(c *fiber.Ctx) error {
 		org := organization.GetOrganization(c)
 		body := validator.GetRequestBody(c).(*UpdateOrganizationRequestBody)
 		org.Name = body.Name

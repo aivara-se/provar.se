@@ -19,20 +19,23 @@ export interface paths {
 	'/organization/list': {
 		get: operations['Organization_list'];
 	};
-	'/organization/{id}/credential/list': {
+	'/organization/{organizationId}/credential': {
+		post: operations['Credential_create'];
+	};
+	'/organization/{organizationId}/credential/list': {
 		get: operations['Organization_credentials'];
 	};
-	'/organization/{id}/details': {
+	'/organization/{organizationId}/details': {
 		get: operations['Organization_details'];
 		patch: operations['Organization_updateDetails'];
 	};
-	'/organization/{id}/invitation/list': {
+	'/organization/{organizationId}/invitation/list': {
 		get: operations['Organization_invitations'];
 	};
-	'/organization/{id}/member/list': {
+	'/organization/{organizationId}/member/list': {
 		get: operations['Organization_members'];
 	};
-	'/organization/{id}/settings': {
+	'/organization/{organizationId}/settings': {
 		get: operations['Organization_settings'];
 	};
 	'/ping': {
@@ -176,10 +179,32 @@ export interface operations {
 			};
 		};
 	};
+	Credential_create: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': {
+					name: string;
+				};
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['OrganizationDetails'];
+				};
+			};
+		};
+	};
 	Organization_credentials: {
 		parameters: {
 			path: {
-				id: string;
+				organizationId: string;
 			};
 		};
 		responses: {
@@ -194,7 +219,7 @@ export interface operations {
 	Organization_details: {
 		parameters: {
 			path: {
-				id: string;
+				organizationId: string;
 			};
 		};
 		responses: {
@@ -209,7 +234,7 @@ export interface operations {
 	Organization_updateDetails: {
 		parameters: {
 			path: {
-				id: string;
+				organizationId: string;
 			};
 		};
 		requestBody: {
@@ -231,7 +256,7 @@ export interface operations {
 	Organization_invitations: {
 		parameters: {
 			path: {
-				id: string;
+				organizationId: string;
 			};
 		};
 		responses: {
@@ -246,7 +271,7 @@ export interface operations {
 	Organization_members: {
 		parameters: {
 			path: {
-				id: string;
+				organizationId: string;
 			};
 		};
 		responses: {
@@ -261,7 +286,7 @@ export interface operations {
 	Organization_settings: {
 		parameters: {
 			path: {
-				id: string;
+				organizationId: string;
 			};
 		};
 		responses: {

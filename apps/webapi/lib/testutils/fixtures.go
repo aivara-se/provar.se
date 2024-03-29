@@ -2,6 +2,7 @@ package testutils
 
 import (
 	"provar.se/webapi/lib/access"
+	"provar.se/webapi/lib/credential"
 	"provar.se/webapi/lib/organization"
 	"provar.se/webapi/lib/random"
 	"provar.se/webapi/lib/user"
@@ -31,4 +32,14 @@ func CreateOrganization(userID string) *organization.Organization {
 		panic(err)
 	}
 	return org
+}
+
+// CreateCredential creates a new test credential for the given organization
+func CreateCredential(orgID, userID string) *credential.Credential {
+	rnd := random.String(5)
+	cred, err := credential.Create("Test Credential "+rnd, orgID, userID)
+	if err != nil {
+		panic(err)
+	}
+	return cred
 }

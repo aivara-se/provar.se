@@ -8,8 +8,11 @@ import (
 )
 
 func SetupMemberOrganizations(app *fiber.App) {
-	app.Get("/organization/list", access.AuthenticatedGuard())
-	app.Get("/organization/list", func(c *fiber.Ctx) error {
+	path := "/organization/list"
+
+	app.Get(path, access.AuthenticatedGuard())
+
+	app.Get(path, func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)
 		if principal.Type != permission.PrincipalTypeUser {
 			// Note: only users can list organizations

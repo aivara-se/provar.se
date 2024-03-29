@@ -1,4 +1,4 @@
-package organization
+package credential
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -9,11 +9,13 @@ import (
 )
 
 func SetupOrganizationCredentials(app *fiber.App) {
-	app.Get("/organization/:id/credential/list", access.AuthenticatedGuard())
-	app.Get("/organization/:id/credential/list", organization.Loader(router.FromPathParam("id")))
-	app.Get("/organization/:id/credential/list", access.MembershipGuard())
+	path := "/organization/:organizationId/credential/list"
 
-	app.Get("/organization/:id/credential/list", func(c *fiber.Ctx) error {
+	app.Get(path, access.AuthenticatedGuard())
+	app.Get(path, organization.Loader(router.FromPathParam("organizationId")))
+	app.Get(path, access.MembershipGuard())
+
+	app.Get(path, func(c *fiber.Ctx) error {
 		org := organization.GetOrganization(c)
 		creds, err := credential.FindByOrganizationID(org.ID)
 		if err != nil {
