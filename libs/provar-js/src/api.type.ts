@@ -26,6 +26,9 @@ export interface paths {
 		get: operations['Organization_details'];
 		patch: operations['Organization_updateDetails'];
 	};
+	'/organization/{id}/invitation/list': {
+		get: operations['Organization_invitations'];
+	};
 	'/organization/{id}/member/list': {
 		get: operations['Organization_members'];
 	};
@@ -52,6 +55,17 @@ export interface components {
 			organizationId: string;
 			name: string;
 			secret: string;
+		};
+		InvitationDetails: {
+			id: string;
+			organizationId: string;
+			createdAt: string;
+			createdBy: string;
+			expiresAt: string;
+			acceptedAt?: string;
+			secret: string;
+			name: string;
+			email: string;
 		};
 		OrganizationDetails: {
 			id: string;
@@ -211,6 +225,21 @@ export interface operations {
 			/** @description There is no content to send for this request, but the headers may be useful. */
 			204: {
 				content: never;
+			};
+		};
+	};
+	Organization_invitations: {
+		parameters: {
+			path: {
+				id: string;
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['InvitationDetails'][];
+				};
 			};
 		};
 	};

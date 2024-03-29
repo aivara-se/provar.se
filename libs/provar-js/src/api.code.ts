@@ -40,6 +40,10 @@ export type Organization = {
 		RequestBody: paths['/organization/{id}/details']['patch']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization/{id}/details']['patch']['responses'][204]['content']['application/json'];
 	};
+	invitations: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{id}/invitation/list']['get']['responses'][200]['content']['application/json'];
+	};
 	members: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{id}/member/list']['get']['responses'][200]['content']['application/json'];
@@ -121,6 +125,12 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 				Organization['updateDetails']['ResponseBody'],
 				Organization['updateDetails']['RequestBody']
 			>('PATCH', `/organization/${id}/details`, body);
+		},
+		invitations: async (id: string): Promise<Organization['invitations']['ResponseBody']> => {
+			return f.fetch<Organization['invitations']['ResponseBody']>(
+				'GET',
+				`/organization/${id}/invitation/list`
+			);
 		},
 		members: async (id: string): Promise<Organization['members']['ResponseBody']> => {
 			return f.fetch<Organization['members']['ResponseBody']>(
