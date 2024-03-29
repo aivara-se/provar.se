@@ -24,6 +24,9 @@ interface Organization {
   @route("/{id}/credential/list")
   credentials(id: string): CredentialDetails[];
 
+  @route("/{id}/invitation/list")
+  invitations(id: string): InvitationDetails[];
+
   @patch()
   @route("/{id}/details")
   updateDetails(id: string, @body req: { name: string; slug: string, description: string }): void;

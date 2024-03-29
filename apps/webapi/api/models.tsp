@@ -27,3 +27,15 @@ model CredentialDetails {
   name: string;
   secret: string;
 }
+
+model InvitationDetails {
+  id: string;
+  organizationId: string;
+  createdAt: string;
+  createdBy: string;
+  expiresAt: string;
+  acceptedAt?: string;
+  secret: string;
+  name: string;
+  email: string;
+}
