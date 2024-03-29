@@ -119,6 +119,26 @@ paths:
                   $ref: '#/components/schemas/OrganizationDetails'
       security:
         - BearerAuth: []
+  /organization/{id}/credential/list:
+    get:
+      operationId: Organization_credentials
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CredentialDetails'
+      security:
+        - BearerAuth: []
   /organization/{id}/details:
     get:
       operationId: Organization_details
@@ -161,6 +181,26 @@ paths:
                   type: string
                 description:
                   type: string
+      security:
+        - BearerAuth: []
+  /organization/{id}/member/list:
+    get:
+      operationId: Organization_members
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDetails'
       security:
         - BearerAuth: []
   /organization/{id}/settings:

@@ -28,6 +28,10 @@ export type Organization = {
 		RequestBody: void;
 		ResponseBody: paths['/organization/list']['get']['responses'][200]['content']['application/json'];
 	};
+	credentials: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{id}/credential/list']['get']['responses'][200]['content']['application/json'];
+	};
 	details: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{id}/details']['get']['responses'][200]['content']['application/json'];
@@ -35,6 +39,10 @@ export type Organization = {
 	updateDetails: {
 		RequestBody: paths['/organization/{id}/details']['patch']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization/{id}/details']['patch']['responses'][204]['content']['application/json'];
+	};
+	members: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{id}/member/list']['get']['responses'][200]['content']['application/json'];
 	};
 	settings: {
 		RequestBody: void;
@@ -96,6 +104,12 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 		list: async (): Promise<Organization['list']['ResponseBody']> => {
 			return f.fetch<Organization['list']['ResponseBody']>('GET', '/organization/list');
 		},
+		credentials: async (id: string): Promise<Organization['credentials']['ResponseBody']> => {
+			return f.fetch<Organization['credentials']['ResponseBody']>(
+				'GET',
+				`/organization/${id}/credential/list`
+			);
+		},
 		details: async (id: string): Promise<Organization['details']['ResponseBody']> => {
 			return f.fetch<Organization['details']['ResponseBody']>('GET', `/organization/${id}/details`);
 		},
@@ -107,6 +121,12 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 				Organization['updateDetails']['ResponseBody'],
 				Organization['updateDetails']['RequestBody']
 			>('PATCH', `/organization/${id}/details`, body);
+		},
+		members: async (id: string): Promise<Organization['members']['ResponseBody']> => {
+			return f.fetch<Organization['members']['ResponseBody']>(
+				'GET',
+				`/organization/${id}/member/list`
+			);
 		},
 		settings: async (id: string): Promise<Organization['settings']['ResponseBody']> => {
 			return f.fetch<Organization['settings']['ResponseBody']>(

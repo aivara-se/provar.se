@@ -74,6 +74,23 @@ func FindByEmail(email string) (*User, error) {
 	return user, nil
 }
 
+// FindByOrganizationID returns all members of an organization
+func FindByOrganizationID(id string) ([]*User, error) {
+	users := []*User{}
+	query := `
+		SELECT u.*
+		FROM private.organizationmember om
+		JOIN private.user u ON om.user_id = u.id
+		WHERE om.organization_id = $1
+		ORDER BY u.name
+	`
+	err := database.DB().Select(&users, query, id)
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
 // SetEmailVerified sets the user's email as verified
 func SetEmailVerified(id string) error {
 	query := "UPDATE private.user SET email_verified_at = $1 WHERE id = $2"
@@ -86,6 +103,11 @@ func DeleteByID(id string) error {
 	query := "DELETE FROM private.user WHERE id = $1"
 	_, err := database.DB().Exec(query, id)
 	return err
+}
+
+// SetEmailVerified sets the user's email as verified
+func (u *User) SetEmailVerified() error {
+	return SetEmailVerified(u.ID)
 }
 
 // DeleteByID deletes a user with the given id

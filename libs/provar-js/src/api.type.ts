@@ -19,9 +19,15 @@ export interface paths {
 	'/organization/list': {
 		get: operations['Organization_list'];
 	};
+	'/organization/{id}/credential/list': {
+		get: operations['Organization_credentials'];
+	};
 	'/organization/{id}/details': {
 		get: operations['Organization_details'];
 		patch: operations['Organization_updateDetails'];
+	};
+	'/organization/{id}/member/list': {
+		get: operations['Organization_members'];
 	};
 	'/organization/{id}/settings': {
 		get: operations['Organization_settings'];
@@ -156,6 +162,21 @@ export interface operations {
 			};
 		};
 	};
+	Organization_credentials: {
+		parameters: {
+			path: {
+				id: string;
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['CredentialDetails'][];
+				};
+			};
+		};
+	};
 	Organization_details: {
 		parameters: {
 			path: {
@@ -190,6 +211,21 @@ export interface operations {
 			/** @description There is no content to send for this request, but the headers may be useful. */
 			204: {
 				content: never;
+			};
+		};
+	};
+	Organization_members: {
+		parameters: {
+			path: {
+				id: string;
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['UserDetails'][];
+				};
 			};
 		};
 	};

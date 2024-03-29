@@ -5,7 +5,6 @@ import (
 
 	"provar.se/webapi/lib/database"
 	"provar.se/webapi/lib/permission"
-	"provar.se/webapi/lib/user"
 )
 
 // Organization struct represents the organization table in the database
@@ -156,23 +155,6 @@ func IsMember(orgID, userID string) (bool, error) {
 	return true, nil
 }
 
-// FindMembers returns all members of an organization
-func FindMembers(id string) ([]*user.User, error) {
-	users := []*user.User{}
-	query := `
-		SELECT u.*
-		FROM private.organizationmember om
-		JOIN private.user u ON om.user_id = u.id
-		WHERE om.organization_id = $1
-		ORDER BY u.name
-	`
-	err := database.DB().Select(&users, query, id)
-	if err != nil {
-		return nil, err
-	}
-	return users, nil
-}
-
 // FindSettings returns all members of an organization
 func FindSettings(id string) (map[string]string, error) {
 	settingsList := []*OrganizationSetting{}
@@ -201,11 +183,6 @@ func (o *Organization) Delete() error {
 // IsMember returns all members of an organization
 func (o *Organization) IsMember(userID string) (bool, error) {
 	return IsMember(o.ID, userID)
-}
-
-// Members returns all members of an organization
-func (o *Organization) Members() ([]*user.User, error) {
-	return FindMembers(o.ID)
 }
 
 // Settings returns organization settings as a map
