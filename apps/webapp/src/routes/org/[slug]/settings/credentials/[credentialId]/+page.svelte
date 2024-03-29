@@ -32,6 +32,6 @@
 	</table>
 
 	<div>
-		<DeleteCredentialBlock {credential} />
+		<DeleteCredentialBlock organization={data.organization} {credential} />
 	</div>
 </DashLayout>
