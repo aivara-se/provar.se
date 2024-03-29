@@ -15,10 +15,16 @@ interface Organization {
   @route("/{id}/details")
   details(id: string): OrganizationDetails;
 
+  @route("/{id}/settings")
+  settings(id: string): Record<string>;
+
+  @route("/{id}/member/list")
+  members(id: string): UserDetails[];
+
+  @route("/{id}/credential/list")
+  credentials(id: string): CredentialDetails[];
+
   @patch()
   @route("/{id}/details")
   updateDetails(id: string, @body req: { name: string; slug: string, description: string }): void;
-
-  @route("/{id}/settings")
-  settings(id: string): Record<string>;
 }

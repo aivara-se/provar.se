@@ -7,6 +7,7 @@ import (
 
 	"provar.se/webapi/lib/organization"
 	"provar.se/webapi/lib/testutils"
+	"provar.se/webapi/lib/user"
 )
 
 func TestCreateOrganization(t *testing.T) {
@@ -40,7 +41,7 @@ func TestCreateOrganization(t *testing.T) {
 		if storedOrg.CreatedBy != usr.ID {
 			t.Fatalf("expected organization to be created by test user")
 		}
-		members, err := storedOrg.Members()
+		members, err := user.FindByOrganizationID(storedOrg.ID)
 		if err != nil || len(members) != 1 || members[0].ID != usr.ID {
 			t.Fatalf("expected test user to be a member of the organization")
 		}
