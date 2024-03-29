@@ -1,11 +1,11 @@
 -- Create private.invitation table
 CREATE TABLE private.invitation (
     id VARCHAR(8) PRIMARY KEY,
+    organization_id VARCHAR(8) REFERENCES private.organization(id),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(8) REFERENCES private.user(id),
-    expires_at TIMESTAMP,
+    expires_at TIMESTAMP NOT NULL,
     accepted_at TIMESTAMP,
-    organization_id VARCHAR(8) REFERENCES private.organization(id),
     secret VARCHAR(64) NOT NULL,
     email VARCHAR(64) UNIQUE NOT NULL,
     name VARCHAR(64) NOT NULL
