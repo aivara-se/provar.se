@@ -47,6 +47,17 @@ func Create(orgID, name, email, createdBy string) (*Invitation, error) {
 	return invite, err
 }
 
+// FindBySecret returns an invitation by its secret
+func FindBySecret(secret string) (*Invitation, error) {
+	invite := &Invitation{}
+	query := `SELECT * FROM private.invitation WHERE secret = $1`
+	err := database.DB().Get(invite, query, secret)
+	if err != nil {
+		return nil, err
+	}
+	return invite, nil
+}
+
 // FindPendingByOrganizationID returns all pending invitations for an organization
 func FindPendingByOrganizationID(id string) ([]*Invitation, error) {
 	invites := []*Invitation{}
@@ -70,4 +81,15 @@ func FindPendingByOrganizationID(id string) ([]*Invitation, error) {
 func (i *Invitation) Link() string {
 	cfg := config.Get()
 	return cfg.Provar.AppURL + "/auth/invitation/accept/" + i.Secret
+}
+
+// IsAcceptable returns true if the invitation can be accepted by the user
+func (i *Invitation) IsAcceptable() bool {
+	if i.AcceptedAt.Valid {
+		return false
+	}
+	if i.ExpiresAt.Before(time.Now()) {
+		return false
+	}
+	return true
 }

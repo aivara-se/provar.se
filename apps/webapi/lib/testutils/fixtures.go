@@ -3,6 +3,7 @@ package testutils
 import (
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/credential"
+	"provar.se/webapi/lib/invitation"
 	"provar.se/webapi/lib/organization"
 	"provar.se/webapi/lib/random"
 	"provar.se/webapi/lib/user"
@@ -32,6 +33,25 @@ func CreateOrganization(userID string) *organization.Organization {
 		panic(err)
 	}
 	return org
+}
+
+// CreateInvitationForUser creates a new test invitation for the given organization and user
+func CreateInvitationForUser(orgID string, usr *user.User) *invitation.Invitation {
+	inv, err := invitation.Create(orgID, usr.Name, usr.Email, usr.ID)
+	if err != nil {
+		panic(err)
+	}
+	return inv
+}
+
+// CreateInvitation creates a new test invitation for the given organization and author
+func CreateInvitation(orgID, userID string) *invitation.Invitation {
+	rnd := random.String(5)
+	inv, err := invitation.Create(orgID, "test-invitation-"+rnd, "test-invitation-"+rnd+"@provar.se", userID)
+	if err != nil {
+		panic(err)
+	}
+	return inv
 }
 
 // CreateCredential creates a new test credential for the given organization

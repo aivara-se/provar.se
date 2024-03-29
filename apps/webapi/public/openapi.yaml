@@ -274,6 +274,48 @@ paths:
                   $ref: '#/components/schemas/InvitationDetails'
       security:
         - BearerAuth: []
+  /organization/{organizationId}/invitation/{secret}:
+    get:
+      operationId: Invitation_details
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: secret
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationDetails'
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/invitation/{secret}/accept:
+    post:
+      operationId: Invitation_accept
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: secret
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
   /organization/{organizationId}/member/list:
     get:
       operationId: Organization_members

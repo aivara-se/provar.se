@@ -49,6 +49,8 @@ func Create() *fiber.App {
 	credential.SetupOrganizationCredentials(app)
 	invitation.SetupCreateInvitation(app)
 	invitation.SetupInvitations(app)
+	invitation.SetupInvitationDetails(app)
+	invitation.SetupAcceptInvitation(app)
 	organization.SetupCreateOrganization(app)
 	organization.SetupDeleteOrganization(app)
 	organization.SetupMemberOrganizations(app)
