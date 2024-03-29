@@ -1,4 +1,4 @@
-package organization_test
+package invitation_test
 
 import (
 	"net/http/httptest"
@@ -8,7 +8,7 @@ import (
 	"provar.se/webapi/lib/testutils"
 )
 
-func TestOrganizationInvitations(t *testing.T) {
+func TestInvitations(t *testing.T) {
 	app := testutils.Create()
 
 	t.Run("success - empty", func(t *testing.T) {

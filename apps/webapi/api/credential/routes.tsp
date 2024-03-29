@@ -8,4 +8,7 @@ interface Credential {
   @post()
   @route("/organization/{organizationId}/credential")
   create(organizationId: string, @body req: { name: string }): OrganizationDetails;
+
+  @route("/organization/{organizationId}/credential/list")
+  list(organizationId: string): CredentialDetails[];
 }

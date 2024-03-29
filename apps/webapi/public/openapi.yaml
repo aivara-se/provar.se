@@ -150,7 +150,7 @@ paths:
         - BearerAuth: []
   /organization/{organizationId}/credential/list:
     get:
-      operationId: Organization_credentials
+      operationId: Credential_list
       parameters:
         - name: organizationId
           in: path
@@ -214,7 +214,7 @@ paths:
         - BearerAuth: []
   /organization/{organizationId}/invitation/list:
     get:
-      operationId: Organization_invitations
+      operationId: Invitation_list
       parameters:
         - name: organizationId
           in: path

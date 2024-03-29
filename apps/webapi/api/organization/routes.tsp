@@ -21,12 +21,6 @@ interface Organization {
   @route("/organization/{organizationId}/member/list")
   members(organizationId: string): UserDetails[];
 
-  @route("/organization/{organizationId}/credential/list")
-  credentials(organizationId: string): CredentialDetails[];
-
-  @route("/organization/{organizationId}/invitation/list")
-  invitations(organizationId: string): InvitationDetails[];
-
   @patch()
   @route("/organization/{organizationId}/details")
   updateDetails(organizationId: string, @body req: { name: string; slug: string, description: string }): void;
