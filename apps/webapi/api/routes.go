@@ -46,6 +46,7 @@ func Create() *fiber.App {
 	auth.SetupLoginWithEmail(app)
 	auth.SetupLoginWithEmailConfirm(app)
 	credential.SetupCreateCredential(app)
+	credential.SetupDeleteCredential(app)
 	credential.SetupOrganizationCredentials(app)
 	invitation.SetupCreateInvitation(app)
 	invitation.SetupInvitations(app)

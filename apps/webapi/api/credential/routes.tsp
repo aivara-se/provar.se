@@ -11,4 +11,8 @@ interface Credential {
 
   @route("/organization/{organizationId}/credential/list")
   list(organizationId: string): CredentialDetails[];
+
+  @delete()
+  @route("/organization/{organizationId}/credential/{credentialId}")
+  delete(organizationId: string, credentialId: string): void;
 }

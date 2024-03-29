@@ -63,6 +63,10 @@ export type Credential = {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/credential/list']['get']['responses'][200]['content']['application/json'];
 	};
+	delete: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/credential/{credentialId}']['delete']['responses'][204]['content']['application/json'];
+	};
 };
 
 export type Invitation = {
@@ -200,6 +204,15 @@ export const createCredentialEndpoints = (f: Fetcher) => {
 			return f.fetch<Credential['list']['ResponseBody']>(
 				'GET',
 				`/organization/${organizationId}/credential/list`
+			);
+		},
+		delete: async (
+			organizationId: string,
+			credentialId: string
+		): Promise<Credential['delete']['ResponseBody']> => {
+			return f.fetch<Credential['delete']['ResponseBody']>(
+				'DELETE',
+				`/organization/${organizationId}/credential/${credentialId}`
 			);
 		}
 	};
