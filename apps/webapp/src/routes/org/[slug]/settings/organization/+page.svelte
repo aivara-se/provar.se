@@ -6,10 +6,13 @@
 	import route from './route.meta';
 
 	export let data;
+
+	// We know this is not null
+	$: currentUser = data.user!;
 </script>
 
 <DashLayout {route}>
 	<UpdateOrganizationForm organization={data.organization} formData={data.UpdateOrganizationForm} />
-	<LeaveOrganizationBlock organization={data.organization} />
+	<LeaveOrganizationBlock user={currentUser} organization={data.organization} />
 	<DeleteOrganizationBlock organization={data.organization} />
 </DashLayout>

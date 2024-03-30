@@ -2,19 +2,16 @@
 	import { goto } from '$app/navigation';
 	import { api } from '$lib/client/api';
 	import { ConfirmModal } from '$lib/client/forms';
-	import { user } from '$lib/client/stores';
-	import type { Organization } from '$lib/client/types';
+	import type { Organization, User } from '$lib/client/types';
 	import { AlertCircleIcon } from 'lucide-svelte';
 
 	export let organization: Organization;
+	export let user: User;
 
 	let isOpen = false;
 
 	async function leaveOrganization() {
-		if (!$user) {
-			return;
-		}
-		await api().Organization.removeMember(organization.id, $user.id);
+		await api().Organization.removeMember(organization.id, user.id);
 		goto('/org');
 	}
 </script>
