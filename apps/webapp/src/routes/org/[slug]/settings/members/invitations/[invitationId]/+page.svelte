@@ -37,5 +37,5 @@
 	</table>
 
 	<ResendInvitationBlock invitation={data.invitation} />
-	<RevokeInvitationBlock invitation={data.invitation} />
+	<RevokeInvitationBlock organization={data.organization} invitation={data.invitation} />
 </DashLayout>

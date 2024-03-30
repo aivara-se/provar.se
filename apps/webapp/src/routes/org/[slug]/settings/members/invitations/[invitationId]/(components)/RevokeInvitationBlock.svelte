@@ -1,15 +1,18 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { api } from '$lib/client/api';
 	import { ConfirmModal } from '$lib/client/forms';
-	import type { Invitation } from '$lib/client/types';
+	import type { Invitation, Organization } from '$lib/client/types';
 	import { AlertCircleIcon } from 'lucide-svelte';
 
 	export let invitation: Invitation;
+	export let organization: Organization;
 
 	let isOpen = false;
 
 	async function revokeInvitation() {
-		// await api().Invitation.delete(invitation.organizationId, invitation.id);
+		await api().Invitation.delete(invitation.organizationId, invitation.id);
+		goto(`/org/${organization.slug}/settings/members`);
 	}
 </script>
 
