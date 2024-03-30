@@ -10,7 +10,7 @@ func SetupMemberOrganizations(app *fiber.App) {
 	path := "/organization/list"
 
 	app.Get(path, access.AuthenticatedGuard())
-	app.Get(path, access.OnlyUsersGuard())
+	app.Get(path, access.OnlyAllowUsersGuard())
 
 	app.Get(path, func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)

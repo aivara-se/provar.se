@@ -11,9 +11,9 @@ var (
 )
 
 // Loader loads an invitation from the database and attaches it to the context
-func Loader(getSecret router.ParamFetcher) fiber.Handler {
+func Loader(getID router.ParamFetcher) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		invite, err := FindBySecret(getSecret(c))
+		invite, err := FindByID(getID(c))
 		if err != nil {
 			return c.SendStatus(fiber.StatusNotFound)
 		}

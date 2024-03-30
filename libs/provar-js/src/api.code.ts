@@ -80,11 +80,15 @@ export type Invitation = {
 	};
 	details: {
 		RequestBody: void;
-		ResponseBody: paths['/organization/{organizationId}/invitation/{secret}']['get']['responses'][200]['content']['application/json'];
+		ResponseBody: paths['/organization/{organizationId}/invitation/{invitationId}']['get']['responses'][200]['content']['application/json'];
+	};
+	delete: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/invitation/{invitationId}']['delete']['responses'][204]['content']['application/json'];
 	};
 	accept: {
-		RequestBody: void;
-		ResponseBody: paths['/organization/{organizationId}/invitation/{secret}/accept']['post']['responses'][204]['content']['application/json'];
+		RequestBody: paths['/organization/{organizationId}/invitation/{invitationId}/accept']['post']['requestBody']['content']['application/json'];
+		ResponseBody: paths['/organization/{organizationId}/invitation/{invitationId}/accept']['post']['responses'][204]['content']['application/json'];
 	};
 };
 
@@ -238,20 +242,31 @@ export const createInvitationEndpoints = (f: Fetcher) => {
 		},
 		details: async (
 			organizationId: string,
-			secret: string
+			invitationId: string
 		): Promise<Invitation['details']['ResponseBody']> => {
 			return f.fetch<Invitation['details']['ResponseBody']>(
 				'GET',
-				`/organization/${organizationId}/invitation/${secret}`
+				`/organization/${organizationId}/invitation/${invitationId}`
+			);
+		},
+		delete: async (
+			organizationId: string,
+			invitationId: string
+		): Promise<Invitation['delete']['ResponseBody']> => {
+			return f.fetch<Invitation['delete']['ResponseBody']>(
+				'DELETE',
+				`/organization/${organizationId}/invitation/${invitationId}`
 			);
 		},
 		accept: async (
 			organizationId: string,
-			secret: string
+			invitationId: string,
+			body: Invitation['accept']['RequestBody']
 		): Promise<Invitation['accept']['ResponseBody']> => {
-			return f.fetch<Invitation['accept']['ResponseBody']>(
+			return f.fetch<Invitation['accept']['ResponseBody'], Invitation['accept']['RequestBody']>(
 				'POST',
-				`/organization/${organizationId}/invitation/${secret}/accept`
+				`/organization/${organizationId}/invitation/${invitationId}/accept`,
+				body
 			);
 		}
 	};

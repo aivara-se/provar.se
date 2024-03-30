@@ -24,7 +24,7 @@ func SetupCreateCredential(app *fiber.App) {
 	path := "/organization/:organizationId/credential"
 
 	app.Post(path, access.AuthenticatedGuard())
-	app.Post(path, access.OnlyUsersGuard())
+	app.Post(path, access.OnlyAllowUsersGuard())
 	app.Post(path, validator.ValidateMiddleware(CreateCreateCredentialRequestBody))
 	app.Post(path, organization.Loader(router.FromPathParam("organizationId")))
 	app.Post(path, access.PermissionGuard(&access.PermissionGuardOptions{

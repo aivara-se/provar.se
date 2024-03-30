@@ -12,10 +12,14 @@ interface Invitation {
   @route("/organization/{organizationId}/invitation/list")
   list(organizationId: string): InvitationDetails[];
 
-  @route("/organization/{organizationId}/invitation/{secret}")
-  details(organizationId: string, secret: string): InvitationDetails;
+  @route("/organization/{organizationId}/invitation/{invitationId}")
+  details(organizationId: string, invitationId: string): InvitationDetails;
 
   @post()
-  @route("/organization/{organizationId}/invitation/{secret}/accept")
-  accept(organizationId: string, secret: string): void;
+  @route("/organization/{organizationId}/invitation/{invitationId}/accept")
+  accept(organizationId: string, invitationId: string, @body req: { secret: string }): void;
+
+  @delete()
+  @route("/organization/{organizationId}/invitation/{invitationId}")
+  delete(organizationId: string, invitationId: string): void;
 }

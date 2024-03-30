@@ -23,7 +23,7 @@ func SetupCreateOrganization(app *fiber.App) {
 	path := "/organization"
 
 	app.Post(path, access.AuthenticatedGuard())
-	app.Post(path, access.OnlyUsersGuard())
+	app.Post(path, access.OnlyAllowUsersGuard())
 	app.Post(path, validator.ValidateMiddleware(CreateCreateOrganizationRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {

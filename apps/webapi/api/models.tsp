@@ -41,3 +41,9 @@ model InvitationDetails {
   email: string;
   avatar: string;
 }
+
+model PrincipalDetails {
+  type: "user" | "credential";
+  user?: UserDetails;
+  credential?: CredentialDetails;
+}
