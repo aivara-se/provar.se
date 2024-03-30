@@ -41,10 +41,11 @@ export interface paths {
 	'/organization/{organizationId}/invitation/list': {
 		get: operations['Invitation_list'];
 	};
-	'/organization/{organizationId}/invitation/{secret}': {
+	'/organization/{organizationId}/invitation/{invitationId}': {
 		get: operations['Invitation_details'];
+		delete: operations['Invitation_delete'];
 	};
-	'/organization/{organizationId}/invitation/{secret}/accept': {
+	'/organization/{organizationId}/invitation/{invitationId}/accept': {
 		post: operations['Invitation_accept'];
 	};
 	'/organization/{organizationId}/member/list': {
@@ -98,6 +99,12 @@ export interface components {
 			name: string;
 			slug: string;
 			description: string;
+		};
+		PrincipalDetails: {
+			/** @enum {string} */
+			type: 'user' | 'credential';
+			user?: components['schemas']['UserDetails'];
+			credential?: components['schemas']['CredentialDetails'];
 		};
 		UserDetails: {
 			id: string;
@@ -160,12 +167,7 @@ export interface operations {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': {
-						/** @enum {string} */
-						type: 'user' | 'credential';
-						user?: components['schemas']['UserDetails'];
-						credential?: components['schemas']['CredentialDetails'];
-					};
+					'application/json': components['schemas']['PrincipalDetails'];
 				};
 			};
 		};
@@ -340,7 +342,7 @@ export interface operations {
 		parameters: {
 			path: {
 				organizationId: string;
-				secret: string;
+				invitationId: string;
 			};
 		};
 		responses: {
@@ -352,11 +354,32 @@ export interface operations {
 			};
 		};
 	};
+	Invitation_delete: {
+		parameters: {
+			path: {
+				organizationId: string;
+				invitationId: string;
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
+			};
+		};
+	};
 	Invitation_accept: {
 		parameters: {
 			path: {
 				organizationId: string;
-				secret: string;
+				invitationId: string;
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': {
+					secret: string;
+				};
 			};
 		};
 		responses: {

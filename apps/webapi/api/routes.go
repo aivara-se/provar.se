@@ -52,6 +52,7 @@ func Create() *fiber.App {
 	invitation.SetupInvitations(app)
 	invitation.SetupInvitationDetails(app)
 	invitation.SetupAcceptInvitation(app)
+	invitation.SetupDeleteInvitation(app)
 	organization.SetupCreateOrganization(app)
 	organization.SetupDeleteOrganization(app)
 	organization.SetupMemberOrganizations(app)

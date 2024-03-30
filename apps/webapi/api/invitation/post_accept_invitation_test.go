@@ -2,6 +2,7 @@ package invitation_test
 
 import (
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"provar.se/webapi/lib/testutils"
@@ -15,7 +16,9 @@ func TestAcceptInvitation(t *testing.T) {
 		u2, k2 := testutils.CreateUser()
 		org := testutils.CreateOrganization(u1.ID)
 		inv := testutils.CreateInvitationForUser(org.ID, u2)
-		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/invitation/"+inv.Secret+"/accept", nil)
+		requestBody := strings.NewReader(`{ "secret": "` + inv.Secret + `" }`)
+		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/invitation/"+inv.ID+"/accept", requestBody)
+		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bearer "+k2)
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 204 {
@@ -36,7 +39,9 @@ func TestAcceptInvitation(t *testing.T) {
 		_, k3 := testutils.CreateUser()
 		org := testutils.CreateOrganization(u1.ID)
 		inv := testutils.CreateInvitationForUser(org.ID, u2)
-		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/invitation/"+inv.Secret+"/accept", nil)
+		requestBody := strings.NewReader(`{ "secret": "` + inv.Secret + `" }`)
+		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/invitation/"+inv.ID+"/accept", requestBody)
+		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bearer "+k3)
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 400 {
@@ -49,7 +54,9 @@ func TestAcceptInvitation(t *testing.T) {
 		u2, _ := testutils.CreateUser()
 		org := testutils.CreateOrganization(u1.ID)
 		inv := testutils.CreateInvitationForUser(org.ID, u2)
-		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/invitation/"+inv.Secret+"/accept", nil)
+		requestBody := strings.NewReader(`{ "secret": "` + inv.Secret + `" }`)
+		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/invitation/"+inv.ID+"/accept", requestBody)
+		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 401 {
 			t.Fatalf("unexpected status code: %d", res.StatusCode)
@@ -61,7 +68,9 @@ func TestAcceptInvitation(t *testing.T) {
 		u2, _ := testutils.CreateUser()
 		org := testutils.CreateOrganization(u1.ID)
 		inv := testutils.CreateInvitationForUser(org.ID, u2)
-		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/invitation/"+inv.Secret+"/accept", nil)
+		requestBody := strings.NewReader(`{ "secret": "` + inv.Secret + `" }`)
+		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/invitation/"+inv.ID+"/accept", requestBody)
+		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bear test-api-key")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 401 {

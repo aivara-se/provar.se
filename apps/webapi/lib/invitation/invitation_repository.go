@@ -52,6 +52,17 @@ func Create(orgID, name, email, createdBy string) (*Invitation, error) {
 	return invite, err
 }
 
+// FindByID returns an invitation by its id
+func FindByID(id string) (*Invitation, error) {
+	invite := &Invitation{}
+	query := `SELECT * FROM private.invitation WHERE id = $1`
+	err := database.DB().Get(invite, query, id)
+	if err != nil {
+		return nil, err
+	}
+	return invite, nil
+}
+
 // FindBySecret returns an invitation by its secret
 func FindBySecret(secret string) (*Invitation, error) {
 	invite := &Invitation{}
@@ -81,6 +92,13 @@ func FindPendingByOrganizationID(id string) ([]*Invitation, error) {
 	return invites, nil
 }
 
+// DeleteByID deletes an invitation with the given id
+func DeleteByID(id string) error {
+	query := `DELETE FROM private.invitation WHERE id = $1`
+	_, err := database.DB().Exec(query, id)
+	return err
+}
+
 // Link returns the link to the application page where it is possible to accept
 // the invitation
 func (i *Invitation) Link() string {
@@ -97,4 +115,9 @@ func (i *Invitation) IsAcceptable() bool {
 		return false
 	}
 	return true
+}
+
+// Delete deletes an invitation with the given id
+func (i *Invitation) Delete() error {
+	return DeleteByID(i.ID)
 }

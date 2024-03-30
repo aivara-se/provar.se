@@ -59,19 +59,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                      - user
-                      - credential
-                  user:
-                    $ref: '#/components/schemas/UserDetails'
-                  credential:
-                    $ref: '#/components/schemas/CredentialDetails'
-                required:
-                  - type
+                $ref: '#/components/schemas/PrincipalDetails'
       security:
         - BearerAuth: []
   /organization:
@@ -293,7 +281,7 @@ paths:
                   $ref: '#/components/schemas/InvitationDetails'
       security:
         - BearerAuth: []
-  /organization/{organizationId}/invitation/{secret}:
+  /organization/{organizationId}/invitation/{invitationId}:
     get:
       operationId: Invitation_details
       parameters:
@@ -302,7 +290,7 @@ paths:
           required: true
           schema:
             type: string
-        - name: secret
+        - name: invitationId
           in: path
           required: true
           schema:
@@ -316,7 +304,25 @@ paths:
                 $ref: '#/components/schemas/InvitationDetails'
       security:
         - BearerAuth: []
-  /organization/{organizationId}/invitation/{secret}/accept:
+    delete:
+      operationId: Invitation_delete
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: invitationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/invitation/{invitationId}/accept:
     post:
       operationId: Invitation_accept
       parameters:
@@ -325,7 +331,7 @@ paths:
           required: true
           schema:
             type: string
-        - name: secret
+        - name: invitationId
           in: path
           required: true
           schema:
@@ -333,6 +339,17 @@ paths:
       responses:
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                secret:
+                  type: string
+              required:
+                - secret
       security:
         - BearerAuth: []
   /organization/{organizationId}/member/list:
@@ -498,6 +515,20 @@ components:
           type: string
         description:
           type: string
+    PrincipalDetails:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - user
+            - credential
+        user:
+          $ref: '#/components/schemas/UserDetails'
+        credential:
+          $ref: '#/components/schemas/CredentialDetails'
     UserDetails:
       type: object
       required:

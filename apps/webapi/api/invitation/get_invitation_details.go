@@ -9,11 +9,11 @@ import (
 )
 
 func SetupInvitationDetails(app *fiber.App) {
-	path := "/organization/:organizationId/invitation/:secret"
+	path := "/organization/:organizationId/invitation/:invitationId"
 
 	app.Get(path, access.AuthenticatedGuard())
 	app.Get(path, organization.Loader(router.FromPathParam("organizationId")))
-	app.Get(path, invitation.Loader(router.FromPathParam("secret")))
+	app.Get(path, invitation.Loader(router.FromPathParam("invitationId")))
 	app.Get(path, access.MembershipGuard())
 
 	app.Get(path, func(c *fiber.Ctx) error {
