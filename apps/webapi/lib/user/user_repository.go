@@ -22,11 +22,13 @@ type User struct {
 
 // Create creates a new user in the database
 func Create(name, email string, verified bool) (*User, error) {
+	avatar := gravatar.NewGravatarFromEmail(email)
+	avatar.Default = "mp"
 	user := &User{
 		ID:         database.NewID(),
 		CreatedAt:  time.Now(),
 		ModifiedAt: time.Now(),
-		Avatar:     gravatar.NewGravatarFromEmail(email).GetURL(),
+		Avatar:     avatar.GetURL(),
 		Email:      email,
 		Name:       name,
 	}
