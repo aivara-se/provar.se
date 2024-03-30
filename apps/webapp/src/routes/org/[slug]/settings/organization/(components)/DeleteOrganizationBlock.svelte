@@ -2,7 +2,6 @@
 	import { goto } from '$app/navigation';
 	import { api } from '$lib/client/api';
 	import { ConfirmModal } from '$lib/client/forms';
-	import { user } from '$lib/client/stores';
 	import type { Organization } from '$lib/client/types';
 	import { AlertCircleIcon } from 'lucide-svelte';
 
@@ -11,9 +10,6 @@
 	let isOpen = false;
 
 	async function deleteOrganization() {
-		if (!$user) {
-			return;
-		}
 		await api().Organization.delete(organization.id);
 		goto('/org');
 	}
