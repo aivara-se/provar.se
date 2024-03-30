@@ -31,6 +31,8 @@ type Invitation struct {
 
 // Create creates a new invitation in the database
 func Create(orgID, name, email, createdBy string) (*Invitation, error) {
+	avatar := gravatar.NewGravatarFromEmail(email)
+	avatar.Default = "mp"
 	invite := &Invitation{
 		ID:             database.NewID(),
 		OrganizationID: orgID,
@@ -40,11 +42,11 @@ func Create(orgID, name, email, createdBy string) (*Invitation, error) {
 		Secret:         random.String(64),
 		Name:           name,
 		Email:          email,
-		Avatar:         gravatar.NewGravatarFromEmail(email).GetURL(),
+		Avatar:         avatar.GetURL(),
 	}
 	query := `
-		INSERT INTO private.invitation (id, organization_id, created_at, created_by, expires_at, secret, name, email)
-		VALUES (:id, :organization_id, :created_at, :created_by, :expires_at, :secret, :name, :email)
+		INSERT INTO private.invitation (id, organization_id, created_at, created_by, expires_at, secret, name, email, avatar)
+		VALUES (:id, :organization_id, :created_at, :created_by, :expires_at, :secret, :name, :email, :avatar)
 	`
 	_, err := database.DB().NamedExec(query, invite)
 	return invite, err
