@@ -18,6 +18,12 @@ type Organization struct {
 	Description string    `db:"description" json:"description"`
 }
 
+// PublicOrganization struct represents publicly available organization info
+type PublicOrganization struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
 // OrganizationMember struct represents the organizationmember table in the database
 type OrganizationMember struct {
 	ID             string `db:"id"`
@@ -92,6 +98,14 @@ func Create(name, slug, description, createdBy string) (*Organization, error) {
 		return nil, err
 	}
 	return org, nil
+}
+
+// Public returns publicly presentable organization information
+func Public(org *Organization) *PublicOrganization {
+	return &PublicOrganization{
+		ID:   org.ID,
+		Name: org.Name,
+	}
 }
 
 // FindByID returns an organization with the given id
@@ -231,6 +245,11 @@ func FindSettings(id string) (map[string]string, error) {
 		settings[setting.Key] = setting.Val
 	}
 	return settings, nil
+}
+
+// Public returns publicly presentable organization information
+func (o *Organization) Public() *PublicOrganization {
+	return Public(o)
 }
 
 // Update deletes an organization with the given id

@@ -5,12 +5,12 @@ using TypeSpec.Http;
 
 @useAuth(BearerAuth)
 interface Credential {
+  @route("/organization/{organizationId}/credentials")
+  list(organizationId: string): CredentialDetails[];
+
   @post()
   @route("/organization/{organizationId}/credential")
   create(organizationId: string, @body req: { name: string }): CredentialDetails;
-
-  @route("/organization/{organizationId}/credential/list")
-  list(organizationId: string): CredentialDetails[];
 
   @delete()
   @route("/organization/{organizationId}/credential/{credentialId}")

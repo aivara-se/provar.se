@@ -22,7 +22,7 @@ func CreateUpdateOrganizationRequestBody() interface{} {
 }
 
 func SetupUpdateOrganizationDetails(app *fiber.App) {
-	path := "/organization/:organizationId/details"
+	path := "/organization/:organizationId"
 
 	app.Patch(path, access.AuthenticatedGuard())
 	app.Patch(path, validator.ValidateMiddleware(CreateUpdateOrganizationRequestBody))

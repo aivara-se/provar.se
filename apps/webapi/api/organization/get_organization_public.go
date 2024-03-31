@@ -7,15 +7,14 @@ import (
 	"provar.se/webapi/lib/router"
 )
 
-func SetupOrganizationDetails(app *fiber.App) {
-	path := "/organization/:organizationId"
+func SetupOrganizationPublic(app *fiber.App) {
+	path := "/organization/:organizationId/public"
 
 	app.Get(path, access.AuthenticatedGuard())
 	app.Get(path, organization.Loader(router.FromPathParam("organizationId")))
-	app.Get(path, access.MembershipGuard())
 
 	app.Get(path, func(c *fiber.Ctx) error {
 		org := organization.GetOrganization(c)
-		return c.JSON(org)
+		return c.JSON(org.Public())
 	})
 }

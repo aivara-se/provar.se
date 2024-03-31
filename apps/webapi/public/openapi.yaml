@@ -92,104 +92,7 @@ paths:
                 - description
       security:
         - BearerAuth: []
-  /organization/list:
-    get:
-      operationId: Organization_list
-      parameters: []
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/OrganizationDetails'
-      security:
-        - BearerAuth: []
   /organization/{organizationId}:
-    delete:
-      operationId: Organization_delete
-      parameters:
-        - name: organizationId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
-      security:
-        - BearerAuth: []
-  /organization/{organizationId}/credential:
-    post:
-      operationId: Credential_create
-      parameters:
-        - name: organizationId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CredentialDetails'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-              required:
-                - name
-      security:
-        - BearerAuth: []
-  /organization/{organizationId}/credential/list:
-    get:
-      operationId: Credential_list
-      parameters:
-        - name: organizationId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CredentialDetails'
-      security:
-        - BearerAuth: []
-  /organization/{organizationId}/credential/{credentialId}:
-    delete:
-      operationId: Credential_delete
-      parameters:
-        - name: organizationId
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: credentialId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
-      security:
-        - BearerAuth: []
-  /organization/{organizationId}/details:
     get:
       operationId: Organization_details
       parameters:
@@ -233,6 +136,87 @@ paths:
                   type: string
       security:
         - BearerAuth: []
+    delete:
+      operationId: Organization_delete
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/credential:
+    post:
+      operationId: Credential_create
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialDetails'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/credential/{credentialId}:
+    delete:
+      operationId: Credential_delete
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: credentialId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/credentials:
+    get:
+      operationId: Credential_list
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CredentialDetails'
+      security:
+        - BearerAuth: []
   /organization/{organizationId}/invitation:
     post:
       operationId: Invitation_create
@@ -259,26 +243,6 @@ paths:
               required:
                 - name
                 - email
-      security:
-        - BearerAuth: []
-  /organization/{organizationId}/invitation/list:
-    get:
-      operationId: Invitation_list
-      parameters:
-        - name: organizationId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/InvitationDetails'
       security:
         - BearerAuth: []
   /organization/{organizationId}/invitation/{invitationId}:
@@ -352,9 +316,9 @@ paths:
                 - secret
       security:
         - BearerAuth: []
-  /organization/{organizationId}/member/list:
+  /organization/{organizationId}/invitations:
     get:
-      operationId: Organization_members
+      operationId: Invitation_list
       parameters:
         - name: organizationId
           in: path
@@ -369,7 +333,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserDetails'
+                  $ref: '#/components/schemas/InvitationDetails'
       security:
         - BearerAuth: []
   /organization/{organizationId}/member/{userId}:
@@ -391,6 +355,44 @@ paths:
           description: 'There is no content to send for this request, but the headers may be useful. '
       security:
         - BearerAuth: []
+  /organization/{organizationId}/members:
+    get:
+      operationId: Organization_members
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDetails'
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/public:
+    get:
+      operationId: Organization_public
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicOrganizationDetails'
+      security:
+        - BearerAuth: []
   /organization/{organizationId}/settings:
     get:
       operationId: Organization_settings
@@ -409,6 +411,21 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
+      security:
+        - BearerAuth: []
+  /organizations:
+    get:
+      operationId: Organization_list
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationDetails'
       security:
         - BearerAuth: []
   /ping:
@@ -529,6 +546,16 @@ components:
           $ref: '#/components/schemas/UserDetails'
         credential:
           $ref: '#/components/schemas/CredentialDetails'
+    PublicOrganizationDetails:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
     UserDetails:
       type: object
       required:

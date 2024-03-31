@@ -20,7 +20,7 @@ func TestUpdateOrganizationDetails(t *testing.T) {
 			"slug": "updated-` + usr.ID + `",
 			"description": "updated description"
 		}`)
-		req := httptest.NewRequest("PATCH", "/organization/"+org.ID+"/details", requestBody)
+		req := httptest.NewRequest("PATCH", "/organization/"+org.ID, requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bearer "+key)
 		res, _ := app.Test(req, -1)
@@ -45,7 +45,7 @@ func TestUpdateOrganizationDetails(t *testing.T) {
 			"slug": "updated-` + u1.ID + `",
 			"description": "updated description"
 		}`)
-		req := httptest.NewRequest("PATCH", "/organization/"+org.ID+"/details", requestBody)
+		req := httptest.NewRequest("PATCH", "/organization/"+org.ID, requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bearer "+k2)
 		res, _ := app.Test(req, -1)
@@ -62,7 +62,7 @@ func TestUpdateOrganizationDetails(t *testing.T) {
 			"slug": "updated-` + usr.ID + `",
 			"description": "updated description"
 		}`)
-		req := httptest.NewRequest("PATCH", "/organization/"+org.ID+"/details", requestBody)
+		req := httptest.NewRequest("PATCH", "/organization/"+org.ID, requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		res, _ := app.Test(req, -1)
 		if res.StatusCode != 401 {
@@ -74,7 +74,7 @@ func TestUpdateOrganizationDetails(t *testing.T) {
 		usr, key := testutils.CreateUser()
 		org := testutils.CreateOrganization(usr.ID)
 		requestBody := strings.NewReader(`not a json`)
-		req := httptest.NewRequest("PATCH", "/organization/"+org.ID+"/details", requestBody)
+		req := httptest.NewRequest("PATCH", "/organization/"+org.ID, requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bearer "+key)
 		res, _ := app.Test(req, -1)
@@ -90,7 +90,7 @@ func TestUpdateOrganizationDetails(t *testing.T) {
 			"slug": "updated-` + usr.ID + `",
 			"description": "updated description"
 		}`)
-		req := httptest.NewRequest("PATCH", "/organization/"+org.ID+"/details", requestBody)
+		req := httptest.NewRequest("PATCH", "/organization/"+org.ID, requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bearer "+key)
 		res, _ := app.Test(req, -1)
@@ -106,7 +106,7 @@ func TestUpdateOrganizationDetails(t *testing.T) {
 			"name": "Updated.` + usr.ID + `",
 			"description": "updated description"
 		}`)
-		req := httptest.NewRequest("PATCH", "/organization/"+org.ID+"/details", requestBody)
+		req := httptest.NewRequest("PATCH", "/organization/"+org.ID, requestBody)
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "bearer "+key)
 		res, _ := app.Test(req, -1)
