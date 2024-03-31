@@ -10,7 +10,6 @@ describe('DefaultFetcher', () => {
 
 	it('should set the correct headers', () => {
 		expect(fetcher['headers']).toEqual({
-			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: 'Bearer token'
 		});
