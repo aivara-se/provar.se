@@ -1,4 +1,4 @@
-import { FIRST_NAMES, LAST_NAMES } from './user.data.js';
+import { EMAIL_DOMAINS, FIRST_NAMES, LAST_NAMES } from './user.data.js';
 
 export interface User {
 	id: string;
@@ -24,7 +24,7 @@ function generateEmail(name: string): string {
 		.toLowerCase()
 		.replace(' ', '.')
 		.replace(/[^a-zA-Z0-9]/g, '');
-	const host = ['gmail.com', 'outlook.com'][Math.floor(Math.random() * 2)];
+	const host = EMAIL_DOMAINS[Math.floor(Math.random() * EMAIL_DOMAINS.length)];
 	return `${user}@${host}`;
 }
 
