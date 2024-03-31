@@ -24,33 +24,37 @@ export type Organization = {
 		RequestBody: paths['/organization']['post']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization']['post']['responses'][200]['content']['application/json'];
 	};
-	list: {
+	details: {
 		RequestBody: void;
-		ResponseBody: paths['/organization/list']['get']['responses'][200]['content']['application/json'];
+		ResponseBody: paths['/organization/{organizationId}']['get']['responses'][200]['content']['application/json'];
+	};
+	update: {
+		RequestBody: paths['/organization/{organizationId}']['patch']['requestBody']['content']['application/json'];
+		ResponseBody: paths['/organization/{organizationId}']['patch']['responses'][204]['content']['application/json'];
 	};
 	delete: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}']['delete']['responses'][204]['content']['application/json'];
 	};
-	details: {
-		RequestBody: void;
-		ResponseBody: paths['/organization/{organizationId}/details']['get']['responses'][200]['content']['application/json'];
-	};
-	update: {
-		RequestBody: paths['/organization/{organizationId}/details']['patch']['requestBody']['content']['application/json'];
-		ResponseBody: paths['/organization/{organizationId}/details']['patch']['responses'][204]['content']['application/json'];
-	};
-	members: {
-		RequestBody: void;
-		ResponseBody: paths['/organization/{organizationId}/member/list']['get']['responses'][200]['content']['application/json'];
-	};
 	removeMember: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/member/{userId}']['delete']['responses'][204]['content']['application/json'];
 	};
+	members: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/members']['get']['responses'][200]['content']['application/json'];
+	};
+	public: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/public']['get']['responses'][200]['content']['application/json'];
+	};
 	settings: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/settings']['get']['responses'][200]['content']['application/json'];
+	};
+	list: {
+		RequestBody: void;
+		ResponseBody: paths['/organizations']['get']['responses'][200]['content']['application/json'];
 	};
 };
 
@@ -59,13 +63,13 @@ export type Credential = {
 		RequestBody: paths['/organization/{organizationId}/credential']['post']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization/{organizationId}/credential']['post']['responses'][200]['content']['application/json'];
 	};
-	list: {
-		RequestBody: void;
-		ResponseBody: paths['/organization/{organizationId}/credential/list']['get']['responses'][200]['content']['application/json'];
-	};
 	delete: {
 		RequestBody: void;
 		ResponseBody: paths['/organization/{organizationId}/credential/{credentialId}']['delete']['responses'][204]['content']['application/json'];
+	};
+	list: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/credentials']['get']['responses'][200]['content']['application/json'];
 	};
 };
 
@@ -73,10 +77,6 @@ export type Invitation = {
 	create: {
 		RequestBody: paths['/organization/{organizationId}/invitation']['post']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization/{organizationId}/invitation']['post']['responses'][204]['content']['application/json'];
-	};
-	list: {
-		RequestBody: void;
-		ResponseBody: paths['/organization/{organizationId}/invitation/list']['get']['responses'][200]['content']['application/json'];
 	};
 	details: {
 		RequestBody: void;
@@ -89,6 +89,10 @@ export type Invitation = {
 	accept: {
 		RequestBody: paths['/organization/{organizationId}/invitation/{invitationId}/accept']['post']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization/{organizationId}/invitation/{invitationId}/accept']['post']['responses'][204]['content']['application/json'];
+	};
+	list: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/invitations']['get']['responses'][200]['content']['application/json'];
 	};
 };
 
@@ -143,19 +147,10 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 				body
 			);
 		},
-		list: async (): Promise<Organization['list']['ResponseBody']> => {
-			return f.fetch<Organization['list']['ResponseBody']>('GET', '/organization/list');
-		},
-		delete: async (organizationId: string): Promise<Organization['delete']['ResponseBody']> => {
-			return f.fetch<Organization['delete']['ResponseBody']>(
-				'DELETE',
-				`/organization/${organizationId}`
-			);
-		},
 		details: async (organizationId: string): Promise<Organization['details']['ResponseBody']> => {
 			return f.fetch<Organization['details']['ResponseBody']>(
 				'GET',
-				`/organization/${organizationId}/details`
+				`/organization/${organizationId}`
 			);
 		},
 		update: async (
@@ -164,14 +159,14 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 		): Promise<Organization['update']['ResponseBody']> => {
 			return f.fetch<Organization['update']['ResponseBody'], Organization['update']['RequestBody']>(
 				'PATCH',
-				`/organization/${organizationId}/details`,
+				`/organization/${organizationId}`,
 				body
 			);
 		},
-		members: async (organizationId: string): Promise<Organization['members']['ResponseBody']> => {
-			return f.fetch<Organization['members']['ResponseBody']>(
-				'GET',
-				`/organization/${organizationId}/member/list`
+		delete: async (organizationId: string): Promise<Organization['delete']['ResponseBody']> => {
+			return f.fetch<Organization['delete']['ResponseBody']>(
+				'DELETE',
+				`/organization/${organizationId}`
 			);
 		},
 		removeMember: async (
@@ -183,11 +178,26 @@ export const createOrganizationEndpoints = (f: Fetcher) => {
 				`/organization/${organizationId}/member/${userId}`
 			);
 		},
+		members: async (organizationId: string): Promise<Organization['members']['ResponseBody']> => {
+			return f.fetch<Organization['members']['ResponseBody']>(
+				'GET',
+				`/organization/${organizationId}/members`
+			);
+		},
+		public: async (organizationId: string): Promise<Organization['public']['ResponseBody']> => {
+			return f.fetch<Organization['public']['ResponseBody']>(
+				'GET',
+				`/organization/${organizationId}/public`
+			);
+		},
 		settings: async (organizationId: string): Promise<Organization['settings']['ResponseBody']> => {
 			return f.fetch<Organization['settings']['ResponseBody']>(
 				'GET',
 				`/organization/${organizationId}/settings`
 			);
+		},
+		list: async (): Promise<Organization['list']['ResponseBody']> => {
+			return f.fetch<Organization['list']['ResponseBody']>('GET', '/organizations');
 		}
 	};
 };
@@ -204,12 +214,6 @@ export const createCredentialEndpoints = (f: Fetcher) => {
 				body
 			);
 		},
-		list: async (organizationId: string): Promise<Credential['list']['ResponseBody']> => {
-			return f.fetch<Credential['list']['ResponseBody']>(
-				'GET',
-				`/organization/${organizationId}/credential/list`
-			);
-		},
 		delete: async (
 			organizationId: string,
 			credentialId: string
@@ -217,6 +221,12 @@ export const createCredentialEndpoints = (f: Fetcher) => {
 			return f.fetch<Credential['delete']['ResponseBody']>(
 				'DELETE',
 				`/organization/${organizationId}/credential/${credentialId}`
+			);
+		},
+		list: async (organizationId: string): Promise<Credential['list']['ResponseBody']> => {
+			return f.fetch<Credential['list']['ResponseBody']>(
+				'GET',
+				`/organization/${organizationId}/credentials`
 			);
 		}
 	};
@@ -232,12 +242,6 @@ export const createInvitationEndpoints = (f: Fetcher) => {
 				'POST',
 				`/organization/${organizationId}/invitation`,
 				body
-			);
-		},
-		list: async (organizationId: string): Promise<Invitation['list']['ResponseBody']> => {
-			return f.fetch<Invitation['list']['ResponseBody']>(
-				'GET',
-				`/organization/${organizationId}/invitation/list`
 			);
 		},
 		details: async (
@@ -267,6 +271,12 @@ export const createInvitationEndpoints = (f: Fetcher) => {
 				'POST',
 				`/organization/${organizationId}/invitation/${invitationId}/accept`,
 				body
+			);
+		},
+		list: async (organizationId: string): Promise<Invitation['list']['ResponseBody']> => {
+			return f.fetch<Invitation['list']['ResponseBody']>(
+				'GET',
+				`/organization/${organizationId}/invitations`
 			);
 		}
 	};

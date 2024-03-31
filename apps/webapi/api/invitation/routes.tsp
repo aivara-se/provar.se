@@ -5,12 +5,12 @@ using TypeSpec.Http;
 
 @useAuth(BearerAuth)
 interface Invitation {
+  @route("/organization/{organizationId}/invitations")
+  list(organizationId: string): InvitationDetails[];
+
   @post()
   @route("/organization/{organizationId}/invitation")
   create(organizationId: string, @body req: { name: string; email: string }): void;
-
-  @route("/organization/{organizationId}/invitation/list")
-  list(organizationId: string): InvitationDetails[];
 
   @route("/organization/{organizationId}/invitation/{invitationId}")
   details(organizationId: string, invitationId: string): InvitationDetails;

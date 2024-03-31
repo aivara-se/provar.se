@@ -7,7 +7,7 @@ import (
 )
 
 func SetupMemberOrganizations(app *fiber.App) {
-	path := "/organization/list"
+	path := "/organizations"
 
 	app.Get(path, access.AuthenticatedGuard())
 	app.Get(path, access.OnlyAllowUsersGuard())

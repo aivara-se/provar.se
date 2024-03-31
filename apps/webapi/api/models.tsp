@@ -18,6 +18,11 @@ model OrganizationDetails {
   description: string;
 };
 
+model PublicOrganizationDetails {
+  id: string;
+  name: string;
+};
+
 model CredentialDetails {
   id: string;
   createdAt: string;

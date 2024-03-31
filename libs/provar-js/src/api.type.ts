@@ -16,30 +16,22 @@ export interface paths {
 	'/organization': {
 		post: operations['Organization_create'];
 	};
-	'/organization/list': {
-		get: operations['Organization_list'];
-	};
 	'/organization/{organizationId}': {
+		get: operations['Organization_details'];
 		delete: operations['Organization_delete'];
+		patch: operations['Organization_update'];
 	};
 	'/organization/{organizationId}/credential': {
 		post: operations['Credential_create'];
 	};
-	'/organization/{organizationId}/credential/list': {
-		get: operations['Credential_list'];
-	};
 	'/organization/{organizationId}/credential/{credentialId}': {
 		delete: operations['Credential_delete'];
 	};
-	'/organization/{organizationId}/details': {
-		get: operations['Organization_details'];
-		patch: operations['Organization_update'];
+	'/organization/{organizationId}/credentials': {
+		get: operations['Credential_list'];
 	};
 	'/organization/{organizationId}/invitation': {
 		post: operations['Invitation_create'];
-	};
-	'/organization/{organizationId}/invitation/list': {
-		get: operations['Invitation_list'];
 	};
 	'/organization/{organizationId}/invitation/{invitationId}': {
 		get: operations['Invitation_details'];
@@ -48,14 +40,23 @@ export interface paths {
 	'/organization/{organizationId}/invitation/{invitationId}/accept': {
 		post: operations['Invitation_accept'];
 	};
-	'/organization/{organizationId}/member/list': {
-		get: operations['Organization_members'];
+	'/organization/{organizationId}/invitations': {
+		get: operations['Invitation_list'];
 	};
 	'/organization/{organizationId}/member/{userId}': {
 		delete: operations['Organization_removeMember'];
 	};
+	'/organization/{organizationId}/members': {
+		get: operations['Organization_members'];
+	};
+	'/organization/{organizationId}/public': {
+		get: operations['Organization_public'];
+	};
 	'/organization/{organizationId}/settings': {
 		get: operations['Organization_settings'];
+	};
+	'/organizations': {
+		get: operations['Organization_list'];
 	};
 	'/ping': {
 		get: operations['HealthCheck_basic'];
@@ -105,6 +106,10 @@ export interface components {
 			type: 'user' | 'credential';
 			user?: components['schemas']['UserDetails'];
 			credential?: components['schemas']['CredentialDetails'];
+		};
+		PublicOrganizationDetails: {
+			id: string;
+			name: string;
 		};
 		UserDetails: {
 			id: string;
@@ -191,12 +196,17 @@ export interface operations {
 			};
 		};
 	};
-	Organization_list: {
+	Organization_details: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
 		responses: {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': components['schemas']['OrganizationDetails'][];
+					'application/json': components['schemas']['OrganizationDetails'];
 				};
 			};
 		};
@@ -205,6 +215,28 @@ export interface operations {
 		parameters: {
 			path: {
 				organizationId: string;
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
+			};
+		};
+	};
+	Organization_update: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': {
+					name?: string;
+					slug?: string;
+					description?: string;
+				};
 			};
 		};
 		responses: {
@@ -236,21 +268,6 @@ export interface operations {
 			};
 		};
 	};
-	Credential_list: {
-		parameters: {
-			path: {
-				organizationId: string;
-			};
-		};
-		responses: {
-			/** @description The request has succeeded. */
-			200: {
-				content: {
-					'application/json': components['schemas']['CredentialDetails'][];
-				};
-			};
-		};
-	};
 	Credential_delete: {
 		parameters: {
 			path: {
@@ -265,7 +282,7 @@ export interface operations {
 			};
 		};
 	};
-	Organization_details: {
+	Credential_list: {
 		parameters: {
 			path: {
 				organizationId: string;
@@ -275,30 +292,8 @@ export interface operations {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': components['schemas']['OrganizationDetails'];
+					'application/json': components['schemas']['CredentialDetails'][];
 				};
-			};
-		};
-	};
-	Organization_update: {
-		parameters: {
-			path: {
-				organizationId: string;
-			};
-		};
-		requestBody: {
-			content: {
-				'application/json': {
-					name?: string;
-					slug?: string;
-					description?: string;
-				};
-			};
-		};
-		responses: {
-			/** @description There is no content to send for this request, but the headers may be useful. */
-			204: {
-				content: never;
 			};
 		};
 	};
@@ -320,21 +315,6 @@ export interface operations {
 			/** @description There is no content to send for this request, but the headers may be useful. */
 			204: {
 				content: never;
-			};
-		};
-	};
-	Invitation_list: {
-		parameters: {
-			path: {
-				organizationId: string;
-			};
-		};
-		responses: {
-			/** @description The request has succeeded. */
-			200: {
-				content: {
-					'application/json': components['schemas']['InvitationDetails'][];
-				};
 			};
 		};
 	};
@@ -389,7 +369,7 @@ export interface operations {
 			};
 		};
 	};
-	Organization_members: {
+	Invitation_list: {
 		parameters: {
 			path: {
 				organizationId: string;
@@ -399,7 +379,7 @@ export interface operations {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': components['schemas']['UserDetails'][];
+					'application/json': components['schemas']['InvitationDetails'][];
 				};
 			};
 		};
@@ -418,6 +398,36 @@ export interface operations {
 			};
 		};
 	};
+	Organization_members: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['UserDetails'][];
+				};
+			};
+		};
+	};
+	Organization_public: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['PublicOrganizationDetails'];
+				};
+			};
+		};
+	};
 	Organization_settings: {
 		parameters: {
 			path: {
@@ -431,6 +441,16 @@ export interface operations {
 					'application/json': {
 						[key: string]: string;
 					};
+				};
+			};
+		};
+	};
+	Organization_list: {
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['OrganizationDetails'][];
 				};
 			};
 		};

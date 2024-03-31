@@ -9,7 +9,7 @@ import (
 )
 
 func SetupOrganizationMembers(app *fiber.App) {
-	path := "/organization/:organizationId/member/list"
+	path := "/organization/:organizationId/members"
 
 	app.Get(path, access.AuthenticatedGuard())
 	app.Get(path, organization.Loader(router.FromPathParam("organizationId")))
