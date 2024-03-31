@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { formatDateString } from '$lib/client/dates';
 	import { DashLayout } from '$lib/client/layout';
-	import ResendInvitationBlock from './(components)/ResendInvitationBlock.svelte';
 	import RevokeInvitationBlock from './(components)/RevokeInvitationBlock.svelte';
 	import route from './route.meta';
 
@@ -36,6 +35,5 @@
 		</tbody>
 	</table>
 
-	<ResendInvitationBlock invitation={data.invitation} />
 	<RevokeInvitationBlock organization={data.organization} invitation={data.invitation} />
 </DashLayout>
