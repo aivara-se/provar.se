@@ -50,14 +50,14 @@ func TestDeleteOrganizationMember(t *testing.T) {
 		}
 	})
 
-	t.Run("success - unknown member", func(t *testing.T) {
+	t.Run("fail with unknown member", func(t *testing.T) {
 		u1, _ := testutils.CreateUser()
 		u2, k2 := testutils.CreateUser()
 		org := testutils.CreateOrganization(u1.ID)
 		req := httptest.NewRequest("DELETE", "/organization/"+org.ID+"/member/"+u2.ID, nil)
 		req.Header.Add("Authorization", "bearer "+k2)
 		res, _ := app.Test(req, -1)
-		if res.StatusCode != 204 {
+		if res.StatusCode != 403 {
 			t.Fatalf("unexpected status code: %d", res.StatusCode)
 		}
 	})

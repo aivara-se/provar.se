@@ -4,7 +4,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/organization"
-	"provar.se/webapi/lib/permission"
 	"provar.se/webapi/lib/router"
 	"provar.se/webapi/lib/validator"
 )
@@ -27,12 +26,7 @@ func SetupUpdateOrganizationDetails(app *fiber.App) {
 	app.Patch(path, access.AuthenticatedGuard())
 	app.Patch(path, validator.ValidateMiddleware(CreateUpdateOrganizationRequestBody))
 	app.Patch(path, organization.Loader(router.FromPathParam("organizationId")))
-	app.Patch(path, access.PermissionGuard(&access.PermissionGuardOptions{
-		OrganizationID: router.FromPathParam("organizationId"),
-		ResourceType:   permission.ResourceTypeOrganization,
-		ResourceID:     router.FromPathParam("organizationId"),
-		Permission:     permission.PermissionTypeOrganizationAdmin,
-	}))
+	app.Patch(path, access.MembershipGuard())
 
 	app.Patch(path, func(c *fiber.Ctx) error {
 		org := organization.GetOrganization(c)

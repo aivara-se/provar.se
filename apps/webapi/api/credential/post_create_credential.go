@@ -5,7 +5,6 @@ import (
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/credential"
 	"provar.se/webapi/lib/organization"
-	"provar.se/webapi/lib/permission"
 	"provar.se/webapi/lib/router"
 	"provar.se/webapi/lib/validator"
 )
@@ -27,12 +26,7 @@ func SetupCreateCredential(app *fiber.App) {
 	app.Post(path, access.OnlyAllowUsersGuard())
 	app.Post(path, validator.ValidateMiddleware(CreateCreateCredentialRequestBody))
 	app.Post(path, organization.Loader(router.FromPathParam("organizationId")))
-	app.Post(path, access.PermissionGuard(&access.PermissionGuardOptions{
-		OrganizationID: router.FromPathParam("organizationId"),
-		ResourceType:   permission.ResourceTypeOrganization,
-		ResourceID:     router.FromPathParam("organizationId"),
-		Permission:     permission.PermissionTypeOrganizationAdmin,
-	}))
+	app.Post(path, access.MembershipGuard())
 
 	app.Post(path, func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)
