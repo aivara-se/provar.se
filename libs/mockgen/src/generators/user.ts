@@ -4,7 +4,7 @@ export interface User {
 	id: string;
 	name: string;
 	email: string;
-	image: string;
+	avatar: string;
 }
 
 function generateFirstName(): string {
@@ -32,6 +32,6 @@ export function generateUserdata(): User {
 	const id = Math.random().toString(36).substr(2, 9);
 	const name = generateName();
 	const email = generateEmail(name);
-	const image = `https://i.pravatar.cc/150?u=${id}`;
-	return { id, name, email, image };
+	const avatar = `https://i.pravatar.cc/150?u=${id}`;
+	return { id, name, email, avatar };
 }

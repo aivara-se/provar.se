@@ -5,14 +5,15 @@ export type CNPSQuestionType = 'rating-11p';
 export interface CNPSFeedback {
 	'question-type': CNPSQuestionType;
 	'response-data': number;
-	'response-text'?: string;
+	'response-text': string;
 }
 
 export function generateCNPSFeedback(): CNPSFeedback {
 	const responseData = Math.floor(Math.random() * 11);
 	const result: CNPSFeedback = {
 		'question-type': 'rating-11p',
-		'response-data': responseData
+		'response-data': responseData,
+		'response-text': ''
 	};
 	const shouldHaveText = Math.random() > 0.25;
 	if (!shouldHaveText) {
