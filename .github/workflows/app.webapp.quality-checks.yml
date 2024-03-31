@@ -18,8 +18,10 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      actions: read
       contents: read
       deployments: write
+      security-events: write
 
     defaults:
       run:
@@ -35,6 +37,11 @@ jobs:
           node-version: 20
           cache: "yarn"
           cache-dependency-path: "yarn.lock"
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: "javascript-typescript"
 
       - name: Setup Yarn
         run: yarn install --silent
@@ -56,6 +63,11 @@ jobs:
 
       - name: Check unit tests
         run: yarn test:unit
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:javascript-typescript"
 
       - name: Publish to Cloudflare
         uses: cloudflare/pages-action@v1
