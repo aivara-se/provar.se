@@ -18,11 +18,16 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      actions: read
       contents: read
+      security-events: write
 
     defaults:
       run:
         working-directory: ./apps/webapi
+
+    env:
+      CODEQL_EXTRACTOR_GO_BUILD_TRACING: on
 
     steps:
       - name: Checkout
@@ -33,6 +38,11 @@ jobs:
         with:
           go-version: "1.22.1"
           cache-dependency-path: apps/webapi/go.sum
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: "go"
 
       - name: Install dependencies
         run: go mod download
@@ -69,7 +79,18 @@ jobs:
           GEOLITE2_DB: ../../GeoLite2-City.mmdb
           PROVAR_API_URL: http://localhost:3001
           PROVAR_APP_URL: http://localhost:3002
-        run: go test ./... -v
+        run: go test ./... -json | tee unit-test-results.json
+
+      - name: Upload unit test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: Unit test results
+          path: unit-test-results.json
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:go"
 
       - name: Stop dependencies
         if: always()
