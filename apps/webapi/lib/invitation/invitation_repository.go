@@ -103,7 +103,7 @@ func DeleteByID(id string) error {
 // the invitation
 func (i *Invitation) Link() string {
 	cfg := config.Get()
-	return cfg.Provar.AppURL + "/auth/invitation/accept/" + i.Secret
+	return cfg.Provar.AppURL + "/auth/accept?organizationId=" + i.OrganizationID + "&invitationId=" + i.ID + "&secret=" + i.Secret
 }
 
 // IsAcceptable returns true if the invitation can be accepted by the user
