@@ -15,12 +15,12 @@ model FeedbackSearch {
 
 model FeedbackCreate {
   questionType: string;
-  feedbackTime: string;
   feedbackType: "text" | "cnps" | "csat";
+  feedbackTime: string;
   feedbackData: Record<string>;
-  feedbackTags: Record<string>;
-  feedbackMeta: Record<string>;
-  feedbackUser: Record<string>;
+  feedbackTags?: Record<string>;
+  feedbackMeta?: Record<string>;
+  feedbackUser?: Record<string>;
 }
 
 @useAuth(BearerAuth)

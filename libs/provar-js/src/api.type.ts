@@ -30,6 +30,16 @@ export interface paths {
 	'/organization/{organizationId}/credentials': {
 		get: operations['Credential_list'];
 	};
+	'/organization/{organizationId}/feedback': {
+		post: operations['Feedback_create'];
+	};
+	'/organization/{organizationId}/feedback/{feedbackId}': {
+		get: operations['Feedback_details'];
+		delete: operations['Feedback_delete'];
+	};
+	'/organization/{organizationId}/feedbacks': {
+		post: operations['Feedback_search'];
+	};
 	'/organization/{organizationId}/invitation': {
 		post: operations['Invitation_create'];
 	};
@@ -79,6 +89,61 @@ export interface components {
 			organizationId: string;
 			name: string;
 			secret: string;
+		};
+		FeedbackCreate: {
+			questionType: string;
+			/** @enum {string} */
+			feedbackType: 'text' | 'cnps' | 'csat';
+			feedbackTime: string;
+			feedbackData: {
+				[key: string]: string;
+			};
+			feedbackTags?: {
+				[key: string]: string;
+			};
+			feedbackMeta?: {
+				[key: string]: string;
+			};
+			feedbackUser?: {
+				[key: string]: string;
+			};
+		};
+		FeedbackDetails: {
+			id: string;
+			organizationId: string;
+			createdAt: string;
+			questionType: string;
+			feedbackTime: string;
+			/** @enum {string} */
+			feedbackType: 'text' | 'cnps' | 'csat';
+			feedbackData: {
+				[key: string]: string;
+			};
+			feedbackTags: {
+				[key: string]: string;
+			};
+			feedbackMeta: {
+				[key: string]: string;
+			};
+			feedbackUser: {
+				[key: string]: string;
+			};
+		};
+		FeedbackSearch: {
+			begTimestamp?: string;
+			endTimestamp?: string;
+			questionType?: string;
+			/** @enum {string} */
+			feedbackType?: 'text' | 'cnps' | 'csat';
+			feedbackTags?: {
+				[key: string]: string;
+			};
+			feedbackMeta?: {
+				[key: string]: string;
+			};
+			feedbackUser?: {
+				[key: string]: string;
+			};
 		};
 		InvitationDetails: {
 			id: string;
@@ -293,6 +358,76 @@ export interface operations {
 			200: {
 				content: {
 					'application/json': components['schemas']['CredentialDetails'][];
+				};
+			};
+		};
+	};
+	Feedback_create: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['FeedbackCreate'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['FeedbackDetails'];
+				};
+			};
+		};
+	};
+	Feedback_details: {
+		parameters: {
+			path: {
+				organizationId: string;
+				feedbackId: string;
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['FeedbackDetails'];
+				};
+			};
+		};
+	};
+	Feedback_delete: {
+		parameters: {
+			path: {
+				organizationId: string;
+				feedbackId: string;
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
+			};
+		};
+	};
+	Feedback_search: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['FeedbackSearch'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['FeedbackDetails'][];
 				};
 			};
 		};

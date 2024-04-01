@@ -18,16 +18,16 @@ const (
 
 // Feedback struct represents the feedback table in the database
 type Feedback struct {
-	ID             string            `db:"id" json:"id"`
-	OrganizationID string            `db:"organization_id" json:"organizationId"`
-	CreatedAt      time.Time         `db:"created_at" json:"createdAt"`
-	QuestionType   string            `db:"question_type" json:"questionType"`
-	FeedbackTime   time.Time         `db:"feedback_time" json:"feedbackTime"`
-	FeedbackType   FeedbackType      `db:"feedback_type" json:"feedbackType"`
-	FeedbackData   map[string]string `db:"feedback_data" json:"feedbackData"`
-	FeedbackTags   map[string]string `db:"feedback_tags" json:"feedbackTags"`
-	FeedbackMeta   map[string]string `db:"feedback_meta" json:"feedbackMeta"`
-	FeedbackUser   map[string]string `db:"feedback_user" json:"feedbackUser"`
+	ID             string             `db:"id" json:"id"`
+	OrganizationID string             `db:"organization_id" json:"organizationId"`
+	CreatedAt      time.Time          `db:"created_at" json:"createdAt"`
+	QuestionType   string             `db:"question_type" json:"questionType"`
+	FeedbackTime   time.Time          `db:"feedback_time" json:"feedbackTime"`
+	FeedbackType   FeedbackType       `db:"feedback_type" json:"feedbackType"`
+	FeedbackData   database.StringMap `db:"feedback_data" json:"feedbackData"`
+	FeedbackTags   database.StringMap `db:"feedback_tags" json:"feedbackTags"`
+	FeedbackMeta   database.StringMap `db:"feedback_meta" json:"feedbackMeta"`
+	FeedbackUser   database.StringMap `db:"feedback_user" json:"feedbackUser"`
 }
 
 // CreateFeedbackData represents the data needed to create a new feedback
@@ -65,6 +65,8 @@ func Create(organizationID string, data *CreateFeedbackData) (*Feedback, error) 
 
 // SearchFeedbackData represents the data needed to search for feedback
 type SearchFeedbackData struct {
+	PageLimit    int
+	PageOffset   int
 	BegTimestamp time.Time
 	EndTimestamp time.Time
 	QuestionType string
@@ -74,10 +76,66 @@ type SearchFeedbackData struct {
 	FeedbackUser map[string]string
 }
 
-// Search searches for feedback in the database with given data
-func Search(organizationID string, data *SearchFeedbackData) ([]*Feedback, error) {
+// Search searches for feedback in the database with given data.
+// Returns paginated feedbacks and the total count of feedbacks.
+func Search(organizationID string, data *SearchFeedbackData) ([]*Feedback, int, error) {
+	tx, err := database.DB().Beginx()
+	if err != nil {
+		tx.Rollback()
+		return nil, 0, err
+	}
 	feedbacks := []*Feedback{}
-	query := "SELECT * FROM private.feedback WHERE organization_id = $1"
+	query, argv := searchQuery(organizationID, data, false)
+	err = tx.Select(&feedbacks, query, argv...)
+	if err != nil {
+		tx.Rollback()
+		return nil, 0, err
+	}
+	var count int
+	query, argv = searchQuery(organizationID, data, true)
+	err = tx.Get(&count, query, argv...)
+	if err != nil {
+		tx.Rollback()
+		return nil, 0, err
+	}
+	err = tx.Commit()
+	if err != nil {
+		return nil, 0, err
+	}
+	return feedbacks, count, nil
+}
+
+// FindByID returns a feedback with the given id
+func FindByID(id string) (*Feedback, error) {
+	fb := &Feedback{}
+	query := "SELECT * FROM private.feedback WHERE id = $1"
+	err := database.DB().Get(fb, query, id)
+	if err != nil {
+		return nil, err
+	}
+	return fb, nil
+}
+
+// DeleteByID deletes a feedback with the given id
+func DeleteByID(id string) error {
+	query := "DELETE FROM private.feedback WHERE id = $1"
+	_, err := database.DB().Exec(query, id)
+	return err
+}
+
+// DeleteByID deletes a feedback with the given id
+func (f *Feedback) Delete() error {
+	return DeleteByID(f.ID)
+}
+
+// searchQuery returns the query string for searching feedback with given data
+func searchQuery(organizationID string, data *SearchFeedbackData, count bool) (string, []interface{}) {
+	var query string
+	if count {
+		query = "SELECT COUNT(*) FROM private.feedback WHERE organization_id = $1"
+	} else {
+		query = "SELECT * FROM private.feedback WHERE organization_id = $1"
+	}
 	argv := []interface{}{organizationID}
 	argc := 1
 	if !data.BegTimestamp.IsZero() {
@@ -115,32 +173,18 @@ func Search(organizationID string, data *SearchFeedbackData) ([]*Feedback, error
 		argv = append(argv, k, v)
 		argc += 2
 	}
-	err := database.DB().Select(&feedbacks, query, argv...)
-	if err != nil {
-		return nil, err
+	if !count {
+		query += " ORDER BY created_at DESC"
+		if data.PageLimit > 0 {
+			query += " LIMIT $" + fmt.Sprint(argc)
+			argv = append(argv, data.PageLimit)
+			argc++
+		}
+		if data.PageOffset > 0 {
+			query += " OFFSET $" + fmt.Sprint(argc)
+			argv = append(argv, data.PageOffset)
+			argc++
+		}
 	}
-	return feedbacks, nil
-}
-
-// FindByID returns a feedback with the given id
-func FindByID(id string) (*Feedback, error) {
-	fb := &Feedback{}
-	query := "SELECT * FROM private.feedback WHERE id = $1"
-	err := database.DB().Get(fb, query, id)
-	if err != nil {
-		return nil, err
-	}
-	return fb, nil
-}
-
-// DeleteByID deletes a feedback with the given id
-func DeleteByID(id string) error {
-	query := "DELETE FROM private.feedback WHERE id = $1"
-	_, err := database.DB().Exec(query, id)
-	return err
-}
-
-// DeleteByID deletes a feedback with the given id
-func (f *Feedback) Delete() error {
-	return DeleteByID(f.ID)
+	return query, argv
 }

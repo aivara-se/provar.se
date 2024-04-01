@@ -6,8 +6,11 @@ import (
 )
 
 func SetupSecureHealthcheck(app *fiber.App) {
-	app.Get("/ping/secure", access.AuthenticatedGuard())
-	app.Get("/ping/secure", func(c *fiber.Ctx) error {
+	path := "/ping/secure"
+
+	app.Get(path, access.AuthenticatedGuard())
+
+	app.Get(path, func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNoContent)
 	})
 }

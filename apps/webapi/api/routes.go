@@ -10,6 +10,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"provar.se/webapi/api/auth"
 	"provar.se/webapi/api/credential"
+	"provar.se/webapi/api/feedback"
 	"provar.se/webapi/api/invitation"
 	"provar.se/webapi/api/organization"
 	"provar.se/webapi/api/ping"
@@ -48,6 +49,10 @@ func Create() *fiber.App {
 	credential.SetupCreateCredential(app)
 	credential.SetupDeleteCredential(app)
 	credential.SetupOrganizationCredentials(app)
+	feedback.SetupCreateFeedback(app)
+	feedback.SetupDeleteInvitation(app)
+	feedback.SetupFeedbackDetails(app)
+	feedback.SetupSearchFeedback(app)
 	invitation.SetupAcceptInvitation(app)
 	invitation.SetupCreateInvitation(app)
 	invitation.SetupDeleteInvitation(app)
