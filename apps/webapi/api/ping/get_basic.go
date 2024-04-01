@@ -5,7 +5,9 @@ import (
 )
 
 func SetupBasicHealthcheck(app *fiber.App) {
-	app.Get("/ping", func(c *fiber.Ctx) error {
+	path := "/ping"
+
+	app.Get(path, func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNoContent)
 	})
 }

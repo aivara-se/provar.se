@@ -24,9 +24,9 @@ func SetupCreateInvitation(app *fiber.App) {
 	path := "/organization/:organizationId/invitation"
 
 	app.Post(path, access.AuthenticatedGuard())
-	app.Post(path, validator.ValidateMiddleware(CreateCreateInvitationRequestBody))
 	app.Post(path, organization.Loader(router.FromPathParam("organizationId")))
 	app.Post(path, access.MembershipGuard())
+	app.Post(path, validator.ValidateMiddleware(CreateCreateInvitationRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
 		orgID := c.Params("organizationId")

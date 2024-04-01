@@ -2,6 +2,7 @@ import {
 	createAuthenticationEndpoints,
 	createCredentialEndpoints,
 	createEmailAuthenticationEndpoints,
+	createFeedbackEndpoints,
 	createHealthCheckEndpoints,
 	createInvitationEndpoints,
 	createOrganizationEndpoints
@@ -23,12 +24,13 @@ export class ProvarClient {
 	/**
 	 * Grouped API endpoints
 	 */
-	EmailAuthentication;
 	Authentication;
-	Organization;
 	Credential;
-	Invitation;
+	EmailAuthentication;
+	Feedback;
 	HealthCheck;
+	Invitation;
+	Organization;
 
 	/**
 	 * The fetcher to use for sending requests.
@@ -40,11 +42,12 @@ export class ProvarClient {
 	 */
 	constructor(options: ClientOptions) {
 		this.fetcher = options.fetcher || new DefaultFetcher(options.token);
-		this.EmailAuthentication = createEmailAuthenticationEndpoints(this.fetcher);
 		this.Authentication = createAuthenticationEndpoints(this.fetcher);
-		this.Organization = createOrganizationEndpoints(this.fetcher);
 		this.Credential = createCredentialEndpoints(this.fetcher);
-		this.Invitation = createInvitationEndpoints(this.fetcher);
+		this.EmailAuthentication = createEmailAuthenticationEndpoints(this.fetcher);
+		this.Feedback = createFeedbackEndpoints(this.fetcher);
 		this.HealthCheck = createHealthCheckEndpoints(this.fetcher);
+		this.Invitation = createInvitationEndpoints(this.fetcher);
+		this.Organization = createOrganizationEndpoints(this.fetcher);
 	}
 }

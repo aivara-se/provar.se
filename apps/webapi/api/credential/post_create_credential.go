@@ -24,9 +24,9 @@ func SetupCreateCredential(app *fiber.App) {
 
 	app.Post(path, access.AuthenticatedGuard())
 	app.Post(path, access.OnlyAllowUsersGuard())
-	app.Post(path, validator.ValidateMiddleware(CreateCreateCredentialRequestBody))
 	app.Post(path, organization.Loader(router.FromPathParam("organizationId")))
 	app.Post(path, access.MembershipGuard())
+	app.Post(path, validator.ValidateMiddleware(CreateCreateCredentialRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)

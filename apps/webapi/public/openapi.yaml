@@ -569,16 +569,11 @@ components:
       type: object
       required:
         - questionType
-        - feedbackTime
         - feedbackType
+        - feedbackTime
         - feedbackData
-        - feedbackTags
-        - feedbackMeta
-        - feedbackUser
       properties:
         questionType:
-          type: string
-        feedbackTime:
           type: string
         feedbackType:
           type: string
@@ -588,6 +583,8 @@ components:
             - csat
             - cnps
             - csat
+        feedbackTime:
+          type: string
         feedbackData:
           type: object
           additionalProperties:
@@ -656,6 +653,8 @@ components:
         begTimestamp:
           type: string
         endTimestamp:
+          type: string
+        questionType:
           type: string
         feedbackType:
           type: string

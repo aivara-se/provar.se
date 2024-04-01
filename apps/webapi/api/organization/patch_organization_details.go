@@ -24,9 +24,9 @@ func SetupUpdateOrganizationDetails(app *fiber.App) {
 	path := "/organization/:organizationId"
 
 	app.Patch(path, access.AuthenticatedGuard())
-	app.Patch(path, validator.ValidateMiddleware(CreateUpdateOrganizationRequestBody))
 	app.Patch(path, organization.Loader(router.FromPathParam("organizationId")))
 	app.Patch(path, access.MembershipGuard())
+	app.Patch(path, validator.ValidateMiddleware(CreateUpdateOrganizationRequestBody))
 
 	app.Patch(path, func(c *fiber.Ctx) error {
 		org := organization.GetOrganization(c)

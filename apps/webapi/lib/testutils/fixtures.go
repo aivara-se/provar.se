@@ -1,8 +1,11 @@
 package testutils
 
 import (
+	"time"
+
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/credential"
+	"provar.se/webapi/lib/feedback"
 	"provar.se/webapi/lib/invitation"
 	"provar.se/webapi/lib/organization"
 	"provar.se/webapi/lib/random"
@@ -62,4 +65,19 @@ func CreateCredential(orgID, userID string) *credential.Credential {
 		panic(err)
 	}
 	return cred
+}
+
+// CreateFeedback creates a new test feedback for the given organization
+func CreateFeedback(orgID string) *feedback.Feedback {
+	data := &feedback.CreateFeedbackData{
+		QuestionType: "default",
+		FeedbackTime: time.Now(),
+		FeedbackType: feedback.TextFeedback,
+		FeedbackData: map[string]string{"text": "test-feedback-text"},
+	}
+	fb, err := feedback.Create(orgID, data)
+	if err != nil {
+		panic(err)
+	}
+	return fb
 }

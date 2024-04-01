@@ -73,6 +73,25 @@ export type Credential = {
 	};
 };
 
+export type Feedback = {
+	create: {
+		RequestBody: paths['/organization/{organizationId}/feedback']['post']['requestBody']['content']['application/json'];
+		ResponseBody: paths['/organization/{organizationId}/feedback']['post']['responses'][200]['content']['application/json'];
+	};
+	details: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/feedback/{feedbackId}']['get']['responses'][200]['content']['application/json'];
+	};
+	delete: {
+		RequestBody: void;
+		ResponseBody: paths['/organization/{organizationId}/feedback/{feedbackId}']['delete']['responses'][204]['content']['application/json'];
+	};
+	search: {
+		RequestBody: paths['/organization/{organizationId}/feedbacks']['post']['requestBody']['content']['application/json'];
+		ResponseBody: paths['/organization/{organizationId}/feedbacks']['post']['responses'][200]['content']['application/json'];
+	};
+};
+
 export type Invitation = {
 	create: {
 		RequestBody: paths['/organization/{organizationId}/invitation']['post']['requestBody']['content']['application/json'];
@@ -227,6 +246,49 @@ export const createCredentialEndpoints = (f: Fetcher) => {
 			return f.fetch<Credential['list']['ResponseBody']>(
 				'GET',
 				`/organization/${organizationId}/credentials`
+			);
+		}
+	};
+};
+
+export const createFeedbackEndpoints = (f: Fetcher) => {
+	return {
+		create: async (
+			organizationId: string,
+			body: Feedback['create']['RequestBody']
+		): Promise<Feedback['create']['ResponseBody']> => {
+			return f.fetch<Feedback['create']['ResponseBody'], Feedback['create']['RequestBody']>(
+				'POST',
+				`/organization/${organizationId}/feedback`,
+				body
+			);
+		},
+		details: async (
+			organizationId: string,
+			feedbackId: string
+		): Promise<Feedback['details']['ResponseBody']> => {
+			return f.fetch<Feedback['details']['ResponseBody']>(
+				'GET',
+				`/organization/${organizationId}/feedback/${feedbackId}`
+			);
+		},
+		delete: async (
+			organizationId: string,
+			feedbackId: string
+		): Promise<Feedback['delete']['ResponseBody']> => {
+			return f.fetch<Feedback['delete']['ResponseBody']>(
+				'DELETE',
+				`/organization/${organizationId}/feedback/${feedbackId}`
+			);
+		},
+		search: async (
+			organizationId: string,
+			body: Feedback['search']['RequestBody']
+		): Promise<Feedback['search']['ResponseBody']> => {
+			return f.fetch<Feedback['search']['ResponseBody'], Feedback['search']['RequestBody']>(
+				'POST',
+				`/organization/${organizationId}/feedbacks`,
+				body
 			);
 		}
 	};

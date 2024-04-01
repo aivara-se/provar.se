@@ -24,8 +24,11 @@ type LoginWithEmailConfirmResponseBody struct {
 }
 
 func SetupLoginWithEmailConfirm(app *fiber.App) {
-	app.Post("/auth/email/confirm", validator.ValidateMiddleware(CreateLoginWithEmailConfirmRequestBody))
-	app.Post("/auth/email/confirm", func(c *fiber.Ctx) error {
+	path := "/auth/email/confirm"
+
+	app.Post(path, validator.ValidateMiddleware(CreateLoginWithEmailConfirmRequestBody))
+
+	app.Post(path, func(c *fiber.Ctx) error {
 		body := validator.GetRequestBody(c).(*LoginWithEmailConfirmRequestBody)
 		accessToken, err := access.ConfirmLoginWithEmail(body.Token)
 		if err != nil {

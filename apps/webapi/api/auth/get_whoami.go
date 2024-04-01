@@ -16,8 +16,11 @@ type GetLoginDetailsResponseBody struct {
 }
 
 func SetupGetLoginDetails(app *fiber.App) {
-	app.Get("/auth/whoami", access.AuthenticatedGuard())
-	app.Get("/auth/whoami", func(c *fiber.Ctx) error {
+	path := "/auth/whoami"
+
+	app.Get(path, access.AuthenticatedGuard())
+
+	app.Get(path, func(c *fiber.Ctx) error {
 		principal := access.GetPrincipal(c)
 		if principal.Type == permission.PrincipalTypeUser {
 			return c.JSON(GetLoginDetailsResponseBody{
