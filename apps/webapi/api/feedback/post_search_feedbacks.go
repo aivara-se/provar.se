@@ -13,15 +13,15 @@ import (
 
 // SearchFeedbackRequestBody is the request body for searching feedbacks
 type SearchFeedbackRequestBody struct {
-	PageLimit    int                   `json:"pageLimit" validate:"gte=0,lte=1000"`
-	PageOffset   int                   `json:"pageOffset" validate:"gte=0"`
-	QuestionType string                `json:"questionType"`
-	BegTimestamp time.Time             `json:"begTimestamp"`
-	EndTimestamp time.Time             `json:"endTimestamp"`
-	FeedbackType feedback.FeedbackType `json:"feedbackType"`
-	FeedbackTags map[string]string     `json:"feedbackTags"`
-	FeedbackMeta map[string]string     `json:"feedbackMeta"`
-	FeedbackUser map[string]string     `json:"feedbackUser"`
+	PageLimit    int                     `json:"pageLimit" validate:"gte=0,lte=1000"`
+	PageOffset   int                     `json:"pageOffset" validate:"gte=0"`
+	QuestionType string                  `json:"questionType"`
+	BegTimestamp time.Time               `json:"begTimestamp"`
+	EndTimestamp time.Time               `json:"endTimestamp"`
+	FeedbackType []feedback.FeedbackType `json:"feedbackType"`
+	FeedbackTags map[string]string       `json:"feedbackTags"`
+	FeedbackMeta map[string]string       `json:"feedbackMeta"`
+	FeedbackUser map[string]string       `json:"feedbackUser"`
 }
 
 // SearchFeedbackResponseBody is the response body for searching feedbacks

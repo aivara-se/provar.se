@@ -297,9 +297,18 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/FeedbackDetails'
+                type: object
+                properties:
+                  total:
+                    type: number
+                    format: double
+                  feedbacks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FeedbackDetails'
+                required:
+                  - total
+                  - feedbacks
       requestBody:
         required: true
         content:
@@ -576,13 +585,7 @@ components:
         questionType:
           type: string
         feedbackType:
-          type: string
-          enum:
-            - text
-            - cnps
-            - csat
-            - cnps
-            - csat
+          $ref: '#/components/schemas/FeedbackType'
         feedbackTime:
           type: string
         feedbackData:
@@ -626,11 +629,7 @@ components:
         feedbackTime:
           type: string
         feedbackType:
-          type: string
-          enum:
-            - text
-            - cnps
-            - csat
+          $ref: '#/components/schemas/FeedbackType'
         feedbackData:
           type: object
           additionalProperties:
@@ -657,13 +656,9 @@ components:
         questionType:
           type: string
         feedbackType:
-          type: string
-          enum:
-            - text
-            - cnps
-            - csat
-            - cnps
-            - csat
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedbackType'
         feedbackTags:
           type: object
           additionalProperties:
@@ -676,6 +671,12 @@ components:
           type: object
           additionalProperties:
             type: string
+    FeedbackType:
+      type: string
+      enum:
+        - text
+        - cnps
+        - csat
     InvitationDetails:
       type: object
       required:

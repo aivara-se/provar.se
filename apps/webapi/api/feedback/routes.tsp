@@ -7,7 +7,7 @@ model FeedbackSearch {
   begTimestamp?: string;
   endTimestamp?: string;
   questionType?: string;
-  feedbackType?: "text" | "cnps" | "csat";
+  feedbackType?: FeedbackType[];
   feedbackTags?: Record<string>;
   feedbackMeta?: Record<string>;
   feedbackUser?: Record<string>;
@@ -15,7 +15,7 @@ model FeedbackSearch {
 
 model FeedbackCreate {
   questionType: string;
-  feedbackType: "text" | "cnps" | "csat";
+  feedbackType: FeedbackType;
   feedbackTime: string;
   feedbackData: Record<string>;
   feedbackTags?: Record<string>;
@@ -27,7 +27,10 @@ model FeedbackCreate {
 interface Feedback {
   @post()
   @route("/organization/{organizationId}/feedbacks")
-  search(organizationId: string, @body req: FeedbackSearch): FeedbackDetails[];
+  search(organizationId: string, @body req: FeedbackSearch): {
+    total: float64,
+    feedbacks: FeedbackDetails[]
+  };
 
   @post()
   @route("/organization/{organizationId}/feedback")

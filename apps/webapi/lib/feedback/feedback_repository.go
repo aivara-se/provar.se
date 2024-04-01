@@ -70,7 +70,7 @@ type SearchFeedbackData struct {
 	BegTimestamp time.Time
 	EndTimestamp time.Time
 	QuestionType string
-	FeedbackType FeedbackType
+	FeedbackType []FeedbackType
 	FeedbackTags map[string]string
 	FeedbackMeta map[string]string
 	FeedbackUser map[string]string
@@ -153,10 +153,17 @@ func searchQuery(organizationID string, data *SearchFeedbackData, count bool) (s
 		argv = append(argv, data.QuestionType)
 		argc++
 	}
-	if data.FeedbackType != "" {
-		query += " AND feedback_type = $" + fmt.Sprint(argc)
-		argv = append(argv, data.FeedbackType)
-		argc++
+	if len(data.FeedbackType) > 0 {
+		query += " AND feedback_type IN ("
+		for i, ft := range data.FeedbackType {
+			query += "$" + fmt.Sprint(argc+i)
+			argv = append(argv, ft)
+			if i < len(data.FeedbackType)-1 {
+				query += ", "
+			}
+		}
+		query += ")"
+		argc += len(data.FeedbackType)
 	}
 	for k, v := range data.FeedbackTags {
 		query += " AND feedback_tags->>$" + fmt.Sprint(argc) + " = $" + fmt.Sprint(argc+1)
