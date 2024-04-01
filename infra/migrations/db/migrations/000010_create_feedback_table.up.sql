@@ -12,5 +12,5 @@ CREATE TABLE private.feedback (
     feedback_user JSONB NOT NULL
 );
 
--- Index on organization_id column of private.feedback table
-CREATE INDEX idx_feedback_organization_id ON private.feedback(organization_id);
+-- Index on organization_id and created_at columns of private.feedback table
+CREATE INDEX idx_feedback_organization_id_created_at ON private.feedback(organization_id, created_at);
