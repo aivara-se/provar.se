@@ -5,12 +5,12 @@
 
 	export let feedback: Feedback;
 
-	function filterByMetadata(key: string, val: unknown) {
+	function filterByMetadata(key: string, val: string) {
 		exploreWithValue(feedback.organizationId, { meta: { [key]: val } });
 	}
 </script>
 
-{#if Object.keys(feedback.meta || {}).length}
+{#if Object.keys(feedback.feedbackMeta || {}).length}
 	<section class="mt-4">
 		<h3 class="text-lg font-semibold">Feedback Metadata</h3>
 
@@ -24,14 +24,14 @@
 			</thead>
 
 			<tbody>
-				{#each Object.keys(feedback.meta || {}).sort() as key}
+				{#each Object.keys(feedback.feedbackMeta || {}).sort() as key}
 					<tr>
 						<th>{key}</th>
-						<td>{feedback.meta?.[key]}</td>
+						<td>{feedback.feedbackMeta?.[key]}</td>
 						<td class="text-right">
 							<button
 								class="btn btn-sm btn-ghost"
-								on:click={() => filterByMetadata(key, feedback.meta?.[key])}
+								on:click={() => filterByMetadata(key, feedback.feedbackMeta?.[key])}
 							>
 								<FilterIcon class="w-3 h-3" />
 							</button>

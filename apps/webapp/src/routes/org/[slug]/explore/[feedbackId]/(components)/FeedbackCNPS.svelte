@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { CNPSFeedback } from '$lib/client/types';
+	import type { Feedback } from '$lib/client/types';
 	import { StarIcon } from 'lucide-svelte';
 
 	interface Details {
@@ -8,40 +8,41 @@
 		description: string;
 	}
 
-	export let feedback: CNPSFeedback;
+	export let feedback: Feedback;
 
-	function getDetails(value: number): Details {
-		if (value >= 0 && value <= 0.6) {
+	function getDetails(data: Record<string, string>): Details {
+		const value = parseInt(data['response-data']);
+		if (value >= 0 && value <= 6) {
 			return {
 				title: 'Detractor',
-				rating: Math.round(value * 10),
+				rating: value,
 				description:
 					'Detractors are unhappy customers who can damage your brand and impede growth. They are unlikely to recommend your product or service.'
 			};
-		} else if (value > 0.6 && value <= 0.8) {
+		} else if (value > 6 && value <= 8) {
 			return {
 				title: 'Passive',
-				rating: Math.round(value * 10),
+				rating: value,
 				description:
 					'Passives are satisfied but unenthusiastic customers. They may switch to competitors and are less likely to spread positive word-of-mouth.'
 			};
-		} else if (value > 0.8 && value <= 1) {
+		} else if (value > 8 && value <= 10) {
 			return {
 				title: 'Promoter',
-				rating: Math.round(value * 10),
+				rating: value,
 				description:
 					'Promoters are your loyal and enthusiastic customers. They love your product or service and are likely to recommend it to others.'
 			};
 		}
 		return {
 			title: 'Invalid Range',
-			rating: Math.round(value * 10),
+			rating: value,
 			description:
 				'The Net Promoter Score ranges from 0 to 1. Please provide a valid score within this range.'
 		};
 	}
 
-	$: details = getDetails(feedback.data.cnps);
+	$: details = getDetails(feedback.feedbackData);
 </script>
 
 <section class="mt-4">

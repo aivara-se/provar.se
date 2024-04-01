@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { CSATFeedback } from '$lib/client/types';
+	import type { Feedback } from '$lib/client/types';
 	import { HeartIcon } from 'lucide-svelte';
 
 	interface Details {
@@ -8,40 +8,41 @@
 		description: string;
 	}
 
-	export let feedback: CSATFeedback;
+	export let feedback: Feedback;
 
-	function getDetails(value: number): Details {
-		if (value >= 0 && value <= 0.6) {
+	function getDetails(data: Record<string, string>): Details {
+		const value = parseInt(data['response-data']);
+		if (value >= 0 && value <= 6) {
 			return {
 				title: 'Low Satisfaction',
-				rating: Math.round(value * 10),
+				rating: value,
 				description:
 					'Customers have expressed low satisfaction levels with your product or service. Improvement is needed.'
 			};
-		} else if (value > 0.6 && value <= 0.8) {
+		} else if (value > 6 && value <= 8) {
 			return {
 				title: 'Moderate Satisfaction',
-				rating: Math.round(value * 10),
+				rating: value,
 				description:
 					'Customers are moderately satisfied, but there is room for enhancement to increase satisfaction levels.'
 			};
-		} else if (value > 0.8 && value <= 1) {
+		} else if (value > 8 && value <= 1) {
 			return {
 				title: 'High Satisfaction',
-				rating: Math.round(value * 10),
+				rating: value,
 				description:
 					'Customers are highly satisfied with your product or service. Keep up the good work!'
 			};
 		}
 		return {
 			title: 'Invalid Range',
-			rating: Math.round(value * 10),
+			rating: value,
 			description:
 				'The Customer Satisfaction Score ranges from 0 to 1. Please provide a valid score within this range.'
 		};
 	}
 
-	$: details = getDetails(feedback.data.csat);
+	$: details = getDetails(feedback.feedbackData);
 </script>
 
 <section class="mt-4">

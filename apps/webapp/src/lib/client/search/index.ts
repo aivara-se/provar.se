@@ -2,7 +2,7 @@ import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
 import uniq from 'lodash/uniq';
 import { get, readonly, writable, type Readable } from 'svelte/store';
-import { FeedbackType } from '../types';
+import type { FeedbackType } from '../types';
 
 /**
  * The name of the search query parameter in the URL.
@@ -98,12 +98,12 @@ function parseTypes(typeStr: string): FeedbackType[] {
 	const types: FeedbackType[] = [];
 	const parts = typeStr.split(',').map((v) => v.trim().toLowerCase());
 	for (const part of parts) {
-		if (part === 'cnps' || part === 'nps') {
-			types.push(FeedbackType.CNPS);
+		if (part === 'cnps') {
+			types.push('cnps');
 		} else if (part === 'csat') {
-			types.push(FeedbackType.CSAT);
-		} else if (part === 'text' || part === 'txt') {
-			types.push(FeedbackType.Text);
+			types.push('csat');
+		} else if (part === 'text') {
+			types.push('text');
 		}
 	}
 	return types;
