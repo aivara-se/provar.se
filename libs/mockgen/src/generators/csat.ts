@@ -4,7 +4,7 @@ export type CSATQuestionType = 'rating-11p';
 
 export interface CSATFeedback {
 	'question-type': CSATQuestionType;
-	'response-data': number;
+	'response-data': string;
 	'response-text': string;
 }
 
@@ -12,7 +12,7 @@ export function generateCSATFeedback(): CSATFeedback {
 	const responseData = Math.floor(Math.random() * 11);
 	const result: CSATFeedback = {
 		'question-type': 'rating-11p',
-		'response-data': responseData,
+		'response-data': String(responseData),
 		'response-text': ''
 	};
 	const shouldHaveText = Math.random() > 0.25;

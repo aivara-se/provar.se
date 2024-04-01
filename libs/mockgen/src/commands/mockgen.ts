@@ -68,11 +68,11 @@ for (const feedbackType of feedbackTypes) {
 		const record = generateFeedback(feedbackType, feedbackPeriod);
 		const csvrow: Record<string, unknown> = {
 			type: record.type,
-			time: record.time.toISOString(),
-			'question-type': 'question-type' in record.data ? record.data['question-type'] : '',
-			'response-data': 'response-data' in record.data ? record.data['response-data'] : '',
-			'response-text': 'response-text' in record.data ? record.data['response-text'] : ''
+			time: record.time.toISOString()
 		};
+		for (const [key, value] of Object.entries(record.data)) {
+			csvrow[`data.${key}`] = value;
+		}
 		for (const [key, value] of Object.entries(record.meta)) {
 			csvrow[`meta.${key}`] = value;
 		}
