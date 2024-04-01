@@ -13,7 +13,6 @@ import (
 
 // CreateFeedbackRequestBody is the request body for creating an feedback
 type CreateFeedbackRequestBody struct {
-	QuestionType string                `json:"questionType" validate:"required"`
 	FeedbackType feedback.FeedbackType `json:"feedbackType" validate:"required"`
 	FeedbackTime time.Time             `json:"feedbackTime" validate:"required"`
 	FeedbackData map[string]string     `json:"feedbackData" validate:"required"`
@@ -39,7 +38,6 @@ func SetupCreateFeedback(app *fiber.App) {
 		orgID := c.Params("organizationId")
 		body := validator.GetRequestBody(c).(*CreateFeedbackRequestBody)
 		_, err := feedback.Create(orgID, &feedback.CreateFeedbackData{
-			QuestionType: body.QuestionType,
 			FeedbackTime: body.FeedbackTime,
 			FeedbackType: body.FeedbackType,
 			FeedbackData: body.FeedbackData,

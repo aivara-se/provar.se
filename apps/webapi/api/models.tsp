@@ -63,7 +63,6 @@ model FeedbackDetails {
   id: string;
   organizationId: string;
   createdAt: string;
-  questionType: string;
   feedbackTime: string;
   feedbackType: FeedbackType;
   feedbackData: Record<string>;

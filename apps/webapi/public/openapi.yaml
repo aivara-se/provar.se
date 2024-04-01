@@ -577,13 +577,10 @@ components:
     FeedbackCreate:
       type: object
       required:
-        - questionType
         - feedbackType
         - feedbackTime
         - feedbackData
       properties:
-        questionType:
-          type: string
         feedbackType:
           $ref: '#/components/schemas/FeedbackType'
         feedbackTime:
@@ -610,7 +607,6 @@ components:
         - id
         - organizationId
         - createdAt
-        - questionType
         - feedbackTime
         - feedbackType
         - feedbackData
@@ -623,8 +619,6 @@ components:
         organizationId:
           type: string
         createdAt:
-          type: string
-        questionType:
           type: string
         feedbackTime:
           type: string
@@ -649,11 +643,15 @@ components:
     FeedbackSearch:
       type: object
       properties:
+        pageLimit:
+          type: number
+          format: double
+        pageOffset:
+          type: number
+          format: double
         begTimestamp:
           type: string
         endTimestamp:
-          type: string
-        questionType:
           type: string
         feedbackType:
           type: array

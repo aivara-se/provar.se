@@ -21,7 +21,6 @@ type Feedback struct {
 	ID             string             `db:"id" json:"id"`
 	OrganizationID string             `db:"organization_id" json:"organizationId"`
 	CreatedAt      time.Time          `db:"created_at" json:"createdAt"`
-	QuestionType   string             `db:"question_type" json:"questionType"`
 	FeedbackTime   time.Time          `db:"feedback_time" json:"feedbackTime"`
 	FeedbackType   FeedbackType       `db:"feedback_type" json:"feedbackType"`
 	FeedbackData   database.StringMap `db:"feedback_data" json:"feedbackData"`
@@ -32,7 +31,6 @@ type Feedback struct {
 
 // CreateFeedbackData represents the data needed to create a new feedback
 type CreateFeedbackData struct {
-	QuestionType string
 	FeedbackTime time.Time
 	FeedbackType FeedbackType
 	FeedbackData map[string]string
@@ -47,7 +45,6 @@ func Create(organizationID string, data *CreateFeedbackData) (*Feedback, error) 
 		ID:             database.NewID(),
 		OrganizationID: organizationID,
 		CreatedAt:      time.Now(),
-		QuestionType:   data.QuestionType,
 		FeedbackTime:   data.FeedbackTime,
 		FeedbackType:   data.FeedbackType,
 		FeedbackData:   data.FeedbackData,
@@ -56,8 +53,8 @@ func Create(organizationID string, data *CreateFeedbackData) (*Feedback, error) 
 		FeedbackUser:   data.FeedbackUser,
 	}
 	query := `
-		INSERT INTO private.feedback (id, organization_id, created_at, question_type, feedback_time, feedback_type, feedback_data, feedback_tags, feedback_meta, feedback_user)
-		VALUES (:id, :organization_id, :created_at, :question_type, :feedback_time, :feedback_type, :feedback_data, :feedback_tags, :feedback_meta, :feedback_user)
+		INSERT INTO private.feedback (id, organization_id, created_at, feedback_time, feedback_type, feedback_data, feedback_tags, feedback_meta, feedback_user)
+		VALUES (:id, :organization_id, :created_at, :feedback_time, :feedback_type, :feedback_data, :feedback_tags, :feedback_meta, :feedback_user)
 	`
 	_, err := database.DB().NamedExec(query, fb)
 	return fb, err
@@ -69,7 +66,6 @@ type SearchFeedbackData struct {
 	PageOffset   int
 	BegTimestamp time.Time
 	EndTimestamp time.Time
-	QuestionType string
 	FeedbackType []FeedbackType
 	FeedbackTags map[string]string
 	FeedbackMeta map[string]string
@@ -146,11 +142,6 @@ func searchQuery(organizationID string, data *SearchFeedbackData, count bool) (s
 	if !data.EndTimestamp.IsZero() {
 		query += " AND created_at <= $" + fmt.Sprint(argc)
 		argv = append(argv, data.EndTimestamp)
-		argc++
-	}
-	if data.QuestionType != "" {
-		query += " AND question_type = $" + fmt.Sprint(argc)
-		argv = append(argv, data.QuestionType)
 		argc++
 	}
 	if len(data.FeedbackType) > 0 {

@@ -4,9 +4,10 @@ import "../models.tsp";
 using TypeSpec.Http;
 
 model FeedbackSearch {
+  pageLimit?: float64;
+  pageOffset?: float64;
   begTimestamp?: string;
   endTimestamp?: string;
-  questionType?: string;
   feedbackType?: FeedbackType[];
   feedbackTags?: Record<string>;
   feedbackMeta?: Record<string>;
@@ -14,7 +15,6 @@ model FeedbackSearch {
 }
 
 model FeedbackCreate {
-  questionType: string;
   feedbackType: FeedbackType;
   feedbackTime: string;
   feedbackData: Record<string>;
