@@ -52,3 +52,16 @@ model PrincipalDetails {
   user?: UserDetails;
   credential?: CredentialDetails;
 }
+
+model FeedbackDetails {
+  id: string;
+  organizationId: string;
+  createdAt: string;
+  questionType: string;
+  feedbackTime: string;
+  feedbackType: "text" | "cnps" | "csat";
+  feedbackData: Record<string>;
+  feedbackTags: Record<string>;
+  feedbackMeta: Record<string>;
+  feedbackUser: Record<string>;
+}

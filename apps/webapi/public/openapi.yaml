@@ -217,6 +217,97 @@ paths:
                   $ref: '#/components/schemas/CredentialDetails'
       security:
         - BearerAuth: []
+  /organization/{organizationId}/feedback:
+    post:
+      operationId: Feedback_create
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackDetails'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackCreate'
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/feedback/{feedbackId}:
+    get:
+      operationId: Feedback_details
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: feedbackId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackDetails'
+      security:
+        - BearerAuth: []
+    delete:
+      operationId: Feedback_delete
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: feedbackId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/feedbacks:
+    post:
+      operationId: Feedback_search
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackDetails'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackSearch'
+      security:
+        - BearerAuth: []
   /organization/{organizationId}/invitation:
     post:
       operationId: Invitation_create
@@ -474,6 +565,118 @@ components:
           type: string
         secret:
           type: string
+    FeedbackCreate:
+      type: object
+      required:
+        - questionType
+        - feedbackTime
+        - feedbackType
+        - feedbackData
+        - feedbackTags
+        - feedbackMeta
+        - feedbackUser
+      properties:
+        questionType:
+          type: string
+        feedbackTime:
+          type: string
+        feedbackType:
+          type: string
+          enum:
+            - text
+            - cnps
+            - csat
+            - cnps
+            - csat
+        feedbackData:
+          type: object
+          additionalProperties:
+            type: string
+        feedbackTags:
+          type: object
+          additionalProperties:
+            type: string
+        feedbackMeta:
+          type: object
+          additionalProperties:
+            type: string
+        feedbackUser:
+          type: object
+          additionalProperties:
+            type: string
+    FeedbackDetails:
+      type: object
+      required:
+        - id
+        - organizationId
+        - createdAt
+        - questionType
+        - feedbackTime
+        - feedbackType
+        - feedbackData
+        - feedbackTags
+        - feedbackMeta
+        - feedbackUser
+      properties:
+        id:
+          type: string
+        organizationId:
+          type: string
+        createdAt:
+          type: string
+        questionType:
+          type: string
+        feedbackTime:
+          type: string
+        feedbackType:
+          type: string
+          enum:
+            - text
+            - cnps
+            - csat
+        feedbackData:
+          type: object
+          additionalProperties:
+            type: string
+        feedbackTags:
+          type: object
+          additionalProperties:
+            type: string
+        feedbackMeta:
+          type: object
+          additionalProperties:
+            type: string
+        feedbackUser:
+          type: object
+          additionalProperties:
+            type: string
+    FeedbackSearch:
+      type: object
+      properties:
+        begTimestamp:
+          type: string
+        endTimestamp:
+          type: string
+        feedbackType:
+          type: string
+          enum:
+            - text
+            - cnps
+            - csat
+            - cnps
+            - csat
+        feedbackTags:
+          type: object
+          additionalProperties:
+            type: string
+        feedbackMeta:
+          type: object
+          additionalProperties:
+            type: string
+        feedbackUser:
+          type: object
+          additionalProperties:
+            type: string
     InvitationDetails:
       type: object
       required:
