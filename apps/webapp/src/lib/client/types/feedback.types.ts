@@ -1,5 +1,3 @@
-import type { TimeSeries } from './timeseries.types';
-
 /**
  * The type of feedback. This determines what data is stored in the database,
  * hot it is analyzed and how it is displayed on UI.
@@ -39,72 +37,70 @@ export type FeedbackTags = Record<string, string>;
 interface BaseFeedback {
 	id: string;
 	organizationId: string;
-	createdAt: Date;
-	projectId?: string;
-	type: FeedbackType;
-	meta?: FeedbackMeta;
-	user?: FeedbackUser;
-	tags?: FeedbackTags;
-	data: unknown;
+	createdAt: string;
+	questionType: string;
+	feedbackTime: string;
+	feedbackType: FeedbackType;
+	feedbackData: Record<string, string>;
+	feedbackTags: Record<string, string>;
+	feedbackMeta: Record<string, string>;
+	feedbackUser: Record<string, string>;
 }
 
 /**
  * Data stored in the database for text feedback.
  */
 export interface TextFeedbackData {
-	text: string;
+	'question-type': 'default';
+	'response-text': string;
+	[key: string]: string;
 }
 
 /**
  * A feedback type that stores a single text field.
  */
 export interface TextFeedback extends BaseFeedback {
-	type: FeedbackType.Text;
-	data: TextFeedbackData;
+	feedbackType: FeedbackType.Text;
+	feedbackData: TextFeedbackData;
 }
 
 /**
  * Data stored in the database for cNPS feedback.
  */
 export interface CNPSFeedbackData {
-	cnps: number;
-	text?: string;
+	'question-type': 'rating-11p';
+	'response-text': string;
+	'response-data': string;
+	[key: string]: string;
 }
 
 /**
  * A feedback type that stores a single cNPS value.
  */
 export interface CNPSFeedback extends BaseFeedback {
-	type: FeedbackType.CNPS;
-	data: CNPSFeedbackData;
+	feedbackType: FeedbackType.CNPS;
+	feedbackData: CNPSFeedbackData;
 }
 
 /**
  * Data stored in the database for CSAT feedback.
  */
 export interface CSATFeedbackData {
-	csat: number;
-	text?: string;
+	'question-type': 'rating-11p';
+	'response-text': string;
+	'response-data': string;
+	[key: string]: string;
 }
 
 /**
  * A feedback type that stores a single CSAT value.
  */
 export interface CSATFeedback extends BaseFeedback {
-	type: FeedbackType.CSAT;
-	data: CSATFeedbackData;
+	feedbackType: FeedbackType.CSAT;
+	feedbackData: CSATFeedbackData;
 }
 
 /**
  * A union type of all available feedback types.
  */
 export type Feedback = TextFeedback | CNPSFeedback | CSATFeedback;
-
-/**
- * Summary of feedbacks for a given time period.
- */
-export interface FeedbackSummary {
-	count: TimeSeries<number>;
-	cnps?: TimeSeries<number>;
-	csat?: TimeSeries<number>;
-}
