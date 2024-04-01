@@ -13,10 +13,10 @@ export const SEARCH_QUERY_PARAM = 'search';
  * Parsed search query
  */
 export interface SearchQuery {
-	type: string[];
+	type: FeedbackType[];
 	text: string[];
 	tags: Record<string, string>;
-	meta: Record<string, unknown>;
+	meta: Record<string, string>;
 }
 
 /**

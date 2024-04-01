@@ -1,3 +1,4 @@
+import { api } from '$lib/client/api';
 import { parseDateRange } from '$lib/client/dates';
 import { parseSearch } from '$lib/client/search';
 import type { PageLoad } from './$types';
@@ -25,14 +26,20 @@ export const load: PageLoad = async (event) => {
 	const date = parseDateRange(range);
 	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');
 	const search = parseSearch(event.url.searchParams.get('search') ?? '');
-	const options = { date, page, limit: DEFAULT_LIMIT, search };
-	console.log('TODO: load feedbacks with options', organization, options);
-	const count = 0;
+	const response = await api().Feedback.search(organization.id, {
+		pageLimit: DEFAULT_LIMIT,
+		pageOffset: (page - 1) * DEFAULT_LIMIT,
+		begTimestamp: date.from.toISOString(),
+		endTimestamp: date.to.toISOString(),
+		feedbackType: search.type,
+		feedbackTags: search.tags,
+		feedbackMeta: search.meta
+	});
 	return {
 		feedbacks: {
-			count: count,
-			pages: Math.ceil(count / DEFAULT_LIMIT),
-			items: []
+			count: response.total,
+			pages: Math.ceil(response.total / DEFAULT_LIMIT),
+			items: response.feedbacks
 		}
 	};
 };
