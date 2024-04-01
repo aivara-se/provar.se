@@ -53,13 +53,19 @@ model PrincipalDetails {
   credential?: CredentialDetails;
 }
 
+enum FeedbackType {
+  text: "text",
+  cnps: "cnps",
+  csat: "csat",
+}
+
 model FeedbackDetails {
   id: string;
   organizationId: string;
   createdAt: string;
   questionType: string;
   feedbackTime: string;
-  feedbackType: "text" | "cnps" | "csat";
+  feedbackType: FeedbackType;
   feedbackData: Record<string>;
   feedbackTags: Record<string>;
   feedbackMeta: Record<string>;

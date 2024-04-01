@@ -92,8 +92,7 @@ export interface components {
 		};
 		FeedbackCreate: {
 			questionType: string;
-			/** @enum {string} */
-			feedbackType: 'text' | 'cnps' | 'csat';
+			feedbackType: components['schemas']['FeedbackType'];
 			feedbackTime: string;
 			feedbackData: {
 				[key: string]: string;
@@ -114,8 +113,7 @@ export interface components {
 			createdAt: string;
 			questionType: string;
 			feedbackTime: string;
-			/** @enum {string} */
-			feedbackType: 'text' | 'cnps' | 'csat';
+			feedbackType: components['schemas']['FeedbackType'];
 			feedbackData: {
 				[key: string]: string;
 			};
@@ -130,11 +128,14 @@ export interface components {
 			};
 		};
 		FeedbackSearch: {
+			/** Format: double */
+			pageLimit?: number;
+			/** Format: double */
+			pageOffset?: number;
 			begTimestamp?: string;
 			endTimestamp?: string;
 			questionType?: string;
-			/** @enum {string} */
-			feedbackType?: 'text' | 'cnps' | 'csat';
+			feedbackType?: components['schemas']['FeedbackType'][];
 			feedbackTags?: {
 				[key: string]: string;
 			};
@@ -145,6 +146,8 @@ export interface components {
 				[key: string]: string;
 			};
 		};
+		/** @enum {string} */
+		FeedbackType: 'text' | 'cnps' | 'csat';
 		InvitationDetails: {
 			id: string;
 			organizationId: string;
@@ -427,7 +430,11 @@ export interface operations {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': components['schemas']['FeedbackDetails'][];
+					'application/json': {
+						/** Format: double */
+						total: number;
+						feedbacks: components['schemas']['FeedbackDetails'][];
+					};
 				};
 			};
 		};
