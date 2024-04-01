@@ -70,10 +70,12 @@ func CreateCredential(orgID, userID string) *credential.Credential {
 // CreateFeedback creates a new test feedback for the given organization
 func CreateFeedback(orgID string) *feedback.Feedback {
 	data := &feedback.CreateFeedbackData{
-		QuestionType: "default",
 		FeedbackTime: time.Now(),
 		FeedbackType: feedback.TextFeedback,
-		FeedbackData: map[string]string{"text": "test-feedback-text"},
+		FeedbackData: map[string]string{
+			"question-type": "default",
+			"response-text": "test-feedback-text",
+		},
 	}
 	fb, err := feedback.Create(orgID, data)
 	if err != nil {

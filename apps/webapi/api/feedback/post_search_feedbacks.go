@@ -15,7 +15,6 @@ import (
 type SearchFeedbackRequestBody struct {
 	PageLimit    int                     `json:"pageLimit" validate:"gte=0,lte=1000"`
 	PageOffset   int                     `json:"pageOffset" validate:"gte=0"`
-	QuestionType string                  `json:"questionType"`
 	BegTimestamp time.Time               `json:"begTimestamp"`
 	EndTimestamp time.Time               `json:"endTimestamp"`
 	FeedbackType []feedback.FeedbackType `json:"feedbackType"`
@@ -49,7 +48,6 @@ func SetupSearchFeedback(app *fiber.App) {
 		fbs, total, err := feedback.Search(orgID, &feedback.SearchFeedbackData{
 			PageLimit:    body.PageLimit,
 			PageOffset:   body.PageOffset,
-			QuestionType: body.QuestionType,
 			BegTimestamp: body.BegTimestamp,
 			EndTimestamp: body.EndTimestamp,
 			FeedbackType: body.FeedbackType,

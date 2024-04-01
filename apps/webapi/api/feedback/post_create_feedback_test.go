@@ -16,10 +16,9 @@ func TestCreateInvitation(t *testing.T) {
 		usr, key := testutils.CreateUser()
 		org := testutils.CreateOrganization(usr.ID)
 		requestBody := strings.NewReader(`{
-			"questionType": "default",
 			"feedbackType": "text",
 			"feedbackTime": "2024-04-01T22:03:39.385Z",
-			"feedbackData": { "text": "test" }
+			"feedbackData": { "question-type": "default", "response-text": "test" }
 		}`)
 		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
 		req.Header.Add("Content-Type", "application/json")
@@ -41,10 +40,9 @@ func TestCreateInvitation(t *testing.T) {
 		usr, _ := testutils.CreateUser()
 		org := testutils.CreateOrganization(usr.ID)
 		requestBody := strings.NewReader(`{
-			"questionType": "default",
 			"feedbackType": "text",
 			"feedbackTime": "2024-04-01",
-			"feedbackData": { "text": "test" }
+			"feedbackData": { "question-type": "default", "response-text": "test" }
 		}`)
 		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
 		req.Header.Add("Content-Type", "application/json")
@@ -73,7 +71,7 @@ func TestCreateInvitation(t *testing.T) {
 		requestBody := strings.NewReader(`{
 			"feedbackType": "text",
 			"feedbackTime": "2024-04-01",
-			"feedbackData": { "text": "test" }
+			"feedbackData": { "question-type": "default", "response-text": "test" }
 		}`)
 		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
 		req.Header.Add("Content-Type", "application/json")
@@ -88,9 +86,8 @@ func TestCreateInvitation(t *testing.T) {
 		usr, key := testutils.CreateUser()
 		org := testutils.CreateOrganization(usr.ID)
 		requestBody := strings.NewReader(`{
-			"questionType": "default",
 			"feedbackTime": "2024-04-01",
-			"feedbackData": { "text": "test" }
+			"feedbackData": { "question-type": "default", "response-text": "test" }
 		}`)
 		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
 		req.Header.Add("Content-Type", "application/json")
