@@ -5,7 +5,7 @@
 	export let feedback: Feedback;
 
 	function filterByType() {
-		exploreWithValue(feedback.organizationId, { type: [feedback.type] });
+		exploreWithValue(feedback.organizationId, { type: [feedback.feedbackType] });
 	}
 
 	function filterByTags(key: string, val: string) {
@@ -15,15 +15,15 @@
 
 <section class="mt-3">
 	<button class="badge text-xs mr-2 mb-2" on:click={filterByType}>
-		type: {feedback.type === 'cnps' ? 'nps' : feedback.type === 'csat' ? 'csat' : 'text'}
+		type: {feedback.feedbackType}
 	</button>
 
-	{#each Object.keys(feedback.tags || {}).sort() as key}
+	{#each Object.keys(feedback.feedbackTags || {}).sort() as key}
 		<button
 			class="badge text-xs mr-2 mb-2"
-			on:click={() => filterByTags(key, feedback.tags?.[key] || '')}
+			on:click={() => filterByTags(key, feedback.feedbackTags?.[key] || '')}
 		>
-			#{key}: {feedback.tags?.[key]}
+			#{key}: {feedback.feedbackTags?.[key]}
 		</button>
 	{/each}
 </section>

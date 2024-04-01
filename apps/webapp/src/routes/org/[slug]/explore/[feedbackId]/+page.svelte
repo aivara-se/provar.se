@@ -17,15 +17,15 @@
 		<FeedbackText feedback={data.feedback} />
 		<FeedbackTags feedback={data.feedback} />
 
-		{#if data.feedback.type === 'cnps'}
+		{#if data.feedback.feedbackType === 'cnps'}
 			<FeedbackCNPS feedback={data.feedback} />
 		{/if}
 
-		{#if data.feedback.type === 'csat'}
+		{#if data.feedback.feedbackType === 'csat'}
 			<FeedbackCSAT feedback={data.feedback} />
 		{/if}
 
-		{#if data.feedback.meta && Object.keys(data.feedback.meta).length}
+		{#if data.feedback.feedbackMeta && Object.keys(data.feedback.feedbackMeta).length}
 			<FeedbackMeta feedback={data.feedback} />
 		{/if}
 	</section>

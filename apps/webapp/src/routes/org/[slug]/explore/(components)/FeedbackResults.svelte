@@ -19,9 +19,9 @@
 				href="./explore/{feedback.id}"
 				class="bg-black/5 dark:bg-black/10 hover:bg-black/10 hover:dark:bg-black/20 transition-colors rounded-lg p-4 pt-6 md:pt-4 relative flex flex-col"
 			>
-				{#if feedback.type === 'csat'}
+				{#if feedback.feedbackType === 'csat'}
 					<FeedbackItemCSAT {feedback} />
-				{:else if feedback.type === 'cnps'}
+				{:else if feedback.feedbackType === 'cnps'}
 					<FeedbackItemCNPS {feedback} />
 				{:else}
 					<FeedbackItemText {feedback} />

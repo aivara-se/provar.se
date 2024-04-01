@@ -1,16 +1,16 @@
 <script lang="ts">
 	import type { Feedback } from '$lib/client/types';
 
-	export let user: Feedback['user'];
+	export let user: Feedback['feedbackUser'];
 
 	$: name = user?.name || 'Anonymous';
 </script>
 
 <div class="mt-3 flex items-center gap-2">
-	{#if user?.image}
+	{#if user?.avatar}
 		<div class="avatar">
 			<div class="w-6 h-6 rounded-full">
-				<img src={user?.image} alt={user?.name} />
+				<img src={user?.avatar} alt={user?.name} />
 			</div>
 		</div>
 	{:else}

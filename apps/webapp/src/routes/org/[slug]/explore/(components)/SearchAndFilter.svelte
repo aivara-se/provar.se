@@ -1,7 +1,13 @@
 <script lang="ts">
-	import { getSearchStore, getSearchValue, setSearchValue } from '$lib/client/search';
-	import { parseSearch, type SearchQuery } from '$lib/client/search';
-		import pick from 'lodash/pick';
+	import {
+		getSearchStore,
+		getSearchValue,
+		parseSearch,
+		setSearchValue,
+		type SearchQuery
+	} from '$lib/client/search';
+	import type { FeedbackType } from '$lib/client/types';
+	import pick from 'lodash/pick';
 	import { SearchIcon } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 
@@ -45,7 +51,7 @@
 	 * Remove a type filter
 	 */
 	function removeTypeFilter(type: string) {
-		const index = fields.query.type.indexOf(type);
+		const index = fields.query.type.indexOf(type as FeedbackType);
 		if (index > -1) {
 			fields.query.type.splice(index, 1);
 		}

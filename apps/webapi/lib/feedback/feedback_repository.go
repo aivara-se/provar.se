@@ -134,54 +134,52 @@ func searchQuery(organizationID string, data *SearchFeedbackData, count bool) (s
 	}
 	argv := []interface{}{organizationID}
 	argc := 1
-	if !data.BegTimestamp.IsZero() {
-		query += " AND created_at >= $" + fmt.Sprint(argc)
-		argv = append(argv, data.BegTimestamp)
+
+	next := func() int {
 		argc++
+		return argc
+	}
+
+	if !data.BegTimestamp.IsZero() {
+		query += " AND feedback_time >= $" + fmt.Sprint(next()) + "::timestamp"
+		argv = append(argv, data.BegTimestamp)
 	}
 	if !data.EndTimestamp.IsZero() {
-		query += " AND created_at <= $" + fmt.Sprint(argc)
+		query += " AND feedback_time <= $" + fmt.Sprint(next()) + "::timestamp"
 		argv = append(argv, data.EndTimestamp)
-		argc++
 	}
 	if len(data.FeedbackType) > 0 {
 		query += " AND feedback_type IN ("
 		for i, ft := range data.FeedbackType {
-			query += "$" + fmt.Sprint(argc+i)
+			query += "$" + fmt.Sprint(next())
 			argv = append(argv, ft)
 			if i < len(data.FeedbackType)-1 {
 				query += ", "
 			}
 		}
 		query += ")"
-		argc += len(data.FeedbackType)
 	}
 	for k, v := range data.FeedbackTags {
-		query += " AND feedback_tags->>$" + fmt.Sprint(argc) + " = $" + fmt.Sprint(argc+1)
+		query += " AND feedback_tags->>$" + fmt.Sprint(next()) + " = $" + fmt.Sprint(next())
 		argv = append(argv, k, v)
-		argc += 2
 	}
 	for k, v := range data.FeedbackMeta {
-		query += " AND feedback_meta->>$" + fmt.Sprint(argc) + " = $" + fmt.Sprint(argc+1)
+		query += " AND feedback_meta->>$" + fmt.Sprint(next()) + " = $" + fmt.Sprint(next())
 		argv = append(argv, k, v)
-		argc += 2
 	}
 	for k, v := range data.FeedbackUser {
-		query += " AND feedback_user->>$" + fmt.Sprint(argc) + " = $" + fmt.Sprint(argc+1)
+		query += " AND feedback_user->>$" + fmt.Sprint(next()) + " = $" + fmt.Sprint(next())
 		argv = append(argv, k, v)
-		argc += 2
 	}
 	if !count {
 		query += " ORDER BY created_at DESC"
 		if data.PageLimit > 0 {
-			query += " LIMIT $" + fmt.Sprint(argc)
+			query += " LIMIT $" + fmt.Sprint(next())
 			argv = append(argv, data.PageLimit)
-			argc++
 		}
 		if data.PageOffset > 0 {
-			query += " OFFSET $" + fmt.Sprint(argc)
+			query += " OFFSET $" + fmt.Sprint(next())
 			argv = append(argv, data.PageOffset)
-			argc++
 		}
 	}
 	return query, argv
