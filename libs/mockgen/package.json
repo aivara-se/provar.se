@@ -2,7 +2,7 @@
 	"name": "@provar/mockgen",
 	"description": "A JavaScript library to create mock feedback data that can be imported to Provar.se.",
 	"type": "module",
-	"version": "1.8.0",
+	"version": "2.0.0",
 	"main": "build/index.js",
 	"bin": "build/commands/mockgen.js",
 	"scripts": {
