@@ -82,7 +82,7 @@ jobs:
         run: go test ./... -json | tee unit-test-results.json
 
       - name: Upload unit test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Unit test results
           path: unit-test-results.json
