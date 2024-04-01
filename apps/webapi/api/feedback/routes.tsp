@@ -6,6 +6,7 @@ using TypeSpec.Http;
 model FeedbackSearch {
   begTimestamp?: string;
   endTimestamp?: string;
+  questionType?: string;
   feedbackType?: "text" | "cnps" | "csat";
   feedbackTags?: Record<string>;
   feedbackMeta?: Record<string>;
