@@ -91,7 +91,6 @@ export interface components {
 			secret: string;
 		};
 		FeedbackCreate: {
-			questionType: string;
 			feedbackType: components['schemas']['FeedbackType'];
 			feedbackTime: string;
 			feedbackData: {
@@ -111,7 +110,6 @@ export interface components {
 			id: string;
 			organizationId: string;
 			createdAt: string;
-			questionType: string;
 			feedbackTime: string;
 			feedbackType: components['schemas']['FeedbackType'];
 			feedbackData: {
@@ -134,7 +132,6 @@ export interface components {
 			pageOffset?: number;
 			begTimestamp?: string;
 			endTimestamp?: string;
-			questionType?: string;
 			feedbackType?: components['schemas']['FeedbackType'][];
 			feedbackTags?: {
 				[key: string]: string;
