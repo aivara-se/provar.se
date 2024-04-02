@@ -1,5 +1,5 @@
 import { PUBLIC_PROVAR_API_URL } from '$env/static/public';
-import { DefaultFetcher, ProvarClient, _overrideConfig } from '@provar/provar-js';
+import { ProvarClient, _overrideConfig } from '@provar/provar-js';
 import { accessToken, getAccessToken } from '../auth/token.store';
 
 if (PUBLIC_PROVAR_API_URL) {
