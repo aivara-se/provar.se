@@ -9,7 +9,7 @@ import (
 	"provar.se/webapi/lib/testutils"
 )
 
-func TestCreateInvitation(t *testing.T) {
+func TestCreateFeedback(t *testing.T) {
 	app := testutils.Create()
 
 	t.Run("success", func(t *testing.T) {
