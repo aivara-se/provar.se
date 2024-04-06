@@ -49,6 +49,7 @@ func Create() *fiber.App {
 	credential.SetupCreateCredential(app)
 	credential.SetupDeleteCredential(app)
 	credential.SetupOrganizationCredentials(app)
+	feedback.SetupCountFeedback(app)
 	feedback.SetupCreateFeedback(app)
 	feedback.SetupDeleteInvitation(app)
 	feedback.SetupFeedbackDetails(app)

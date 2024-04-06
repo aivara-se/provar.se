@@ -90,6 +90,10 @@ export type Feedback = {
 		RequestBody: paths['/organization/{organizationId}/feedbacks']['post']['requestBody']['content']['application/json'];
 		ResponseBody: paths['/organization/{organizationId}/feedbacks']['post']['responses'][200]['content']['application/json'];
 	};
+	count: {
+		RequestBody: paths['/organization/{organizationId}/feedbacks/count']['post']['requestBody']['content']['application/json'];
+		ResponseBody: paths['/organization/{organizationId}/feedbacks/count']['post']['responses'][200]['content']['application/json'];
+	};
 };
 
 export type Invitation = {
@@ -288,6 +292,16 @@ export const createFeedbackEndpoints = (f: Fetcher) => {
 			return f.fetch<Feedback['search']['ResponseBody'], Feedback['search']['RequestBody']>(
 				'POST',
 				`/organization/${organizationId}/feedbacks`,
+				body
+			);
+		},
+		count: async (
+			organizationId: string,
+			body: Feedback['count']['RequestBody']
+		): Promise<Feedback['count']['ResponseBody']> => {
+			return f.fetch<Feedback['count']['ResponseBody'], Feedback['count']['RequestBody']>(
+				'POST',
+				`/organization/${organizationId}/feedbacks/count`,
 				body
 			);
 		}

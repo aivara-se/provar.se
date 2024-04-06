@@ -40,6 +40,9 @@ export interface paths {
 	'/organization/{organizationId}/feedbacks': {
 		post: operations['Feedback_search'];
 	};
+	'/organization/{organizationId}/feedbacks/count': {
+		post: operations['Feedback_count'];
+	};
 	'/organization/{organizationId}/invitation': {
 		post: operations['Invitation_create'];
 	};
@@ -428,9 +431,30 @@ export interface operations {
 			200: {
 				content: {
 					'application/json': {
+						feedbacks: components['schemas']['FeedbackDetails'][];
+					};
+				};
+			};
+		};
+	};
+	Feedback_count: {
+		parameters: {
+			path: {
+				organizationId: string;
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['FeedbackSearch'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': {
 						/** Format: double */
 						total: number;
-						feedbacks: components['schemas']['FeedbackDetails'][];
 					};
 				};
 			};

@@ -25,7 +25,6 @@ type SearchFeedbackRequestBody struct {
 
 // SearchFeedbackResponseBody is the response body for searching feedbacks
 type SearchFeedbackResponseBody struct {
-	Total     int                  `json:"total"`
 	Feedbacks []*feedback.Feedback `json:"feedbacks"`
 }
 
@@ -45,7 +44,7 @@ func SetupSearchFeedback(app *fiber.App) {
 	app.Post(path, func(c *fiber.Ctx) error {
 		orgID := c.Params("organizationId")
 		body := validator.GetRequestBody(c).(*SearchFeedbackRequestBody)
-		fbs, total, err := feedback.Search(orgID, &feedback.SearchFeedbackData{
+		fbs, err := feedback.Search(orgID, &feedback.SearchFeedbackData{
 			PageLimit:    body.PageLimit,
 			PageOffset:   body.PageOffset,
 			BegTimestamp: body.BegTimestamp,
@@ -58,9 +57,6 @@ func SetupSearchFeedback(app *fiber.App) {
 		if err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}
-		return c.JSON(&SearchFeedbackResponseBody{
-			Total:     total,
-			Feedbacks: fbs,
-		})
+		return c.JSON(&SearchFeedbackResponseBody{Feedbacks: fbs})
 	})
 }
