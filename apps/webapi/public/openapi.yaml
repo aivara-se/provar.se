@@ -299,16 +299,42 @@ paths:
               schema:
                 type: object
                 properties:
-                  total:
-                    type: number
-                    format: double
                   feedbacks:
                     type: array
                     items:
                       $ref: '#/components/schemas/FeedbackDetails'
                 required:
-                  - total
                   - feedbacks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackSearch'
+      security:
+        - BearerAuth: []
+  /organization/{organizationId}/feedbacks/count:
+    post:
+      operationId: Feedback_count
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    format: double
+                required:
+                  - total
       requestBody:
         required: true
         content:

@@ -26,7 +26,7 @@ export const load: PageLoad = async (event) => {
 	const date = parseDateRange(range);
 	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');
 	const search = parseSearch(event.url.searchParams.get('search') ?? '');
-	const response = await api().Feedback.search(organization.id, {
+	const options = {
 		pageLimit: DEFAULT_LIMIT,
 		pageOffset: (page - 1) * DEFAULT_LIMIT,
 		begTimestamp: date.from.toISOString(),
@@ -34,12 +34,16 @@ export const load: PageLoad = async (event) => {
 		feedbackType: search.type,
 		feedbackTags: search.tags,
 		feedbackMeta: search.meta
-	});
+	};
+	const [searchResponse, countResponse] = await Promise.all([
+		api().Feedback.search(organization.id, options),
+		api().Feedback.count(organization.id, options)
+	]);
 	return {
 		feedbacks: {
-			count: response.total,
-			pages: Math.ceil(response.total / DEFAULT_LIMIT),
-			items: response.feedbacks
+			count: countResponse.total,
+			pages: Math.ceil(countResponse.total / DEFAULT_LIMIT),
+			items: searchResponse.feedbacks
 		}
 	};
 };

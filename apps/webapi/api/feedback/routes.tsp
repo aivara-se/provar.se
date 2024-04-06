@@ -27,10 +27,11 @@ model FeedbackCreate {
 interface Feedback {
   @post()
   @route("/organization/{organizationId}/feedbacks")
-  search(organizationId: string, @body req: FeedbackSearch): {
-    total: float64,
-    feedbacks: FeedbackDetails[]
-  };
+  search(organizationId: string, @body req: FeedbackSearch): { feedbacks: FeedbackDetails[] };
+
+  @post()
+  @route("/organization/{organizationId}/feedbacks/count")
+  count(organizationId: string, @body req: FeedbackSearch): { total: float64 };
 
   @post()
   @route("/organization/{organizationId}/feedback")

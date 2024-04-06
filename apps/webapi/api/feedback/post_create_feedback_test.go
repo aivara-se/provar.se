@@ -27,7 +27,11 @@ func TestCreateInvitation(t *testing.T) {
 		if res.StatusCode != 204 {
 			t.Fatalf("unexpected status code: %d", res.StatusCode)
 		}
-		invites, count, err := feedback.Search(org.ID, &feedback.SearchFeedbackData{})
+		invites, err := feedback.Search(org.ID, &feedback.SearchFeedbackData{})
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		count, err := feedback.Count(org.ID, &feedback.SearchFeedbackData{})
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}

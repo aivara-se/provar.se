@@ -72,33 +72,26 @@ type SearchFeedbackData struct {
 	FeedbackUser map[string]string
 }
 
-// Search searches for feedback in the database with given data.
-// Returns paginated feedbacks and the total count of feedbacks.
-func Search(organizationID string, data *SearchFeedbackData) ([]*Feedback, int, error) {
-	tx, err := database.DB().Beginx()
-	if err != nil {
-		tx.Rollback()
-		return nil, 0, err
-	}
+// Search searches for feedback in the database with given data and returns the result.
+func Search(organizationID string, data *SearchFeedbackData) ([]*Feedback, error) {
 	feedbacks := []*Feedback{}
 	query, argv := searchQuery(organizationID, data, false)
-	err = tx.Select(&feedbacks, query, argv...)
+	err := database.DB().Select(&feedbacks, query, argv...)
 	if err != nil {
-		tx.Rollback()
-		return nil, 0, err
+		return nil, err
 	}
+	return feedbacks, nil
+}
+
+// Count searches for feedback in the database with given data and returns the count.
+func Count(organizationID string, data *SearchFeedbackData) (int, error) {
 	var count int
-	query, argv = searchQuery(organizationID, data, true)
-	err = tx.Get(&count, query, argv...)
+	query, argv := searchQuery(organizationID, data, true)
+	err := database.DB().Get(&count, query, argv...)
 	if err != nil {
-		tx.Rollback()
-		return nil, 0, err
+		return 0, err
 	}
-	err = tx.Commit()
-	if err != nil {
-		return nil, 0, err
-	}
-	return feedbacks, count, nil
+	return count, nil
 }
 
 // FindByID returns a feedback with the given id
