@@ -37,6 +37,19 @@ func SetupCreateFeedback(app *fiber.App) {
 	app.Post(path, func(c *fiber.Ctx) error {
 		orgID := c.Params("organizationId")
 		body := validator.GetRequestBody(c).(*CreateFeedbackRequestBody)
+		if body.FeedbackMeta == nil {
+			body.FeedbackMeta = make(map[string]string)
+		}
+		if body.FeedbackTags == nil {
+			body.FeedbackTags = make(map[string]string)
+		}
+		if body.FeedbackUser == nil {
+			body.FeedbackUser = make(map[string]string)
+		}
+		feedback.SetRequestIP(&body.FeedbackMeta, c.IP())
+		feedback.SetRequestHeaders(&body.FeedbackMeta, c.GetReqHeaders())
+		feedback.SetMetadataFromIP(&body.FeedbackMeta)
+		feedback.SetMetadataFromUA(&body.FeedbackMeta)
 		_, err := feedback.Create(orgID, &feedback.CreateFeedbackData{
 			FeedbackTime: body.FeedbackTime,
 			FeedbackType: body.FeedbackType,

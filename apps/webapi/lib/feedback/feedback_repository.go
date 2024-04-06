@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"provar.se/webapi/lib/database"
+	"provar.se/webapi/lib/metadata"
 )
 
 // FeedbackType represents the type of feedback.
@@ -58,6 +59,17 @@ func Create(organizationID string, data *CreateFeedbackData) (*Feedback, error) 
 	`
 	_, err := database.DB().NamedExec(query, fb)
 	return fb, err
+}
+
+// Enrich enriches the feedback with additional data
+func Enrich(fb *Feedback) error {
+	if _, ok := fb.FeedbackMeta["request-ip"]; ok {
+		location, err := metadata.GetLocation(fb.FeedbackMeta["request-ip"])
+		if err == nil {
+			fb.FeedbackMeta["location"] = location.Country.Names["en"]
+		}
+	}
+	return nil
 }
 
 // SearchFeedbackData represents the data needed to search for feedback
