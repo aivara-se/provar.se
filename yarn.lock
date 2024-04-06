@@ -6003,6 +6003,7 @@ __metadata:
     lucide-svelte: "npm:^0.358.0"
     overlayscrollbars: "npm:^2.5.0"
     overlayscrollbars-svelte: "npm:^0.5.3"
+    papaparse: "npm:^5.4.1"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
     prettier-plugin-svelte: "npm:^3.2.2"
