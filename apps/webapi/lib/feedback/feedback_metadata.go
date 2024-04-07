@@ -32,7 +32,9 @@ var RequestHeadersToMask = []string{
 
 // SetRequestIP sets the "request.ip" metadata field.
 func SetRequestIP(m *map[string]string, value string) {
-	(*m)[MetadataRequestIP] = value
+	if _, ok := (*m)[MetadataRequestIP]; !ok {
+		(*m)[MetadataRequestIP] = value
+	}
 }
 
 // SetRequestHeaders sets the "request.header.*" header fields.
@@ -41,6 +43,9 @@ func SetRequestHeaders(m *map[string]string, headers map[string][]string) {
 		normalizedKey := strings.ToLower(key)
 		metadataVal := strings.Join(val, ",")
 		metadataKey := fmt.Sprintf("request-header-%s", normalizedKey)
+		if _, ok := (*m)[metadataKey]; ok {
+			continue
+		}
 		if shouldMaskHeader(normalizedKey) {
 			metadataVal = "*****"
 		}

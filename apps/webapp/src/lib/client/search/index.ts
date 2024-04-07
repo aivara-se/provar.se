@@ -221,9 +221,9 @@ export function mergeSearchValue(...values: Partial<SearchQuery>[]) {
 /**
  * Merges the search query parameter and navigates to the explore page.
  */
-export function exploreWithValue(organizationId: string, ...values: Partial<SearchQuery>[]) {
+export function exploreWithValue(slug: string, ...values: Partial<SearchQuery>[]) {
 	mergeSearchValue(...values);
 	const url = new URL(window.location.href);
-	url.pathname = `/org/${organizationId}/explore`;
+	url.pathname = `/org/${slug}/explore`;
 	goto(url.toString());
 }

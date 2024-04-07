@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { exploreWithValue } from '$lib/client/search';
-	import type { Feedback } from '$lib/client/types';
+	import type { Feedback, Organization } from '$lib/client/types';
 	import { FilterIcon } from 'lucide-svelte';
 
 	export let feedback: Feedback;
+	export let organization: Organization;
 
 	function filterByMetadata(key: string, val: string) {
-		exploreWithValue(feedback.organizationId, { meta: { [key]: val } });
+		exploreWithValue(organization.slug, { meta: { [key]: val } });
 	}
 </script>
 

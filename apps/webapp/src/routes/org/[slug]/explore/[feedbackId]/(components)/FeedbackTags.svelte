@@ -1,15 +1,16 @@
 <script lang="ts">
 	import { exploreWithValue } from '$lib/client/search';
-	import type { Feedback } from '$lib/client/types';
+	import type { Feedback, Organization } from '$lib/client/types';
 
 	export let feedback: Feedback;
+	export let organization: Organization;
 
 	function filterByType() {
-		exploreWithValue(feedback.organizationId, { type: [feedback.feedbackType] });
+		exploreWithValue(organization.slug, { type: [feedback.feedbackType] });
 	}
 
 	function filterByTags(key: string, val: string) {
-		exploreWithValue(feedback.organizationId, { tags: { [key]: val } });
+		exploreWithValue(organization.slug, { tags: { [key]: val } });
 	}
 </script>
 
