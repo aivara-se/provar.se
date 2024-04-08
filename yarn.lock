@@ -1526,13 +1526,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/openapi@npm:^0.54.0":
-  version: 0.54.0
-  resolution: "@typespec/openapi@npm:0.54.0"
+"@typespec/openapi@npm:^0.55.0":
+  version: 0.55.0
+  resolution: "@typespec/openapi@npm:0.55.0"
   peerDependencies:
-    "@typespec/compiler": ~0.54.0
-    "@typespec/http": ~0.54.0
-  checksum: 10/e91bf801a6db04ef388cf30d4c1bf5270abdb4a05381ba9a83d6980b397cccf191fe0120f66c53f3015ab9034411013f70f42b1f28a7c788c2f26e0e9ebf4e1f
+    "@typespec/compiler": ~0.55.0
+    "@typespec/http": ~0.55.0
+  checksum: 10/71a8bd2b75c50756950e26488448d101675f871e443a2e9de807e2eacd5200ae1bd6d0271048748cf54c6f34781636f10e0090beccbd43fe3c563a86660ecccf
   languageName: node
   linkType: hard
 
@@ -5970,7 +5970,7 @@ __metadata:
   dependencies:
     "@typespec/compiler": "npm:latest"
     "@typespec/http": "npm:latest"
-    "@typespec/openapi": "npm:^0.54.0"
+    "@typespec/openapi": "npm:^0.55.0"
     "@typespec/openapi3": "npm:latest"
     "@typespec/rest": "npm:latest"
     "@typespec/versioning": "npm:^0.54.0"
