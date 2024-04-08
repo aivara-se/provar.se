@@ -1514,16 +1514,16 @@ __metadata:
   linkType: hard
 
 "@typespec/openapi3@npm:latest":
-  version: 0.54.0
-  resolution: "@typespec/openapi3@npm:0.54.0"
+  version: 0.55.0
+  resolution: "@typespec/openapi3@npm:0.55.0"
   dependencies:
-    yaml: "npm:~2.3.4"
+    yaml: "npm:~2.4.1"
   peerDependencies:
-    "@typespec/compiler": ~0.54.0
-    "@typespec/http": ~0.54.0
-    "@typespec/openapi": ~0.54.0
-    "@typespec/versioning": ~0.54.0
-  checksum: 10/f27c744fd2badca130ed3272c755ca66f4af962531ea864b2ce3b0fdcb4b1c6c63d24bbd7d148c2b5bb81d3508d021a661f06b5d8e7b7621d9467233677208d2
+    "@typespec/compiler": ~0.55.0
+    "@typespec/http": ~0.55.0
+    "@typespec/openapi": ~0.55.0
+    "@typespec/versioning": ~0.55.0
+  checksum: 10/5583341b8665b97d970eef414ace5cae252bc4af939fc72b73a72f4b6c6bd2f42c1691051537e583e61dbe74c24b51674ee6a747e66b905eb59aed85cfe86165
   languageName: node
   linkType: hard
 
