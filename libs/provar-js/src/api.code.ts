@@ -76,7 +76,7 @@ export type Credential = {
 export type Feedback = {
 	create: {
 		RequestBody: paths['/organization/{organizationId}/feedback']['post']['requestBody']['content']['application/json'];
-		ResponseBody: paths['/organization/{organizationId}/feedback']['post']['responses'][200]['content']['application/json'];
+		ResponseBody: paths['/organization/{organizationId}/feedback']['post']['responses'][204]['content']['application/json'];
 	};
 	details: {
 		RequestBody: void;

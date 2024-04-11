@@ -14,13 +14,17 @@ model FeedbackSearch {
   feedbackUser?: Record<string>;
 }
 
+model FeedbackToCreate {
+  type: FeedbackType;
+  time: string;
+  data: Record<string>;
+  tags?: Record<string>;
+  meta?: Record<string>;
+  user?: Record<string>;
+}
+
 model FeedbackCreate {
-  feedbackType: FeedbackType;
-  feedbackTime: string;
-  feedbackData: Record<string>;
-  feedbackTags?: Record<string>;
-  feedbackMeta?: Record<string>;
-  feedbackUser?: Record<string>;
+  feedbacks: FeedbackToCreate[];
 }
 
 @useAuth(BearerAuth)
@@ -35,7 +39,7 @@ interface Feedback {
 
   @post()
   @route("/organization/{organizationId}/feedback")
-  create(organizationId: string, @body req: FeedbackCreate): FeedbackDetails;
+  create(organizationId: string, @body req: FeedbackCreate): void;
 
   @route("/organization/{organizationId}/feedback/{feedbackId}")
   details(organizationId: string, feedbackId: string): FeedbackDetails;

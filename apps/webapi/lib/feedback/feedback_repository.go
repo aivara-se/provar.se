@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"provar.se/webapi/lib/database"
-	"provar.se/webapi/lib/metadata"
 )
 
 // FeedbackType represents the type of feedback.
@@ -32,12 +31,14 @@ type Feedback struct {
 
 // CreateFeedbackData represents the data needed to create a new feedback
 type CreateFeedbackData struct {
-	FeedbackTime time.Time
-	FeedbackType FeedbackType
-	FeedbackData map[string]string
-	FeedbackTags map[string]string
-	FeedbackMeta map[string]string
-	FeedbackUser map[string]string
+	FeedbackTime   time.Time
+	FeedbackType   FeedbackType
+	FeedbackData   map[string]string
+	FeedbackTags   map[string]string
+	FeedbackMeta   map[string]string
+	FeedbackUser   map[string]string
+	RequestIP      string
+	RequestHeaders map[string][]string
 }
 
 // Create creates a new feedback in the database
@@ -53,23 +54,16 @@ func Create(organizationID string, data *CreateFeedbackData) (*Feedback, error) 
 		FeedbackMeta:   data.FeedbackMeta,
 		FeedbackUser:   data.FeedbackUser,
 	}
+	SetRequestIP(&data.FeedbackMeta, data.RequestIP)
+	SetIPLocation(&data.FeedbackMeta, data.RequestIP)
+	SetRawHeaders(&data.FeedbackMeta, data.RequestHeaders)
+	SetUserAgent(&data.FeedbackMeta)
 	query := `
 		INSERT INTO private.feedback (id, organization_id, created_at, feedback_time, feedback_type, feedback_data, feedback_tags, feedback_meta, feedback_user)
 		VALUES (:id, :organization_id, :created_at, :feedback_time, :feedback_type, :feedback_data, :feedback_tags, :feedback_meta, :feedback_user)
 	`
 	_, err := database.DB().NamedExec(query, fb)
 	return fb, err
-}
-
-// Enrich enriches the feedback with additional data
-func Enrich(fb *Feedback) error {
-	if _, ok := fb.FeedbackMeta["request-ip"]; ok {
-		location, err := metadata.GetLocation(fb.FeedbackMeta["request-ip"])
-		if err == nil {
-			fb.FeedbackMeta["location"] = location.Country.Names["en"]
-		}
-	}
-	return nil
 }
 
 // SearchFeedbackData represents the data needed to search for feedback

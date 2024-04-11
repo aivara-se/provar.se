@@ -227,12 +227,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FeedbackDetails'
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
       requestBody:
         required: true
         content:
@@ -603,30 +599,12 @@ components:
     FeedbackCreate:
       type: object
       required:
-        - feedbackType
-        - feedbackTime
-        - feedbackData
+        - feedbacks
       properties:
-        feedbackType:
-          $ref: '#/components/schemas/FeedbackType'
-        feedbackTime:
-          type: string
-        feedbackData:
-          type: object
-          additionalProperties:
-            type: string
-        feedbackTags:
-          type: object
-          additionalProperties:
-            type: string
-        feedbackMeta:
-          type: object
-          additionalProperties:
-            type: string
-        feedbackUser:
-          type: object
-          additionalProperties:
-            type: string
+        feedbacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedbackToCreate'
     FeedbackDetails:
       type: object
       required:
@@ -692,6 +670,33 @@ components:
           additionalProperties:
             type: string
         feedbackUser:
+          type: object
+          additionalProperties:
+            type: string
+    FeedbackToCreate:
+      type: object
+      required:
+        - type
+        - time
+        - data
+      properties:
+        type:
+          $ref: '#/components/schemas/FeedbackType'
+        time:
+          type: string
+        data:
+          type: object
+          additionalProperties:
+            type: string
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+        meta:
+          type: object
+          additionalProperties:
+            type: string
+        user:
           type: object
           additionalProperties:
             type: string
