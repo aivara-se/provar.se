@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { signOut } from '$lib/client/auth';
-	import { user, organizations } from '$lib/client/stores';
+	import type { Organization, User } from '$lib/client/types';
 	import { LogOutIcon } from 'lucide-svelte';
+
+	export let user: User | null;
+	export let organizations: Organization[];
 
 	let element: HTMLDetailsElement;
 
-	$: items = $organizations.map((organization) => ({
+	$: items = organizations.map((organization) => ({
 		id: organization.id,
 		name: organization.name,
 		slug: organization.slug,
@@ -33,7 +36,7 @@
 	<summary class="flex list-none">
 		<div class="avatar">
 			<div class="w-8 h-8 rounded-full shadow-lg">
-				<img src={$user?.avatar} alt={$user?.name} />
+				<img src={user?.avatar} alt={user?.name} />
 			</div>
 		</div>
 	</summary>

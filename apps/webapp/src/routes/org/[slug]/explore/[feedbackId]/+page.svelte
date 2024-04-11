@@ -11,7 +11,7 @@
 	export let data;
 </script>
 
-<DashLayout {route}>
+<DashLayout {route} user={data.user} organizations={data.organizations}>
 	<section>
 		<FeedbackHead feedback={data.feedback} />
 		<FeedbackText feedback={data.feedback} />

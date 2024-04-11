@@ -11,7 +11,7 @@
 	$: currentUser = data.user!;
 </script>
 
-<DashLayout {route}>
+<DashLayout {route} user={data.user} organizations={data.organizations}>
 	<UpdateOrganizationForm organization={data.organization} formData={data.UpdateOrganizationForm} />
 	<LeaveOrganizationBlock user={currentUser} organization={data.organization} />
 	<DeleteOrganizationBlock organization={data.organization} />

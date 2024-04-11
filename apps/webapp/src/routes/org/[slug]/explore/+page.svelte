@@ -48,7 +48,7 @@
 	});
 </script>
 
-<DashLayout {route}>
+<DashLayout {route} user={data.user} organizations={data.organizations}>
 	<section slot="actions" class="flex gap-2 items-center">
 		<DurationPicker bind:range />
 		<ActionsDropdown />

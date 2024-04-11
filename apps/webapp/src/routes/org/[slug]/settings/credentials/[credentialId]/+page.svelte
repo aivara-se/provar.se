@@ -9,7 +9,7 @@
 	$: credential = data.credential;
 </script>
 
-<DashLayout {route}>
+<DashLayout {route} user={data.user} organizations={data.organizations}>
 	<table class="table mt-4">
 		<tbody>
 			<tr>

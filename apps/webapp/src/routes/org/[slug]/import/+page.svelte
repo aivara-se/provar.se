@@ -85,7 +85,7 @@
 	}
 </script>
 
-<DashLayout {route}>
+<DashLayout {route} user={data.user} organizations={data.organizations}>
 	<section class="prose">
 		<h2>Importing feedback</h2>
 		<p>
