@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
 	import { addDays, endOfDay, endOfToday, format, startOfDay } from 'date-fns';
 	import { CalendarRangeIcon } from 'lucide-svelte';
-	import { onMount } from 'svelte';
 
 	export let range = {
 		beg: startOfDay(addDays(endOfToday(), -29)),
@@ -15,25 +13,6 @@
 		{ label: '1 Week', days: 7, isActive: false },
 		{ label: '1 Month', days: 30, isActive: false }
 	];
-
-	onMount(() => {
-		const begDateParam = $page.url.searchParams.get('beg');
-		const endDateParam = $page.url.searchParams.get('end');
-		if (!begDateParam || !endDateParam) {
-			setDateRange(range);
-		}
-	});
-
-	$: {
-		const begDateParam = $page.url.searchParams.get('beg');
-		const endDateParam = $page.url.searchParams.get('end');
-		if (begDateParam && endDateParam) {
-			range = {
-				beg: startOfDay(new Date(begDateParam)),
-				end: endOfDay(new Date(endDateParam))
-			};
-		}
-	}
 
 	$: {
 		const ONE_DAY = 24 * 60 * 60 * 1000;
