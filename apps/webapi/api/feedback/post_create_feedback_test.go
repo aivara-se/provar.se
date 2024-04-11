@@ -16,9 +16,13 @@ func TestCreateFeedback(t *testing.T) {
 		usr, key := testutils.CreateUser()
 		org := testutils.CreateOrganization(usr.ID)
 		requestBody := strings.NewReader(`{
-			"feedbackType": "text",
-			"feedbackTime": "2024-04-01T22:03:39.385Z",
-			"feedbackData": { "question-type": "default", "response-text": "test" }
+			"feedbacks": [
+				{
+					"type": "text",
+					"time": "2024-04-01T22:03:39.385Z",
+					"data": { "question-type": "default", "response-text": "test" }
+				}
+			]
 		}`)
 		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
 		req.Header.Add("Content-Type", "application/json")
@@ -44,9 +48,13 @@ func TestCreateFeedback(t *testing.T) {
 		usr, _ := testutils.CreateUser()
 		org := testutils.CreateOrganization(usr.ID)
 		requestBody := strings.NewReader(`{
-			"feedbackType": "text",
-			"feedbackTime": "2024-04-01",
-			"feedbackData": { "question-type": "default", "response-text": "test" }
+			"feedbacks": [
+				{
+					"type": "text",
+					"time": "2024-04-01",
+					"data": { "question-type": "default", "response-text": "test" }
+				}
+			]
 		}`)
 		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
 		req.Header.Add("Content-Type", "application/json")
@@ -73,9 +81,13 @@ func TestCreateFeedback(t *testing.T) {
 		usr, key := testutils.CreateUser()
 		org := testutils.CreateOrganization(usr.ID)
 		requestBody := strings.NewReader(`{
-			"feedbackType": "text",
-			"feedbackTime": "2024-04-01",
-			"feedbackData": { "question-type": "default", "response-text": "test" }
+				"feedbacks": [
+				{
+					"type": "text",
+					"time": "2024-04-01",
+					"data": { "question-type": "default", "response-text": "test" }
+				}
+			]
 		}`)
 		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
 		req.Header.Add("Content-Type", "application/json")
@@ -90,8 +102,12 @@ func TestCreateFeedback(t *testing.T) {
 		usr, key := testutils.CreateUser()
 		org := testutils.CreateOrganization(usr.ID)
 		requestBody := strings.NewReader(`{
-			"feedbackTime": "2024-04-01",
-			"feedbackData": { "question-type": "default", "response-text": "test" }
+			"feedbacks": [
+				{
+					"time": "2024-04-01T22:03:39.385Z",
+					"data": { "question-type": "default", "response-text": "test" }
+				}
+			]
 		}`)
 		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
 		req.Header.Add("Content-Type", "application/json")

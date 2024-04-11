@@ -94,20 +94,7 @@ export interface components {
 			secret: string;
 		};
 		FeedbackCreate: {
-			feedbackType: components['schemas']['FeedbackType'];
-			feedbackTime: string;
-			feedbackData: {
-				[key: string]: string;
-			};
-			feedbackTags?: {
-				[key: string]: string;
-			};
-			feedbackMeta?: {
-				[key: string]: string;
-			};
-			feedbackUser?: {
-				[key: string]: string;
-			};
+			feedbacks: components['schemas']['FeedbackToCreate'][];
 		};
 		FeedbackDetails: {
 			id: string;
@@ -143,6 +130,22 @@ export interface components {
 				[key: string]: string;
 			};
 			feedbackUser?: {
+				[key: string]: string;
+			};
+		};
+		FeedbackToCreate: {
+			type: components['schemas']['FeedbackType'];
+			time: string;
+			data: {
+				[key: string]: string;
+			};
+			tags?: {
+				[key: string]: string;
+			};
+			meta?: {
+				[key: string]: string;
+			};
+			user?: {
 				[key: string]: string;
 			};
 		};
@@ -377,11 +380,9 @@ export interface operations {
 			};
 		};
 		responses: {
-			/** @description The request has succeeded. */
-			200: {
-				content: {
-					'application/json': components['schemas']['FeedbackDetails'];
-				};
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
 			};
 		};
 	};
