@@ -11,6 +11,13 @@ import (
 	"provar.se/webapi/lib/validator"
 )
 
+const (
+	// MaxFeedbacksPerBatch is the maximum number of feedbacks that can be
+	// created in a single request. The request will be rejected if more than
+	// this number of feedbacks are included in the request.
+	MaxFeedbacksPerBatch = 10
+)
+
 // FeedbackToCreate is the data needed to create a feedback
 type FeedbackToCreate struct {
 	Type feedback.FeedbackType `json:"type" validate:"required"`
@@ -44,6 +51,9 @@ func SetupCreateFeedback(app *fiber.App) {
 		body := validator.GetRequestBody(c).(*CreateFeedbackRequestBody)
 		if body == nil || body.Feedbacks == nil {
 			return c.SendStatus(fiber.StatusBadRequest)
+		}
+		if len(body.Feedbacks) > MaxFeedbacksPerBatch {
+			return c.SendStatus(fiber.StatusRequestEntityTooLarge)
 		}
 		errd := false
 		for _, fb := range body.Feedbacks {
