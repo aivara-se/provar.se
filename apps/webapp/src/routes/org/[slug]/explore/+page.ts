@@ -7,8 +7,8 @@ const DEFAULT_LIMIT = 10;
 
 const EMPTY_RESPONSE = {
 	count: 0,
-	items: [],
-	pages: 0
+	pages: 0,
+	items: []
 };
 
 /**
@@ -21,7 +21,7 @@ export const load: PageLoad = async (event) => {
 		to: event.url.searchParams.get('end') ?? ''
 	};
 	if (!range.from && !range.to) {
-		return EMPTY_RESPONSE;
+		return { feedbacks: EMPTY_RESPONSE };
 	}
 	const date = parseDateRange(range);
 	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');

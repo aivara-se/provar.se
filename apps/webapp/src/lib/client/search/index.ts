@@ -140,6 +140,13 @@ function getValue(): SearchQuery {
 }
 
 /**
+ * Reset the value on the store to match what is available on the URL.
+ */
+export function resetSearchValue(): void {
+	store.set(getInitialValue());
+}
+
+/**
  * Set the current search query parameters on the store and update the URL.
  */
 function setValue(value: SearchQuery) {
@@ -210,20 +217,23 @@ export function setSearchString(...values: string[]) {
 /**
  * Merges the search query parameter in the store with the new value.
  */
-export function mergeSearchValue(...values: Partial<SearchQuery>[]) {
+export function mergeSearchValue(...values: Partial<SearchQuery>[]): SearchQuery {
 	let acc = getValue();
 	for (const value of values) {
 		acc = mergeSearchQuery(acc, value);
 	}
-	setValue(acc);
+	return acc;
 }
 
 /**
  * Merges the search query parameter and navigates to the explore page.
  */
 export function exploreWithValue(slug: string, ...values: Partial<SearchQuery>[]) {
-	mergeSearchValue(...values);
+	const mergedValue = mergeSearchValue(...values);
+	const str = stringifySearch(mergedValue);
 	const url = new URL(window.location.href);
+	url.searchParams.set(SEARCH_QUERY_PARAM, str);
 	url.pathname = `/org/${slug}/explore`;
 	goto(url.toString());
+	store.set(mergedValue);
 }
