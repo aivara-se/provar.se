@@ -7,7 +7,7 @@
 	export let data;
 </script>
 
-<DashLayout {route}>
+<DashLayout {route} user={data.user} organizations={data.organizations}>
 	<CredentialsTable credentials={data.credentials} />
 	<CreateCredentialForm organization={data.organization} formData={data.CreateCredentialForm} />
 </DashLayout>

@@ -8,7 +8,7 @@
 	export let data;
 </script>
 
-<DashLayout {route}>
+<DashLayout {route} user={data.user} organizations={data.organizations}>
 	<MembersTable members={data.members} />
 	<InvitationsTable invitations={data.invitations} />
 	<InviteMemberForm organization={data.organization} formData={data.InviteMemberForm} />

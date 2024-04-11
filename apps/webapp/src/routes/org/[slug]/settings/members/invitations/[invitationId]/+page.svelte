@@ -9,7 +9,7 @@
 	$: invitation = data.invitation;
 </script>
 
-<DashLayout {route}>
+<DashLayout {route} user={data.user} organizations={data.organizations}>
 	<div class="flex justify-center mt-8">
 		<div class="avatar">
 			<div class="w-16 rounded-lg">

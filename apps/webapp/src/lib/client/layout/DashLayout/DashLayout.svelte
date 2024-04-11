@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Route } from '$lib/client/routes';
+	import type { Organization, User } from '$lib/client/types';
 	import AvatarMenu from './_components/AvatarMenu.svelte';
 	import Breadcrumbs from './_components/Breadcrumbs.svelte';
 	import ContentTabs from './_components/ContentTabs.svelte';
@@ -7,6 +8,8 @@
 	import SidebarMenu from './_components/SidebarMenu.svelte';
 
 	export let route: Route;
+	export let user: User | null;
+	export let organizations: Organization[];
 </script>
 
 <div class="flex flex-1 min-h-screen w-full h-full bg-gray-100 dark:bg-gray-900 pb-16 md:pb-4">
@@ -23,7 +26,7 @@
 			<Breadcrumbs {route} />
 			<div class="flex gap-2 items-center">
 				<slot name="actions" />
-				<AvatarMenu />
+				<AvatarMenu {user} {organizations} />
 			</div>
 		</header>
 		<main class="w-full p-4 md:p-8 rounded-xl bg-white dark:bg-black/20 shadow">
