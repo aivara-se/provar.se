@@ -5,12 +5,6 @@ import type { PageLoad } from './$types';
 
 const DEFAULT_LIMIT = 10;
 
-const EMPTY_RESPONSE = {
-	count: 0,
-	pages: 0,
-	items: []
-};
-
 /**
  * Loads feedbacks to display on the page.
  */
@@ -20,17 +14,14 @@ export const load: PageLoad = async (event) => {
 		from: event.url.searchParams.get('beg') ?? '',
 		to: event.url.searchParams.get('end') ?? ''
 	};
-	if (!range.from && !range.to) {
-		return { feedbacks: EMPTY_RESPONSE };
-	}
-	const date = parseDateRange(range);
+	const date = range.from && range.to ? parseDateRange(range) : undefined;
 	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');
 	const search = parseSearch(event.url.searchParams.get('search') ?? '');
 	const options = {
 		pageLimit: DEFAULT_LIMIT,
 		pageOffset: (page - 1) * DEFAULT_LIMIT,
-		begTimestamp: date.from.toISOString(),
-		endTimestamp: date.to.toISOString(),
+		begTimestamp: date ? date.from.toISOString() : undefined,
+		endTimestamp: date ? date.to.toISOString() : undefined,
 		feedbackType: search.type,
 		feedbackTags: search.tags,
 		feedbackMeta: search.meta

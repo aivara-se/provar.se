@@ -12,21 +12,21 @@
 
 	function getDetails(data: Record<string, string>): Details {
 		const value = parseInt(data['response-data']);
-		if (value >= 0 && value <= 6) {
+		if (feedback.feedbackData['response-type'] === 'low') {
 			return {
 				title: 'Low Satisfaction',
 				rating: value,
 				description:
 					'Customers have expressed low satisfaction levels with your product or service. Improvement is needed.'
 			};
-		} else if (value > 6 && value <= 8) {
+		} else if (feedback.feedbackData['response-type'] === 'mid') {
 			return {
 				title: 'Moderate Satisfaction',
 				rating: value,
 				description:
 					'Customers are moderately satisfied, but there is room for enhancement to increase satisfaction levels.'
 			};
-		} else if (value > 8 && value <= 1) {
+		} else if (feedback.feedbackData['response-type'] === 'high') {
 			return {
 				title: 'High Satisfaction',
 				rating: value,
@@ -35,10 +35,10 @@
 			};
 		}
 		return {
-			title: 'Invalid Range',
+			title: 'Invalid Data',
 			rating: value,
 			description:
-				'The Customer Satisfaction Score ranges from 0 to 1. Please provide a valid score within this range.'
+				'The Customer Satisfaction Score ranges from 0 to 10. Please provide a valid score within this range.'
 		};
 	}
 

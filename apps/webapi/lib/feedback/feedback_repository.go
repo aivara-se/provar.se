@@ -54,6 +54,7 @@ func Create(organizationID string, data *CreateFeedbackData) (*Feedback, error) 
 		FeedbackMeta:   data.FeedbackMeta,
 		FeedbackUser:   data.FeedbackUser,
 	}
+	SetFeedbackData(&data.FeedbackData, data.FeedbackType)
 	SetRequestIP(&data.FeedbackMeta, data.RequestIP)
 	SetIPLocation(&data.FeedbackMeta, data.RequestIP)
 	SetRawHeaders(&data.FeedbackMeta, data.RequestHeaders)

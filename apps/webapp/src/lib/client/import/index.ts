@@ -75,9 +75,11 @@ function isValidType(type: string): type is FeedbackType {
  * Converts a flattened set of keys into a nested object.
  */
 function mapPrefix(prefix: string, obj: FeedbackRow): Record<string, string> {
-	return Object.fromEntries(
-		Object.keys(obj)
-			.filter((key) => key.startsWith(prefix))
-			.map(([key, val]) => [key.replace(prefix, ''), val])
-	);
+	const result: Record<string, string> = {};
+	for (const key in obj) {
+		if (key.startsWith(prefix)) {
+			result[key.replace(prefix, '')] = obj[key as keyof FeedbackRow];
+		}
+	}
+	return result;
 }
