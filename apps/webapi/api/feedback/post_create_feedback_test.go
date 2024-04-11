@@ -31,7 +31,7 @@ func TestCreateFeedback(t *testing.T) {
 		if res.StatusCode != 204 {
 			t.Fatalf("unexpected status code: %d", res.StatusCode)
 		}
-		invites, err := feedback.Search(org.ID, &feedback.SearchFeedbackData{})
+		fbs, err := feedback.Search(org.ID, &feedback.SearchFeedbackData{})
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
@@ -39,8 +39,72 @@ func TestCreateFeedback(t *testing.T) {
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
-		if count != 1 || len(invites) != 1 {
-			t.Fatalf("expected one invite, got: %v", invites)
+		if count != 1 || len(fbs) != 1 {
+			t.Fatalf("expected one feedback, got: %v", fbs)
+		}
+	})
+
+	t.Run("success - cnps", func(t *testing.T) {
+		usr, key := testutils.CreateUser()
+		org := testutils.CreateOrganization(usr.ID)
+		requestBody := strings.NewReader(`{
+			"feedbacks": [
+				{
+					"type": "cnps",
+					"time": "2024-04-01T22:03:39.385Z",
+					"data": { "question-type": "rating-11p", "response-data": "7" }
+				}
+			]
+		}`)
+		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
+		req.Header.Add("Content-Type", "application/json")
+		req.Header.Add("Authorization", "bearer "+key)
+		res, _ := app.Test(req, -1)
+		if res.StatusCode != 204 {
+			t.Fatalf("unexpected status code: %d", res.StatusCode)
+		}
+		fbs, err := feedback.Search(org.ID, &feedback.SearchFeedbackData{})
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		count, err := feedback.Count(org.ID, &feedback.SearchFeedbackData{})
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if count != 1 || len(fbs) != 1 {
+			t.Fatalf("expected one feedback, got: %v", fbs)
+		}
+	})
+
+	t.Run("success - csat", func(t *testing.T) {
+		usr, key := testutils.CreateUser()
+		org := testutils.CreateOrganization(usr.ID)
+		requestBody := strings.NewReader(`{
+			"feedbacks": [
+				{
+					"type": "csat",
+					"time": "2024-04-01T22:03:39.385Z",
+					"data": { "question-type": "rating-11p", "response-data": "7" }
+				}
+			]
+		}`)
+		req := httptest.NewRequest("POST", "/organization/"+org.ID+"/feedback", requestBody)
+		req.Header.Add("Content-Type", "application/json")
+		req.Header.Add("Authorization", "bearer "+key)
+		res, _ := app.Test(req, -1)
+		if res.StatusCode != 204 {
+			t.Fatalf("unexpected status code: %d", res.StatusCode)
+		}
+		fbs, err := feedback.Search(org.ID, &feedback.SearchFeedbackData{})
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		count, err := feedback.Count(org.ID, &feedback.SearchFeedbackData{})
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if count != 1 || len(fbs) != 1 {
+			t.Fatalf("expected one feedback, got: %v", fbs)
 		}
 	})
 

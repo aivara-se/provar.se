@@ -12,21 +12,21 @@
 
 	function getDetails(data: Record<string, string>): Details {
 		const value = parseInt(data['response-data']);
-		if (value >= 0 && value <= 6) {
+		if (feedback.feedbackData['response-type'] === 'detractor') {
 			return {
 				title: 'Detractor',
 				rating: value,
 				description:
 					'Detractors are unhappy customers who can damage your brand and impede growth. They are unlikely to recommend your product or service.'
 			};
-		} else if (value > 6 && value <= 8) {
+		} else if (feedback.feedbackData['response-type'] === 'passive') {
 			return {
 				title: 'Passive',
 				rating: value,
 				description:
 					'Passives are satisfied but unenthusiastic customers. They may switch to competitors and are less likely to spread positive word-of-mouth.'
 			};
-		} else if (value > 8 && value <= 10) {
+		} else if (feedback.feedbackData['response-type'] === 'promoter') {
 			return {
 				title: 'Promoter',
 				rating: value,
@@ -35,10 +35,10 @@
 			};
 		}
 		return {
-			title: 'Invalid Range',
+			title: 'Invalid Data',
 			rating: value,
 			description:
-				'The Net Promoter Score ranges from 0 to 1. Please provide a valid score within this range.'
+				'The Customer Net Promoter Score ranges from 0 to 10. Please provide a valid score within this range.'
 		};
 	}
 

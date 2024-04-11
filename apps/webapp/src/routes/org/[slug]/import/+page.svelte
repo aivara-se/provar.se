@@ -7,6 +7,7 @@
 	import { CheckIcon } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 	import route from './route.meta';
+	import { exploreWithValue } from '../../../../lib/client/search';
 
 	const FEEDBACK_BATCH_SIZE = 10;
 
@@ -77,6 +78,10 @@
 		}
 		importOperation.status = 'completed';
 		toast('success', 'File successfully imported');
+		// Navigate to the explore view with filter
+		exploreWithValue(data.organization.slug, {
+			meta: { 'import-operation': importOperation.id }
+		});
 	}
 </script>
 
