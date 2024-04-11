@@ -1,18 +1,22 @@
 <script lang="ts">
-	import { CheckIcon } from 'lucide-svelte';
-	import { parser, validator, uploader } from '$lib/client/import';
+	import { api } from '$lib/client/api';
+	import { parseCsv, validateCsv, type FeedbackItem } from '$lib/client/import';
 	import { DashLayout } from '$lib/client/layout';
 	import { toast } from '$lib/client/toast';
+	import { chunk } from 'lodash';
+	import { CheckIcon } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 	import route from './route.meta';
+
+	const FEEDBACK_BATCH_SIZE = 10;
 
 	export let data;
 
 	interface ImportOperation {
 		id: string;
-		status: 'pending' | 'prepared' | 'completed';
+		status: 'pending' | 'prepared' | 'uploading' | 'completed';
 		files: FileList | null;
-		items: Record<string, string>[] | null;
+		items: FeedbackItem[] | null;
 		total: number;
 		valid: number;
 		ready: number;
@@ -48,25 +52,30 @@
 		}
 		const file = importOperation.files[0];
 		const text = await file.text();
-		importOperation.items = parser.parse(text);
-		const result = validator.validate(importOperation.items);
+		importOperation.items = parseCsv(text);
+		for (const item of importOperation.items) {
+			item.meta['import-operation'] = importOperation.id;
+		}
+		const result = validateCsv(importOperation.items);
 		importOperation.total = result.total;
 		importOperation.valid = result.valid;
+		importOperation.status = 'prepared';
 	}
 
 	async function importFeedbackFile() {
 		if (!importOperation.items || !importOperation.items.length) {
 			return;
 		}
-		for (const item of importOperation.items) {
-			item['meta.import-operation'] = importOperation.id;
+		importOperation.status = 'uploading';
+		for (const batch of chunk(importOperation.items, FEEDBACK_BATCH_SIZE)) {
 			try {
-				await uploader.upload(data.organization.id, item);
-				importOperation.ready++;
+				await api().Feedback.create(data.organization.id, { feedbacks: batch });
+				importOperation.ready += batch.length;
 			} catch (err) {
 				// console.error(err);
 			}
 		}
+		importOperation.status = 'completed';
 		toast('success', 'File successfully imported');
 	}
 </script>
@@ -270,7 +279,13 @@
 		{/if}
 
 		<div class="flex mt-4">
-			<button class="btn btn-sm" on:click={importFeedbackFile}>Import file</button>
+			<button
+				class="btn btn-sm"
+				on:click={importFeedbackFile}
+				disabled={importOperation.status !== 'prepared'}
+			>
+				Import file
+			</button>
 		</div>
 	</section>
 </DashLayout>
