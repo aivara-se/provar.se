@@ -1,0 +1,79 @@
+# apps/website - quality checks
+
+name: apps/website - quality checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - ".github/**"
+      - "apps/website/**"
+
+concurrency:
+  group: "app.website.quality-checks-${{ github.head_ref }}"
+  cancel-in-progress: true
+
+jobs:
+  quality-checks:
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      deployments: write
+      security-events: write
+
+    defaults:
+      run:
+        working-directory: ./apps/website
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: "javascript-typescript"
+
+      - name: Setup Yarn
+        run: yarn install --silent
+
+      - name: Build the application
+        env:
+          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBSITE_APP_PUBLIC_PROVAR_APP_URL }}
+          PUBLIC_PROVAR_API_URL: ${{ secrets.APPS_WEBSITE_APP_PUBLIC_PROVAR_API_URL }}
+        run: yarn build
+
+      - name: Check code formatting
+        run: yarn lint
+
+      - name: Check code errors
+        env:
+          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBSITE_APP_PUBLIC_PROVAR_APP_URL }}
+          PUBLIC_PROVAR_API_URL: ${{ secrets.APPS_WEBSITE_APP_PUBLIC_PROVAR_API_URL }}
+        run: yarn check
+
+      - name: Check unit tests
+        run: yarn test:unit
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"
+
+      - name: Publish to Cloudflare
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.APPS_WEBSITE_CLOUDFLARE_TOKEN }}
+          accountId: ${{ secrets.APPS_WEBSITE_CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ secrets.APPS_WEBSITE_CLOUDFLARE_PROJECT_NAME }}
+          directory: ./apps/website/.svelte-kit/cloudflare
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

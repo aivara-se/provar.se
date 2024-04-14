@@ -6035,6 +6035,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"website@workspace:apps/website":
+  version: 0.0.0-use.local
+  resolution: "website@workspace:apps/website"
+  dependencies:
+    "@playwright/test": "npm:^1.28.1"
+    "@sveltejs/adapter-cloudflare": "npm:^4.1.0"
+    "@sveltejs/kit": "npm:^2.5.1"
+    "@sveltejs/vite-plugin-svelte": "npm:^3.0.2"
+    "@tailwindcss/typography": "npm:^0.5.10"
+    "@types/eslint": "npm:8.56.5"
+    "@types/lodash": "npm:^4.14.202"
+    "@typescript-eslint/eslint-plugin": "npm:^7.4.0"
+    "@typescript-eslint/parser": "npm:^7.5.0"
+    autoprefixer: "npm:^10.4.19"
+    daisyui: "npm:^4.7.2"
+    date-fns: "npm:^3.6.0"
+    eslint: "npm:^8.57.0"
+    eslint-config-prettier: "npm:^9.1.0"
+    eslint-plugin-svelte: "npm:^2.35.1"
+    lodash: "npm:^4.17.21"
+    lucide-svelte: "npm:^0.358.0"
+    postcss: "npm:^8.4.38"
+    prettier: "npm:^3.2.5"
+    prettier-plugin-svelte: "npm:^3.2.2"
+    svelte: "npm:^4.2.12"
+    svelte-check: "npm:^3.6.8"
+    tailwindcss: "npm:^3.4.3"
+    tslib: "npm:^2.4.1"
+    typescript: "npm:^5.4.4"
+    vite: "npm:^5.1.7"
+    vitest: "npm:^1.4.0"
+    wrangler: "npm:^3.37.0"
+  languageName: unknown
+  linkType: soft
+
 "whatwg-fetch@npm:^3.4.1":
   version: 3.6.20
   resolution: "whatwg-fetch@npm:3.6.20"
