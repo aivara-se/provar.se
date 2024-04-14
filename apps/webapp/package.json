@@ -6,7 +6,6 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"build:docker": "docker build -t provar-webapp:latest .",
 		"preview": "vite preview",
 		"test": "npm run test:unit && npm run test:integration",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

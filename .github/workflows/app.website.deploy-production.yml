@@ -1,0 +1,56 @@
+# apps/website - deploy production
+
+name: apps/website - deploy production
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/apps.website.*.yml"
+      - "apps/website/**"
+  workflow_dispatch:
+
+concurrency:
+  group: "app.website.deploy-production"
+  cancel-in-progress: false
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      deployments: write
+
+    defaults:
+      run:
+        working-directory: ./apps/website
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+
+      - name: Setup Yarn
+        run: yarn install --silent
+
+      - name: Build the application
+        env:
+          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBSITE_APP_PUBLIC_PROVAR_APP_URL }}
+          PUBLIC_PROVAR_API_URL: ${{ secrets.APPS_WEBSITE_APP_PUBLIC_PROVAR_API_URL }}
+        run: yarn build
+
+      - name: Publish to Cloudflare
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.APPS_WEBSITE_CLOUDFLARE_TOKEN }}
+          accountId: ${{ secrets.APPS_WEBSITE_CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ secrets.APPS_WEBSITE_CLOUDFLARE_PROJECT_NAME }}
+          directory: ./apps/website/.svelte-kit/cloudflare
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
