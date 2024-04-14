@@ -46,6 +46,8 @@ func Create() *fiber.App {
 	auth.SetupGetLoginDetails(app)
 	auth.SetupLoginWithEmail(app)
 	auth.SetupLoginWithEmailConfirm(app)
+	auth.SetupOAuth2Callback(app)
+	auth.SetupOAuth2Login(app)
 	credential.SetupCreateCredential(app)
 	credential.SetupDeleteCredential(app)
 	credential.SetupOrganizationCredentials(app)

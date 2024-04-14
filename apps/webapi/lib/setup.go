@@ -2,6 +2,7 @@ package lib
 
 import (
 	"provar.se/webapi/lib/access"
+	"provar.se/webapi/lib/account"
 	"provar.se/webapi/lib/database"
 	"provar.se/webapi/lib/emails"
 	"provar.se/webapi/lib/metadata"
@@ -19,6 +20,9 @@ func Setup() error {
 		return err
 	}
 	if err := access.Setup(); err != nil {
+		return err
+	}
+	if err := account.Setup(); err != nil {
 		return err
 	}
 	return nil

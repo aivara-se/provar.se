@@ -10,6 +10,12 @@ export interface paths {
 	'/auth/email/prepare': {
 		post: operations['EmailAuthentication_prepare'];
 	};
+	'/auth/oauth2/{provider}/confirm': {
+		post: operations['OAuth2Authentication_confirm'];
+	};
+	'/auth/oauth2/{provider}/login': {
+		get: operations['OAuth2Authentication_login'];
+	};
 	'/auth/whoami': {
 		get: operations['Authentication_whoami'];
 	};
@@ -163,6 +169,10 @@ export interface components {
 			email: string;
 			avatar: string;
 		};
+		OAuth2Confirmation: {
+			state: string;
+			code: string;
+		};
 		OrganizationDetails: {
 			id: string;
 			createdAt: string;
@@ -229,6 +239,41 @@ export interface operations {
 				'application/json': {
 					email: string;
 				};
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
+			};
+		};
+	};
+	OAuth2Authentication_confirm: {
+		parameters: {
+			path: {
+				provider: string;
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['OAuth2Confirmation'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': {
+						accessToken: string;
+					};
+				};
+			};
+		};
+	};
+	OAuth2Authentication_login: {
+		parameters: {
+			path: {
+				provider: string;
 			};
 		};
 		responses: {

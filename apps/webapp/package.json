@@ -17,7 +17,7 @@
 		"test:unit": "vitest"
 	},
 	"dependencies": {
-		"@provar/provar-js": "^1.27.0",
+		"@provar/provar-js": "^1.28.1",
 		"chart.js": "^4.4.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"daisyui": "^4.7.2",

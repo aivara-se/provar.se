@@ -49,6 +49,45 @@ paths:
                   type: string
               required:
                 - email
+  /auth/oauth2/{provider}/confirm:
+    post:
+      operationId: OAuth2Authentication_confirm
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                required:
+                  - accessToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuth2Confirmation'
+  /auth/oauth2/{provider}/login:
+    get:
+      operationId: OAuth2Authentication_login
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
   /auth/whoami:
     get:
       operationId: Authentication_whoami
@@ -738,6 +777,16 @@ components:
         email:
           type: string
         avatar:
+          type: string
+    OAuth2Confirmation:
+      type: object
+      required:
+        - state
+        - code
+      properties:
+        state:
+          type: string
+        code:
           type: string
     OrganizationDetails:
       type: object
