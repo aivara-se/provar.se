@@ -1,6 +1,17 @@
 import { goto } from '$app/navigation';
+import { PUBLIC_PROVAR_API_URL } from '$env/static/public';
 import { api } from '../api';
 import { clearAccessToken, getAccessToken, setAccessToken } from './token.store';
+
+/**
+ * This local storage key is used to store the access token
+ */
+const STATE_PARAM_KEY = 'provar:oauth2_state';
+
+/**
+ * For how long the state parameter is valid.
+ */
+const STATE_PARAM_TTL = 1000 * 60 * 60; // 1 hour
 
 /**
  * This function is used to sign in with magic email link.
@@ -23,14 +34,16 @@ export async function verifyEmailLogin(token: string) {
  * This function is used to sign in with Google OAuth provider.
  */
 export function signInWithGoogle() {
-	// TODO: implement
+	const state = setupOAuth2State();
+	location.href = `${PUBLIC_PROVAR_API_URL}/auth/oauth2/google/login?state=${state}`;
 }
 
 /**
  * This function is used to sign in with Github OAuth provider.
  */
 export function signInWithGithub() {
-	// TODO: implement
+	const state = setupOAuth2State();
+	location.href = `${PUBLIC_PROVAR_API_URL}/auth/oauth2/github/login?state=${state}`;
 }
 
 /**
@@ -70,4 +83,47 @@ export function canAccessRoute(pathname: string, whitelist: string[]): boolean {
 		return true;
 	}
 	return false;
+}
+
+/**
+ * This function is used to create a new OAuth2 state and store it in local storage.
+ */
+function setupOAuth2State() {
+	let val = '';
+	while (val.length < 32) {
+		val += Math.random().toString(16).substring(7);
+	}
+	val = val.substring(0, 32);
+	const obj = JSON.stringify({ val, ts: Date.now() });
+	localStorage.setItem(STATE_PARAM_KEY, obj);
+	return val;
+}
+
+/**
+ * This function is used to validate the OAuth2 state parameter in local storage.
+ * And exchange OAuth2 login params for an access token using the API.
+ */
+export function isValidOAuth2State(provider: string, state: string) {
+	const obj = localStorage.getItem(STATE_PARAM_KEY);
+	if (!obj) {
+		return false;
+	}
+	localStorage.removeItem(STATE_PARAM_KEY);
+	const { val, ts } = JSON.parse(obj);
+	if (val !== state) {
+		return false;
+	}
+	if (Date.now() - ts > STATE_PARAM_TTL) {
+		return false;
+	}
+	return true;
+}
+
+/**
+ * This function is used to complete the oauth2 login flow.
+ */
+export async function verifyOAuth2Login(provider: string, state: string, code: string) {
+	const response = await api().OAuth2Authentication.confirm(provider, { state, code });
+	setAccessToken(response.accessToken);
+	goto('/');
 }

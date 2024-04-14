@@ -2,6 +2,7 @@ import {
 	createAuthenticationEndpoints,
 	createCredentialEndpoints,
 	createEmailAuthenticationEndpoints,
+	createOAuth2AuthenticationEndpoints,
 	createFeedbackEndpoints,
 	createHealthCheckEndpoints,
 	createInvitationEndpoints,
@@ -27,6 +28,7 @@ export class ProvarClient {
 	Authentication;
 	Credential;
 	EmailAuthentication;
+	OAuth2Authentication;
 	Feedback;
 	HealthCheck;
 	Invitation;
@@ -45,6 +47,7 @@ export class ProvarClient {
 		this.Authentication = createAuthenticationEndpoints(this.fetcher);
 		this.Credential = createCredentialEndpoints(this.fetcher);
 		this.EmailAuthentication = createEmailAuthenticationEndpoints(this.fetcher);
+		this.OAuth2Authentication = createOAuth2AuthenticationEndpoints(this.fetcher);
 		this.Feedback = createFeedbackEndpoints(this.fetcher);
 		this.HealthCheck = createHealthCheckEndpoints(this.fetcher);
 		this.Invitation = createInvitationEndpoints(this.fetcher);

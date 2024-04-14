@@ -12,6 +12,17 @@ export type EmailAuthentication = {
 	};
 };
 
+export type OAuth2Authentication = {
+	confirm: {
+		RequestBody: paths['/auth/oauth2/{provider}/confirm']['post']['requestBody']['content']['application/json'];
+		ResponseBody: paths['/auth/oauth2/{provider}/confirm']['post']['responses'][200]['content']['application/json'];
+	};
+	login: {
+		RequestBody: void;
+		ResponseBody: paths['/auth/oauth2/{provider}/login']['get']['responses'][204]['content']['application/json'];
+	};
+};
+
 export type Authentication = {
 	whoami: {
 		RequestBody: void;
@@ -147,6 +158,26 @@ export const createEmailAuthenticationEndpoints = (f: Fetcher) => {
 				EmailAuthentication['prepare']['ResponseBody'],
 				EmailAuthentication['prepare']['RequestBody']
 			>('POST', '/auth/email/prepare', body);
+		}
+	};
+};
+
+export const createOAuth2AuthenticationEndpoints = (f: Fetcher) => {
+	return {
+		confirm: async (
+			provider: string,
+			body: OAuth2Authentication['confirm']['RequestBody']
+		): Promise<OAuth2Authentication['confirm']['ResponseBody']> => {
+			return f.fetch<
+				OAuth2Authentication['confirm']['ResponseBody'],
+				OAuth2Authentication['confirm']['RequestBody']
+			>('POST', `/auth/oauth2/${provider}/confirm`, body);
+		},
+		login: async (provider: string): Promise<OAuth2Authentication['login']['ResponseBody']> => {
+			return f.fetch<OAuth2Authentication['login']['ResponseBody']>(
+				'GET',
+				`/auth/oauth2/${provider}/login`
+			);
 		}
 	};
 };
