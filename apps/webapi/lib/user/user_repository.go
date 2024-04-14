@@ -1,6 +1,7 @@
 package user
 
 import (
+	"database/sql"
 	"strings"
 	"time"
 
@@ -46,6 +47,87 @@ func Create(name, email string, verified bool) (*User, error) {
 		VALUES (:id, :created_at, :modified_at, :email, :name, :email_verified_at, :avatar)
 	`
 	_, err := database.DB().NamedExec(query, user)
+	return user, err
+}
+
+// Upsert creates a new user if it does not exist, otherwise it updates the
+// existing user with the given details.
+func Upsert(name, email, avatar string, verified bool) (*User, error) {
+	tx, err := database.DB().Beginx()
+	if err != nil {
+		tx.Rollback()
+		return nil, nil
+	}
+	user := &User{}
+	query := "SELECT * FROM private.user WHERE email = $1"
+	err = tx.Get(user, query, email)
+	// If the user exists, update the user with the new given details
+	if user.ID != "" {
+		if !user.EmailVerifiedAt.Valid && verified {
+			user.EmailVerifiedAt = types.NewNullTime(time.Now())
+		}
+		if name != "" {
+			user.Name = name
+		}
+		if avatar != "" {
+			user.Avatar = avatar
+		}
+		user.ModifiedAt = time.Now()
+		query = `
+			UPDATE private.user
+			SET
+				name = :name,
+				avatar = :avatar,
+				modified_at = :modified_at,
+				email_verified_at = :email_verified_at
+			WHERE id = :id
+		`
+		_, err = tx.NamedExec(query, user)
+		if err != nil {
+			tx.Rollback()
+			return nil, err
+		}
+		err = tx.Commit()
+		if err != nil {
+			return nil, err
+		}
+		return user, nil
+	}
+	// If the user does not exist, create a new user with the given details
+	if err != sql.ErrNoRows {
+		tx.Rollback()
+		return nil, err
+	}
+	user = &User{
+		ID:         database.NewID(),
+		CreatedAt:  time.Now(),
+		ModifiedAt: time.Now(),
+		Avatar:     avatar,
+		Email:      email,
+		Name:       name,
+	}
+	if name == "" {
+		emailParts := strings.Split(email, "@")
+		if len(emailParts) > 0 {
+			user.Name = emailParts[0]
+		}
+	}
+	if verified {
+		user.EmailVerifiedAt = types.NewNullTime(time.Now())
+	}
+	query = `
+		INSERT INTO private.user (id, created_at, modified_at, email, name, email_verified_at, avatar)
+		VALUES (:id, :created_at, :modified_at, :email, :name, :email_verified_at, :avatar)
+	`
+	_, err = tx.NamedExec(query, user)
+	if err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	err = tx.Commit()
+	if err != nil {
+		return nil, err
+	}
 	return user, err
 }
 

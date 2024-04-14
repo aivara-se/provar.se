@@ -37,11 +37,7 @@ func CompleteOAuth2Flow(providerName, state, code string, c *fiber.Ctx) (string,
 	if err != nil {
 		return "", err
 	}
-	acc, err := account.FindByState(state)
-	if err != nil {
-		return "", err
-	}
-	sess, err := provider.UnmarshalSession(acc.Session)
+	sess, err := account.GetOAuth2Session(provider, state)
 	if err != nil {
 		return "", err
 	}
@@ -65,11 +61,11 @@ func CompleteOAuth2Flow(providerName, state, code string, c *fiber.Ctx) (string,
 	if err != nil {
 		return "", err
 	}
-	user, err := user.FindByEmail(profile.Email)
+	user, err := user.Upsert(profile.Name, profile.Email, profile.AvatarURL, true)
 	if err != nil {
 		return "", err
 	}
-	err = account.UpdateByID(acc.ID, providerName, sess.Marshal(), user.ID)
+	_, err = account.Upsert(user.ID, providerName, sess.Marshal(), profile.Name, profile.AvatarURL)
 	if err != nil {
 		return "", err
 	}

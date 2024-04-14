@@ -9,51 +9,97 @@ import (
 
 // Account represents the account table in the database
 type Account struct {
-	ID        string         `db:"id"`
-	CreatedAt time.Time      `db:"created_at"`
-	UserID    sql.NullString `db:"user_id"`
-	Provider  string         `db:"provider"`
-	Session   string         `db:"session"`
-}
-
-// AccountState represents the accountstate table in the database
-type AccountState struct {
 	ID        string    `db:"id"`
 	CreatedAt time.Time `db:"created_at"`
-	AccountID string    `db:"account_id"`
-	State     string    `db:"state"`
+	UserID    string    `db:"user_id"`
+	Provider  string    `db:"provider"`
+	Session   string    `db:"session"`
+	Name      string    `db:"name"`
+	Avatar    string    `db:"avatar"`
 }
 
 // Create creates a new account in the database
-func Create(providerName, gothSession string) (*Account, error) {
+func Create(provider, session, name, avatar string) (*Account, error) {
 	acc := &Account{
 		ID:        database.NewID(),
 		CreatedAt: time.Now(),
-		Provider:  providerName,
-		Session:   gothSession,
+		Provider:  provider,
+		Session:   session,
+		Name:      name,
+		Avatar:    avatar,
 	}
 	query := `
-		INSERT INTO private.account (id, created_at, provider, session)
-		VALUES (:id, :created_at, :provider, :session)
+		INSERT INTO private.account (id, created_at, provider, session, name, avatar)
+		VALUES (:id, :created_at, :provider, :session, :name, :avatar)
 	`
 	_, err := database.DB().NamedExec(query, acc)
 	return acc, err
 }
 
-// CreateState creates a new account state in the database
-func CreateState(accountID, state string) (*AccountState, error) {
-	stateObj := &AccountState{
+// Upsert creates a new account if it does not exist, otherwise it updates the
+// existing account with the given details.
+func Upsert(userID, provider, session, name, avatar string) (*Account, error) {
+	tx, err := database.DB().Beginx()
+	if err != nil {
+		tx.Rollback()
+		return nil, nil
+	}
+	acc := &Account{}
+	query := `SELECT * FROM private.account WHERE provider = $1 AND user_id = $2`
+	err = tx.Get(acc, query, provider, userID)
+	// If the account exists, update the account with the new given details
+	if acc.ID != "" {
+		acc.Provider = provider
+		acc.Session = session
+		acc.Name = name
+		acc.Avatar = avatar
+		query = `
+			UPDATE private.account
+			SET
+				provider = :provider,
+				session = :session,
+				name = :name,
+				avatar = :avatar
+			WHERE provider = :provider AND user_id = :user_id
+		`
+		_, err = tx.NamedExec(query, acc)
+		if err != nil {
+			tx.Rollback()
+			return nil, err
+		}
+		err = tx.Commit()
+		if err != nil {
+			return nil, err
+		}
+		return acc, nil
+	}
+	// If the account does not exist, create a new account with the given details
+	if err != sql.ErrNoRows {
+		tx.Rollback()
+		return nil, err
+	}
+	acc = &Account{
 		ID:        database.NewID(),
 		CreatedAt: time.Now(),
-		AccountID: accountID,
-		State:     state,
+		Provider:  provider,
+		Session:   session,
+		Name:      name,
+		Avatar:    avatar,
 	}
-	query := `
-		INSERT INTO private.accountstate (id, created_at, account_id, state)
-		VALUES (:id, :created_at, :account_id, :state)
+	query = `
+		INSERT INTO private.account (id, created_at, provider, session, name, avatar)
+		VALUES (:id, :created_at, :provider, :session, :name, :avatar)
 	`
-	_, err := database.DB().NamedExec(query, stateObj)
-	return stateObj, err
+	_, err = database.DB().NamedExec(query, acc)
+	if err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	err = tx.Commit()
+	if err != nil {
+		return nil, err
+	}
+	return acc, nil
 }
 
 // UpdateByID updates an account with the given details
@@ -72,23 +118,6 @@ func FindByID(id string) (*Account, error) {
 	acc := &Account{}
 	query := `SELECT * FROM private.account WHERE id = $1`
 	err := database.DB().Get(acc, query, id)
-	if err != nil {
-		return nil, err
-	}
-	return acc, nil
-}
-
-// FindByState returns an account by an oauth2 state value
-func FindByState(state string) (*Account, error) {
-	acc := &Account{}
-	query := `
-		SELECT a.*
-		FROM private.accountstate s
-		JOIN private.account a ON s.account_id = a.id
-		WHERE s.state = $1
-		LIMIT 1
-	`
-	err := database.DB().Get(acc, query, state)
 	if err != nil {
 		return nil, err
 	}
