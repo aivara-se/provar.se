@@ -35,7 +35,7 @@
 <details bind:this={element} class="dropdown dropdown-end">
 	<summary class="flex list-none">
 		<div class="avatar">
-			<div class="w-8 h-8 rounded-full shadow-lg">
+			<div class="w-6 h-6 rounded-full shadow-lg">
 				<img src={user?.avatar} alt={user?.name} />
 			</div>
 		</div>
