@@ -1,11 +1,13 @@
 package account
 
 import (
+	"database/sql"
 	"errors"
 	"net/url"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/markbates/goth"
+	"provar.se/webapi/lib/kvstorage"
 	"provar.se/webapi/lib/random"
 )
 
@@ -18,6 +20,13 @@ var (
 	// ErrInvalidStateParam is returned when the state parameter is invalid
 	ErrInvalidStateParam = errors.New("invalid oauth2 state value")
 )
+
+// PendingSession is a struct that contains the provider and the session
+// that is pending authorization.
+type PendingSession struct {
+	Provider string `json:"provider"`
+	Session  string `json:"session"`
+}
 
 // RequestParams is a struct that contains the fiber context and
 // implements the goth.Params interface.
@@ -95,51 +104,52 @@ func ValidateStateValue(sess goth.Session, state string) error {
 // does not exist, it will create a new session and return it along with the
 // session ID to store in the cookie.
 func GetOrCreateSession(provider goth.Provider, state string) (goth.Session, error) {
-	sess, err := getOAuth2Session(provider, state)
+	sess, err := GetOAuth2Session(provider, state)
 	if err != nil {
 		return nil, err
 	}
 	if sess != nil {
 		return sess, nil
 	}
-	return newOAuth2Session(provider, state)
+	return NewOAuth2Session(provider, state)
 }
 
-// getOAuth2Session returns the session from the database if it exists. If it does not
+// GetOAuth2Session returns the session from the database if it exists. If it does not
 // exist, it will return nil.
-func getOAuth2Session(provider goth.Provider, state string) (goth.Session, error) {
-	acc, err := FindByState(state)
-	if acc == nil {
+func GetOAuth2Session(provider goth.Provider, state string) (goth.Session, error) {
+	pendingSess := &PendingSession{}
+	err := kvstorage.Get(state, pendingSess)
+	if err == sql.ErrNoRows {
 		return nil, nil
 	}
-	sess, err := provider.UnmarshalSession(acc.Session)
+	sess, err := provider.UnmarshalSession(pendingSess.Session)
 	if err != nil {
 		return nil, err
 	}
 	return sess, nil
 }
 
-// newOAuth2Session creates a new session and stores it in the database. It returns
+// NewOAuth2Session creates a new session and stores it in the database. It returns
 // the session and the session ID to store in the cookie.
-func newOAuth2Session(provider goth.Provider, state string) (goth.Session, error) {
+func NewOAuth2Session(provider goth.Provider, state string) (goth.Session, error) {
 	sess, err := provider.BeginAuth(state)
 	if err != nil {
 		return nil, err
 	}
-	acc, err := Create(provider.Name(), sess.Marshal())
-	if err != nil {
-		return nil, err
+	pendingSess := &PendingSession{
+		Provider: provider.Name(),
+		Session:  sess.Marshal(),
 	}
-	_, err = CreateState(acc.ID, state)
+	err = kvstorage.Set(state, pendingSess)
 	if err != nil {
 		return nil, err
 	}
 	return sess, nil
 }
 
-// FetchUser fetches the user from the provider. If the user is not found, it will
-// retry the fetch after authorizing the session.
-func FetchUser(provider goth.Provider, sess goth.Session, c *fiber.Ctx) (*goth.User, error) {
+// FetchProviderUser fetches the user from the provider. If the user is not found, it
+// will retry the fetch after authorizing the session.
+func FetchProviderUser(provider goth.Provider, sess goth.Session, c *fiber.Ctx) (*goth.User, error) {
 	user, err := provider.FetchUser(sess)
 	if err == nil {
 		return &user, err
