@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import { DashLayout } from '$lib/client/layout';
 	import { resetSearchValue } from '$lib/client/search';
-	import { addDays, endOfDay, endOfToday, format, startOfDay } from 'date-fns';
+	import { endOfDay, endOfToday, format, startOfDay, startOfToday } from 'date-fns';
 	import { onMount } from 'svelte';
 	import ActionsDropdown from './(components)/ActionsDropdown.svelte';
 	import DurationPicker from './(components)/DurationPicker.svelte';
@@ -15,7 +15,7 @@
 	export let data;
 
 	let range = {
-		beg: startOfDay(addDays(endOfToday(), -29)),
+		beg: startOfToday(),
 		end: endOfToday()
 	};
 
