@@ -9,9 +9,8 @@
 	};
 
 	let dateRangePresets = [
-		{ label: '1 Day', days: 1, isActive: false },
-		{ label: '1 Week', days: 7, isActive: false },
-		{ label: '1 Month', days: 30, isActive: false }
+		{ label: 'Today', days: 1, isActive: false },
+		{ label: '30 Days', days: 30, isActive: false }
 	];
 
 	$: {
@@ -36,11 +35,20 @@
 		url.searchParams.set('end', format(range.end, 'yyyy-MM-dd'));
 		goto(url.toString());
 	}
+
+	function formatDateRange(range: { beg: Date; end: Date }) {
+		const begString = format(range.beg, 'MMM dd');
+		const endString = format(range.end, 'MMM dd');
+		if (begString === endString) {
+			return begString;
+		}
+		return `${begString} - ${endString}`;
+	}
 </script>
 
 <div class="dropdown dropdown-end">
 	<div tabindex="0" role="button" class="btn btn-ghost btn-sm">
-		{format(range.beg, 'MMM dd')} - {format(range.end, 'MMM dd')}
+		{formatDateRange(range)}
 		<CalendarRangeIcon class="w-3.5 h-3.5 ml-1" />
 	</div>
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
