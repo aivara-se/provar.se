@@ -2251,15 +2251,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^4.7.2":
-  version: 4.7.3
-  resolution: "daisyui@npm:4.7.3"
+"daisyui@npm:^4.10.1":
+  version: 4.10.1
+  resolution: "daisyui@npm:4.10.1"
   dependencies:
     css-selector-tokenizer: "npm:^0.8"
     culori: "npm:^3"
     picocolors: "npm:^1"
     postcss-js: "npm:^4"
-  checksum: 10/24cf247e97ad1026c260d99677b30edb6142aaa1afb6c0d72bfe27766dc12b9e74134b626a163f54329ee92c29266d6fd5d9c34d86aa53403536ab845f4cee94
+  checksum: 10/d0ba67ee8b68c0e748c6784ac2908837a67229ada1d846ad11bf9909e5a4f6362358b43b019baddead7a19940f96c31f887e4d7d0f502433b2f18e74c887133c
   languageName: node
   linkType: hard
 
@@ -5996,7 +5996,7 @@ __metadata:
     autoprefixer: "npm:^10.4.19"
     chart.js: "npm:^4.4.1"
     chartjs-adapter-date-fns: "npm:^3.0.0"
-    daisyui: "npm:^4.7.2"
+    daisyui: "npm:^4.10.1"
     date-fns: "npm:^3.6.0"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
@@ -6049,7 +6049,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.4.0"
     "@typescript-eslint/parser": "npm:^7.5.0"
     autoprefixer: "npm:^10.4.19"
-    daisyui: "npm:^4.7.2"
+    daisyui: "npm:^4.10.1"
     date-fns: "npm:^3.6.0"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"

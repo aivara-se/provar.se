@@ -19,7 +19,7 @@
 		"@provar/provar-js": "^1.28.1",
 		"chart.js": "^4.4.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
-		"daisyui": "^4.7.2",
+		"daisyui": "^4.10.1",
 		"date-fns": "^3.6.0",
 		"lodash": "^4.17.21",
 		"lucide-svelte": "^0.358.0",
