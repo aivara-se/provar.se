@@ -6,7 +6,7 @@
 	export let feedback: Feedback;
 </script>
 
-<section class="mt-2 p-4 pr-8 rounded-lg bg-black/5 dark:bg-black/10 relative">
+<section class="p-4 pr-8 rounded-lg bg-black/5 dark:bg-black/10 relative">
 	<p>
 		“{feedback.feedbackData['response-text'] || 'No feedback text'}”
 	</p>

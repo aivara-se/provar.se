@@ -14,7 +14,7 @@
 	}
 </script>
 
-<section class="mt-3">
+<section class="mt-4">
 	<button class="badge text-xs mr-2 mb-2" on:click={filterByType}>
 		type: {feedback.feedbackType}
 	</button>
