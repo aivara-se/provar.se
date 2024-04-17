@@ -17,6 +17,7 @@ require (
 	github.com/markbates/goth v1.79.0
 	github.com/mileusna/useragent v1.3.4
 	github.com/oschwald/geoip2-golang v1.9.0
+	github.com/samber/slog-fiber v1.13.0
 	github.com/wneessen/go-mail v0.4.1
 )
 
@@ -44,6 +45,8 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.51.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
+	go.opentelemetry.io/otel v1.19.0 // indirect
+	go.opentelemetry.io/otel/trace v1.19.0 // indirect
 	golang.org/x/crypto v0.21.0 // indirect
 	golang.org/x/net v0.22.0 // indirect
 	golang.org/x/oauth2 v0.17.0 // indirect
