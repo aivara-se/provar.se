@@ -13,8 +13,8 @@
 
 <DashLayout {route} user={data.user} organizations={data.organizations}>
 	<section>
-		<FeedbackHead feedback={data.feedback} />
 		<FeedbackText feedback={data.feedback} />
+		<FeedbackHead feedback={data.feedback} />
 		<FeedbackTags organization={data.organization} feedback={data.feedback} />
 
 		{#if data.feedback.feedbackType === 'cnps'}
