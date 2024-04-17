@@ -1,19 +1,26 @@
 package api
 
 import (
+	"os"
 	"time"
+
+	"log/slog"
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/etag"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
-	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/requestid"
+	slogfiber "github.com/samber/slog-fiber"
 	"provar.se/webapi/api/auth"
 	"provar.se/webapi/api/credential"
 	"provar.se/webapi/api/feedback"
 	"provar.se/webapi/api/invitation"
 	"provar.se/webapi/api/organization"
 	"provar.se/webapi/api/ping"
+	"provar.se/webapi/lib/config"
+	"provar.se/webapi/lib/random"
 )
 
 func Create() *fiber.App {
@@ -36,11 +43,23 @@ func Create() *fiber.App {
 		Max:        100,
 	}))
 
+	// Use requestid middleware
+	app.Use(requestid.New(requestid.Config{
+		Generator: random.WithLength(32),
+	}))
+
 	// Use cors middleware
 	app.Use(cors.New())
 
-	// Use logger middleware
-	app.Use(logger.New())
+	// Use etag middleware
+	app.Use(etag.New())
+
+	// Use logger middleware (text or json)
+	if config.Get().LogFormat == "json" {
+		app.Use(slogfiber.New(slog.New(slog.NewJSONHandler(os.Stdout, nil))))
+	} else {
+		app.Use(slogfiber.New(slog.New(slog.NewTextHandler(os.Stdout, nil))))
+	}
 
 	// Load all app routes
 	auth.SetupGetLoginDetails(app)

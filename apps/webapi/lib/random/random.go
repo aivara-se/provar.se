@@ -16,3 +16,10 @@ func String(length int) string {
 	}
 	return string(id)
 }
+
+// WithLength returns a function that generates a random with given length
+func WithLength(length int) func() string {
+	return func() string {
+		return String(length)
+	}
+}
