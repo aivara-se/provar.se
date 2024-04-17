@@ -9,7 +9,6 @@ import (
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/etag"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	slogfiber "github.com/samber/slog-fiber"
@@ -52,7 +51,7 @@ func Create() *fiber.App {
 	app.Use(cors.New())
 
 	// Use etag middleware
-	app.Use(etag.New())
+	// app.Use(etag.New())
 
 	// Use logger middleware (text or json)
 	if config.Get().LogFormat == "json" {
