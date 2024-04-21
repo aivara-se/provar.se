@@ -4,7 +4,7 @@ name: apps/webapi - deploy production
 
 on:
   push:
-    branches: ["main", "*-deploy-prod"]
+    branches: ["main"]
     paths:
       - ".github/apps.webapi.deploy-production.yml"
       - "apps/webapi/**"
@@ -43,7 +43,7 @@ jobs:
         id: docker-meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository }}/webapi
+          images: ghcr.io/provar.se/webapi
 
       - name: Download GeoLite2 DB
         run: |
@@ -66,7 +66,7 @@ jobs:
         with:
           service: "${{ secrets.APPS_WEBAPI_GCP_CLOUD_RUN_SERVICE }}"
           region: "${{ secrets.APPS_WEBAPI_GCP_REGION }}"
-          image: "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}"
+          image: "ghcr.io/aivara-se/provar.se/webapi:main"
           env_vars: |
             AUTH_GITHUB_ID=${{ secrets.APPS_WEBAPI_APP_AUTH_GITHUB_ID }}
             AUTH_GITHUB_SECRET=${{ secrets.APPS_WEBAPI_APP_AUTH_GITHUB_SECRET }}
