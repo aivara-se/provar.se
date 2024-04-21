@@ -4,7 +4,7 @@ name: apps/webapi - deploy production
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "*-deploy-prod"]
     paths:
       - ".github/apps.webapi.deploy-production.yml"
       - "apps/webapi/**"
