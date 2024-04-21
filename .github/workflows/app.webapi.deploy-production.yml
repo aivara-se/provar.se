@@ -45,12 +45,6 @@ jobs:
         with:
           images: ghcr.io/aivara-se/provar.se/webapi
 
-      - name: Download GeoLite2 DB
-        run: |
-          wget "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.APPS_WEBAPI_METAMIND_KEY }}&suffix=tar.gz" -O GeoLite2-City.tar.gz
-          tar -xzf GeoLite2-City.tar.gz
-          mv `find . | grep GeoLite2-City.mmdb` ./
-
       - name: Publish Docker image
         uses: docker/build-push-action@v5
         with:
@@ -59,34 +53,3 @@ jobs:
           push: true
           tags: ${{ steps.docker-meta.outputs.tags }}
           labels: ${{ steps.docker-meta.outputs.labels }}
-
-      - name: Google Auth
-        id: auth
-        uses: "google-github-actions/auth@v2"
-        with:
-          service_account: "${{ secrets.APPS_WEBAPI_GCP_SERVICE_ACCOUNT }}"
-          credentials_json: "${{ secrets.APPS_WEBAPI_GCP_CREDENTIALS }}"
-
-      - name: Deploy the service
-        id: deploy
-        uses: google-github-actions/deploy-cloudrun@v2
-        with:
-          project_id: "${{ secrets.APPS_WEBAPI_GCP_PROJECT_ID }}"
-          service: "${{ secrets.APPS_WEBAPI_GCP_CLOUD_RUN_SERVICE }}"
-          region: "${{ secrets.APPS_WEBAPI_GCP_REGION }}"
-          image: "ghcr.io/aivara-se/provar.se/webapi:main"
-          env_vars: |
-            AUTH_GITHUB_ID=${{ secrets.APPS_WEBAPI_APP_AUTH_GITHUB_ID }}
-            AUTH_GITHUB_SECRET=${{ secrets.APPS_WEBAPI_APP_AUTH_GITHUB_SECRET }}
-            AUTH_GOOGLE_ID=${{ secrets.APPS_WEBAPI_APP_AUTH_GOOGLE_ID }}
-            AUTH_GOOGLE_SECRET=${{ secrets.APPS_WEBAPI_APP_AUTH_GOOGLE_SECRET }}
-            AUTH_SECRET=${{ secrets.APPS_WEBAPI_APP_AUTH_SECRET }}
-            DATABASE_URI=${{ secrets.APPS_WEBAPI_APP_DATABASE_URI }}
-            EMAIL_FROM=${{ secrets.APPS_WEBAPI_APP_EMAIL_FROM }}
-            EMAIL_SERVER=${{ secrets.APPS_WEBAPI_APP_EMAIL_SERVER }}
-            GEOLITE2_DB=${{ secrets.APPS_WEBAPI_APP_GEOLITE2_DB }}
-            PROVAR_API_URL=${{ secrets.APPS_WEBAPI_APP_PROVAR_API_URL }}
-            PROVAR_APP_URL=${{ secrets.APPS_WEBAPI_APP_PROVAR_APP_URL }}
-
-      - name: Show Output
-        run: echo ${{ steps.deploy.outputs.url }}
