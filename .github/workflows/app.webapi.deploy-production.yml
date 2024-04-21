@@ -20,6 +20,7 @@ jobs:
 
     permissions:
       contents: read
+      packages: write
       deployments: write
 
     defaults:
