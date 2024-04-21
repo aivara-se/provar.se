@@ -53,7 +53,8 @@ jobs:
       - name: Publish Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          file: ./apps/webapi/Dockerfile
+          context: ./apps/webapi
           push: true
           tags: ${{ steps.docker-meta.outputs.tags }}
           labels: ${{ steps.docker-meta.outputs.labels }}
