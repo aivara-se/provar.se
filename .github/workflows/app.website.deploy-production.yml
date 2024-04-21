@@ -4,7 +4,7 @@ name: apps/website - deploy production
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "*-deploy-prod"]
     paths:
       - ".github/apps.website.deploy-production.yml"
       - "apps/website/**"
