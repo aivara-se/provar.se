@@ -43,7 +43,7 @@ jobs:
         id: docker-meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/provar.se/webapi
+          images: ghcr.io/aivara-se/provar.se/webapi
 
       - name: Download GeoLite2 DB
         run: |
