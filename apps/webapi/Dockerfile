@@ -10,7 +10,6 @@ FROM alpine:3
 RUN apk add ca-certificates
 WORKDIR /app
 COPY --from=builder /app/webapi ./
-COPY ./GeoLite2-City.mmdb ./
 COPY ./public ./
 
 ENV AUTH_GITHUB_ID=""

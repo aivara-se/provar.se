@@ -35,3 +35,18 @@ Start the application locally
 ```shell
 yarn dev
 ```
+
+## Running in docker
+
+The service is published to the Github container registry. Pull the docker image using this command:
+
+```shell
+docker pull ghcr.io/aivara-se/provar.se/webapi:main
+```
+
+In addition to the docker image, you will also need a GeoLite2 city database file `GeoLite2-City.mmdb`.
+
+```shell
+docker run -d
+  -e
+```
