@@ -64,6 +64,7 @@ jobs:
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v2
         with:
+          project_id: "${{ secrets.APPS_WEBAPI_GCP_PROJECT_ID }}"
           service: "${{ secrets.APPS_WEBAPI_GCP_CLOUD_RUN_SERVICE }}"
           region: "${{ secrets.APPS_WEBAPI_GCP_REGION }}"
           image: "ghcr.io/aivara-se/provar.se/webapi:main"
