@@ -34,7 +34,7 @@ func (t *LoginEmail) ContentHTML(data map[string]string) string {
     <tr>
       <td align="center" style="padding: 50px 0;">
         <a href="https://provar.se">
-          <img alt="Provar" height="64" src="https://storage.googleapis.com/provar-assets/email/logo-64.png" style="max-width: 100%; vertical-align: middle; line-height: 1">
+          <img alt="Provar" height="64" src="https://provar.se/assets/logo-512.png" style="max-width: 100%; vertical-align: middle; line-height: 1">
         </a>
       </td>
     </tr>
