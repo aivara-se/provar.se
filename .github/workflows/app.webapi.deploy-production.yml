@@ -6,7 +6,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - ".github/apps.webapi.*.yml"
+      - ".github/apps.webapi.deploy-production.yml"
       - "apps/webapi/**"
   workflow_dispatch:
 
@@ -30,20 +30,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Google Auth
-        id: auth
-        uses: "google-github-actions/auth@v2"
-        with:
-          service_account: "${{ secrets.APPS_WEBAPI_GCP_SERVICE_ACCOUNT }}"
-          credentials_json: "${{ secrets.APPS_WEBAPI_GCP_CREDENTIALS }}"
-
       - name: Docker Auth
         id: docker-auth
         uses: "docker/login-action@v3"
         with:
-          username: "_json_key"
-          password: "${{ secrets.APPS_WEBAPI_GCP_CREDENTIALS }}"
-          registry: "${{ secrets.APPS_WEBAPI_GCP_GAR_REGISTRY }}"
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker Metadata
+        id: docker-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
 
       - name: Download GeoLite2 DB
         run: |
@@ -51,17 +50,13 @@ jobs:
           tar -xzf GeoLite2-City.tar.gz
           mv `find . | grep GeoLite2-City.mmdb` ./
 
-      - name: Build docker image
-        run: docker build -t "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}" .
-
-      - name: Push docker image
-        run: docker push "${{ secrets.APPS_WEBAPI_GCP_GAR_REPOSITORY }}/webapi:${{ github.sha }}"
-
-      - name: Database migrations
-        env:
-          DATABASE_URI: ${{ secrets.APPS_WEBAPI_APP_DATABASE_URI }}
-        run: |
-          go run -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
+      - name: Publish Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.docker-meta.outputs.tags }}
+          labels: ${{ steps.docker-meta.outputs.labels }}
 
       - name: Deploy the service
         id: deploy

@@ -6,7 +6,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - ".github/apps.website.*.yml"
+      - ".github/apps.website.deploy-production.yml"
       - "apps/website/**"
   workflow_dispatch:
 
