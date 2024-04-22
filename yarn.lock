@@ -3511,16 +3511,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"joi@npm:^17.12.2":
-  version: 17.12.2
-  resolution: "joi@npm:17.12.2"
+"joi@npm:^17.12.3":
+  version: 17.12.3
+  resolution: "joi@npm:17.12.3"
   dependencies:
     "@hapi/hoek": "npm:^9.3.0"
     "@hapi/topo": "npm:^5.1.0"
     "@sideway/address": "npm:^4.1.5"
     "@sideway/formula": "npm:^3.0.1"
     "@sideway/pinpoint": "npm:^2.0.0"
-  checksum: 10/42257382802f622a4152cc4dbf5bca226a312a8315bf826262f5643d8e450d2f2d9c753abfef247b8c3121423639a02945b322ccac5abde17402dedcb26b9365
+  checksum: 10/454dcc8ff1b095f978253bb1ef6d3033812d091d6a0a3da0ba7c3cb85623c7a1e657c19a8685839e991fe1cfb83ca25ea0caa1d17c9806dea0ffd49e43ecb0a2
   languageName: node
   linkType: hard
 
@@ -5465,9 +5465,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sveltekit-superforms@npm:^2.12.2":
-  version: 2.12.2
-  resolution: "sveltekit-superforms@npm:2.12.2"
+"sveltekit-superforms@npm:^2.12.5":
+  version: 2.12.5
+  resolution: "sveltekit-superforms@npm:2.12.5"
   dependencies:
     "@gcornut/valibot-json-schema": "npm:^0.0.27"
     "@sinclair/typebox": "npm:^0.32.20"
@@ -5475,7 +5475,7 @@ __metadata:
     "@vinejs/vine": "npm:^1.8.0"
     arktype: "npm:1.0.29-alpha"
     devalue: "npm:^4.3.2"
-    joi: "npm:^17.12.2"
+    joi: "npm:^17.12.3"
     just-clone: "npm:^6.2.0"
     memoize-weak: "npm:^1.0.2"
     superstruct: "npm:^1.0.4"
@@ -5535,7 +5535,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10/2430554a2ec7a38b4a18c1e6c967e5fdc200bfff8d091bc6c028a371233c551ccc7f0a8f6abb3061e25e5d7380b6e807598a5d31c20b95ca2a7ff344d0c0c718
+  checksum: 10/b0741aedc979404db3f3f5415605b9d274f6eace0f32fe62282b5226b142e5db305be6c21510a40b190ccd84f33eba7af88b238ce8aa868269f65e55f47567e2
   languageName: node
   linkType: hard
 
@@ -6082,7 +6082,7 @@ __metadata:
     prettier-plugin-svelte: "npm:^3.2.2"
     svelte: "npm:^4.2.12"
     svelte-check: "npm:^3.6.9"
-    sveltekit-superforms: "npm:^2.12.2"
+    sveltekit-superforms: "npm:^2.12.5"
     tailwindcss: "npm:^3.4.3"
     tslib: "npm:^2.4.1"
     typescript: "npm:^5.4.4"
