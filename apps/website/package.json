@@ -18,7 +18,7 @@
 		"daisyui": "^4.10.2",
 		"date-fns": "^3.6.0",
 		"lodash": "^4.17.21",
-		"lucide-svelte": "^0.358.0",
+		"lucide-svelte": "^0.372.0",
 		"tslib": "^2.4.1"
 	},
 	"devDependencies": {
