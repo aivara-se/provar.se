@@ -4332,10 +4332,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"overlayscrollbars@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "overlayscrollbars@npm:2.7.1"
-  checksum: 10/172ed3359e651a9ca14ccb7646b1a8a1d8150a8c0b4883050b3eb0aaa7ee923c3ebbbee107d0e65fb80de34cb223899488368e9d4245d37e4c688d5b0ef77415
+"overlayscrollbars@npm:^2.7.3":
+  version: 2.7.3
+  resolution: "overlayscrollbars@npm:2.7.3"
+  checksum: 10/805c0cd75ca3c0c842e7815ba3efc5d19bff9e346c4181393e38c8ed76f2c694a212801b8df4ed26be3e6c4d9847360c1c8866c5737a8f0884a4a06de729ba2a
   languageName: node
   linkType: hard
 
@@ -6081,7 +6081,7 @@ __metadata:
     eslint-plugin-svelte: "npm:^2.35.1"
     lodash: "npm:^4.17.21"
     lucide-svelte: "npm:^0.372.0"
-    overlayscrollbars: "npm:^2.7.1"
+    overlayscrollbars: "npm:^2.7.3"
     overlayscrollbars-svelte: "npm:^0.5.3"
     papaparse: "npm:^5.4.1"
     postcss: "npm:^8.4.38"
