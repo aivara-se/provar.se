@@ -64,12 +64,6 @@ jobs:
           bash ../../.scripts/wait-for-postgres.sh
           go run -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
 
-      - name: Download GeoLite2 DB
-        run: |
-          wget "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.APPS_WEBAPI_METAMIND_KEY }}&suffix=tar.gz" -O GeoLite2-City.tar.gz
-          tar -xzf GeoLite2-City.tar.gz
-          mv `find . | grep GeoLite2-City.mmdb` ./
-
       - name: Check unit tests
         env:
           AUTH_SECRET: lsYOrIgN9GmEa+4ycD8q/Z5ZD/KiN89I/LhFNzqZsE3A0Pek5bLKmg==

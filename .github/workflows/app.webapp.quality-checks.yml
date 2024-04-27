@@ -48,8 +48,8 @@ jobs:
 
       - name: Build the application
         env:
-          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_APP_URL }}
-          PUBLIC_PROVAR_API_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_API_URL }}
+          PUBLIC_PROVAR_APP_URL: https://app.provar.se
+          PUBLIC_PROVAR_API_URL: https://api.provar.se
         run: yarn build
 
       - name: Check code formatting
@@ -57,8 +57,8 @@ jobs:
 
       - name: Check code errors
         env:
-          PUBLIC_PROVAR_APP_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_APP_URL }}
-          PUBLIC_PROVAR_API_URL: ${{ secrets.APPS_WEBAPP_APP_PUBLIC_PROVAR_API_URL }}
+          PUBLIC_PROVAR_APP_URL: https://app.provar.se
+          PUBLIC_PROVAR_API_URL: https://api.provar.se
         run: yarn check
 
       - name: Check unit tests
@@ -68,12 +68,3 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:javascript-typescript"
-
-      - name: Publish to Cloudflare
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.APPS_WEBAPP_CLOUDFLARE_TOKEN }}
-          accountId: ${{ secrets.APPS_WEBAPP_CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ secrets.APPS_WEBAPP_CLOUDFLARE_PROJECT_NAME }}
-          directory: ./apps/webapp/.svelte-kit/cloudflare
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
