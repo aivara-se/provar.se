@@ -3,9 +3,9 @@
 # Install global dependencies
 go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
-# Source apps/webapi/.secrets file if it exists
-if [ -f apps/webapi/.secrets ]; then
-  source apps/webapi/.secrets
+# Source apps/webapi/.env.prod file if it exists
+if [ -f apps/webapi/.env.prod ]; then
+  source apps/webapi/.env.prod
 fi
 
 # Create .env file for webapi service
@@ -23,7 +23,7 @@ PROVAR_API_URL=http://localhost:3001
 PROVAR_APP_URL=http://localhost:3002
 
 # Local only environment variables
-GOOGLE_APPLICATION_CREDENTIALS=../../credentials.json
+LOG_FORMAT=text
 PORT=3001
 EOF
 
@@ -34,4 +34,13 @@ PUBLIC_PROVAR_API_URL=http://localhost:3001
 
 # Local only environment variables
 PORT=3002
+EOF
+
+# Create .env file for website
+cat << EOF > apps/website/.env
+PUBLIC_PROVAR_APP_URL=http://localhost:3002
+PUBLIC_PROVAR_API_URL=http://localhost:3001
+
+# Local only environment variables
+PORT=3003
 EOF
