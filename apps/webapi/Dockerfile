@@ -1,15 +1,7 @@
-FROM golang:1.22.1-alpine AS builder
-WORKDIR /app
-RUN apk add --no-cache git
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN go build -o ./webapi
-
 FROM alpine:3
 RUN apk add ca-certificates
 WORKDIR /app
-COPY --from=builder /app/webapi ./
+COPY ./webapi ./
 COPY ./public ./
 
 ENV AUTH_GITHUB_ID=""
