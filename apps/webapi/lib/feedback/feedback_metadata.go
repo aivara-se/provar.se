@@ -40,8 +40,8 @@ func SetRequestIP(m *map[string]string, ip string) {
 
 // SetIPLocation sets the location metadata fields based on the IP address.
 func SetIPLocation(m *map[string]string, ip string) {
-	rec, err := metadata.GetLocation(ip)
-	if err != nil {
+	rec, _ := metadata.GetLocation(ip)
+	if rec == nil {
 		return
 	}
 	setIfMissing(m, MetadataLocationCity, rec.City.Names["en"])

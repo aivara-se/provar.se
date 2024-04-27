@@ -1,7 +1,6 @@
 package metadata
 
 import (
-	"log"
 	"net"
 
 	"github.com/oschwald/geoip2-golang"
@@ -18,6 +17,9 @@ func Setup() error {
 		return nil
 	}
 	cfg := config.Get()
+	if cfg.Geolite2 == "" {
+		return nil
+	}
 	db, err := geoip2.Open(cfg.Geolite2)
 	if err != nil {
 		return err
@@ -32,16 +34,10 @@ func Setup() error {
 
 // GetLocation returns the location of an IP address.
 func GetLocation(IP string) (*geoip2.City, error) {
-	return getLocationClient().City(net.ParseIP(IP))
-}
-
-// getLocationClient returns the connected GeoIP database reader.
-// NOTE: The setup function must be called before this function.
-func getLocationClient() *geoip2.Reader {
 	if cachedClient == nil {
-		log.Fatalln("Cannot to use GeoIP database before connecting")
+		return nil, nil
 	}
-	return cachedClient
+	return cachedClient.City(net.ParseIP(IP))
 }
 
 // testConnection tests the connection to the GeoIP database.
