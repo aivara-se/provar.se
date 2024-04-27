@@ -1,21 +1,17 @@
-# apps/webapi - deploy production
+# apps/webapi - publish docker
 
-name: apps/webapi - deploy production
+name: apps/webapi - publish docker
 
 on:
-  push:
-    branches: ["main"]
-    paths:
-      - ".github/apps.webapi.deploy-production.yml"
-      - "apps/webapi/**"
-  workflow_dispatch:
+  release:
+    types: [published]
 
 concurrency:
-  group: "app.webapi.deploy-production"
+  group: "app.webapi.publish-docker"
   cancel-in-progress: false
 
 jobs:
-  deploy-production:
+  publish-docker:
     runs-on: ubuntu-latest
 
     permissions:
