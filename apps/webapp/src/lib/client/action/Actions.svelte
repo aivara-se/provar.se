@@ -74,7 +74,7 @@
 	class:modal-open={visible}
 	on:click|self={onClickOutside}
 >
-	<div class="w-full max-w-lg rounded-lg shadow-lg p-4 bg-gray-100 dark:bg-gray-800">
+	<div class="w-full max-w-lg rounded-lg shadow-lg p-4 bg-gray-800">
 		<header>
 			<ActionSearchInput bind:element={input} bind:value />
 		</header>

@@ -27,7 +27,7 @@
 	/>
 	{#if errors}
 		<div class="label">
-			<span class="label-text text-xs text-red-700 dark:text-red-400">
+			<span class="label-text text-xs text-red-400">
 				{errors}
 			</span>
 		</div>

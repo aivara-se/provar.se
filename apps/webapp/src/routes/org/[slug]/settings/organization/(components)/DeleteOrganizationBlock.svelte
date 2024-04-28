@@ -15,7 +15,7 @@
 	}
 </script>
 
-<section class="mt-8 rounded-lg p-4 bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-gray-200">
+<section class="mt-8 rounded-lg p-4 bg-gray-950 text-gray-200">
 	<h3 class="flex items-center justify-between text-lg font-medium">
 		Delete the organization!
 		<AlertCircleIcon class="w-5 h-5" />
