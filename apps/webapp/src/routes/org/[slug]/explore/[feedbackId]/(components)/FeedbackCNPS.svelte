@@ -51,7 +51,7 @@
 		<div class="flex">
 			{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as i}
 				<StarIcon
-					class="w-6 h-6 text-red-500 {i < details.rating ? 'opacity-100' : 'opacity-20'}"
+					class="w-6 h-6 text-yellow-500 {i < details.rating ? 'opacity-100' : 'opacity-20'}"
 				/>
 			{/each}
 		</div>
