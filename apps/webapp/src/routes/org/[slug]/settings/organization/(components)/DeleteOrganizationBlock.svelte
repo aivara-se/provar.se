@@ -15,7 +15,7 @@
 	}
 </script>
 
-<section class="mt-8 rounded-lg p-4 bg-gray-950 text-gray-200">
+<section class="rounded-xl p-4 md:p-8 bg-black/20 text-gray-200 shadow mt-8">
 	<h3 class="flex items-center justify-between text-lg font-medium">
 		Delete the organization!
 		<AlertCircleIcon class="w-5 h-5" />
@@ -24,7 +24,7 @@
 		Deleting this organization will permanently erase all collected feedback data, including
 		associated records and information. This action cannot be reversed.
 	</p>
-	<button class="btn btn-sm btn-neutral mt-4" on:click={() => (isOpen = true)}>
+	<button class="btn btn-sm mt-4" on:click={() => (isOpen = true)}>
 		Delete {organization?.name}
 	</button>
 	<ConfirmModal bind:isOpen action={deleteOrganization} submitText="Delete {organization?.name}">

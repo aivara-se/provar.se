@@ -29,7 +29,7 @@
 	});
 </script>
 
-<section class="mt-8 rounded-lg p-4 bg-gray-950 text-gray-200">
+<section class="rounded-xl p-4 md:p-8 bg-black/20 text-gray-200 shadow mt-8">
 	<h3 class="flex items-center justify-between text-lg font-medium">Invite Member</h3>
 	<p class="text-sm mt-2">
 		Invite a user to join your organization. The user will receive an email from provar.se with a
@@ -39,7 +39,6 @@
 		<TextInput
 			name="name"
 			label="Name"
-			className="border-none bg-white/10"
 			errors={$errors.name}
 			constraints={$constraints.name}
 			bind:value={$form.name}
@@ -47,11 +46,10 @@
 		<TextInput
 			name="email"
 			label="Email"
-			className="border-none bg-white/10"
 			errors={$errors.email}
 			constraints={$constraints.email}
 			bind:value={$form.email}
 		/>
-		<button class="btn btn-sm w-24 btn-neutral mt-4">Invite</button>
+		<button class="btn btn-sm w-24 mt-4">Invite</button>
 	</form>
 </section>

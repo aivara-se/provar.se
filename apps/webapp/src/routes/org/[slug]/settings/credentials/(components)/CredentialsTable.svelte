@@ -7,7 +7,7 @@
 </script>
 
 {#if credentials.length}
-	<table class="table">
+	<table class="table mb-4">
 		<thead>
 			<tr>
 				<th>Name</th>

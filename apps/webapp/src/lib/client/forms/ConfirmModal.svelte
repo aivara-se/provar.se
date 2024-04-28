@@ -12,7 +12,7 @@
 		<slot />
 		<footer class="flex justify-around gap-4">
 			<form on:submit|preventDefault={action}>
-				<button class="btn btn-neutral" on:click={() => (isOpen = false)}>{submitText}</button>
+				<button class="btn" on:click={() => (isOpen = false)}>{submitText}</button>
 			</form>
 			<button class="btn btn-ghost" on:click={() => (isOpen = false)}> Cancel </button>
 		</footer>

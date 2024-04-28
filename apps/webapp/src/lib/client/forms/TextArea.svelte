@@ -21,7 +21,7 @@
 	<textarea
 		{name}
 		bind:value
-		class="textarea resize-none h-32 {errors ? 'textarea-error' : ''} {className} textarea-bordered"
+		class="textarea resize-none h-32 {errors ? 'textarea-error' : ''} {className}"
 		aria-invalid={errors ? 'true' : undefined}
 		{...constraints}
 	/>
