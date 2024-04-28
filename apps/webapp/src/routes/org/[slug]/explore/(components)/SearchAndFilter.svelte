@@ -93,7 +93,8 @@
 		<div class="my-4 flex flex-wrap gap-1">
 			{#key fields.query.type}
 				{#each fields.query.type as type}
-					<button class="badge" on:click={() => removeTypeFilter(type)}>type: {type}</button>
+					<button class="badge text-xs" on:click={() => removeTypeFilter(type)}>type: {type}</button
+					>
 				{/each}
 			{/key}
 
