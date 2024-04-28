@@ -15,7 +15,7 @@
 		});
 </script>
 
-<nav class="fixed left-0 right-0 bottom-0 btm-nav btm-nav-sm shadow-lg border-t dark:border-t-0">
+<nav class="fixed left-0 right-0 bottom-0 btm-nav btm-nav-sm shadow-lg border-t-0">
 	{#each items as item}
 		<a href={item.href}>
 			<svelte:component this={item.icon} class="w-4 h-4" />

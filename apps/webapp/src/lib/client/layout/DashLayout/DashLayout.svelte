@@ -12,7 +12,7 @@
 	export let organizations: Organization[];
 </script>
 
-<div class="flex flex-1 min-h-screen w-full h-full bg-gray-100 dark:bg-gray-900 pb-16 md:pb-4">
+<div class="flex flex-1 min-h-screen w-full h-full bg-gray-900 pb-16 md:pb-4">
 	<aside class="hidden md:flex flex-col w-32 ml-4 relative">
 		<div class="fixed flex flex-col items-center top-12 bottom-0 left-4 w-32">
 			<div class="flex flex-1">
@@ -29,7 +29,7 @@
 				<AvatarMenu {user} {organizations} />
 			</div>
 		</header>
-		<main class="w-full p-4 md:p-8 rounded-xl bg-white dark:bg-black/20 shadow">
+		<main class="w-full p-4 md:p-8 rounded-xl bg-black/20 shadow">
 			{#if route.tabs && route.tabs.length > 0}
 				<ContentTabs tabs={route.tabs} />
 			{/if}

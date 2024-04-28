@@ -17,7 +17,7 @@
 		{#each feedbacks.items as feedback}
 			<a
 				href="./explore/{feedback.id}"
-				class="bg-black/5 dark:bg-black/10 hover:bg-black/10 hover:dark:bg-black/20 transition-colors rounded-lg p-4 pt-6 md:pt-4 relative flex flex-col"
+				class="bg-black/10 hover:bg-black/20 transition-colors rounded-lg p-4 pt-6 md:pt-4 relative flex flex-col"
 			>
 				{#if feedback.feedbackType === 'csat'}
 					<FeedbackItemCSAT {feedback} />

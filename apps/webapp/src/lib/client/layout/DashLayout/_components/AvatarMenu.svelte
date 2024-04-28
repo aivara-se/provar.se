@@ -53,7 +53,7 @@
 			{/each}
 		</ul>
 
-		<hr class="mt-2 border-t border-gray-200 dark:border-gray-900" />
+		<hr class="mt-2 border-t border-gray-900" />
 
 		<ul class="mt-2">
 			<li>

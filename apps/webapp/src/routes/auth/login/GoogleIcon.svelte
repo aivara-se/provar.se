@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let className: string = 'w-4 h-4 text-white dark:text-gray-100';
+	export let className: string = 'w-4 h-4 text-gray-100';
 </script>
 
 <svg
