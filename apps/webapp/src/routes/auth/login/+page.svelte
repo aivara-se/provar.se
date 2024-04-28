@@ -16,16 +16,16 @@
 				</div>
 				<input type="text" name="email" class="input input-bordered w-full" bind:value={email} />
 			</label>
-			<input type="submit" class="btn btn-md btn-block btn-neutral" value="Login with email" />
+			<input type="submit" class="btn btn-md btn-block" value="Login with email" />
 		</form>
 
 		<div class="divider">or</div>
 
-		<button class="btn btn-md btn-block btn-neutral" on:click={() => signInWithGoogle()}>
+		<button class="btn btn-md btn-block" on:click={() => signInWithGoogle()}>
 			<GoogleIcon /> Login with Google
 		</button>
 
-		<button class="btn btn-md btn-block btn-neutral" on:click={() => signInWithGithub()}>
+		<button class="btn btn-md btn-block" on:click={() => signInWithGithub()}>
 			<GithubIcon /> Login with Github
 		</button>
 	</div>

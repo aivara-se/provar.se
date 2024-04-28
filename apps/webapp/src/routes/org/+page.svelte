@@ -9,7 +9,7 @@
 	<div class="flex flex-col w-80 gap-4">
 		<h1 class="text-lg font-medium antialiased">Organizations</h1>
 		{#each organizations as organization}
-			<a href="/org/{organization.slug}" class="btn btn-block btn-neutral rounded-lg">
+			<a href="/org/{organization.slug}" class="btn btn-block rounded-lg">
 				{organization.name}
 			</a>
 		{/each}

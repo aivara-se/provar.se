@@ -16,7 +16,7 @@
 	}
 </script>
 
-<section class="mt-8 rounded-lg p-4 bg-gray-950 text-gray-200">
+<section class="rounded-xl p-4 md:p-8 bg-black/20 text-gray-200 shadow mt-8">
 	<h3 class="flex items-center justify-between text-lg font-medium">
 		Remove membership!
 		<AlertCircleIcon class="w-5 h-5" />
@@ -25,7 +25,7 @@
 		Removing membership will remove {member?.name} from the organization. The user will no longer be
 		able to access feedback data.
 	</p>
-	<button class="btn btn-sm btn-neutral mt-4" on:click={() => (isOpen = true)}>
+	<button class="btn btn-sm mt-4" on:click={() => (isOpen = true)}>
 		Remove {member?.name}
 	</button>
 	<ConfirmModal bind:isOpen action={revokeMembership} submitText="Remove {member?.name}">
