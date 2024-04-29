@@ -4083,13 +4083,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"overlayscrollbars-svelte@npm:^0.5.3":
-  version: 0.5.3
-  resolution: "overlayscrollbars-svelte@npm:0.5.3"
+"overlayscrollbars-svelte@npm:^0.5.4":
+  version: 0.5.4
+  resolution: "overlayscrollbars-svelte@npm:0.5.4"
   peerDependencies:
     overlayscrollbars: ^2.0.0
     svelte: ">=3.54.0"
-  checksum: 10/6ef252ae283f44cb976c7ebbb87ca4d5e25eff3d0f32f08b8506ea827c93af0341ec122043fce4a5b282e33d90791c4d794b483ba59b4999a75fbf256f26362d
+  checksum: 10/8b03e204717b65b6f01d4797ed8aaf93a49cd31b878c9261192b2c654918936a97a724930a94e140f950c4c9f71ef1445ace38c4ce00cb8f19efaa8e412da97d
   languageName: node
   linkType: hard
 
@@ -5843,7 +5843,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     lucide-svelte: "npm:^0.372.0"
     overlayscrollbars: "npm:^2.7.3"
-    overlayscrollbars-svelte: "npm:^0.5.3"
+    overlayscrollbars-svelte: "npm:^0.5.4"
     papaparse: "npm:^5.4.1"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
