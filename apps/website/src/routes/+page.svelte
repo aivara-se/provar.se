@@ -2,8 +2,15 @@
 	import exploreDesktopPng from '$lib/client/assets/screenshots/explore-desktop.png';
 	import feedbackCSATDesktopPng from '$lib/client/assets/screenshots/feedback-csat-desktop.png';
 	import feedbackCNPSDesktopPng from '$lib/client/assets/screenshots/feedback-cnps-desktop.png';
+	import exploreMobilePng from '$lib/client/assets/screenshots/explore-mobile.png';
+	import feedbackCSATMobilePng from '$lib/client/assets/screenshots/feedback-csat-mobile.png';
+	import feedbackCNPSMobilePng from '$lib/client/assets/screenshots/feedback-cnps-mobile.png';
 	import Header from './(components)/Header.svelte';
 	import Footer from './(components)/Footer.svelte';
+	import Carousel from './(components)/Carousel.svelte';
+
+	const desktopImages = [exploreDesktopPng, feedbackCSATDesktopPng, feedbackCNPSDesktopPng];
+	const mobileImages = [exploreMobilePng, feedbackCSATMobilePng, feedbackCNPSMobilePng];
 </script>
 
 <Header />
@@ -21,43 +28,12 @@
 		</div>
 	</section>
 
-	<section class="hidden lg:flex items-center justify-center">
-		<div class="carousel w-5/6">
-			<div id="slide1" class="carousel-item relative w-full">
-				<img src={exploreDesktopPng} alt="Dashboard" class="w-full rounded-xl shadow" />
-				<div
-					class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-				>
-					<a href="#slide3" class="btn btn-circle btn-outline opacity-50">❮</a>
-					<a href="#slide2" class="btn btn-circle btn-outline opacity-50">❯</a>
-				</div>
-			</div>
-			<div id="slide2" class="carousel-item relative w-full">
-				<img src={feedbackCSATDesktopPng} alt="Dashboard" class="w-full rounded-xl shadow" />
-				<div
-					class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-				>
-					<a href="#slide1" class="btn btn-circle btn-outline opacity-50">❮</a>
-					<a href="#slide3" class="btn btn-circle btn-outline opacity-50">❯</a>
-				</div>
-			</div>
-			<div id="slide3" class="carousel-item relative w-full">
-				<img src={feedbackCNPSDesktopPng} alt="Dashboard" class="w-full rounded-xl shadow" />
-				<div
-					class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-				>
-					<a href="#slide2" class="btn btn-circle btn-outline opacity-50">❮</a>
-					<a href="#slide1" class="btn btn-circle btn-outline opacity-50">❯</a>
-				</div>
-			</div>
-		</div>
+	<section class="hidden md:flex">
+		<Carousel images={desktopImages} />
+	</section>
+	<section class="md:hidden">
+		<Carousel images={mobileImages} />
 	</section>
 </main>
 
 <Footer />
-
-<style>
-	:global(html) {
-		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAIAAABLMMCEAAAAJklEQVQIW2NgYGAQggEGOEDmINgQlqioKBZRTDY2c9GAOBhgFwUAK5UD3J7tt1sAAAAASUVORK5CYII=);
-	}
-</style>
