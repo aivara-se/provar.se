@@ -10,10 +10,10 @@
 </script>
 
 <header>
-	<div class="navbar lg:px-10">
+	<div class="navbar md:px-10">
 		<div class="navbar-start">
 			<div class="dropdown">
-				<div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+				<div tabindex="0" role="button" class="btn btn-ghost md:hidden">
 					<MenuIcon />
 				</div>
 				<ul
@@ -26,20 +26,20 @@
 					<li><a href="/terms">Terms of Use</a></li>
 				</ul>
 			</div>
-			<a href="/" class="text-lg hidden lg:flex subpixel-antialiased tracking-wider">PROVAR</a>
+			<a href="/" class="text-lg hidden md:flex subpixel-antialiased tracking-wider">PROVAR</a>
 		</div>
 		<div class="navbar-center">
-			<ul class="menu menu-sm menu-horizontal px-1 hidden lg:flex">
+			<ul class="menu menu-sm menu-horizontal px-1 hidden md:flex">
 				{#each links as link}
 					<li><a href={link.href}>{link.name}</a></li>
 				{/each}
 			</ul>
-			<a href="/" class="text-lg lg:hidden subpixel-antialiased tracking-wider">PROVAR</a>
+			<a href="/" class="text-lg md:hidden subpixel-antialiased tracking-wider">PROVAR</a>
 		</div>
 		<div class="navbar-end">
 			<a href={PUBLIC_PROVAR_APP_URL} class="btn btn-ghost btn-sm">
-				<UserIcon class="w-5 h-5 lg:w-4 lg:h-4" />
-				<span class="hidden lg:inline">Sign in</span>
+				<UserIcon class="w-5 h-5 md:w-4 md:h-4" />
+				<span class="hidden md:inline">Sign in</span>
 			</a>
 		</div>
 	</div>
