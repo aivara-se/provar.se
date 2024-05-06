@@ -3515,12 +3515,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-svelte@npm:^0.372.0":
-  version: 0.372.0
-  resolution: "lucide-svelte@npm:0.372.0"
+"lucide-svelte@npm:^0.378.0":
+  version: 0.378.0
+  resolution: "lucide-svelte@npm:0.378.0"
   peerDependencies:
     svelte: ^3 || ^4 || ^5.0.0-next.42
-  checksum: 10/0418edc882447c6ebce0a3615a5b72524a3235d0fed54adbce7e6eafc29bab51cdf7f6b25c383b81e58cb44875ff7a76cb2e1292ed878325472a801ec71c5405
+  checksum: 10/f8b5ae413027a5808868e2ee0a6c94c3c0c1e8d025d8765c95c2ef09a99865c4e918a9000d06d0eb0aa7ca3117cabc31cecc0c25a51e52e6a8d116ddd34e5961
   languageName: node
   linkType: hard
 
@@ -5881,7 +5881,7 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-svelte: "npm:^2.38.0"
     lodash: "npm:^4.17.21"
-    lucide-svelte: "npm:^0.372.0"
+    lucide-svelte: "npm:^0.378.0"
     overlayscrollbars: "npm:^2.7.3"
     overlayscrollbars-svelte: "npm:^0.5.4"
     papaparse: "npm:^5.4.1"
@@ -5934,7 +5934,7 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-svelte: "npm:^2.38.0"
     lodash: "npm:^4.17.21"
-    lucide-svelte: "npm:^0.372.0"
+    lucide-svelte: "npm:^0.378.0"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
     prettier-plugin-svelte: "npm:^3.2.2"
