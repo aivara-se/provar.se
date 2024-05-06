@@ -4440,13 +4440,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-svelte@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "prettier-plugin-svelte@npm:3.2.2"
+"prettier-plugin-svelte@npm:^3.2.3":
+  version: 3.2.3
+  resolution: "prettier-plugin-svelte@npm:3.2.3"
   peerDependencies:
     prettier: ^3.0.0
     svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
-  checksum: 10/c824dc8e2d533059058db5b3c17ea49141401c4c3aa7f320eb76caa23bd4392019b837a4f98e62b91589844e18ad7fe8148671260fc08b04a3b5db0190d0c7bd
+  checksum: 10/73cc11253602586c1bf21c07dea30bde22cd8ec2c2e7a4e0300a7b5ac4a82c03759feafdeeda5a4dce9d5c38c18ca89790880caf3d1e9fd71bb2232cceaf2ceb
   languageName: node
   linkType: hard
 
@@ -5887,7 +5887,7 @@ __metadata:
     papaparse: "npm:^5.4.1"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
-    prettier-plugin-svelte: "npm:^3.2.2"
+    prettier-plugin-svelte: "npm:^3.2.3"
     svelte: "npm:^4.2.15"
     svelte-check: "npm:^3.7.1"
     sveltekit-superforms: "npm:^2.12.5"
@@ -5937,7 +5937,7 @@ __metadata:
     lucide-svelte: "npm:^0.378.0"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
-    prettier-plugin-svelte: "npm:^3.2.2"
+    prettier-plugin-svelte: "npm:^3.2.3"
     svelte: "npm:^4.2.15"
     svelte-check: "npm:^3.7.1"
     tailwindcss: "npm:^3.4.3"
