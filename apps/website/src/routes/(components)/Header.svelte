@@ -4,8 +4,9 @@
 
 	const links = [
 		{ name: 'Home', href: '/' },
+		{ name: 'Features', href: '/#features' },
 		{ name: 'Pricing', href: '/#pricing' },
-		{ name: 'Readme', href: '/docs' }
+		{ name: 'Docs', href: '/docs' }
 	];
 </script>
 
