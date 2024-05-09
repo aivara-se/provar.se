@@ -5,7 +5,7 @@
 	const links = [
 		{ name: 'Home', href: '/' },
 		{ name: 'Pricing', href: '/#pricing' },
-		{ name: 'Docs', href: '/docs' }
+		{ name: 'Readme', href: '/docs' }
 	];
 </script>
 
@@ -22,8 +22,10 @@
 					{#each links as link}
 						<li><a href={link.href}>{link.name}</a></li>
 					{/each}
-					<li><a href="/privacy">Privacy Policy</a></li>
-					<li><a href="/terms">Terms of Use</a></li>
+					<li class="h-1 divider"></li>
+					<li><a href="/privacy" class="link link-hover">Privacy Policy</a></li>
+					<li><a href="/cookies" class="link link-hover">Cookie Policy</a></li>
+					<li><a href="/terms" class="link link-hover">Terms of Service</a></li>
 				</ul>
 			</div>
 			<a href="/" class="text-lg hidden md:flex subpixel-antialiased tracking-wider">PROVAR</a>

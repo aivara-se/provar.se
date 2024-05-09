@@ -9,6 +9,7 @@
 	</aside>
 	<nav class="hidden md:flex gap-4 text-sm">
 		<a href="/privacy" class="link link-hover">Privacy Policy</a>
-		<a href="/terms" class="link link-hover">Terms of Use</a>
+		<a href="/cookies" class="link link-hover">Cookie Policy</a>
+		<a href="/terms" class="link link-hover">Terms of Service</a>
 	</nav>
 </footer>

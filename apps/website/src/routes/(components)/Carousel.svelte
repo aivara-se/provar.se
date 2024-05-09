@@ -8,7 +8,7 @@
 	}
 </script>
 
-<section class="relative m-4 md:m-8">
+<section class="relative my-4 md:my-8 m-auto max-w-[960px]">
 	<img src={images[0]} alt="" aria-hidden class="w-full invisible" />
 	{#each images as image, i}
 		<img
