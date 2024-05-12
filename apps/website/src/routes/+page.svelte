@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_PROVAR_APP_URL } from '$env/static/public';
 	import exploreDesktopPng from '$lib/client/assets/screenshots/explore-desktop.png';
 	import feedbackCSATDesktopPng from '$lib/client/assets/screenshots/feedback-csat-desktop.png';
 	import feedbackCNPSDesktopPng from '$lib/client/assets/screenshots/feedback-cnps-desktop.png';
@@ -98,6 +99,48 @@
 			</div>
 		</article>
 	</section>
+</main>
+
+<div class="divider my-24"></div>
+
+<main id="pricing" class="flex flex-col gap-16 p-4 mx-auto max-w-screen-xl md:p-10 md:gap-24">
+	<section class="hero py-12">
+		<div class="hero-content text-center subpixel-antialiased">
+			<div class="max-w-xl">
+				<h1 class="text-4xl font-bold">Find the Perfect Plan for You!</h1>
+				<p class="py-6 text-lg">Grow Your Business with Happy Customers</p>
+			</div>
+		</div>
+	</section>
+	<div class="flex flex-wrap justify-center gap-16">
+		<div class="flex flex-col w-full md:w-80 p-4 bg-gray-800 rounded-lg shadow-md">
+			<h3 class="text-xl font-semibold text-center mt-4 mb-8">Free</h3>
+			<ul class="flex-1 list-none space-y-4 text-center text-sm bg-black/5 py-8 rounded-lg">
+				<li>100 Responses / Day</li>
+				<li>30 Days Retention</li>
+				<li>Limited features</li>
+			</ul>
+			<a href={PUBLIC_PROVAR_APP_URL} class="btn mt-4 w-full">Sign Up</a>
+		</div>
+		<div class="flex flex-col w-full md:w-80 p-4 bg-gray-800 rounded-lg shadow-md">
+			<h3 class="text-xl font-semibold text-center mt-4 mb-8">Startup</h3>
+			<ul class="flex-1 list-none space-y-4 text-center text-sm bg-black/5 py-8 rounded-lg">
+				<li>1000 Responses / Day</li>
+				<li>1 Year Retention</li>
+				<li>Imports & Exports</li>
+			</ul>
+			<button class="btn btn-disabled mt-4 w-full">Coming Soon!</button>
+		</div>
+		<div class="flex flex-col w-full md:w-80 p-4 bg-gray-800 rounded-lg shadow-md">
+			<h3 class="text-xl font-semibold text-center mt-4 mb-8">Enterprise</h3>
+			<ul class="flex-1 list-none space-y-4 text-center text-sm bg-black/5 py-8 rounded-lg">
+				<li>Usage Based Pricing</li>
+				<li>Custom Retention</li>
+				<li>Advanced Security</li>
+			</ul>
+			<button class="btn btn-disabled mt-4 w-full">Coming Later!</button>
+		</div>
+	</div>
 </main>
 
 <Footer />
