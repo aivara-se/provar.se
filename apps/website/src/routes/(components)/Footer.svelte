@@ -2,7 +2,9 @@
 	import logoUrl from '$lib/client/assets/aivara.png';
 </script>
 
-<footer class="mt-16 p-8 flex flex-col items-center gap-4 md:flex-row md:justify-between">
+<footer
+	class="mt-16 p-8 flex flex-col items-center gap-4 mx-auto max-w-screen-xl md:flex-row md:justify-between"
+>
 	<aside class="flex items-center gap-3">
 		<img width="32" src={logoUrl} alt="Provar" />
 		<p class="text-sm">© 2024 Aivara<br />Empowering your software solutions!</p>
