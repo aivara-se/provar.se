@@ -45,7 +45,7 @@
 	$: details = getDetails(feedback.feedbackData);
 </script>
 
-<section class="mt-4">
+<section class="mt-8">
 	<h3 class="text-lg font-semibold">Customer Satisfaction</h3>
 	<div class="mt-3">
 		<div class="flex">
