@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { parseDateRange } from '$lib/client/dates';
 	import { DashLayout } from '$lib/client/layout';
 	import { resetSearchValue } from '$lib/client/search';
-	import { addDays, endOfDay, endOfToday, format, startOfDay } from 'date-fns';
 	import { onMount } from 'svelte';
 	import ActionsDropdown from './(components)/ActionsDropdown.svelte';
 	import DurationPicker from './(components)/DurationPicker.svelte';
@@ -14,34 +12,10 @@
 
 	export let data;
 
-	let range = {
-		beg: startOfDay(addDays(endOfToday(), -29)),
-		end: endOfToday()
-	};
-
-	$: {
-		if (browser) {
-			const begDateParam = $page.url.searchParams.get('beg');
-			const endDateParam = $page.url.searchParams.get('end');
-			if (!begDateParam || !endDateParam) {
-				const url = new URL($page.url);
-				url.searchParams.set('beg', format(range.beg, 'yyyy-MM-dd'));
-				url.searchParams.set('end', format(range.end, 'yyyy-MM-dd'));
-				goto(url.toString());
-			}
-		}
-	}
-
-	$: {
-		const begDateParam = $page.url.searchParams.get('beg');
-		const endDateParam = $page.url.searchParams.get('end');
-		if (begDateParam && endDateParam) {
-			range = {
-				beg: startOfDay(new Date(begDateParam)),
-				end: endOfDay(new Date(endDateParam))
-			};
-		}
-	}
+	$: range = parseDateRange({
+		from: $page.url.searchParams.get('from') || undefined,
+		to: $page.url.searchParams.get('to') || undefined
+	});
 
 	onMount(() => {
 		resetSearchValue();
