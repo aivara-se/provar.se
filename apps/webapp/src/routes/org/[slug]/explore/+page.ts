@@ -10,18 +10,17 @@ const DEFAULT_LIMIT = 10;
  */
 export const load: PageLoad = async (event) => {
 	const { organization } = await event.parent();
-	const range = {
+	const range = parseDateRange({
 		from: event.url.searchParams.get('beg') ?? '',
 		to: event.url.searchParams.get('end') ?? ''
-	};
-	const date = range.from && range.to ? parseDateRange(range) : undefined;
+	});
 	const page = Number.parseInt(event.url.searchParams.get('page') ?? '1');
 	const search = parseSearch(event.url.searchParams.get('search') ?? '');
 	const options = {
 		pageLimit: DEFAULT_LIMIT,
 		pageOffset: (page - 1) * DEFAULT_LIMIT,
-		begTimestamp: date ? date.from.toISOString() : undefined,
-		endTimestamp: date ? date.to.toISOString() : undefined,
+		begTimestamp: range.from?.toISOString(),
+		endTimestamp: range.to?.toISOString(),
 		feedbackType: search.type,
 		feedbackTags: search.tags,
 		feedbackMeta: search.meta

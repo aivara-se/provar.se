@@ -1,32 +1,31 @@
+import { formatISO, parseISO } from 'date-fns';
 import type { DateRange, FormattedDateRange } from '../types';
-import { endOfDay, formatISO, parseISO, subDays } from 'date-fns';
+
+export function parseDateRange(range: Partial<FormattedDateRange>): Partial<DateRange> {
+	const parsed = {} as Partial<DateRange>;
+	if (range.from) {
+		parsed.from = parseISO(range.from + 'T00:00:00.000Z');
+	}
+	if (range.to) {
+		parsed.to = parseISO(range.to + 'T23:59:59.999Z');
+	}
+	return parsed;
+}
 
 export function formatDateString(date?: string): string {
 	if (!date) {
 		return '';
 	}
-	return new Date(date).toLocaleDateString();
+	return formatISO(new Date(date), { format: 'basic', representation: 'date' });
 }
 
-export function parseDateRange(range: FormattedDateRange): DateRange {
-	return {
-		from: parseISO(range.from + 'T00:00:00.000Z'),
-		to: parseISO(range.to + 'T23:59:59.999Z')
-	};
-}
-
-export function formatDateRangeCompact(range: DateRange): FormattedDateRange {
-	return {
-		from: formatISO(range.from, { format: 'basic', representation: 'date' }),
-		to: formatISO(range.to, { format: 'basic', representation: 'date' })
-	};
-}
-
-export function formatDateRangeReadable(range: DateRange): string {
-	return `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}`;
-}
-
-export function createPresetRange(days: number): FormattedDateRange {
-	const now = endOfDay(new Date());
-	return formatDateRangeCompact({ from: subDays(now, days), to: now });
+export function formatDateRange(range: Partial<DateRange>): Partial<FormattedDateRange> {
+	const formatted = {} as Partial<FormattedDateRange>;
+	if (range.from) {
+		formatted.from = formatDateString(range.from.toISOString());
+	}
+	if (range.to) {
+		formatted.to = formatDateString(range.to.toISOString());
+	}
+	return formatted;
 }

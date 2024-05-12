@@ -1,54 +1,72 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { formatDateRange } from '$lib/client/dates';
+	import { type DateRange } from '$lib/client/types';
 	import { addDays, endOfDay, endOfToday, format, startOfDay } from 'date-fns';
 	import { CalendarRangeIcon } from 'lucide-svelte';
 
-	export let range = {
-		beg: startOfDay(addDays(endOfToday(), -29)),
-		end: endOfToday()
-	};
+	const ONE_DAY = 24 * 60 * 60 * 1000;
 
-	let dateRangePresets = [
-		{ label: 'Today', days: 1, isActive: false },
-		{ label: '30 Days', days: 30, isActive: false }
+	export let range: Partial<DateRange> = {};
+
+	$: rangePresets = [
+		{ label: 'Today', days: 1, isActive: isActiveRange(1) },
+		{ label: '30 Days', days: 30, isActive: isActiveRange(30) }
 	];
 
-	$: {
-		const ONE_DAY = 24 * 60 * 60 * 1000;
-		const current = Math.ceil((range.end.getTime() - range.beg.getTime()) / ONE_DAY);
-		const endsToday = range.end.getTime() === endOfToday().getTime();
-		for (const preset of dateRangePresets) {
-			preset.isActive = endsToday && preset.days === current;
+	function isActiveRange(days: number) {
+		if (!range.from || !range.to) {
+			return false;
 		}
-		dateRangePresets = dateRangePresets;
+		const rangeDays = Math.ceil((range.to.getTime() - range.from.getTime()) / ONE_DAY);
+		const endsToday = Boolean(range.to.getTime() === endOfToday().getTime());
+		return endsToday && days === rangeDays;
 	}
 
 	function setDuration(days: number) {
 		const newEndDate = endOfToday();
 		const newBegDate = startOfDay(addDays(newEndDate, 1 + -1 * days));
-		setDateRange({ beg: newBegDate, end: newEndDate });
+		setDateRange(newBegDate, newEndDate);
 	}
 
-	function setDateRange(range: { beg: Date; end: Date }) {
+	function setDateRange(from?: Date, to?: Date) {
+		const value = formatDateRange({ from, to });
 		const url = new URL(window.location.href);
-		url.searchParams.set('beg', format(range.beg, 'yyyy-MM-dd'));
-		url.searchParams.set('end', format(range.end, 'yyyy-MM-dd'));
+		if (value.from) {
+			url.searchParams.set('from', value.from);
+		} else {
+			url.searchParams.delete('from');
+		}
+		if (value.to) {
+			url.searchParams.set('to', value.to);
+		} else {
+			url.searchParams.delete('to');
+		}
 		goto(url.toString());
 	}
 
-	function formatDateRange(range: { beg: Date; end: Date }) {
-		const begString = format(range.beg, 'MMM dd');
-		const endString = format(range.end, 'MMM dd');
-		if (begString === endString) {
-			return begString;
+	function stringifyDateRange(from?: Date, to?: Date) {
+		const fromString = from ? format(from, 'MMM dd') : '';
+		const toString = to ? format(to, 'MMM dd') : '';
+		if (!fromString && !toString) {
+			return 'Set Duration';
 		}
-		return `${begString} - ${endString}`;
+		if (fromString === toString) {
+			return fromString;
+		}
+		if (!fromString && toString) {
+			return `Up to ${toString}`;
+		}
+		if (fromString && !toString) {
+			return `From ${fromString}`;
+		}
+		return `${fromString} - ${toString}`;
 	}
 </script>
 
 <div class="dropdown dropdown-end">
 	<div tabindex="0" role="button" class="btn btn-ghost btn-sm">
-		{formatDateRange(range)}
+		{stringifyDateRange(range.from, range.to)}
 		<CalendarRangeIcon class="w-3.5 h-3.5 ml-1" />
 	</div>
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -58,7 +76,7 @@
 	>
 		<div class="card-body">
 			<div class="flex flex-row justify-center gap-2">
-				{#each dateRangePresets as preset}
+				{#each rangePresets as preset}
 					<button
 						class="btn btn-xs {preset.isActive ? 'btn-primary' : 'btn-ghost'}"
 						on:click={() => setDuration(preset.days)}
@@ -70,14 +88,22 @@
 			<input
 				type="date"
 				class="input input-bordered input-sm mt-1"
-				value={format(range.beg, 'yyyy-MM-dd')}
-				on:change={(e) => setDateRange({ beg: startOfDay(e.currentTarget.value), end: range.end })}
+				value={range.from ? format(range.from, 'yyyy-MM-dd') : ''}
+				on:change={(e) =>
+					setDateRange(
+						e.currentTarget.value ? startOfDay(e.currentTarget.value) : undefined,
+						range.to
+					)}
 			/>
 			<input
 				type="date"
 				class="input input-bordered input-sm"
-				value={format(range.end, 'yyyy-MM-dd')}
-				on:change={(e) => setDateRange({ beg: range.beg, end: endOfDay(e.currentTarget.value) })}
+				value={range.to ? format(range.to, 'yyyy-MM-dd') : ''}
+				on:change={(e) =>
+					setDateRange(
+						range.from,
+						e.currentTarget.value ? endOfDay(e.currentTarget.value) : undefined
+					)}
 			/>
 		</div>
 	</div>
