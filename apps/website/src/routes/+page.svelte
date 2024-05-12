@@ -13,7 +13,7 @@
 
 <Header />
 
-<main id="hero" class="px-4 md:p-10">
+<main id="hero" class="px-4 mx-auto max-w-screen-xl md:p-10">
 	<section class="hero py-24">
 		<div class="hero-content text-center subpixel-antialiased">
 			<div class="max-w-xl">
@@ -30,7 +30,7 @@
 	</section>
 </main>
 
-<main id="features" class="flex flex-col gap-16 p-4 md:p-10 md:gap-24">
+<main id="features" class="flex flex-col gap-16 p-4 mx-auto max-w-screen-xl md:p-10 md:gap-24">
 	<section class="flex flex-col gap-6 md:flex-row-reverse md:gap-8">
 		<aside class="md:flex-auto md:w-32 md:mt-12">
 			<div class="bg-gray-800 rounded-xl p-4">

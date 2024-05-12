@@ -11,7 +11,7 @@
 </script>
 
 <header>
-	<div class="navbar md:px-10">
+	<div class="navbar mx-auto max-w-screen-xl md:px-10">
 		<div class="navbar-start">
 			<div class="dropdown">
 				<div tabindex="0" role="button" class="btn btn-ghost md:hidden">
