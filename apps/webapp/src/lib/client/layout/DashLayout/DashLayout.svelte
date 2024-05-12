@@ -21,7 +21,7 @@
 		</div>
 	</aside>
 
-	<section class="flex-1 mx-4">
+	<section class="flex-1 mx-4 overflow-x-hidden">
 		<header class="flex flex-row items-center justify-between h-12 px-2">
 			<Breadcrumbs {route} />
 			<div class="flex gap-2 items-center">
