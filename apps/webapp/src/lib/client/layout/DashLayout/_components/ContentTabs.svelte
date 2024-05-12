@@ -16,13 +16,12 @@
 	});
 </script>
 
-<div role="tablist" class="tabs tabs-boxed mb-4 bg-transparent font-medium">
+<div role="tablist" class="tabs tabs-bordered tabs-sm mb-4 bg-transparent">
 	{#each items as item}
-		<a role="tab" href={item.href} class="tab {item.active ? 'tab-active' : ''}">
+		<a role="tab" href={item.href} class="tab text-sm pb-2 {item.active ? 'tab-active' : ''}">
 			{#if item.icon}
 				<svelte:component this={item.icon} class="w-4 h-4" />
 			{/if}
-			{item.name}
 		</a>
 	{/each}
 </div>
