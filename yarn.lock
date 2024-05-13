@@ -1326,13 +1326,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/compiler@npm:^0.55.0":
-  version: 0.55.0
-  resolution: "@typespec/compiler@npm:0.55.0"
+"@typespec/compiler@npm:^0.56.0":
+  version: 0.56.0
+  resolution: "@typespec/compiler@npm:0.56.0"
   dependencies:
     "@babel/code-frame": "npm:~7.24.2"
     ajv: "npm:~8.12.0"
-    change-case: "npm:~5.4.3"
+    change-case: "npm:~5.4.4"
     globby: "npm:~14.0.1"
     mustache: "npm:~4.2.0"
     picocolors: "npm:~1.0.0"
@@ -1346,7 +1346,7 @@ __metadata:
   bin:
     tsp: cmd/tsp.js
     tsp-server: cmd/tsp-server.js
-  checksum: 10/c38625cf41c331c71831b0ae0ec0a06ab2375103d1c3820872c155711e5ad45d99c341770fff2f9166c53a5fbba478da5c92a7039ba58264dedbff2a319fcca2
+  checksum: 10/10cd1272f64483871cdeed96148c0282f7b22b5b913b7adf46c749bce58874fdbebab9d75355114bf68504fd0e68867e2a5f25c707250b59d0f7f1af436e974b
   languageName: node
   linkType: hard
 
@@ -1891,7 +1891,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"change-case@npm:~5.4.3":
+"change-case@npm:~5.4.4":
   version: 5.4.4
   resolution: "change-case@npm:5.4.4"
   checksum: 10/446e5573f3c854290a91292afef92b957d2e43a928260c91989b482aa860caaa29711b6725fc40c200af68061cbab357b033446d16a17bc5c553636994074e92
@@ -5793,7 +5793,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "webapi@workspace:apps/webapi"
   dependencies:
-    "@typespec/compiler": "npm:^0.55.0"
+    "@typespec/compiler": "npm:^0.56.0"
     "@typespec/http": "npm:^0.55.0"
     "@typespec/openapi": "npm:^0.55.0"
     "@typespec/openapi3": "npm:^0.55.0"
