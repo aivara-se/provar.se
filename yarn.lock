@@ -1366,12 +1366,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/http@npm:^0.55.0":
-  version: 0.55.0
-  resolution: "@typespec/http@npm:0.55.0"
+"@typespec/http@npm:^0.56.0":
+  version: 0.56.0
+  resolution: "@typespec/http@npm:0.56.0"
   peerDependencies:
-    "@typespec/compiler": ~0.55.0
-  checksum: 10/33860e4a0cc43e8790ed7e7938513622d90ae06750c2cff431976d874625c713fad9b9725c3f682c6ef57eb00630ba1a2fa7848c3e687115d7776d1b88e345c5
+    "@typespec/compiler": ~0.56.0
+  checksum: 10/930b91e5cec20398e426bafbd314466b17c679d2eb1ccaa750bd0e1f727a9f0cc4d6b1b353c6a075f198213a172f3e07d86d9099e4d40500d50cfdab08ba3426
   languageName: node
   linkType: hard
 
@@ -5836,7 +5836,7 @@ __metadata:
   resolution: "webapi@workspace:apps/webapi"
   dependencies:
     "@typespec/compiler": "npm:^0.56.0"
-    "@typespec/http": "npm:^0.55.0"
+    "@typespec/http": "npm:^0.56.0"
     "@typespec/openapi": "npm:^0.55.0"
     "@typespec/openapi3": "npm:^0.56.0"
     "@typespec/rest": "npm:^0.55.0"
