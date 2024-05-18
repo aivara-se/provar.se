@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "yarn workspaces foreach -Wpi --from '{webapi,webapp,website}' run dev",
+    "dev": "yarn workspaces foreach -Wpi --from '{webapi,webapp,website,collect}' run dev",
     "setup-local-env": "bash .scripts/setup-local-env.sh",
     "start-local-env": "bash .scripts/start-local-env.sh"
   },
