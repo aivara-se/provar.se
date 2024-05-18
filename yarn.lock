@@ -1999,6 +1999,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"collect@workspace:apps/collect":
+  version: 0.0.0-use.local
+  resolution: "collect@workspace:apps/collect"
+  dependencies:
+    "@playwright/test": "npm:^1.44.0"
+    "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
+    "@sveltejs/kit": "npm:^2.5.7"
+    "@sveltejs/vite-plugin-svelte": "npm:^3.1.0"
+    "@tailwindcss/typography": "npm:^0.5.10"
+    "@types/eslint": "npm:8.56.5"
+    "@types/lodash": "npm:^4.14.202"
+    "@typescript-eslint/eslint-plugin": "npm:^7.6.0"
+    "@typescript-eslint/parser": "npm:^7.8.0"
+    autoprefixer: "npm:^10.4.19"
+    daisyui: "npm:^4.10.2"
+    date-fns: "npm:^3.6.0"
+    eslint: "npm:^9.2.0"
+    eslint-config-prettier: "npm:^9.1.0"
+    eslint-plugin-svelte: "npm:^2.38.0"
+    lodash: "npm:^4.17.21"
+    lucide-svelte: "npm:^0.378.0"
+    postcss: "npm:^8.4.38"
+    prettier: "npm:^3.2.5"
+    prettier-plugin-svelte: "npm:^3.2.3"
+    svelte: "npm:^4.2.15"
+    svelte-check: "npm:^3.7.1"
+    tailwindcss: "npm:^3.4.3"
+    tslib: "npm:^2.4.1"
+    typescript: "npm:^5.4.4"
+    vite: "npm:^5.2.10"
+    vitest: "npm:^1.4.0"
+    wrangler: "npm:^3.51.0"
+  languageName: unknown
+  linkType: soft
+
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"

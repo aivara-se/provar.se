@@ -1,0 +1,28 @@
+{
+	"name": "Collect Feedback",
+	"short_name": "Collect Feedback",
+	"theme_color": "#eeeeee",
+	"background_color": "#ffffff",
+	"display": "standalone",
+	"scope": "https://collect.provar.se",
+	"start_url": "https://collect.provar.se",
+	"id": "https://collect.provar.se",
+	"icons": [
+		{
+			"src": "/favicon.ico",
+			"type": "image/x-icon",
+			"sizes": "16x16"
+		},
+		{
+			"src": "/icon-512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		},
+		{
+			"src": "/icon-512-maskable.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "maskable"
+		}
+	]
+}
