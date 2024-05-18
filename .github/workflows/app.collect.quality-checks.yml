@@ -1,0 +1,70 @@
+# apps/collect - quality checks
+
+name: apps/collect - quality checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - ".github/**"
+      - "apps/collect/**"
+
+concurrency:
+  group: "app.collect.quality-checks-${{ github.head_ref }}"
+  cancel-in-progress: true
+
+jobs:
+  quality-checks:
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      deployments: write
+      security-events: write
+
+    defaults:
+      run:
+        working-directory: ./apps/collect
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: "javascript-typescript"
+
+      - name: Setup Yarn
+        run: yarn install --silent
+
+      - name: Build the application
+        env:
+          PUBLIC_PROVAR_APP_URL: https://app.provar.se
+          PUBLIC_PROVAR_API_URL: https://api.provar.se
+        run: yarn build
+
+      - name: Check code formatting
+        run: yarn lint
+
+      - name: Check code errors
+        env:
+          PUBLIC_PROVAR_APP_URL: https://app.provar.se
+          PUBLIC_PROVAR_API_URL: https://api.provar.se
+        run: yarn check
+
+      - name: Check unit tests
+        run: yarn test:unit
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"
