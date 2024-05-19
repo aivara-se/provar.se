@@ -20,13 +20,13 @@
     "@typespec/compiler": "^0.56.0",
     "@typespec/http": "^0.56.0",
     "@typespec/openapi3": "^0.56.0",
-    "@typespec/rest": "^0.55.0"
+    "@typespec/rest": "^0.56.0"
   },
   "engines": {
     "node": ">=20.0.0"
   },
   "devDependencies": {
-    "@typespec/openapi": "^0.55.0",
-    "@typespec/versioning": "^0.55.0"
+    "@typespec/openapi": "^0.56.0",
+    "@typespec/versioning": "^0.56.0"
   }
 }
