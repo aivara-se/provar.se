@@ -1,8 +1,8 @@
 {
 	"name": "Provar",
 	"short_name": "Provar",
-	"theme_color": "#eeeeee",
-	"background_color": "#ffffff",
+	"theme_color": "#1d232a",
+	"background_color": "#1d232a",
 	"display": "fullscreen",
 	"scope": "https://collect.provar.se",
 	"start_url": "https://collect.provar.se",
