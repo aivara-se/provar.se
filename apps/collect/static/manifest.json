@@ -1,9 +1,9 @@
 {
-	"name": "Collect Feedback",
-	"short_name": "Collect Feedback",
+	"name": "Provar",
+	"short_name": "Provar",
 	"theme_color": "#eeeeee",
 	"background_color": "#ffffff",
-	"display": "standalone",
+	"display": "fullscreen",
 	"scope": "https://collect.provar.se",
 	"start_url": "https://collect.provar.se",
 	"id": "https://collect.provar.se",
