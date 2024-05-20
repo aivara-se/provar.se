@@ -15,7 +15,7 @@
 		"test:unit": "vitest"
 	},
 	"dependencies": {
-		"daisyui": "^4.10.2",
+		"daisyui": "^4.11.1",
 		"date-fns": "^3.6.0",
 		"lodash": "^4.17.21",
 		"lucide-svelte": "^0.378.0",
