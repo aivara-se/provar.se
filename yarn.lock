@@ -970,9 +970,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/kit@npm:^2.5.7":
-  version: 2.5.7
-  resolution: "@sveltejs/kit@npm:2.5.7"
+"@sveltejs/kit@npm:^2.5.9":
+  version: 2.5.9
+  resolution: "@sveltejs/kit@npm:2.5.9"
   dependencies:
     "@types/cookie": "npm:^0.6.0"
     cookie: "npm:^0.6.0"
@@ -992,7 +992,7 @@ __metadata:
     vite: ^5.0.3
   bin:
     svelte-kit: svelte-kit.js
-  checksum: 10/c87325f65a75c31e91ed58f351ac15ecdb448f05f7837ae7b3f8cd265af92e1e7bc27d73baa3c3cec12f8190029a9853c03b85737ce05b5401d744e7770f652b
+  checksum: 10/2eb1630b317d39ace7e0e0352de6c00aa80d890d6297f58fab997f645f6159060a34bae8c89fd116abf7f1cbc4bc19fd5e9e45e37f8f8005cbd9fa88c0e8a4c3
   languageName: node
   linkType: hard
 
@@ -1993,7 +1993,7 @@ __metadata:
   dependencies:
     "@playwright/test": "npm:^1.44.0"
     "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
-    "@sveltejs/kit": "npm:^2.5.7"
+    "@sveltejs/kit": "npm:^2.5.9"
     "@sveltejs/vite-plugin-svelte": "npm:^3.1.0"
     "@tailwindcss/typography": "npm:^0.5.10"
     "@types/eslint": "npm:8.56.5"
@@ -5880,7 +5880,7 @@ __metadata:
     "@playwright/test": "npm:^1.44.0"
     "@provar/provar-js": "npm:^1.28.1"
     "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
-    "@sveltejs/kit": "npm:^2.5.7"
+    "@sveltejs/kit": "npm:^2.5.9"
     "@sveltejs/vite-plugin-svelte": "npm:^3.1.0"
     "@tailwindcss/typography": "npm:^0.5.10"
     "@types/eslint": "npm:8.56.5"
@@ -5936,7 +5936,7 @@ __metadata:
   dependencies:
     "@playwright/test": "npm:^1.44.0"
     "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
-    "@sveltejs/kit": "npm:^2.5.7"
+    "@sveltejs/kit": "npm:^2.5.9"
     "@sveltejs/vite-plugin-svelte": "npm:^3.1.0"
     "@tailwindcss/typography": "npm:^0.5.10"
     "@types/eslint": "npm:8.56.5"
