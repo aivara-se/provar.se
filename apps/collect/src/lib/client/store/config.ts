@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { browser } from '$app/environment';
 import type { FeedbackType } from '$lib/client/types';
 
 /**
@@ -31,11 +32,14 @@ const configStore = writable<Config>(loadConfig());
  * Loads the config from local storage when available.
  */
 function loadConfig(): Config {
-	const stored = localStorage.getItem(STORAGE_KEY);
-	if (stored) {
-		return JSON.parse(stored);
+	if (!browser) {
+		return configValue;
 	}
-	return configValue;
+	const stored = localStorage.getItem(STORAGE_KEY);
+	if (!stored) {
+		return configValue;
+	}
+	return JSON.parse(stored);
 }
 
 /**
