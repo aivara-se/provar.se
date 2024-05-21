@@ -1027,9 +1027,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/typography@npm:^0.5.10":
-  version: 0.5.10
-  resolution: "@tailwindcss/typography@npm:0.5.10"
+"@tailwindcss/typography@npm:^0.5.13":
+  version: 0.5.13
+  resolution: "@tailwindcss/typography@npm:0.5.13"
   dependencies:
     lodash.castarray: "npm:^4.4.0"
     lodash.isplainobject: "npm:^4.0.6"
@@ -1037,7 +1037,7 @@ __metadata:
     postcss-selector-parser: "npm:6.0.10"
   peerDependencies:
     tailwindcss: "*"
-  checksum: 10/dd9934a556661f1eef57a8101fdf89a438cb05bb48b52b79832f8cbf772181b16e87a5cbab594f7e2de64a5ff457514177af91f430d5d97a5a833db22b6f61c3
+  checksum: 10/ffa5fee725d390591f1654fee8275b025248ef0e25a54b1749db23ec82d6117729b933e2326b6d52348ff2844839755f89d5d82fe5900d91b399c9380041b4e9
   languageName: node
   linkType: hard
 
@@ -1995,7 +1995,7 @@ __metadata:
     "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
     "@sveltejs/kit": "npm:^2.5.9"
     "@sveltejs/vite-plugin-svelte": "npm:^3.1.0"
-    "@tailwindcss/typography": "npm:^0.5.10"
+    "@tailwindcss/typography": "npm:^0.5.13"
     "@types/eslint": "npm:8.56.5"
     "@types/lodash": "npm:^4.14.202"
     "@typescript-eslint/eslint-plugin": "npm:^7.9.0"
@@ -5882,7 +5882,7 @@ __metadata:
     "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
     "@sveltejs/kit": "npm:^2.5.9"
     "@sveltejs/vite-plugin-svelte": "npm:^3.1.0"
-    "@tailwindcss/typography": "npm:^0.5.10"
+    "@tailwindcss/typography": "npm:^0.5.13"
     "@types/eslint": "npm:8.56.5"
     "@types/lodash": "npm:^4.14.202"
     "@types/papaparse": "npm:^5.3.14"
@@ -5938,7 +5938,7 @@ __metadata:
     "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
     "@sveltejs/kit": "npm:^2.5.9"
     "@sveltejs/vite-plugin-svelte": "npm:^3.1.0"
-    "@tailwindcss/typography": "npm:^0.5.10"
+    "@tailwindcss/typography": "npm:^0.5.13"
     "@types/eslint": "npm:8.56.5"
     "@types/lodash": "npm:^4.14.202"
     "@typescript-eslint/eslint-plugin": "npm:^7.9.0"
