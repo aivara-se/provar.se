@@ -13,6 +13,11 @@ const STORAGE_KEY = 'provar:config';
 interface Config {
 	configured: boolean;
 	feedbackTypes: FeedbackType[];
+	defaultLanguage: string;
+	brandingColors: {
+		primary: string;
+		secondary: string;
+	};
 }
 
 /**
@@ -20,7 +25,12 @@ interface Config {
  */
 const defaultValue: Config = {
 	configured: false,
-	feedbackTypes: []
+	feedbackTypes: [],
+	defaultLanguage: 'en',
+	brandingColors: {
+		primary: '#000000',
+		secondary: '#000000'
+	}
 };
 
 /**
@@ -31,7 +41,7 @@ let configValue: Config = loadConfig();
 /**
  * The store for the config.
  */
-const configStore = writable<Config>(configValue);
+export const config = writable<Config>(configValue);
 
 /**
  * Loads the config from local storage when available.
@@ -44,7 +54,10 @@ function loadConfig(): Config {
 	if (!stored) {
 		return defaultValue;
 	}
-	return JSON.parse(stored);
+	return {
+		...defaultValue,
+		...JSON.parse(stored)
+	};
 }
 
 /**
@@ -55,10 +68,25 @@ export function getConfig() {
 }
 
 /**
+ * Resets the config store to the default value.
+ */
+export function resetConfig() {
+	if (!browser) {
+		return;
+	}
+	configValue = defaultValue;
+	config.set(configValue);
+	localStorage.removeItem(STORAGE_KEY);
+}
+
+/**
  * Updates the config store with the provided config.
  */
-export function setConfig(config: Partial<Config>) {
-	configValue = { ...configValue, ...config, configured: true };
-	configStore.set(configValue);
+export function setConfig(newConfig: Partial<Config>) {
+	if (!browser) {
+		return;
+	}
+	configValue = { ...configValue, ...newConfig, configured: true };
+	config.set(configValue);
 	localStorage.setItem(STORAGE_KEY, JSON.stringify(configValue));
 }
