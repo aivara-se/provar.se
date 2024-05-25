@@ -3,7 +3,7 @@
 
 	const items = [
 		{ name: 'Dashboard', href: '/admin', icon: BarChartBigIcon },
-		{ name: 'Settings', href: '/admin/settings', icon: SettingsIcon }
+		{ name: 'Preferences', href: '/admin/settings', icon: SettingsIcon }
 	];
 </script>
 
