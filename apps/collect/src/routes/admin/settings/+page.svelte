@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getConfig, setConfig } from '$lib/client/store';
+	import { getConfig, setConfig, logoUrl, setLogoUrl, resetLogoUrl } from '$lib/client/store';
 
 	const LANGUAGES = [
 		{ value: 'en', label: 'English' },
@@ -7,12 +7,27 @@
 	];
 
 	let config = { ...getConfig() };
+	let logoFiles: FileList;
 
 	$: {
 		setConfig({
 			defaultLanguage: config.defaultLanguage,
 			brandingColors: config.brandingColors
 		});
+	}
+
+	async function fileToDataUrl(file: File): Promise<string> {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onerror = (e) => reject(e);
+			reader.onload = () => resolve(reader.result as string);
+		});
+	}
+
+	async function handleLogoChange() {
+		const dataUrl = await fileToDataUrl(logoFiles[0]);
+		setLogoUrl(dataUrl);
 	}
 </script>
 
@@ -48,9 +63,27 @@
 			Upload your logo and set your brand colors to customize the look of your feedback form.
 		</p>
 		<div class="flex flex-col gap-4 mt-4">
-			<div class="flex flex-col">
-				<label for="logo" class="font-medium mb-2">Logo</label>
-				<input type="file" id="logo" class="file-input w-full" accept="image/*" />
+			<div class="flex flex-row gap-4">
+				<div class="flex flex-col flex-1">
+					<label for="logo" class="font-medium mb-2">Logo</label>
+					<input
+						type="file"
+						id="logo"
+						class="file-input w-full"
+						accept="image/*"
+						bind:files={logoFiles}
+						on:change={handleLogoChange}
+					/>
+					<p class="text-xs text-gray-600 mt-1">
+						Upload a PNG file with a transparent background and dimensions 128x128 or higher.
+					</p>
+				</div>
+				<div class="flex flex-col">
+					{#if $logoUrl}
+						<img src={$logoUrl} alt="Logo" class="w-20 h-20" />
+						<button class="btn btn-xs btn-ghost mt-2" on:click={resetLogoUrl}> Reset </button>
+					{/if}
+				</div>
 			</div>
 			<div class="flex flex-row gap-4">
 				<label class="flex-1 flex-col">
