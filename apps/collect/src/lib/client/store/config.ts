@@ -50,13 +50,13 @@ function loadConfig(): Config {
 	if (!browser) {
 		return defaultValue;
 	}
-	const stored = localStorage.getItem(STORAGE_KEY);
-	if (!stored) {
+	const storedValue = localStorage.getItem(STORAGE_KEY);
+	if (!storedValue) {
 		return defaultValue;
 	}
 	return {
 		...defaultValue,
-		...JSON.parse(stored)
+		...JSON.parse(storedValue)
 	};
 }
 
