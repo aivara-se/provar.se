@@ -13,7 +13,7 @@
 		"test:unit": "vitest"
 	},
 	"dependencies": {
-		"mongodb": "^6.3.0",
+		"mongodb": "^6.6.2",
 		"papaparse": "^5.4.1",
 		"yargs-parser": "^21.1.1"
 	},
