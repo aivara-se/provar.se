@@ -1,5 +1,14 @@
 <script lang="ts">
-	import { getConfig, setConfig, logoUrl, setLogoUrl, resetLogoUrl } from '$lib/client/store';
+	import { goto } from '$app/navigation';
+	import {
+		getConfig,
+		logoUrl,
+		resetLogoUrl,
+		setConfig,
+		setLogoUrl,
+		resetConfig
+	} from '$lib/client/store';
+	import { CNPS_FEEDBACK_TYPE, CSAT_FEEDBACK_TYPE } from '$lib/client/types';
 
 	const LANGUAGES = [
 		{ value: 'en', label: 'English' },
@@ -8,9 +17,18 @@
 
 	let config = { ...getConfig() };
 	let logoFiles: FileList;
+	let feedbackTypes = [
+		{ value: CNPS_FEEDBACK_TYPE, label: 'Net Promoter Score' },
+		{ value: CSAT_FEEDBACK_TYPE, label: 'Customer Satisfaction Score' }
+	].map((item) => ({
+		...item,
+		checked: config.feedbackTypes.includes(item.value)
+	}));
 
 	$: {
+		config.feedbackTypes = feedbackTypes.filter((item) => item.checked).map((item) => item.value);
 		setConfig({
+			feedbackTypes: config.feedbackTypes,
 			defaultLanguage: config.defaultLanguage,
 			brandingColors: config.brandingColors
 		});
@@ -29,6 +47,12 @@
 		const dataUrl = await fileToDataUrl(logoFiles[0]);
 		setLogoUrl(dataUrl);
 	}
+
+	function handleFactoryReset() {
+		resetConfig();
+		resetLogoUrl();
+		goto('/');
+	}
 </script>
 
 <div class="max-w-4xl mx-auto space-y-8">
@@ -36,6 +60,19 @@
 		<h2 class="text-xl font-medium mb-2">General Settings</h2>
 		<p class="text-gray-600 text-sm">Configure Provar default settings here.</p>
 		<div class="flex flex-col gap-4 mt-4">
+			<div>
+				<label for="language" class="font-medium mb-2">Feedback Types</label>
+				<div class="flex gap-4 mt-4">
+					{#each feedbackTypes as item}
+						<div class="flex-1 form-control">
+							<label class="label cursor-pointer">
+								<span class="label-text">{item.label}</span>
+								<input type="checkbox" class="checkbox" bind:checked={item.checked} />
+							</label>
+						</div>
+					{/each}
+				</div>
+			</div>
 			<div>
 				<label for="language" class="font-medium mb-2">Default Language</label>
 				<div class="flex gap-4 mt-4">
@@ -140,6 +177,7 @@
 			<button
 				type="button"
 				class="btn w-full text-red-500 border border-red-900 hover:border-red-700"
+				on:click={handleFactoryReset}
 			>
 				Delete All Data
 			</button>
