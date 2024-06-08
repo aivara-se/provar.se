@@ -1,0 +1,34 @@
+{
+	"name": "@provar/types",
+	"type": "module",
+	"version": "1.0.0",
+	"main": "./build/index.js",
+	"exports": {
+		".": "./build/index.js"
+	},
+	"scripts": {
+		"build": "rm -rf build && tsc",
+		"check": "echo TODO: add static code checks here",
+		"lint": "prettier . --check . & eslint .",
+		"format": "prettier . --write . && eslint --fix ."
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^7.12.0",
+		"@typescript-eslint/parser": "^7.8.0",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^9.1.0",
+		"prettier": "^3.2.5",
+		"typescript": "^5.4.4",
+		"vite": "^5.2.11",
+		"vitest": "^1.6.0"
+	},
+	"files": [
+		"build"
+	],
+	"engines": {
+		"node": ">=20.0.0"
+	},
+	"repository": "git@github.com:aivara-se/provar.se.git",
+	"author": "Thanish Nizam <mnmtanish@gmail.com>",
+	"license": "MIT"
+}
