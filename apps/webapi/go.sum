@@ -72,8 +72,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rivo/uniseg v0.2.0 h1:S1pD9weZBuJdFmowNwbpi7BJ8TNftyUImj/0WQi72jY=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
-github.com/samber/slog-fiber v1.15.0 h1:ylPVotiQ68m00E4MWta7bECmgkboSvPddJ8GIcgnpus=
-github.com/samber/slog-fiber v1.15.0/go.mod h1:/HYPO+92ucooBHGNfDidjYj/P5nZMsXzDyjp8jmhkdA=
+github.com/samber/slog-fiber v1.15.3 h1:RbfC0v2QPIEXoRdort2QxAsRG42LVaFTEgTNS/0GwRQ=
+github.com/samber/slog-fiber v1.15.3/go.mod h1:I0b8eJ060SlpA65LXiqH7lZixUCkAPKiEGZqkT9QJOM=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 github.com/tinylib/msgp v1.1.8 h1:FCXC1xanKO4I8plpHGH2P7koL/RzZs12l/+r7vakfm0=
