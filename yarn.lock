@@ -1310,17 +1310,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/openapi3@npm:^0.56.0":
-  version: 0.56.0
-  resolution: "@typespec/openapi3@npm:0.56.0"
+"@typespec/openapi3@npm:^0.57.0":
+  version: 0.57.0
+  resolution: "@typespec/openapi3@npm:0.57.0"
   dependencies:
-    yaml: "npm:~2.4.1"
+    yaml: "npm:~2.4.2"
   peerDependencies:
-    "@typespec/compiler": ~0.56.0
-    "@typespec/http": ~0.56.0
-    "@typespec/openapi": ~0.56.0
-    "@typespec/versioning": ~0.56.0
-  checksum: 10/0ed8eec66febce97fcc57ef6776ba9a1be1def77027723f03adb6499e0b7e2ae65793aefc7883f93fb3693d7185bb745766375a0fbee887cfd015f9ec20fa935
+    "@typespec/compiler": ~0.57.0
+    "@typespec/http": ~0.57.0
+    "@typespec/openapi": ~0.57.0
+    "@typespec/versioning": ~0.57.0
+  checksum: 10/5a263cdf5287d29980f014ec00c70dd881dc1436264b347e37417e44b2c87e356764a06e086b930288ee8a417aae068c004cea121c550aef72ed78891649a96f
   languageName: node
   linkType: hard
 
@@ -5768,7 +5768,7 @@ __metadata:
     "@typespec/compiler": "npm:^0.56.0"
     "@typespec/http": "npm:^0.56.0"
     "@typespec/openapi": "npm:^0.56.0"
-    "@typespec/openapi3": "npm:^0.56.0"
+    "@typespec/openapi3": "npm:^0.57.0"
     "@typespec/rest": "npm:^0.56.0"
     "@typespec/versioning": "npm:^0.56.0"
   languageName: unknown
@@ -6075,6 +6075,15 @@ __metadata:
   bin:
     yaml: bin.mjs
   checksum: 10/6eafbcd68dead734035f6f72af21bd820c29214caf7d8e40c595671a3c908535cef8092b9660a1c055c5833aa148aa640e0c5fa4adb5af2dacd6d28296ccd81c
+  languageName: node
+  linkType: hard
+
+"yaml@npm:~2.4.2":
+  version: 2.4.5
+  resolution: "yaml@npm:2.4.5"
+  bin:
+    yaml: bin.mjs
+  checksum: 10/b09bf5a615a65276d433d76b8e34ad6b4c0320b85eb3f1a39da132c61ae6e2ff34eff4624e6458d96d49566c93cf43408ba5e568218293a8c6541a2006883f64
   languageName: node
   linkType: hard
 
