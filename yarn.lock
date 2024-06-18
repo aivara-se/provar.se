@@ -990,6 +990,12 @@ __metadata:
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^7.12.0"
     "@typescript-eslint/parser": "npm:^7.8.0"
+    "@typespec/compiler": "npm:^0.58.0-dev.1"
+    "@typespec/http": "npm:^0.58.0-dev.0"
+    "@typespec/openapi": "npm:^0.58.0-dev.0"
+    "@typespec/openapi3": "npm:^0.58.0-dev.0"
+    "@typespec/rest": "npm:^0.58.0-dev.0"
+    "@typespec/versioning": "npm:^0.58.0-dev.0"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
     prettier: "npm:^3.2.5"
@@ -1522,9 +1528,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/compiler@npm:^0.57.0":
-  version: 0.57.0
-  resolution: "@typespec/compiler@npm:0.57.0"
+"@typespec/compiler@npm:^0.58.0-dev.1":
+  version: 0.58.0-dev.1
+  resolution: "@typespec/compiler@npm:0.58.0-dev.1"
   dependencies:
     "@babel/code-frame": "npm:~7.24.2"
     ajv: "npm:~8.13.0"
@@ -1542,59 +1548,59 @@ __metadata:
   bin:
     tsp: cmd/tsp.js
     tsp-server: cmd/tsp-server.js
-  checksum: 10/bfbaf74ad1afb5c96b9cd13d962aef88e8a487e129fc95e7d68d88de503a4e36ceeb623446b583bb3d6a56edb9494a0d093d2318e4d9cd9b2da1e2cc77cdce01
+  checksum: 10/376b94622ca4e2a888239ef61a755f534746200eaaf68720ecc821ee46b09a32214d1fba75826c8408b6744097e5a043c59f732f47239d95b3a5b276944f4b8f
   languageName: node
   linkType: hard
 
-"@typespec/http@npm:^0.57.0":
-  version: 0.57.0
-  resolution: "@typespec/http@npm:0.57.0"
+"@typespec/http@npm:^0.58.0-dev.0":
+  version: 0.58.0-dev.0
+  resolution: "@typespec/http@npm:0.58.0-dev.0"
   peerDependencies:
-    "@typespec/compiler": ~0.57.0
-  checksum: 10/d3fb968636b8305fb26fdf0fcd98b104d7412a4c0355c902c287d751a16e3fe74742cb7d865c55bdafc1a9d56b291a9ad6e195bd9a63b1536b9e20abaa92c20a
+    "@typespec/compiler": ~0.57.0 || >=0.58.0-dev <0.58.0
+  checksum: 10/5793b16906274612ca296ad850edd282a79fbadb01e801fdaaf62bdf183a5550f569273ce442cfeb208679d1e90ab79a0defbade8b53477822dfcb308412d293
   languageName: node
   linkType: hard
 
-"@typespec/openapi3@npm:^0.57.0":
-  version: 0.57.0
-  resolution: "@typespec/openapi3@npm:0.57.0"
+"@typespec/openapi3@npm:^0.58.0-dev.0":
+  version: 0.58.0-dev.0
+  resolution: "@typespec/openapi3@npm:0.58.0-dev.0"
   dependencies:
     yaml: "npm:~2.4.2"
   peerDependencies:
-    "@typespec/compiler": ~0.57.0
-    "@typespec/http": ~0.57.0
-    "@typespec/openapi": ~0.57.0
-    "@typespec/versioning": ~0.57.0
-  checksum: 10/5a263cdf5287d29980f014ec00c70dd881dc1436264b347e37417e44b2c87e356764a06e086b930288ee8a417aae068c004cea121c550aef72ed78891649a96f
+    "@typespec/compiler": ~0.57.0 || >=0.58.0-dev <0.58.0
+    "@typespec/http": ~0.57.0 || >=0.58.0-dev <0.58.0
+    "@typespec/openapi": ~0.57.0 || >=0.58.0-dev <0.58.0
+    "@typespec/versioning": ~0.57.0 || >=0.58.0-dev <0.58.0
+  checksum: 10/a1f17f7370d855ab2b3e8e0fd4d5a3f6eb564d2bea96d5378fb046210e999a06a6f96fd155dd1302339ce8161f77e8c36901f6090aa9d314625dfdc5126432ba
   languageName: node
   linkType: hard
 
-"@typespec/openapi@npm:^0.57.0":
-  version: 0.57.0
-  resolution: "@typespec/openapi@npm:0.57.0"
+"@typespec/openapi@npm:^0.58.0-dev.0":
+  version: 0.58.0-dev.0
+  resolution: "@typespec/openapi@npm:0.58.0-dev.0"
   peerDependencies:
-    "@typespec/compiler": ~0.57.0
-    "@typespec/http": ~0.57.0
-  checksum: 10/a90ec0231a72ec3e97b834f2e2314fe3d466f483d5ba1dea53c4ad7803eba573539739f1adeb94058740ba202f491eabfcacda20265298329faa0fff2955fe35
+    "@typespec/compiler": ~0.57.0 || >=0.58.0-dev <0.58.0
+    "@typespec/http": ~0.57.0 || >=0.58.0-dev <0.58.0
+  checksum: 10/f64e768398f98ac3094f6dc591f7d08840e2973676fdc3c533dfdb563e930cc969d02a60c6f1cf361694aec46837b9e1e08b05196fb5c34f387dd2e80768808a
   languageName: node
   linkType: hard
 
-"@typespec/rest@npm:^0.57.0":
-  version: 0.57.0
-  resolution: "@typespec/rest@npm:0.57.0"
+"@typespec/rest@npm:^0.58.0-dev.0":
+  version: 0.58.0-dev.0
+  resolution: "@typespec/rest@npm:0.58.0-dev.0"
   peerDependencies:
-    "@typespec/compiler": ~0.57.0
-    "@typespec/http": ~0.57.0
-  checksum: 10/dbf184a21d703cdd8fa3f3f0ac6f3f728bd44163d31e1a7eaf886cc7c54c5edafc0fadc3c594e2b0e18d952dac92c420dcf2c682955a2fa59234f1e041753b79
+    "@typespec/compiler": ~0.57.0 || >=0.58.0-dev <0.58.0
+    "@typespec/http": ~0.57.0 || >=0.58.0-dev <0.58.0
+  checksum: 10/789c80c9d2f5d6da181223fae378a1de736cc64276f278664a693981db8c17b9b7119bba2f26568811223122903465928420120fe66169e440edfb968f47b463
   languageName: node
   linkType: hard
 
-"@typespec/versioning@npm:^0.57.0":
-  version: 0.57.0
-  resolution: "@typespec/versioning@npm:0.57.0"
+"@typespec/versioning@npm:^0.58.0-dev.0":
+  version: 0.58.0-dev.0
+  resolution: "@typespec/versioning@npm:0.58.0-dev.0"
   peerDependencies:
-    "@typespec/compiler": ~0.57.0
-  checksum: 10/a864abbeca7a4cbc9565593722d94e27bac559c3e2d8cffb13ee8e6aef0f02bcafe03a9b1be722971f5970e100491b659b4c785d7b5d28165f45f3b22c57e241
+    "@typespec/compiler": ~0.57.0 || >=0.58.0-dev <0.58.0
+  checksum: 10/8112400df0ef62fd4a9dcb8eeea428388e7962ea82cd6f19392ddf51d9afea9b03b141532f6e78a1b5b7a20f07af608f4549f36edf3b0eb975ef439185b1ebb6
   languageName: node
   linkType: hard
 
@@ -6120,12 +6126,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "webapi@workspace:apps/webapi"
   dependencies:
-    "@typespec/compiler": "npm:^0.57.0"
-    "@typespec/http": "npm:^0.57.0"
-    "@typespec/openapi": "npm:^0.57.0"
-    "@typespec/openapi3": "npm:^0.57.0"
-    "@typespec/rest": "npm:^0.57.0"
-    "@typespec/versioning": "npm:^0.57.0"
+    "@typespec/compiler": "npm:^0.58.0-dev.1"
+    "@typespec/http": "npm:^0.58.0-dev.0"
+    "@typespec/openapi": "npm:^0.58.0-dev.0"
+    "@typespec/openapi3": "npm:^0.58.0-dev.0"
+    "@typespec/rest": "npm:^0.58.0-dev.0"
+    "@typespec/versioning": "npm:^0.58.0-dev.0"
   languageName: unknown
   linkType: soft
 
