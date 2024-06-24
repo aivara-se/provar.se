@@ -57,7 +57,7 @@ jobs:
           images: ghcr.io/aivara-se/provar.se/webapi
 
       - name: Publish Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           file: ./apps/webapi/Dockerfile
           context: ./apps/webapi
