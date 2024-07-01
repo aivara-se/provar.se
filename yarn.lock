@@ -2227,7 +2227,7 @@ __metadata:
     prettier: "npm:^3.3.2"
     prettier-plugin-svelte: "npm:^3.2.3"
     svelte: "npm:^4.2.15"
-    svelte-check: "npm:^3.7.1"
+    svelte-check: "npm:^3.8.4"
     tailwindcss: "npm:^3.4.3"
     tslib: "npm:^2.4.1"
     typescript: "npm:^5.4.4"
@@ -3019,7 +3019,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.7, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.0, fast-glob@npm:^3.3.2":
+"fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.0, fast-glob@npm:^3.3.2":
   version: 3.3.2
   resolution: "fast-glob@npm:3.3.2"
   dependencies:
@@ -5430,14 +5430,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte-check@npm:^3.7.1":
-  version: 3.7.1
-  resolution: "svelte-check@npm:3.7.1"
+"svelte-check@npm:^3.8.4":
+  version: 3.8.4
+  resolution: "svelte-check@npm:3.8.4"
   dependencies:
     "@jridgewell/trace-mapping": "npm:^0.3.17"
     chokidar: "npm:^3.4.1"
-    fast-glob: "npm:^3.2.7"
-    import-fresh: "npm:^3.2.1"
     picocolors: "npm:^1.0.0"
     sade: "npm:^1.7.4"
     svelte-preprocess: "npm:^5.1.3"
@@ -5446,7 +5444,7 @@ __metadata:
     svelte: ^3.55.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0
   bin:
     svelte-check: bin/svelte-check
-  checksum: 10/d4fc3c8e06b18581cda1549c70bc8ea8f2e7a4105503fcfb561b3e0ccc759ada86d44c860a3210050ec7dac4b6ff8bf46c137ed4c0f37c9f3bef1b7efb7fda71
+  checksum: 10/3e4f73c995ca399774f1e9b72fd2c3af7174c3b43315ce41f7180c4e3886caaa3d1c75ebbf4fd32583c7aa8c1300cdf2beac066a2d516dd3a3c3e6483b89e046
   languageName: node
   linkType: hard
 
@@ -6167,7 +6165,7 @@ __metadata:
     prettier: "npm:^3.3.2"
     prettier-plugin-svelte: "npm:^3.2.3"
     svelte: "npm:^4.2.15"
-    svelte-check: "npm:^3.7.1"
+    svelte-check: "npm:^3.8.4"
     sveltekit-superforms: "npm:^2.15.1"
     tailwindcss: "npm:^3.4.3"
     tslib: "npm:^2.4.1"
@@ -6217,7 +6215,7 @@ __metadata:
     prettier: "npm:^3.3.2"
     prettier-plugin-svelte: "npm:^3.2.3"
     svelte: "npm:^4.2.15"
-    svelte-check: "npm:^3.7.1"
+    svelte-check: "npm:^3.8.4"
     tailwindcss: "npm:^3.4.3"
     tslib: "npm:^2.4.1"
     typescript: "npm:^5.4.4"
