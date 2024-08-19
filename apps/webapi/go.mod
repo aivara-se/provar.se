@@ -18,7 +18,7 @@ require (
 	github.com/mileusna/useragent v1.3.4
 	github.com/oschwald/geoip2-golang v1.11.0
 	github.com/samber/slog-fiber v1.15.3
-	github.com/wneessen/go-mail v0.4.2
+	github.com/wneessen/go-mail v0.4.3
 )
 
 require (
