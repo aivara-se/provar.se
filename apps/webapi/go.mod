@@ -15,7 +15,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
 	github.com/markbates/goth v1.80.0
-	github.com/mileusna/useragent v1.3.4
+	github.com/mileusna/useragent v1.3.5
 	github.com/oschwald/geoip2-golang v1.11.0
 	github.com/samber/slog-fiber v1.15.3
 	github.com/wneessen/go-mail v0.4.2
