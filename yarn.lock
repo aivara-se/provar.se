@@ -1175,29 +1175,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/kit@npm:^2.5.10":
-  version: 2.5.10
-  resolution: "@sveltejs/kit@npm:2.5.10"
+"@sveltejs/kit@npm:^2.9.0":
+  version: 2.9.0
+  resolution: "@sveltejs/kit@npm:2.9.0"
   dependencies:
     "@types/cookie": "npm:^0.6.0"
     cookie: "npm:^0.6.0"
-    devalue: "npm:^5.0.0"
-    esm-env: "npm:^1.0.0"
+    devalue: "npm:^5.1.0"
+    esm-env: "npm:^1.2.1"
     import-meta-resolve: "npm:^4.1.0"
     kleur: "npm:^4.1.5"
     magic-string: "npm:^0.30.5"
     mrmime: "npm:^2.0.0"
     sade: "npm:^1.8.1"
     set-cookie-parser: "npm:^2.6.0"
-    sirv: "npm:^2.0.4"
+    sirv: "npm:^3.0.0"
     tiny-glob: "npm:^0.2.9"
   peerDependencies:
-    "@sveltejs/vite-plugin-svelte": ^3.0.0
+    "@sveltejs/vite-plugin-svelte": ^3.0.0 || ^4.0.0-next.1 || ^5.0.0
     svelte: ^4.0.0 || ^5.0.0-next.0
-    vite: ^5.0.3
+    vite: ^5.0.3 || ^6.0.0
   bin:
     svelte-kit: svelte-kit.js
-  checksum: 10/aef9a0ea170b3436699a668c1000f0d7b653fc18080db4230d0c12a5a35f39771d38239584a32c4469e097e7f93b92d87e0aec1d36bc5d17affedf2d963b0282
+  checksum: 10/9cd592f105b3c28ef2d865a961939bfe5af16ac1e1bb296ad6a2bc27c8d2a592e4e72a0ddf9bb8a0f839612c182ad19c39d6a93d7490ad31209f29d5b2e547ab
   languageName: node
   linkType: hard
 
@@ -2208,7 +2208,7 @@ __metadata:
   dependencies:
     "@playwright/test": "npm:^1.44.0"
     "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
-    "@sveltejs/kit": "npm:^2.5.10"
+    "@sveltejs/kit": "npm:^2.9.0"
     "@sveltejs/vite-plugin-svelte": "npm:^3.1.1"
     "@tailwindcss/typography": "npm:^0.5.13"
     "@types/eslint": "npm:8.56.5"
@@ -2430,6 +2430,13 @@ __metadata:
   version: 5.0.0
   resolution: "devalue@npm:5.0.0"
   checksum: 10/52c4e1b57c3c05dee64f8c64175f53812c4de4fa1a098b238acd74a38c0756b3631ca74081d0141248d27c00c2f18861b6f874298cd68a4fb2e0797b71de4970
+  languageName: node
+  linkType: hard
+
+"devalue@npm:^5.1.0":
+  version: 5.1.1
+  resolution: "devalue@npm:5.1.1"
+  checksum: 10/ff36fe61af61636419eb16692d2fe43d793cdfb17f868bb3560c5485e4c25bc38d472304e61efdec6e806a3c4b450c46247decf59968b4a05ddc7714ea64f885
   languageName: node
   linkType: hard
 
@@ -2915,10 +2922,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-env@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "esm-env@npm:1.0.0"
-  checksum: 10/379e34c5bfdfe7004a6ddf492511b619bfe3488520ee5c683a700f5e58942a26dd2220ebb74be83b4d46930c57f26adfd449404edfa1e68231d4b354b23f91be
+"esm-env@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "esm-env@npm:1.2.1"
+  checksum: 10/00e7664a962fcecb889fecdee8fe44c1080c7980e0f3e23d192320f7d0b937c7f33be3bb77debd12bf2a4c47fad585ba43efc8ad00a1a585f3c49f9d580d6414
   languageName: node
   linkType: hard
 
@@ -5140,14 +5147,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sirv@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "sirv@npm:2.0.4"
+"sirv@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "sirv@npm:3.0.0"
   dependencies:
     "@polka/url": "npm:^1.0.0-next.24"
     mrmime: "npm:^2.0.0"
     totalist: "npm:^3.0.0"
-  checksum: 10/24f42cf06895017e589c9d16fc3f1c6c07fe8b0dbafce8a8b46322cfba67b7f2498610183954cb0e9d089c8cb60002a7ee7e8bca6a91a0d7042bfbc3473c95c3
+  checksum: 10/94dbd5df7cf4965f7c5941767117cbf9709e1d25de1d619a114c3f77fc63c124b5a5255717af2a0de637bb83d0b0defd0822d01420764b56432b53281b1d675d
   languageName: node
   linkType: hard
 
@@ -6160,7 +6167,7 @@ __metadata:
     "@playwright/test": "npm:^1.44.0"
     "@provar/provar-js": "npm:^1.28.1"
     "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
-    "@sveltejs/kit": "npm:^2.5.10"
+    "@sveltejs/kit": "npm:^2.9.0"
     "@sveltejs/vite-plugin-svelte": "npm:^3.1.1"
     "@tailwindcss/typography": "npm:^0.5.13"
     "@types/eslint": "npm:8.56.5"
@@ -6216,7 +6223,7 @@ __metadata:
   dependencies:
     "@playwright/test": "npm:^1.44.0"
     "@sveltejs/adapter-cloudflare": "npm:^4.4.0"
-    "@sveltejs/kit": "npm:^2.5.10"
+    "@sveltejs/kit": "npm:^2.9.0"
     "@sveltejs/vite-plugin-svelte": "npm:^3.1.1"
     "@tailwindcss/typography": "npm:^0.5.13"
     "@types/eslint": "npm:8.56.5"
