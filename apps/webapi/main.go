@@ -15,7 +15,7 @@ func main() {
 
 	// Setup shared components (eg: db, jwt, etc.)
 	if err := lib.Setup(); err != nil {
-		log.Fatal("Error connecting to database")
+		log.Fatal("Error connecting to database", err)
 	}
 
 	// Start the server

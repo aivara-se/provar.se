@@ -37,4 +37,6 @@ yarn install
 yarn setup-local-env
 ```
 
+- Start the local environment with `yarn start-local-env` and run database migrations with `yarn workspace migrations run migration:run`
+
 - Create a MaxMind account, download the "GeoLite2 City" database from [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) and place it as `apps/webapi/GeoLite2-City.mmdb`. This database will be used to add location data based on feedback source ip address.
