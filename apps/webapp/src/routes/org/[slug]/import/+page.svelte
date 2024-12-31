@@ -250,36 +250,38 @@
 
 		{#if importOperation.total}
 			<table class="mt-4">
-				<tr>
-					<td>Validate</td>
-					<td class="pl-4">
-						<progress
-							class="progress progress-success w-64 md:w-96"
-							value={importOperation.valid}
-							max={importOperation.total}
-						></progress>
-					</td>
-					<td>
-						{#if importOperation.total === importOperation.valid}
-							<CheckIcon class="inline-block ml-2 w-4 h-4 text-success" />
-						{/if}
-					</td>
-				</tr>
-				<tr>
-					<td>Upload</td>
-					<td class="pl-4">
-						<progress
-							class="progress progress-success w-64 md:w-96"
-							value={importOperation.ready}
-							max={importOperation.total}
-						></progress>
-					</td>
-					<td>
-						{#if importOperation.total === importOperation.ready}
-							<CheckIcon class="inline-block ml-2 w-4 h-4 text-success" />
-						{/if}
-					</td>
-				</tr>
+				<tbody>
+					<tr>
+						<td>Validate</td>
+						<td class="pl-4">
+							<progress
+								class="progress progress-success w-64 md:w-96"
+								value={importOperation.valid}
+								max={importOperation.total}
+							></progress>
+						</td>
+						<td>
+							{#if importOperation.total === importOperation.valid}
+								<CheckIcon class="inline-block ml-2 w-4 h-4 text-success" />
+							{/if}
+						</td>
+					</tr>
+					<tr>
+						<td>Upload</td>
+						<td class="pl-4">
+							<progress
+								class="progress progress-success w-64 md:w-96"
+								value={importOperation.ready}
+								max={importOperation.total}
+							></progress>
+						</td>
+						<td>
+							{#if importOperation.total === importOperation.ready}
+								<CheckIcon class="inline-block ml-2 w-4 h-4 text-success" />
+							{/if}
+						</td>
+					</tr>
+				</tbody>
 			</table>
 		{/if}
 
