@@ -60,7 +60,7 @@ jobs:
         env:
           DATABASE_URI: postgresql://postgres:postgres@localhost/provar?sslmode=disable
         run: |
-          docker-compose -f "../../compose.yaml" up -d
+          docker compose -f "../../compose.yaml" up -d
           bash ../../.scripts/wait-for-postgres.sh
           go run -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
 
@@ -88,4 +88,4 @@ jobs:
 
       - name: Stop dependencies
         if: always()
-        run: docker-compose -f "../../compose.yaml" down
+        run: docker compose -f "../../compose.yaml" down
