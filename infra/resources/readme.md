@@ -86,3 +86,27 @@ The `outputs.tf` file defines outputs for important information:
 - `jump_host_private_ip`: Private IP address of the jump host.
 - `database_host_private_ip`: Private IP address of the database server.
 - `webapi_host_private_ip`: Private IP address of the web API server.
+
+## Debugging
+
+You can use an example ssh config similar to what is given below to ssh into systems using the jump host.
+
+```
+Host sshjump.provar.se
+       # FIXME: use correct ip
+       HostName 1.1.1.1
+       Port 22
+       User root
+       TCPKeepAlive yes
+       ServerAliveInterval 10
+       IdentityFile /path/to/sshjump/id_rsa
+
+Host postgres.provar.se
+       HostName 10.0.0.11
+       Port 22
+       User root
+       TCPKeepAlive yes
+       ServerAliveInterval 10
+       IdentityFile /path/to/postgres/id_rsa
+       ProxyJump sshjump.provar.se
+```
