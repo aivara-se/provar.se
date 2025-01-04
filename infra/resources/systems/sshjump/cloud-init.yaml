@@ -19,6 +19,13 @@ runcmd:
   - sudo service docker start
 
   # Allow remote connections
+  - sudo apt-get install ufw
+  - sudo ufw default deny incoming
+  - sudo ufw default allow outgoing
   - sudo ufw allow 22/tcp
+  - sudo ufw allow from 127.0.0.0/8
+  - sudo ufw allow from ::1/128
+  - sudo ufw enable
+  - sudo ufw status verbose
 
   # TODO: make it more secure

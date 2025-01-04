@@ -126,6 +126,28 @@ resource "hcloud_server" "sshjump" {
 }
 
 
+# Public IP address for the SSH jump host
+resource "hcloud_primary_ip" "postgres_ipv4" {
+  name              = "postgres_ipv4"
+  type              = "ipv4"
+  assignee_type     = "server"
+  datacenter        = var.hcloud_datacenter
+  auto_delete       = true
+  delete_protection = var.is_production
+}
+
+
+# Public IPv6 address for the SSH jump host
+resource "hcloud_primary_ip" "postgres_ipv6" {
+  name              = "postgres_ipv6"
+  type              = "ipv6"
+  assignee_type     = "server"
+  datacenter        = var.hcloud_datacenter
+  auto_delete       = true
+  delete_protection = var.is_production
+}
+
+
 # SSH key for accessing the postgres instance
 resource "hcloud_ssh_key" "postgres_key" {
   name       = "postgres_key"
@@ -156,8 +178,10 @@ resource "hcloud_server" "postgres" {
   }
 
   public_net {
-    ipv4_enabled = false
-    ipv6_enabled = false
+    ipv4_enabled = true
+    ipv6_enabled = true
+    ipv4         = hcloud_primary_ip.postgres_ipv4.id
+    ipv6         = hcloud_primary_ip.postgres_ipv6.id
   }
 }
 
