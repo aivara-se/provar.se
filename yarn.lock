@@ -5001,6 +5001,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"resources@workspace:infra/resources":
+  version: 0.0.0-use.local
+  resolution: "resources@workspace:infra/resources"
+  languageName: unknown
+  linkType: soft
+
 "retry@npm:^0.12.0":
   version: 0.12.0
   resolution: "retry@npm:0.12.0"
