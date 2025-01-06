@@ -20,7 +20,7 @@
 		"format": "prettier . --write . && eslint --fix ."
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^7.18.0",
+		"@typescript-eslint/eslint-plugin": "^8.19.0",
 		"@typescript-eslint/parser": "^8.19.0",
 		"@typespec/compiler": "^0.63.0",
 		"@typespec/http": "^0.63.0",
