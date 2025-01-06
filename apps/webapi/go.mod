@@ -17,7 +17,7 @@ require (
 	github.com/markbates/goth v1.80.0
 	github.com/mileusna/useragent v1.3.5
 	github.com/oschwald/geoip2-golang v1.11.0
-	github.com/samber/slog-fiber v1.16.5
+	github.com/samber/slog-fiber v1.17.0
 	github.com/wneessen/go-mail v0.5.2
 )
 
@@ -27,13 +27,11 @@ require (
 )
 
 require (
-	cloud.google.com/go/compute v1.31.0 // indirect
 	cloud.google.com/go/compute/metadata v0.6.0 // indirect
 	github.com/andybalholm/brotli v1.1.1 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.7 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/klauspost/compress v1.17.11 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
@@ -52,6 +50,4 @@ require (
 	golang.org/x/oauth2 v0.24.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
-	google.golang.org/appengine v1.6.8 // indirect
-	google.golang.org/protobuf v1.36.1 // indirect
 )
