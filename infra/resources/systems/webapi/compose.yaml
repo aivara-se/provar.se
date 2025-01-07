@@ -1,0 +1,9 @@
+services:
+  webapi:
+    image: ghcr.io/aivara-se/provar.se/webapi:v1.0.4
+    ports:
+      - "80:3001"
+    volumes:
+      - ./GeoLite2-City.mmdb:/app/GeoLite2-City.mmdb
+    env_file:
+      - .env.prod
