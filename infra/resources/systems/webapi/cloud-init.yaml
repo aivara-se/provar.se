@@ -22,8 +22,9 @@ runcmd:
   - sudo apt-get install ufw
   - sudo ufw default deny incoming
   - sudo ufw default allow outgoing
-  - sudo ufw allow 443/tcp
   - sudo ufw allow 80/tcp
+  - sudo ufw allow 443/tcp
+  - sudo ufw allow 443/udp
   - sudo ufw allow from 10.0.0.0/24 to any port 22 proto tcp
   - sudo ufw allow from 127.0.0.0/8
   - sudo ufw allow from ::1/128
