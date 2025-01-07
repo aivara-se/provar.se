@@ -37,6 +37,10 @@ jobs:
         run: go mod download
 
       - name: Build the service
+        env:
+          CGO_ENABLED: 0
+          GOOS: linux
+          GARCH: amd64
         run: go build -o ./webapi
 
       - name: Docker Auth
