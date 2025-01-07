@@ -1,7 +1,4 @@
-FROM alpine:3
-
-# Install system dependencies
-RUN apk add ca-certificates
+FROM scratch
 
 # Copy the binary and resources
 WORKDIR /app
