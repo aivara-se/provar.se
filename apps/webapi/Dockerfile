@@ -1,9 +1,26 @@
-FROM scratch
+FROM golang as builder
 
-# Copy the binary and resources
 WORKDIR /app
-COPY ./webapi ./
-COPY ./public ./
+
+# Copy the go mod and sum
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy and build the source
+COPY ./ ./
+RUN GOOS=linux GARCH=amd64 CGO_ENABLED=0 go build -o webapi .
+
+# ------------------------------------------------------------------------------------
+
+FROM alpine:3
+
+# Install system dependencies
+RUN apk --update add curl ca-certificates libstdc++ libc6-compat binutils
+
+# Copy built files from the build image
+WORKDIR /app
+COPY --from=builder /app/webapi /app/webapi
+COPY --from=builder /app/public /app/public
 
 # Declare environment variables
 ENV AUTH_GITHUB_ID=""
