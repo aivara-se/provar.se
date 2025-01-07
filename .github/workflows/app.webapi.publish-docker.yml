@@ -27,22 +27,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: "1.23.4"
-          cache-dependency-path: apps/webapi/go.sum
-
-      - name: Install dependencies
-        run: go mod download
-
-      - name: Build the service
-        env:
-          CGO_ENABLED: 0
-          GOOS: linux
-          GARCH: amd64
-        run: go build -o ./webapi
-
       - name: Docker Auth
         id: docker-auth
         uses: "docker/login-action@v3"
