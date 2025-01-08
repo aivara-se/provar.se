@@ -2,6 +2,7 @@ package invitation
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/invitation"
 	"provar.se/webapi/lib/organization"
@@ -29,23 +30,26 @@ func SetupAcceptInvitation(app *fiber.App) {
 	app.Post(path, validator.ValidateMiddleware(CreateAcceptInvitationRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
-		orgID := c.Params("organizationId")
+		logger := log.WithContext(c.Context())
+		organizationID := c.Params("organizationId")
 		principal := access.GetPrincipal(c)
 		invite := invitation.GetInvitation(c)
 		body := validator.GetRequestBody(c).(*AcceptInvitationRequestBody)
-		if invite.OrganizationID != orgID || invite.Secret != body.Secret {
+		if invite.OrganizationID != organizationID || invite.Secret != body.Secret {
 			return c.SendStatus(fiber.StatusNotFound)
 		}
 		invitedUser, err := user.FindByEmail(invite.Email)
 		if err != nil {
-			return c.SendStatus(fiber.StatusBadRequest)
+			logger.Info("Failed to find invited user", err)
+			return fiber.NewError(fiber.StatusBadRequest, "Failed to find invited user")
 		}
 		if !invite.IsAcceptable() || principal.User.ID != invitedUser.ID {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
-		err = organization.AddMember(orgID, invitedUser.ID)
+		err = organization.AddMember(organizationID, invitedUser.ID)
 		if err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
+			logger.Error("Failed to add member to organization", err)
+			return fiber.NewError(fiber.StatusInternalServerError, "Failed to add member to organization")
 		}
 		return c.SendStatus(fiber.StatusNoContent)
 	})

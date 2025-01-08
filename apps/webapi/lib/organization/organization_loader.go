@@ -2,6 +2,7 @@ package organization
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/router"
 )
 
@@ -13,9 +14,11 @@ var (
 // Loader loads an organization from the database and attaches it to the context
 func Loader(getID router.ParamFetcher) fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		logger := log.WithContext(c.Context())
 		org, err := FindByID(getID(c))
 		if err != nil {
-			return c.SendStatus(fiber.StatusNotFound)
+			logger.Info("Failed to load organization", err)
+			return fiber.NewError(fiber.StatusNotFound, "Organization not found")
 		}
 		c.Locals(organizationKey, org)
 		return c.Next()

@@ -2,6 +2,7 @@ package invitation
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/invitation"
 	"provar.se/webapi/lib/organization"
@@ -29,12 +30,14 @@ func SetupCreateInvitation(app *fiber.App) {
 	app.Post(path, validator.ValidateMiddleware(CreateCreateInvitationRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
-		orgID := c.Params("organizationId")
+		logger := log.WithContext(c.Context())
+		organizationID := c.Params("organizationId")
 		principal := access.GetPrincipal(c)
 		body := validator.GetRequestBody(c).(*CreateInvitationRequestBody)
-		err := invitation.Invite(orgID, body.Name, body.Email, principal.ID())
+		err := invitation.Invite(organizationID, body.Name, body.Email, principal.ID())
 		if err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
+			logger.Error("Failed to create invitation", err)
+			return fiber.NewError(fiber.StatusInternalServerError, "Failed to create invitation")
 		}
 		return c.SendStatus(fiber.StatusNoContent)
 	})

@@ -2,6 +2,7 @@ package credential
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/credential"
 	"provar.se/webapi/lib/organization"
@@ -16,10 +17,12 @@ func SetupDeleteCredential(app *fiber.App) {
 	app.Delete(path, access.MembershipGuard())
 
 	app.Delete(path, func(c *fiber.Ctx) error {
-		credID := c.Params("credentialId")
-		err := credential.DeleteByID(credID)
+		logger := log.WithContext(c.Context())
+		credentialID := c.Params("credentialId")
+		err := credential.DeleteByID(credentialID)
 		if err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
+			logger.Error("Failed to delete credential", err)
+			return fiber.NewError(fiber.StatusInternalServerError, "Failed to delete credential")
 		}
 		return c.JSON(fiber.StatusNoContent)
 	})

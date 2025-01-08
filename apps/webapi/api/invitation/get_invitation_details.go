@@ -20,6 +20,7 @@ func SetupInvitationDetails(app *fiber.App) {
 		org := organization.GetOrganization(c)
 		invite := invitation.GetInvitation(c)
 		if invite.OrganizationID != org.ID {
+			// FIXME: change the invitation loader to filter by organization ID
 			return c.SendStatus(fiber.StatusNotFound)
 		}
 		return c.JSON(invite)

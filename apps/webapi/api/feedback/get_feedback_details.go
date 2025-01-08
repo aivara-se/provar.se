@@ -20,6 +20,7 @@ func SetupFeedbackDetails(app *fiber.App) {
 		org := organization.GetOrganization(c)
 		fb := feedback.GetFeedback(c)
 		if fb.OrganizationID != org.ID {
+			// FIXME: change feedback loader to filter by organization ID instead
 			return c.SendStatus(fiber.StatusNotFound)
 		}
 		return c.JSON(fb)
