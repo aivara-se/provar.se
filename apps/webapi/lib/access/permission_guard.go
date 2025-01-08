@@ -2,6 +2,7 @@ package access
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/permission"
 	"provar.se/webapi/lib/router"
 )
@@ -18,6 +19,7 @@ type PermissionGuardOptions struct {
 // resource. If the principal does not have the permission, it returns 403.
 func PermissionGuard(opts *PermissionGuardOptions) fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		logger := log.WithContext(c.Context())
 		principal := GetPrincipal(c)
 		isAllowed := permission.HasPermission(&permission.PermissionQuery{
 			OrganizationID: opts.OrganizationID(c),
@@ -28,7 +30,8 @@ func PermissionGuard(opts *PermissionGuardOptions) fiber.Handler {
 			Permission:     opts.Permission,
 		})
 		if !isAllowed {
-			return c.SendStatus(fiber.StatusForbidden)
+			logger.Info("Principal does not have permission")
+			return fiber.NewError(fiber.StatusForbidden, "Principal does not have permission")
 		}
 		return c.Next()
 	}

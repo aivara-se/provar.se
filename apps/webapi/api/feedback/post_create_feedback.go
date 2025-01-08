@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/feedback"
 	"provar.se/webapi/lib/organization"
@@ -47,7 +48,8 @@ func SetupCreateFeedback(app *fiber.App) {
 	app.Post(path, validator.ValidateMiddleware(CreateCreateFeedbackRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
-		orgID := c.Params("organizationId")
+		logger := log.WithContext(c.Context())
+		organizationID := c.Params("organizationId")
 		body := validator.GetRequestBody(c).(*CreateFeedbackRequestBody)
 		if body == nil || body.Feedbacks == nil {
 			return c.SendStatus(fiber.StatusBadRequest)
@@ -55,7 +57,6 @@ func SetupCreateFeedback(app *fiber.App) {
 		if len(body.Feedbacks) > MaxFeedbacksPerBatch {
 			return c.SendStatus(fiber.StatusRequestEntityTooLarge)
 		}
-		errd := false
 		for _, fb := range body.Feedbacks {
 			if fb.Meta == nil {
 				fb.Meta = make(map[string]string)
@@ -66,7 +67,7 @@ func SetupCreateFeedback(app *fiber.App) {
 			if fb.User == nil {
 				fb.User = make(map[string]string)
 			}
-			_, err := feedback.Create(orgID, &feedback.CreateFeedbackData{
+			_, err := feedback.Create(organizationID, &feedback.CreateFeedbackData{
 				FeedbackTime:   fb.Time,
 				FeedbackType:   fb.Type,
 				FeedbackData:   fb.Data,
@@ -77,11 +78,9 @@ func SetupCreateFeedback(app *fiber.App) {
 				RequestHeaders: c.GetReqHeaders(),
 			})
 			if err != nil {
-				errd = true
+				logger.Error("Failed to create feedback", err)
+				return fiber.NewError(fiber.StatusInternalServerError, "Failed to create feedback")
 			}
-		}
-		if errd {
-			return c.SendStatus(fiber.StatusInternalServerError)
 		}
 		return c.SendStatus(fiber.StatusNoContent)
 	})

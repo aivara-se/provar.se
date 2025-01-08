@@ -2,6 +2,7 @@ package invitation
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/router"
 )
 
@@ -13,9 +14,11 @@ var (
 // Loader loads an invitation from the database and attaches it to the context
 func Loader(getID router.ParamFetcher) fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		logger := log.WithContext(c.Context())
 		invite, err := FindByID(getID(c))
 		if err != nil {
-			return c.SendStatus(fiber.StatusNotFound)
+			logger.Info("Failed to load invitation", err)
+			return fiber.NewError(fiber.StatusNotFound, "Invitation not found")
 		}
 		c.Locals(invitationKey, invite)
 		return c.Next()

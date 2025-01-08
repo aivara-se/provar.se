@@ -2,6 +2,7 @@ package organization
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/organization"
 	"provar.se/webapi/lib/router"
@@ -15,10 +16,13 @@ func SetupRemoveOrganizationMember(app *fiber.App) {
 	app.Delete(path, access.MembershipGuard())
 
 	app.Delete(path, func(c *fiber.Ctx) error {
-		orgID := c.Params("organizationId")
+		logger := log.WithContext(c.Context())
+		organizationID := c.Params("organizationId")
 		userID := c.Params("userId")
-		if err := organization.RemoveMember(orgID, userID); err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
+		err := organization.RemoveMember(organizationID, userID)
+		if err != nil {
+			logger.Error("Failed to remove organization member", err)
+			return fiber.NewError(fiber.StatusInternalServerError, "Failed to remove organization member")
 		}
 		return c.SendStatus(fiber.StatusNoContent)
 	})
