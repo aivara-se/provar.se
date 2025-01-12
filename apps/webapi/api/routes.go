@@ -19,6 +19,7 @@ import (
 	"provar.se/webapi/api/organization"
 	"provar.se/webapi/api/ping"
 	"provar.se/webapi/lib/config"
+	"provar.se/webapi/lib/exceptions"
 	"provar.se/webapi/lib/random"
 )
 
@@ -34,6 +35,7 @@ func Create() *fiber.App {
 		JSONDecoder:        json.Unmarshal,
 		EnableIPValidation: true,
 		ProxyHeader:        "X-Forwarded-For",
+		ErrorHandler:       exceptions.ErrorHandler,
 	})
 
 	// Use rate limiter middleware
