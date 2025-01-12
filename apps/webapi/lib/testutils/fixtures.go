@@ -76,6 +76,9 @@ func CreateFeedback(orgID string) *feedback.Feedback {
 			"question-type": "default",
 			"response-text": "test-feedback-text",
 		},
+		FeedbackMeta: make(map[string]string),
+		FeedbackTags: make(map[string]string),
+		FeedbackUser: make(map[string]string),
 	}
 	fb, err := feedback.Create(orgID, data)
 	if err != nil {

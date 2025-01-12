@@ -33,6 +33,7 @@ type Config struct {
 	Geolite2    string
 	HostPort    string
 	LogFormat   string
+	LogOutput   string
 	Auth        AuthConfig
 	Email       EmailConfig
 	Provar      ProvarConfig
@@ -56,6 +57,7 @@ func SetupFromEnv() *Config {
 		Geolite2:    os.Getenv("GEOLITE2_DB"),
 		HostPort:    ":" + os.Getenv("PORT"),
 		LogFormat:   logFormat,
+		LogOutput:   os.Getenv("LOG_OUTPUT"),
 		Auth: AuthConfig{
 			Secret:       os.Getenv("AUTH_SECRET"),
 			GithubID:     os.Getenv("AUTH_GITHUB_ID"),

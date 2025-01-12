@@ -2,3 +2,4 @@ webapi
 tmp
 unit-test-results.json
 GeoLite2-City.mmdb
+webapi-test.log

@@ -29,7 +29,7 @@ func NewOnlyUserAllowedError() error {
 // NewInvalidMagicLinkError creates a new error for when a magic link could not
 // be confirmed because the magic link is not valid or they are already used once.
 func NewInvalidMagicLinkError(err error) error {
-	return exceptions.NewError(err, fiber.StatusBadRequest, "Unable to confirm magic link")
+	return exceptions.NewError(err, fiber.StatusForbidden, "Unable to confirm magic link")
 }
 
 // NewCredNotInOrganizationError creates a new error for when a credential does not

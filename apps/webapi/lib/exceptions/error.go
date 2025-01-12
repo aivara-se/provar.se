@@ -39,6 +39,11 @@ func NewError(err error, status int, message string, details ...string) *Error {
 
 // FromError creates a new Error instance from an error type.
 func FromError(err error) *Error {
+	// Search for a exceptions.Error in the chain
+	var e *Error
+	if errors.As(err, &e) {
+		return e
+	}
 	// Search for a fiber.Error in the chain
 	var fe *fiber.Error
 	if errors.As(err, &fe) {
