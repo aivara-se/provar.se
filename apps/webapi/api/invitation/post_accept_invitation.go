@@ -26,6 +26,7 @@ func SetupAcceptInvitation(app *fiber.App) {
 
 	app.Post(path, access.AuthenticatedGuard())
 	app.Post(path, access.OnlyAllowUsersGuard())
+	app.Post(path, organization.Loader(router.FromPathParam("organizationId")))
 	app.Post(path, invitation.Loader(router.FromPathParam("invitationId")))
 	app.Post(path, validator.ValidateMiddleware(CreateAcceptInvitationRequestBody))
 

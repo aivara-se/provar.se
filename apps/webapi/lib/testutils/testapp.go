@@ -27,7 +27,10 @@ func Create() *fiber.App {
 	_, b, _, _ := runtime.Caller(0)
 	basepath := filepath.Dir(b)
 	envfpath := filepath.Join(basepath, "../../.env.test")
-	godotenv.Load(envfpath)
+
+	if err := godotenv.Load(envfpath); err != nil {
+		log.Fatal("Error loading .env.test file: ", err)
+	}
 
 	// Setup shared components (eg: db, jwt, etc.)
 	if err := lib.Setup(); err != nil {
