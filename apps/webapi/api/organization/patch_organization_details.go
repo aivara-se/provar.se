@@ -2,7 +2,6 @@ package organization
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/organization"
 	"provar.se/webapi/lib/router"
@@ -30,15 +29,13 @@ func SetupUpdateOrganizationDetails(app *fiber.App) {
 	app.Patch(path, validator.ValidateMiddleware(CreateUpdateOrganizationRequestBody))
 
 	app.Patch(path, func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		org := organization.GetOrganization(c)
 		body := validator.GetRequestBody(c).(*UpdateOrganizationRequestBody)
 		org.Name = body.Name
 		org.Slug = body.Slug
 		org.Description = body.Description
 		if err := org.Update(); err != nil {
-			logger.Error("Failed to update organization details", err)
-			return fiber.NewError(fiber.StatusInternalServerError, "Failed to update organization details")
+			return err
 		}
 		return c.SendStatus(fiber.StatusNoContent)
 	})

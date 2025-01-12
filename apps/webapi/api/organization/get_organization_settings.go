@@ -2,7 +2,6 @@ package organization
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/organization"
 	"provar.se/webapi/lib/router"
@@ -16,12 +15,10 @@ func SetupOrganizationSettings(app *fiber.App) {
 	app.Get(path, access.MembershipGuard())
 
 	app.Get(path, func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		org := organization.GetOrganization(c)
 		settings, err := org.Settings()
 		if err != nil {
-			logger.Error("Failed to get organization settings", err)
-			return fiber.NewError(fiber.StatusInternalServerError, "Failed to get organization settings")
+			return err
 		}
 		return c.JSON(settings)
 	})

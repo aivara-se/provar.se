@@ -2,7 +2,6 @@ package invitation
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/invitation"
 	"provar.se/webapi/lib/organization"
@@ -17,12 +16,11 @@ func SetupDeleteInvitation(app *fiber.App) {
 	app.Delete(path, access.MembershipGuard())
 
 	app.Delete(path, func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
+		organizationID := c.Params("organizationId")
 		inviteID := c.Params("invitationId")
-		err := invitation.DeleteByID(inviteID)
+		err := invitation.DeleteByID(inviteID, organizationID)
 		if err != nil {
-			logger.Error("Failed to delete invitation", err)
-			return fiber.NewError(fiber.StatusInternalServerError, "Failed to delete invitation")
+			return err
 		}
 		return c.SendStatus(fiber.StatusNoContent)
 	})

@@ -102,10 +102,16 @@ func Count(organizationID string, data *SearchFeedbackData) (int, error) {
 }
 
 // FindByID returns a feedback with the given id
-func FindByID(id string) (*Feedback, error) {
+func FindByID(id string, organizationID string) (*Feedback, error) {
 	fb := &Feedback{}
-	query := "SELECT * FROM private.feedback WHERE id = $1"
-	err := database.DB().Get(fb, query, id)
+	query := `
+		SELECT *
+		FROM private.feedback
+		WHERE
+			id = $1 AND
+			organization_id = $2
+	`
+	err := database.DB().Get(fb, query, id, organizationID)
 	if err != nil {
 		return nil, err
 	}
@@ -113,15 +119,21 @@ func FindByID(id string) (*Feedback, error) {
 }
 
 // DeleteByID deletes a feedback with the given id
-func DeleteByID(id string) error {
-	query := "DELETE FROM private.feedback WHERE id = $1"
-	_, err := database.DB().Exec(query, id)
+func DeleteByID(id string, organizationID string) error {
+	query := `
+		DELETE
+		FROM private.feedback
+		WHERE
+			id = $1 AND
+			organization_id = $2
+	`
+	_, err := database.DB().Exec(query, id, organizationID)
 	return err
 }
 
 // DeleteByID deletes a feedback with the given id
 func (f *Feedback) Delete() error {
-	return DeleteByID(f.ID)
+	return DeleteByID(f.ID, f.OrganizationID)
 }
 
 // searchQuery returns the query string for searching feedback with given data

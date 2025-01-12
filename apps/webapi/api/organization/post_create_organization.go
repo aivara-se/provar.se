@@ -2,7 +2,6 @@ package organization
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/organization"
 	"provar.se/webapi/lib/validator"
@@ -28,13 +27,11 @@ func SetupCreateOrganization(app *fiber.App) {
 	app.Post(path, validator.ValidateMiddleware(CreateCreateOrganizationRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		principal := access.GetPrincipal(c)
 		body := validator.GetRequestBody(c).(*CreateOrganizationRequestBody)
 		organization, err := organization.Create(body.Name, body.Slug, body.Description, principal.User.ID)
 		if err != nil {
-			logger.Error("Failed to create organization", err)
-			return fiber.NewError(fiber.StatusInternalServerError, "Failed to create organization")
+			return err
 		}
 		return c.JSON(organization)
 	})

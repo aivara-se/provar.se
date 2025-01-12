@@ -4,7 +4,6 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/credential"
 	"provar.se/webapi/lib/permission"
 )
@@ -41,11 +40,9 @@ func extractTokenFromRequest(c *fiber.Ctx) string {
 // or credentials (API keys). Returns 401 if the user is not authenticated.
 func AuthenticatedGuard() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		key := extractTokenFromRequest(c)
 		if key == "" {
-			logger.Info("No access token provided in request")
-			return fiber.NewError(fiber.StatusUnauthorized, "No access token provided")
+			return NewMissingAuthTokenError()
 		}
 		user, err := ValidateAccessToken(key)
 		if err == nil {
@@ -63,7 +60,7 @@ func AuthenticatedGuard() fiber.Handler {
 			})
 			return c.Next()
 		}
-		return c.SendStatus(fiber.StatusForbidden)
+		return NewInvalidCredentialError(err)
 	}
 }
 
@@ -72,11 +69,9 @@ func AuthenticatedGuard() fiber.Handler {
 // is not a user.
 func OnlyAllowUsersGuard() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		principal := GetPrincipal(c)
 		if principal.Type != permission.PrincipalTypeUser {
-			logger.Info("Principal is not a user", principal.Type)
-			return fiber.NewError(fiber.StatusForbidden, "Principal is not a user")
+			return NewOnlyUserAllowedError()
 		}
 		return c.Next()
 	}
@@ -84,5 +79,9 @@ func OnlyAllowUsersGuard() fiber.Handler {
 
 // GetPrincipal returns the access token from the fiber context
 func GetPrincipal(c *fiber.Ctx) *permission.Principal {
-	return c.Locals(principalKey).(*permission.Principal)
+	principal := c.Locals(principalKey).(*permission.Principal)
+	if principal == nil {
+		panic("Principal not available in the request context")
+	}
+	return principal
 }

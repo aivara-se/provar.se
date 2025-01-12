@@ -2,7 +2,6 @@ package feedback
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/feedback"
 	"provar.se/webapi/lib/organization"
@@ -24,7 +23,6 @@ func SetupCountFeedback(app *fiber.App) {
 	app.Post(path, validator.ValidateMiddleware(CreateSearchFeedbackRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		organizationID := c.Params("organizationId")
 		body := validator.GetRequestBody(c).(*SearchFeedbackRequestBody)
 		total, err := feedback.Count(organizationID, &feedback.SearchFeedbackData{
@@ -38,8 +36,7 @@ func SetupCountFeedback(app *fiber.App) {
 			FeedbackUser: body.FeedbackUser,
 		})
 		if err != nil {
-			logger.Error("Failed to get feedback count", err)
-			return fiber.NewError(fiber.StatusInternalServerError, "Failed to get feedback count")
+			return err
 		}
 		return c.JSON(&CountFeedbackResponseBody{
 			Total: total,

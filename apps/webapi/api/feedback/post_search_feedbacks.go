@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/feedback"
 	"provar.se/webapi/lib/organization"
@@ -43,7 +42,6 @@ func SetupSearchFeedback(app *fiber.App) {
 	app.Post(path, validator.ValidateMiddleware(CreateSearchFeedbackRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		organizationID := c.Params("organizationId")
 		body := validator.GetRequestBody(c).(*SearchFeedbackRequestBody)
 		fbs, err := feedback.Search(organizationID, &feedback.SearchFeedbackData{
@@ -57,8 +55,7 @@ func SetupSearchFeedback(app *fiber.App) {
 			FeedbackUser: body.FeedbackUser,
 		})
 		if err != nil {
-			logger.Error("Failed to search feedbacks", err)
-			return fiber.NewError(fiber.StatusInternalServerError, "Failed to search feedbacks")
+			return err
 		}
 		return c.JSON(&SearchFeedbackResponseBody{Feedbacks: fbs})
 	})

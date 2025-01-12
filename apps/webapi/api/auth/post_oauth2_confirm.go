@@ -2,7 +2,6 @@ package auth
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/validator"
 )
@@ -31,13 +30,11 @@ func SetupOAuth2Callback(app *fiber.App) {
 	app.Post(path, validator.ValidateMiddleware(CreateOAuth2ConfirmRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		provider := c.Params("provider")
 		body := validator.GetRequestBody(c).(*OAuth2ConfirmRequestBody)
 		token, err := access.CompleteOAuth2Flow(provider, body.State, body.Code, c)
 		if err != nil {
-			logger.Error("Failed to complete OAuth2 flow", err)
-			return fiber.NewError(fiber.StatusInternalServerError, "OAuth2 login failed")
+			return err
 		}
 		return c.JSON(&OAuth2ConfirmResponseBody{
 			AccessToken: token,

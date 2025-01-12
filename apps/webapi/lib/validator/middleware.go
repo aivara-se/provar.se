@@ -3,7 +3,6 @@ package validator
 import (
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 )
 
 var (
@@ -21,20 +20,17 @@ type BodyFactory func() interface{}
 // ValidateMiddleware returns a fiber middleware to validate credentials
 func ValidateMiddleware(factory BodyFactory) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		body := factory()
 		if err := c.BodyParser(body); err != nil {
-			logger.Info("Failed to parse request body", err)
-			return c.SendStatus(fiber.StatusBadRequest)
+			return NewParseFailedError(err)
 		}
 		if err := validate.Struct(body); err != nil {
 			validationErrors, ok := err.(validator.ValidationErrors)
 			if !ok {
-				return c.SendStatus(fiber.StatusBadRequest)
+				return NewValidateFailedError(err)
 			}
 			validationError := newValidationError(validationErrors)
-			logger.Info("Failed to validate request body", validationError)
-			return c.Status(fiber.StatusBadRequest).JSON(validationError)
+			return NewValidateFailedError(err, validationError.Error())
 		}
 		c.Locals(requestBodyKey, body)
 		return c.Next()

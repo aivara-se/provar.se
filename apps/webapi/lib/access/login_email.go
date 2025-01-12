@@ -10,17 +10,17 @@ import (
 )
 
 // PrepareLoginWithEmail sends a magic link to the user's email address.
-func PrepareLoginWithEmail(email string) {
+func PrepareLoginWithEmail(email string) error {
 	usr, err := user.FindByEmail(email)
 	if err == sql.ErrNoRows {
 		usr, err = user.Create("", email, false)
 	}
 	if err != nil {
-		return
+		return err
 	}
 	magicLink, err := magiclink.Create(usr.ID)
 	if err != nil {
-		return
+		return err
 	}
 	tmpl := &templates.LoginEmail{}
 	data := map[string]string{"link": magicLink.Link()}
@@ -31,8 +31,9 @@ func PrepareLoginWithEmail(email string) {
 	}
 	err = emails.Sender().Send(tmpl, opts)
 	if err != nil {
-		return
+		return err
 	}
+	return nil
 }
 
 // ConfirmLoginWithEmail confirms the magic link token and logs the user in.
@@ -41,7 +42,7 @@ func PrepareLoginWithEmail(email string) {
 func ConfirmLoginWithEmail(token string) (string, error) {
 	magicLink, err := magiclink.Confirm(token)
 	if err != nil {
-		return "", err
+		return "", NewInvalidMagicLinkError(err)
 	}
 	err = user.SetEmailVerified(magicLink.UserID)
 	if err != nil {

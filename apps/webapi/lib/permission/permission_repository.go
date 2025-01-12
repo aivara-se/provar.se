@@ -58,10 +58,16 @@ func (p *Permission) Create() error {
 }
 
 // FindByPrincipal returns permissions for the given principal
-func FindByPrincipal(principalID string) ([]*Permission, error) {
+func FindByPrincipal(principalID string, organizationID string) ([]*Permission, error) {
 	permissions := []*Permission{}
-	query := "SELECT * FROM private.permission WHERE principal = $1"
-	err := database.DB().Get(permissions, query, principalID)
+	query := `
+		SELECT *
+		FROM private.permission
+		WHERE
+			principal = $1 AND
+			organization_id = $2
+	`
+	err := database.DB().Get(permissions, query, principalID, organizationID)
 	if err != nil {
 		return nil, err
 	}
