@@ -21,7 +21,7 @@ func TestDeleteInvitation(t *testing.T) {
 		if res.StatusCode != 204 {
 			t.Fatalf("unexpected status code: %d", res.StatusCode)
 		}
-		_, err := feedback.FindByID(fb.ID)
+		_, err := feedback.FindByID(fb.ID, org.ID)
 		if err == nil {
 			t.Fatalf("expected feedback to be deleted")
 		}

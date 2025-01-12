@@ -21,7 +21,7 @@ func TestDeleteInvitation(t *testing.T) {
 		if res.StatusCode != 204 {
 			t.Fatalf("unexpected status code: %d", res.StatusCode)
 		}
-		_, err := invitation.FindByID(inv.ID)
+		_, err := invitation.FindByID(inv.ID, org.ID)
 		if err == nil {
 			t.Fatalf("expected invitation to be deleted")
 		}
