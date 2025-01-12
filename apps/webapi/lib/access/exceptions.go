@@ -52,3 +52,45 @@ func NewInsufficientPermissionError() error {
 	err := errors.New("insufficient permissions to access resource")
 	return exceptions.NewError(err, fiber.StatusForbidden, "Insufficient permissions")
 }
+
+// NewGetGothProviderError creates a new error for when there is an issue
+// getting the Goth provider.
+func NewGetGothProviderError(err error) error {
+	return exceptions.NewError(err, fiber.StatusInternalServerError, "Failed to get provider")
+}
+
+// NewGetSessionError creates a new error for when there is an issue
+// getting a session.
+func NewGetSessionError(err error) error {
+	return exceptions.NewError(err, fiber.StatusInternalServerError, "Failed to create session")
+}
+
+// NewGetCreateSessionError creates a new error for when there is an issue
+// creating a session or getting an already existing session.
+func NewGetCreateSessionError(err error) error {
+	return exceptions.NewError(err, fiber.StatusInternalServerError, "Failed to create session")
+}
+
+// NewGetSessionAuthURLError creates a new error for when there is an issue
+// getting the session authentication URL.
+func NewGetSessionAuthURLError(err error) error {
+	return exceptions.NewError(err, fiber.StatusInternalServerError, "Failed to get auth URL")
+}
+
+// NewSessionValidationError creates a new error for when there is an issue
+// validating a session.
+func NewSessionValidationError(err error) error {
+	return exceptions.NewError(err, fiber.StatusInternalServerError, "Failed to validate session")
+}
+
+// NewSessionUserFailedError creates a new error for when there is an issue
+// with fetching session user details.
+func NewSessionUserFailedError(err error) error {
+	return exceptions.NewError(err, fiber.StatusInternalServerError, "Session user failed")
+}
+
+// NewSessionAuthorizeError creates a new error for when there is an issue
+// authorizing a session.
+func NewSessionAuthorizeError(err error) error {
+	return exceptions.NewError(err, fiber.StatusInternalServerError, "Failed to authorize session")
+}

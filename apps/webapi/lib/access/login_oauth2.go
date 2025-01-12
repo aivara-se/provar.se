@@ -17,15 +17,15 @@ const (
 func GetOAuth2RedirectURL(providerName, state string, c *fiber.Ctx) (string, error) {
 	provider, err := goth.GetProvider(providerName)
 	if err != nil {
-		return "", err
+		return "", NewGetGothProviderError(err)
 	}
 	sess, err := account.GetOrCreateSession(provider, state)
 	if err != nil {
-		return "", err
+		return "", NewGetCreateSessionError(err)
 	}
 	redirectURL, err := sess.GetAuthURL()
 	if err != nil {
-		return "", err
+		return "", NewGetSessionAuthURLError(err)
 	}
 	return redirectURL, nil
 }
@@ -35,18 +35,18 @@ func GetOAuth2RedirectURL(providerName, state string, c *fiber.Ctx) (string, err
 func CompleteOAuth2Flow(providerName, state, code string, c *fiber.Ctx) (string, error) {
 	provider, err := goth.GetProvider(providerName)
 	if err != nil {
-		return "", err
+		return "", NewGetGothProviderError(err)
 	}
 	sess, err := account.GetOAuth2Session(provider, state)
 	if err != nil {
-		return "", err
+		return "", NewGetSessionError(err)
 	}
 	if err := account.ValidateStateValue(sess, state); err != nil {
-		return "", err
+		return "", NewSessionValidationError(err)
 	}
 	profile, err := provider.FetchUser(sess)
 	if err == nil {
-		return "", err
+		return "", NewSessionUserFailedError(err)
 	}
 	// get new token and retry fetch
 	params := account.NewMapParams(map[string]string{
@@ -55,11 +55,11 @@ func CompleteOAuth2Flow(providerName, state, code string, c *fiber.Ctx) (string,
 	})
 	_, err = sess.Authorize(provider, params)
 	if err != nil {
-		return "", err
+		return "", NewSessionAuthorizeError(err)
 	}
 	profile, err = provider.FetchUser(sess)
 	if err != nil {
-		return "", err
+		return "", NewSessionUserFailedError(err)
 	}
 	user, err := user.Upsert(profile.Name, profile.Email, profile.AvatarURL, true)
 	if err != nil {
