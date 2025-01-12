@@ -29,6 +29,29 @@ type Invitation struct {
 	Avatar         string         `db:"avatar" json:"avatar"`
 }
 
+// Link returns the link to the application page where it is possible to accept
+// the invitation
+func (i *Invitation) Link() string {
+	cfg := config.Get()
+	return cfg.Provar.AppURL + "/auth/accept?organizationId=" + i.OrganizationID + "&invitationId=" + i.ID + "&secret=" + i.Secret
+}
+
+// IsAcceptable returns true if the invitation can be accepted by the user
+func (i *Invitation) IsAcceptable() bool {
+	if i.AcceptedAt.Valid {
+		return false
+	}
+	if i.ExpiresAt.Before(time.Now()) {
+		return false
+	}
+	return true
+}
+
+// Delete deletes an invitation with the given id
+func (i *Invitation) Delete() error {
+	return DeleteByID(i.ID, i.OrganizationID)
+}
+
 // Create creates a new invitation in the database
 func Create(orgID, name, email, createdBy string) (*Invitation, error) {
 	avatar := gravatar.NewGravatarFromEmail(email)
@@ -53,10 +76,16 @@ func Create(orgID, name, email, createdBy string) (*Invitation, error) {
 }
 
 // FindByID returns an invitation by its id
-func FindByID(id string) (*Invitation, error) {
+func FindByID(id string, organizationID string) (*Invitation, error) {
 	invite := &Invitation{}
-	query := `SELECT * FROM private.invitation WHERE id = $1`
-	err := database.DB().Get(invite, query, id)
+	query := `
+		SELECT *
+		FROM private.invitation
+		WHERE
+			id = $1 AND
+			organization_id = $2
+	`
+	err := database.DB().Get(invite, query, id, organizationID)
 	if err != nil {
 		return nil, err
 	}
@@ -64,10 +93,16 @@ func FindByID(id string) (*Invitation, error) {
 }
 
 // FindBySecret returns an invitation by its secret
-func FindBySecret(secret string) (*Invitation, error) {
+func FindBySecret(secret string, organizationID string) (*Invitation, error) {
 	invite := &Invitation{}
-	query := `SELECT * FROM private.invitation WHERE secret = $1`
-	err := database.DB().Get(invite, query, secret)
+	query := `
+		SELECT *
+		FROM private.invitation
+		WHERE
+			secret = $1 AND
+			organization_id = $2
+	`
+	err := database.DB().Get(invite, query, secret, organizationID)
 	if err != nil {
 		return nil, err
 	}
@@ -93,31 +128,14 @@ func FindPendingByOrganizationID(id string) ([]*Invitation, error) {
 }
 
 // DeleteByID deletes an invitation with the given id
-func DeleteByID(id string) error {
-	query := `DELETE FROM private.invitation WHERE id = $1`
-	_, err := database.DB().Exec(query, id)
+func DeleteByID(id string, organizationID string) error {
+	query := `
+		DELETE
+		FROM private.invitation
+		WHERE
+			id = $1 AND
+			organization_id = $2
+	`
+	_, err := database.DB().Exec(query, id, organizationID)
 	return err
-}
-
-// Link returns the link to the application page where it is possible to accept
-// the invitation
-func (i *Invitation) Link() string {
-	cfg := config.Get()
-	return cfg.Provar.AppURL + "/auth/accept?organizationId=" + i.OrganizationID + "&invitationId=" + i.ID + "&secret=" + i.Secret
-}
-
-// IsAcceptable returns true if the invitation can be accepted by the user
-func (i *Invitation) IsAcceptable() bool {
-	if i.AcceptedAt.Valid {
-		return false
-	}
-	if i.ExpiresAt.Before(time.Now()) {
-		return false
-	}
-	return true
-}
-
-// Delete deletes an invitation with the given id
-func (i *Invitation) Delete() error {
-	return DeleteByID(i.ID)
 }

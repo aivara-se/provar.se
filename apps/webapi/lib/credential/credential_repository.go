@@ -20,11 +20,16 @@ type Credential struct {
 	Secret         string         `db:"secret" json:"secret"`
 }
 
+// DeleteByID deletes a credential with the given id
+func (c *Credential) Delete() error {
+	return DeleteByID(c.ID, c.OrganizationID)
+}
+
 // Create creates a new credential in the database
-func Create(name, orgID, createdBy string) (*Credential, error) {
+func Create(name, organizationID, createdBy string) (*Credential, error) {
 	cred := &Credential{
 		ID:             database.NewID(),
-		OrganizationID: orgID,
+		OrganizationID: organizationID,
 		CreatedAt:      time.Now(),
 		ModifiedAt:     time.Now(),
 		CreatedBy:      createdBy,
@@ -62,13 +67,14 @@ func FindByOrganizationID(id string) ([]*Credential, error) {
 }
 
 // DeleteByID deletes a credential with the given id
-func DeleteByID(id string) error {
-	query := "DELETE FROM private.credential WHERE id = $1"
-	_, err := database.DB().Exec(query, id)
+func DeleteByID(id string, organizationID string) error {
+	query := `
+		DELETE
+		FROM private.credential
+		WHERE
+			id = $1 AND
+			organization_id = $2
+	`
+	_, err := database.DB().Exec(query, id, organizationID)
 	return err
-}
-
-// DeleteByID deletes a credential with the given id
-func (c *Credential) Delete() error {
-	return DeleteByID(c.ID)
 }

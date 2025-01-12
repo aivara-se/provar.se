@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"provar.se/webapi/lib/access"
 	"provar.se/webapi/lib/feedback"
 	"provar.se/webapi/lib/organization"
@@ -48,7 +47,6 @@ func SetupCreateFeedback(app *fiber.App) {
 	app.Post(path, validator.ValidateMiddleware(CreateCreateFeedbackRequestBody))
 
 	app.Post(path, func(c *fiber.Ctx) error {
-		logger := log.WithContext(c.Context())
 		organizationID := c.Params("organizationId")
 		body := validator.GetRequestBody(c).(*CreateFeedbackRequestBody)
 		if body == nil || body.Feedbacks == nil {
@@ -78,8 +76,8 @@ func SetupCreateFeedback(app *fiber.App) {
 				RequestHeaders: c.GetReqHeaders(),
 			})
 			if err != nil {
-				logger.Error("Failed to create feedback", err)
-				return fiber.NewError(fiber.StatusInternalServerError, "Failed to create feedback")
+				// TODO: count the number of successful feedbacks and return it to user
+				return err
 			}
 		}
 		return c.SendStatus(fiber.StatusNoContent)
