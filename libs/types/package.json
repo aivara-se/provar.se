@@ -26,7 +26,7 @@
 		"@typespec/http": "^0.63.0",
 		"@typespec/openapi": "^0.63.0",
 		"@typespec/openapi3": "^0.63.0",
-		"@typespec/rest": "^0.63.0",
+		"@typespec/rest": "^0.63.1",
 		"@typespec/versioning": "^0.63.0",
 		"eslint": "^9.17.0",
 		"eslint-config-prettier": "^9.1.0",
