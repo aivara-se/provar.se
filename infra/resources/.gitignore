@@ -42,3 +42,7 @@ terraform.tfvars
 # Ignore SSH key files used for admin access
 **/id_rsa
 **/id_rsa.pub
+
+# Ignore .env files containing sensitive information
+**/.env
+**/.env.*
