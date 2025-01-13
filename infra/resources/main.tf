@@ -63,7 +63,7 @@ resource "hcloud_firewall" "private_ssh" {
     direction   = "in"
     protocol    = "tcp"
     port        = "22"
-    source_ips  = ["10.0.0.0/8"]
+    source_ips  = ["10.0.0.0/24"]
   }
 }
 
@@ -75,8 +75,8 @@ resource "hcloud_firewall" "private_postgres" {
   rule {
     direction   = "in"
     protocol    = "tcp"
-    port        = "22"
-    source_ips  = ["10.0.0.0/8"]
+    port        = "5432"
+    source_ips  = ["10.0.0.0/24"]
   }
 }
 
