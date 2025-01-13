@@ -22,7 +22,7 @@
 		"daisyui": "^4.12.23",
 		"date-fns": "^4.1.0",
 		"lodash": "^4.17.21",
-		"lucide-svelte": "^0.469.0",
+		"lucide-svelte": "^0.471.0",
 		"overlayscrollbars": "^2.10.1",
 		"overlayscrollbars-svelte": "^0.5.4",
 		"papaparse": "^5.5.1",
