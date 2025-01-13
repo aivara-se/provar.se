@@ -62,7 +62,7 @@ func NewGetGothProviderError(err error) error {
 // NewGetSessionError creates a new error for when there is an issue
 // getting a session.
 func NewGetSessionError(err error) error {
-	return exceptions.NewError(err, fiber.StatusInternalServerError, "Failed to create session")
+	return exceptions.NewError(err, fiber.StatusInternalServerError, "Failed to get session")
 }
 
 // NewGetCreateSessionError creates a new error for when there is an issue
