@@ -1,0 +1,34 @@
+{
+	"name": "@provar/eslint-config",
+	"description": "Library with shared eslint configurations used across the monorepo.",
+	"type": "module",
+	"version": "1.0.0",
+	"main": "index.js",
+	"dependencies": {
+		"@eslint/compat": "^1.2.5",
+		"@eslint/js": "^9.18.0",
+		"eslint-config-prettier": "^10.0.1",
+		"eslint-plugin-svelte": "^2.46.1",
+		"globals": "^15.14.0",
+		"prettier-plugin-svelte": "^3.3.3",
+		"typescript-eslint": "^8.20.0"
+	},
+	"devDependencies": {
+		"eslint": "^9.18.0",
+		"prettier": "^3.4.2",
+		"svelte": "^5.16.0",
+		"typescript": "^5.7.3"
+	},
+	"peerDependencies": {
+		"eslint": ">= 9",
+		"prettier": ">= 3",
+		"svelte": ">= 5",
+		"typescript": ">= 5"
+	},
+	"engines": {
+		"node": ">=23.0.0"
+	},
+	"repository": "git@github.com:aivara-se/provar.se.git",
+	"author": "Thanish Nizam <mnmtanish@gmail.com>",
+	"license": "MIT"
+}
