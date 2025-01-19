@@ -8,6 +8,6 @@
     "migration:run": "migrate -database 'postgresql://postgres:postgres@localhost:5432/provar?sslmode=disable' -path db/migrations up"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=23.0.0"
   }
 }

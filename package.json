@@ -14,10 +14,11 @@
     "infra/*"
   ],
   "devDependencies": {
+    "@types/node": "^22.10.7",
     "@yarnpkg/types": "^4.0.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=23.0.0"
   },
   "packageManager": "yarn@4.6.0"
 }
