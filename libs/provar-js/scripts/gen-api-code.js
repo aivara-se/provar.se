@@ -1,3 +1,5 @@
+/* global process */
+
 import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import YAML from 'yaml';

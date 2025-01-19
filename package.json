@@ -14,7 +14,6 @@
     "infra/*"
   ],
   "devDependencies": {
-    "@types/node": "^22.10.7",
     "@yarnpkg/types": "^4.0.0"
   },
   "engines": {

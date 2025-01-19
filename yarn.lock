@@ -1092,6 +1092,7 @@ __metadata:
     "@provar/eslint-config": "workspace:*"
     "@types/isomorphic-fetch": "npm:^0.0.39"
     "@types/lodash.merge": "npm:^4.6.9"
+    "@types/node": "npm:^22.10.7"
     eslint: "npm:^9.18.0"
     isomorphic-fetch: "npm:^3.0.0"
     lodash.merge: "npm:^4.6.2"
@@ -4272,7 +4273,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@types/node": "npm:^22.10.7"
     "@yarnpkg/types": "npm:^4.0.0"
   languageName: unknown
   linkType: soft
