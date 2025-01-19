@@ -1035,21 +1035,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@provar/eslint-config@workspace:libs/eslint-config"
   dependencies:
-    "@eslint/compat": "npm:^1.2.5"
     "@eslint/js": "npm:^9.18.0"
     eslint: "npm:^9.18.0"
-    eslint-config-prettier: "npm:^10.0.1"
-    eslint-plugin-svelte: "npm:^2.46.1"
-    globals: "npm:^15.14.0"
-    prettier: "npm:^3.4.2"
-    prettier-plugin-svelte: "npm:^3.3.3"
-    svelte: "npm:^5.16.0"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
   peerDependencies:
     eslint: ">= 9"
-    prettier: ">= 3"
-    svelte: ">= 5"
     typescript: ">= 5"
   languageName: unknown
   linkType: soft
