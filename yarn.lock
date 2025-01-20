@@ -1101,7 +1101,7 @@ __metadata:
   resolution: "@provar/types@workspace:libs/types"
   dependencies:
     "@provar/eslint-config": "workspace:*"
-    "@typespec/compiler": "npm:^0.63.0"
+    "@typespec/compiler": "npm:^0.64.0"
     "@typespec/http": "npm:^0.63.0"
     "@typespec/openapi": "npm:^0.63.0"
     "@typespec/openapi3": "npm:^0.63.0"
@@ -1699,9 +1699,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/compiler@npm:^0.63.0":
-  version: 0.63.0
-  resolution: "@typespec/compiler@npm:0.63.0"
+"@typespec/compiler@npm:^0.64.0":
+  version: 0.64.0
+  resolution: "@typespec/compiler@npm:0.64.0"
   dependencies:
     "@babel/code-frame": "npm:~7.25.7"
     ajv: "npm:~8.17.1"
@@ -1720,7 +1720,7 @@ __metadata:
   bin:
     tsp: cmd/tsp.js
     tsp-server: cmd/tsp-server.js
-  checksum: 10/627158b62df6f1c9fd55226feaf779984f1ecb64122f47ef82f1d7fe2ab432c8bd1742e426e3cbcdb24e112e656129a26dbd768cddae4ff3f04647ba9f3bb323
+  checksum: 10/636f3cecfc888d86adc79271796f6ffaccacfb6743809d54a4b0fdba97b62f9b9b93a344b6b8ba1d433b624f954a2e866ba3cc5fe9d2f60f5dc1502f4ab70ae9
   languageName: node
   linkType: hard
 
@@ -6161,7 +6161,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "webapi@workspace:apps/webapi"
   dependencies:
-    "@typespec/compiler": "npm:^0.63.0"
+    "@typespec/compiler": "npm:^0.64.0"
     "@typespec/http": "npm:^0.63.0"
     "@typespec/openapi": "npm:^0.63.0"
     "@typespec/openapi3": "npm:^0.63.0"
