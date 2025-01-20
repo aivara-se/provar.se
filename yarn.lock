@@ -1106,7 +1106,7 @@ __metadata:
     "@typespec/openapi": "npm:^0.63.0"
     "@typespec/openapi3": "npm:^0.63.0"
     "@typespec/rest": "npm:^0.63.1"
-    "@typespec/versioning": "npm:^0.63.0"
+    "@typespec/versioning": "npm:^0.64.0"
     eslint: "npm:^9.18.0"
     prettier: "npm:^3.4.2"
     typescript: "npm:^5.7.3"
@@ -1778,12 +1778,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/versioning@npm:^0.63.0":
-  version: 0.63.0
-  resolution: "@typespec/versioning@npm:0.63.0"
+"@typespec/versioning@npm:^0.64.0":
+  version: 0.64.0
+  resolution: "@typespec/versioning@npm:0.64.0"
   peerDependencies:
-    "@typespec/compiler": ~0.63.0
-  checksum: 10/341a2451cb6d5ac6c1db6dce8df38f0ca67650f5121d77a1f980ec2d80ad0f54d1c9d0132b5f943141e2975e03c2527e6b677834f990b6acdcd9237462a68ae7
+    "@typespec/compiler": ~0.64.0
+  checksum: 10/e50e4a93e263cd6b1ed573e63075f4e5578eafbcdf92bc91d3b7703dbabb4bf28383dfdd395e4f8597582e8e2914336db297a21fb38b48e6b0c24f2e8c44dee2
   languageName: node
   linkType: hard
 
@@ -6166,7 +6166,7 @@ __metadata:
     "@typespec/openapi": "npm:^0.63.0"
     "@typespec/openapi3": "npm:^0.63.0"
     "@typespec/rest": "npm:^0.63.1"
-    "@typespec/versioning": "npm:^0.63.0"
+    "@typespec/versioning": "npm:^0.64.0"
   languageName: unknown
   linkType: soft
 
