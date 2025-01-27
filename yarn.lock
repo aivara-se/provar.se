@@ -1104,7 +1104,7 @@ __metadata:
     "@typespec/compiler": "npm:^0.64.0"
     "@typespec/http": "npm:^0.63.0"
     "@typespec/openapi": "npm:^0.63.0"
-    "@typespec/openapi3": "npm:^0.63.0"
+    "@typespec/openapi3": "npm:^0.64.0"
     "@typespec/rest": "npm:^0.63.1"
     "@typespec/versioning": "npm:^0.64.0"
     eslint: "npm:^9.18.0"
@@ -1728,24 +1728,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/openapi3@npm:^0.63.0":
-  version: 0.63.0
-  resolution: "@typespec/openapi3@npm:0.63.0"
+"@typespec/openapi3@npm:^0.64.0":
+  version: 0.64.0
+  resolution: "@typespec/openapi3@npm:0.64.0"
   dependencies:
     "@readme/openapi-parser": "npm:~2.6.0"
     openapi-types: "npm:~12.1.3"
     yaml: "npm:~2.5.1"
   peerDependencies:
-    "@typespec/compiler": ~0.63.0
-    "@typespec/http": ~0.63.0
-    "@typespec/openapi": ~0.63.0
-    "@typespec/versioning": ~0.63.0
+    "@typespec/compiler": ~0.64.0
+    "@typespec/http": ~0.64.0
+    "@typespec/json-schema": ~0.64.0
+    "@typespec/openapi": ~0.64.0
+    "@typespec/versioning": ~0.64.0
   peerDependenciesMeta:
+    "@typespec/json-schema":
+      optional: true
     "@typespec/xml":
       optional: true
   bin:
     tsp-openapi3: cmd/tsp-openapi3.js
-  checksum: 10/a960e75f85349c98bc373b24a6a38fcda78388c6d08c18bb2d7d009d1d3cade7301f0cdf22d24375bdb1635bfdc3c590d75e47ad00c562020ff8ac7cf1e9810f
+  checksum: 10/25410e68d0fc43e53a82d8c737493113e0f235607c3e35aa477cf92eada1582aa585bda5a20e2e1379306e180b3cfe4fd2b6908159d1aa23f06c0b7b8f44ae3c
   languageName: node
   linkType: hard
 
@@ -6169,7 +6172,7 @@ __metadata:
     "@typespec/compiler": "npm:^0.64.0"
     "@typespec/http": "npm:^0.63.0"
     "@typespec/openapi": "npm:^0.63.0"
-    "@typespec/openapi3": "npm:^0.63.0"
+    "@typespec/openapi3": "npm:^0.64.0"
     "@typespec/rest": "npm:^0.63.1"
     "@typespec/versioning": "npm:^0.64.0"
   languageName: unknown
