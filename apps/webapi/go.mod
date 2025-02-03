@@ -15,7 +15,7 @@ require (
 	github.com/markbates/goth v1.80.0
 	github.com/mileusna/useragent v1.3.5
 	github.com/oschwald/geoip2-golang v1.11.0
-	github.com/samber/slog-fiber v1.17.1
+	github.com/samber/slog-fiber v1.17.2
 	github.com/wneessen/go-mail v0.6.1
 )
 
