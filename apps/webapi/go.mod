@@ -1,7 +1,6 @@
 module provar.se/webapi
 
 go 1.23.4
-
 require (
 	github.com/automattic/go-gravatar v0.0.0-20210818030622-453d3c921ea3
 	github.com/go-playground/validator/v10 v10.25.0
@@ -15,7 +14,7 @@ require (
 	github.com/markbates/goth v1.80.0
 	github.com/mileusna/useragent v1.3.5
 	github.com/oschwald/geoip2-golang v1.11.0
-	github.com/samber/slog-fiber v1.17.2
+	github.com/samber/slog-fiber v1.18.0
 	github.com/wneessen/go-mail v0.6.2
 )
 
@@ -39,12 +38,11 @@ require (
 	github.com/oschwald/maxminddb-golang v1.13.1 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.58.0 // indirect
-	github.com/valyala/tcplisten v1.0.0 // indirect
+	github.com/valyala/fasthttp v1.59.0 // indirect
 	go.opentelemetry.io/otel v1.33.0 // indirect
 	go.opentelemetry.io/otel/trace v1.33.0 // indirect
 	golang.org/x/crypto v0.33.0 // indirect
-	golang.org/x/net v0.34.0 // indirect
+	golang.org/x/net v0.35.0 // indirect
 	golang.org/x/oauth2 v0.24.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
