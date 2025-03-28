@@ -31,6 +31,8 @@ cd provar.se
 yarn install
 ```
 
+Next step is to set-up dependencies, docker containers and the database.
+
 - Use the `yarn setup-local-env` command to create required `.env` files needed for local development. This wil fill most of the env variables but several environment variables need to be filled manually.
 
 ```shell
@@ -40,3 +42,21 @@ yarn setup-local-env
 - Start the local environment with `yarn start-local-env` and run database migrations with `yarn workspace migrations run migration:run`
 
 - Create a MaxMind account, download the "GeoLite2 City" database from [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) and place it as `apps/webapi/GeoLite2-City.mmdb`. This database will be used to add location data based on feedback source ip address.
+
+Once done, you should be able to access the following developer tools.
+
+- [http://localhost:5080](http://localhost:5080) - PgAdmin Web
+- [http://localhost:8025](http://localhost:8025) - Mailpit Web
+
+Finally, we can start the website, backend services and frontend app.
+
+```shell
+yarn dev
+```
+
+You can access them from these urls:
+
+- [http://localhost:3001](http://localhost:3001) - API
+- [http://localhost:3002](http://localhost:3002) - Frontend
+- [http://localhost:3003](http://localhost:3003) - Website
+- [http://localhost:3004](http://localhost:3004) - Collector
