@@ -22,7 +22,8 @@
     "@typespec/openapi": "^0.63.0",
     "@typespec/openapi3": "^0.64.0",
     "@typespec/rest": "^0.63.1",
-    "@typespec/versioning": "^0.64.0"
+    "@typespec/versioning": "^0.64.0",
+    "nodemon": "^3.1.9"
   },
   "engines": {
     "node": ">=23.0.0"
