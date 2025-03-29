@@ -44,3 +44,12 @@ PUBLIC_PROVAR_API_URL=http://localhost:3001
 # Local only environment variables
 PORT=3003
 EOF
+
+# Create .env file for collect
+cat << EOF > apps/collect/.env
+PUBLIC_PROVAR_APP_URL=http://localhost:3002
+PUBLIC_PROVAR_API_URL=http://localhost:3001
+
+# Local only environment variables
+PORT=3004
+EOF
