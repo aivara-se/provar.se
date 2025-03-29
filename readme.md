@@ -8,6 +8,7 @@ This repository contains the following directories at the root level:
 
 - **apps:** frontend application, backend services and static websites
 - **libs:** code shared between multiple apps and outside this repository
+- **infra:** an example infrastructure as code setup using Hetzner Cloud
 - **docs:** useful documentation for developers who wish to contribute
 
 ## Getting Started
@@ -45,8 +46,8 @@ yarn setup-local-env
 
 Once done, you should be able to access the following developer tools.
 
-- [http://localhost:5080](http://localhost:5080) - PgAdmin Web
-- [http://localhost:8025](http://localhost:8025) - Mailpit Web
+- [http://localhost:5080](http://localhost:5080) - PgAdmin Web - This can be used to inspect the database.
+- [http://localhost:8025](http://localhost:8025) - Mailpit Web - This can be used to inspect sent emails.
 
 Finally, we can start the website, backend services and frontend app.
 
@@ -54,9 +55,13 @@ Finally, we can start the website, backend services and frontend app.
 yarn dev
 ```
 
-You can access them from these urls:
+You can access them from these localhost urls:
 
-- [http://localhost:3001](http://localhost:3001) - API
+- [http://localhost:3001](http://localhost:3001) - Backend
 - [http://localhost:3002](http://localhost:3002) - Frontend
 - [http://localhost:3003](http://localhost:3003) - Website
-- [http://localhost:3004](http://localhost:3004) - Collector
+- [http://localhost:3004](http://localhost:3004) - Collect
+
+Here's a diagram of how these services are connected.
+
+![](./docs/_readme/localenv.png)
