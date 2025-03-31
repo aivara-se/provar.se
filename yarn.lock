@@ -1383,6 +1383,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sveltejs/acorn-typescript@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@sveltejs/acorn-typescript@npm:1.0.5"
+  peerDependencies:
+    acorn: ^8.9.0
+  checksum: 10/23c4c58a0336f44802609dea5ac7ed71d2bc02b8a3b001b03a0accf96a70f2f3d357b1677fd50fbf195d5ed772afed8757451b11c3eda3319fe57925160865d8
+  languageName: node
+  linkType: hard
+
 "@sveltejs/adapter-cloudflare@npm:^5.0.0":
   version: 5.0.0
   resolution: "@sveltejs/adapter-cloudflare@npm:5.0.0"
@@ -1917,15 +1926,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn-typescript@npm:^1.4.13":
-  version: 1.4.13
-  resolution: "acorn-typescript@npm:1.4.13"
-  peerDependencies:
-    acorn: ">=8.9.0"
-  checksum: 10/d39da8596e630e2937b3aa034b147b036f3317e0b116e7f5240f944eec841bd4125118794c87bfef4f8a9352891192c460b72abe2028aa4daa1f75bd79ce30e1
-  languageName: node
-  linkType: hard
-
 "acorn-walk@npm:^8.2.0":
   version: 8.3.4
   resolution: "acorn-walk@npm:8.3.4"
@@ -2433,7 +2433,7 @@ __metadata:
     postcss: "npm:^8.5.1"
     prettier: "npm:^3.4.2"
     prettier-plugin-svelte: "npm:^3.3.3"
-    svelte: "npm:^5.16.0"
+    svelte: "npm:^5.25.3"
     svelte-check: "npm:^4.1.1"
     tailwindcss: "npm:^3.4.17"
     tslib: "npm:^2.8.1"
@@ -3163,12 +3163,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esrap@npm:^1.3.2":
-  version: 1.3.2
-  resolution: "esrap@npm:1.3.2"
+"esrap@npm:^1.4.3":
+  version: 1.4.5
+  resolution: "esrap@npm:1.4.5"
   dependencies:
     "@jridgewell/sourcemap-codec": "npm:^1.4.15"
-  checksum: 10/0b20a05e5c218f79a429deb0b629d9b953eebb7f983bfd9c4df386648f6fe6d7bd95e25831074e6c41d5d72c403a299eff006bbbb1b00dedc775e4affb63a9ed
+  checksum: 10/0f023c360a7617c31d73b9479f5f25b46fcba8a172ad7d99eda8fe09aa26bd96107b550276543c74530744ddb7eebe995fe667c3b8dbed1e7d6b7f5e9e1a682c
   languageName: node
   linkType: hard
 
@@ -5546,25 +5546,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte@npm:^5.16.0":
-  version: 5.16.0
-  resolution: "svelte@npm:5.16.0"
+"svelte@npm:^5.25.3":
+  version: 5.25.3
+  resolution: "svelte@npm:5.25.3"
   dependencies:
     "@ampproject/remapping": "npm:^2.3.0"
     "@jridgewell/sourcemap-codec": "npm:^1.5.0"
+    "@sveltejs/acorn-typescript": "npm:^1.0.5"
     "@types/estree": "npm:^1.0.5"
     acorn: "npm:^8.12.1"
-    acorn-typescript: "npm:^1.4.13"
     aria-query: "npm:^5.3.1"
     axobject-query: "npm:^4.1.0"
     clsx: "npm:^2.1.1"
     esm-env: "npm:^1.2.1"
-    esrap: "npm:^1.3.2"
+    esrap: "npm:^1.4.3"
     is-reference: "npm:^3.0.3"
     locate-character: "npm:^3.0.0"
     magic-string: "npm:^0.30.11"
     zimmerframe: "npm:^1.1.2"
-  checksum: 10/010b7bb64c1a8b49e2cf5e876cc8de554f009b2afa7c072f50a8ccc912210640ceefb35f18c3f60356e8a51e9713bba81402fa24d20302a48765304811e7e9c6
+  checksum: 10/e9c872ffcfa3b7ec91563ba2be8c8a1ad941360ccc5f42b075ac0ba88973ead76b02bf24aa7b23af48f2603c16116fb780a43251a2aa6465623c6a03fda0a494
   languageName: node
   linkType: hard
 
@@ -6285,7 +6285,7 @@ __metadata:
     postcss: "npm:^8.5.1"
     prettier: "npm:^3.4.2"
     prettier-plugin-svelte: "npm:^3.3.3"
-    svelte: "npm:^5.16.0"
+    svelte: "npm:^5.25.3"
     svelte-check: "npm:^4.1.1"
     sveltekit-superforms: "npm:^2.22.1"
     tailwindcss: "npm:^3.4.17"
@@ -6336,7 +6336,7 @@ __metadata:
     postcss: "npm:^8.5.1"
     prettier: "npm:^3.4.2"
     prettier-plugin-svelte: "npm:^3.3.3"
-    svelte: "npm:^5.16.0"
+    svelte: "npm:^5.25.3"
     svelte-check: "npm:^4.1.1"
     tailwindcss: "npm:^3.4.17"
     tslib: "npm:^2.8.1"
