@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:17
+    volumes:
+      - /mnt/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+      - /mnt/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env.postgres

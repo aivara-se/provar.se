@@ -183,7 +183,7 @@ resource "hcloud_server" "postgres" {
 
   user_data = templatefile("./systems/postgres/cloud-init.yaml", {
     postgres_password = var.postgres_password,
-    postgres_config   = file("./systems/postgres/postgresql.conf")
+    postgres_config   = file("./systems/postgres/uploads/postgresql.conf")
   })
 
   network {
