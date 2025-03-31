@@ -59,6 +59,8 @@ The infrastructure consists of the following components:
     ssh-keygen -t rsa -b 4096 -C "admin@provar.se" -f id_rsa
     ```
 
+    - Prepere each system as described on readme
+
 3.  **Deployment:**
 
     - Initialize Terraform: `terraform init`
