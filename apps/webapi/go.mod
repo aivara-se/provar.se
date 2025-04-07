@@ -1,6 +1,7 @@
 module provar.se/webapi
 
 go 1.23.4
+
 toolchain go1.24.1
 
 require (
@@ -13,7 +14,7 @@ require (
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
-	github.com/markbates/goth v1.80.0
+	github.com/markbates/goth v1.81.0
 	github.com/mileusna/useragent v1.3.5
 	github.com/oschwald/geoip2-golang v1.11.0
 	github.com/samber/slog-fiber v1.18.0
