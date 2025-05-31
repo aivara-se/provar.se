@@ -5,7 +5,8 @@
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
     "*.js": "$(capture).spec.js, $(capture).mock.js, $(capture).integration.spec.js",
-    "*.ts": "$(capture).spec.ts, $(capture).mock.ts, $(capture).integration.spec.ts"
+    "*.ts": "$(capture).spec.ts, $(capture).mock.ts, $(capture).integration.spec.ts",
+    "*.go": "$(capture)_test.go"
   },
   "files.associations": {
     "*.svx": "markdown"
@@ -16,6 +17,8 @@
     "**/.svelte-kit": true,
     "**/.wrangler": true,
     "**/.yarn": true,
+    "**/GeoLite2-City.mmdb": true,
+    "**/go.sum": true,
     "**/node_modules": true,
     "**/yarn.lock": true
   },
