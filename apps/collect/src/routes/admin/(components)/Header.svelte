@@ -13,7 +13,7 @@
 			<div tabindex="0" role="button" class="btn btn-ghost btn-circle">
 				<MenuIcon class="h-5 w-5" />
 			</div>
-			<ul class="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-40">
+			<ul class="menu dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box w-40">
 				{#each items as item}
 					<li>
 						<a href={item.href} class="active:bg-transparent">

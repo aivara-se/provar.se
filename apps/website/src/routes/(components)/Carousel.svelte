@@ -8,7 +8,7 @@
 	}
 </script>
 
-<section class="relative my-4 md:my-8 mx-auto max-w-screen-xl">
+<section class="relative my-4 md:my-8 mx-auto max-w-(--breakpoint-xl)">
 	<img src={images[0]} alt="" aria-hidden class="w-full invisible" />
 	{#each images as image, i}
 		<img

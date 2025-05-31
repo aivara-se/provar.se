@@ -72,7 +72,7 @@
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 	<div
 		tabindex="0"
-		class="dropdown-content z-[1] card card-compact w-56 mt-1 p-0 bg-base-100 shadow-lg"
+		class="dropdown-content z-1 card card-compact w-56 mt-1 p-0 bg-base-100 shadow-lg"
 	>
 		<div class="card-body">
 			<div class="flex flex-row justify-center gap-2">

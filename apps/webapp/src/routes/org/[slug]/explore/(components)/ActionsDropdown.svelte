@@ -24,7 +24,7 @@
 		<MoreHorizontalIcon class="w-3.5 h-3.5" />
 	</summary>
 
-	<ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-32">
+	<ul class="p-2 shadow menu dropdown-content z-1 bg-base-100 rounded-box w-32">
 		<li>
 			<a href="./import" class="flex justify-between">
 				Import

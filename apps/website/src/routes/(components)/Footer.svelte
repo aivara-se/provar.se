@@ -3,7 +3,7 @@
 </script>
 
 <footer
-	class="mt-16 p-8 flex flex-col items-center gap-4 mx-auto max-w-screen-xl md:flex-row md:justify-between"
+	class="mt-16 p-8 flex flex-col items-center gap-4 mx-auto max-w-(--breakpoint-xl) md:flex-row md:justify-between"
 >
 	<aside class="flex items-center gap-3">
 		<img width="32" src={logoUrl} alt="Provar" />

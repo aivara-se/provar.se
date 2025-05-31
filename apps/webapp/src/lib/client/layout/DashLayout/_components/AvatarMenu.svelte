@@ -40,7 +40,7 @@
 			</div>
 		</div>
 	</summary>
-	<section class="shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-40">
+	<section class="shadow menu dropdown-content z-1 bg-base-100 rounded-box w-40">
 		<h3 class="py-2 text-xs text-center font-semibold cursor-default">Organizations</h3>
 
 		<ul class="mt-2">

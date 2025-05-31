@@ -11,14 +11,14 @@
 </script>
 
 <header>
-	<div class="navbar mx-auto max-w-screen-xl md:px-10">
+	<div class="navbar mx-auto max-w-(--breakpoint-xl) md:px-10">
 		<div class="navbar-start">
 			<div class="dropdown">
 				<div tabindex="0" role="button" class="btn btn-ghost md:hidden">
 					<MenuIcon />
 				</div>
 				<ul
-					class="menu menu-lg dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+					class="menu menu-lg dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box w-52"
 				>
 					{#each links as link}
 						<li><a href={link.href}>{link.name}</a></li>
