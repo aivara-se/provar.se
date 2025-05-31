@@ -5129,6 +5129,7 @@ __metadata:
   resolution: "monorepo@workspace:."
   dependencies:
     "@yarnpkg/types": "npm:^4.0.1"
+    vitest: "npm:^3.0.0"
   languageName: unknown
   linkType: soft
 

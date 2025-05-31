@@ -14,7 +14,8 @@
     "infra/*"
   ],
   "devDependencies": {
-    "@yarnpkg/types": "^4.0.1"
+    "@yarnpkg/types": "^4.0.1",
+    "vitest": "^3.0.0"
   },
   "engines": {
     "node": ">=24.1.0"

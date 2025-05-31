@@ -30,5 +30,6 @@
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.quoteStyle": "single",
   "typescript.tsserver.maxTsServerMemory": 4096,
-  "typescript.updateImportsOnFileMove.enabled": "always"
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "vitest.disableWorkspaceWarning": true
 }

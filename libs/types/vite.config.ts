@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	test: {
-		name: 'provar-js',
+		name: 'types',
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
 });
