@@ -12,6 +12,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@alloc/quick-lru@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "@alloc/quick-lru@npm:5.2.0"
+  checksum: 10/bdc35758b552bcf045733ac047fb7f9a07c4678b944c641adfbd41f798b4b91fffd0fdc0df2578d9b0afc7b4d636aa6e110ead5d6281a2adc1ab90efd7f057f8
+  languageName: node
+  linkType: hard
+
 "@ampproject/remapping@npm:^2.3.0":
   version: 2.3.0
   resolution: "@ampproject/remapping@npm:2.3.0"
@@ -29,19 +36,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ark/schema@npm:0.45.8":
-  version: 0.45.8
-  resolution: "@ark/schema@npm:0.45.8"
+"@ark/schema@npm:0.46.0":
+  version: 0.46.0
+  resolution: "@ark/schema@npm:0.46.0"
   dependencies:
-    "@ark/util": "npm:0.45.8"
-  checksum: 10/9cc982b6323cf2ebe7e4864ec1204914bc6902135e436813a6cdc56b16e8868b6e17dc4bc02ed71652ac52cd6f9bd68bc7a6e9ee4729338f6e274a277dca0e20
+    "@ark/util": "npm:0.46.0"
+  checksum: 10/044d01baf08000ecc2c4403efbc36369b08ec6e9d162756facc6fe6e824be33734421b6925f13f7c98390bb012d3e7ffc85eee1aba6d50d4fd1fb79ee24a6d56
   languageName: node
   linkType: hard
 
-"@ark/util@npm:0.45.8":
-  version: 0.45.8
-  resolution: "@ark/util@npm:0.45.8"
-  checksum: 10/a09e071cd6e2ab2b8d43914655b6f99b3173ecb8658ae43242cdc244affa1150ca2c7b15e5613a8649f379df192c68cde6ce61112416143413072120abf9e766
+"@ark/util@npm:0.46.0":
+  version: 0.46.0
+  resolution: "@ark/util@npm:0.46.0"
+  checksum: 10/9516950a784c16d38a39e3e4f61f93fd117b9d57013f1215f4f28ed70a7a5f7c5e681f6cce0ec3b2fc3d231b80360f4b2ced3b7ad1843cedc14894bb47c392a3
   languageName: node
   linkType: hard
 
@@ -1922,6 +1929,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tailwindcss/postcss@npm:^4.1.8":
+  version: 4.1.8
+  resolution: "@tailwindcss/postcss@npm:4.1.8"
+  dependencies:
+    "@alloc/quick-lru": "npm:^5.2.0"
+    "@tailwindcss/node": "npm:4.1.8"
+    "@tailwindcss/oxide": "npm:4.1.8"
+    postcss: "npm:^8.4.41"
+    tailwindcss: "npm:4.1.8"
+  checksum: 10/5410ea4ef9735eaecf6b97c640708577cd77589c7b61d04848eb4f2c643ebe17bb3949e0bf5c33a8c56189da0e1447a7343db72532fc18f66aff8ef3464e933c
+  languageName: node
+  linkType: hard
+
 "@tailwindcss/typography@npm:^0.5.15":
   version: 0.5.15
   resolution: "@tailwindcss/typography@npm:0.5.15"
@@ -2076,12 +2096,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/papaparse@npm:^5.3.15":
-  version: 5.3.15
-  resolution: "@types/papaparse@npm:5.3.15"
+"@types/papaparse@npm:^5, @types/papaparse@npm:^5.3.15":
+  version: 5.3.16
+  resolution: "@types/papaparse@npm:5.3.16"
   dependencies:
     "@types/node": "npm:*"
-  checksum: 10/1321b54c80e59b7ac24b15297af8b2b9dc9d83c2d293c8f8acfd7e25d89e9f1efbac2a69940ffb3ff13d387f0e5fbd50c8a4a362849ff789dbeab7931a9e3290
+  checksum: 10/5428bbd403cc870d50cdafc46162bbc02ae174aebdcc35738364e91f7eeea6d0197b3735d6ff0332404e05421e15f789461c1a60a8eee6269c3ce0b5d73fe6ab
   languageName: node
   linkType: hard
 
@@ -2100,9 +2120,9 @@ __metadata:
   linkType: hard
 
 "@types/validator@npm:^13.11.8, @types/validator@npm:^13.12.2":
-  version: 13.12.3
-  resolution: "@types/validator@npm:13.12.3"
-  checksum: 10/2ce42acdfc84a9b4ac46b0cc3cbc06b1319556843350882edb74112197696317408af8ae18665ba933786786819b39a6039b22f026dac0978f211982238fb4b3
+  version: 13.15.1
+  resolution: "@types/validator@npm:13.15.1"
+  checksum: 10/fcd6180ee18e8323e5b57cca391dace7f524a4136065e65bb9694a0b3f12a52271cbcdb282d697f092a53f834f1ed2879628443fb53b0a531a271b44da8d056a
   languageName: node
   linkType: hard
 
@@ -2714,12 +2734,12 @@ __metadata:
   linkType: hard
 
 "arktype@npm:^2.1.9":
-  version: 2.1.18
-  resolution: "arktype@npm:2.1.18"
+  version: 2.1.20
+  resolution: "arktype@npm:2.1.20"
   dependencies:
-    "@ark/schema": "npm:0.45.8"
-    "@ark/util": "npm:0.45.8"
-  checksum: 10/cd8a0625b6809bb4bd9dc1843eed90013036a2c1057add9ded069107a6420c842d1a41bc03e7fe8a1a5c3a7f6d4f3d48a3081ad338d3ddbf78482d481bafbdf1
+    "@ark/schema": "npm:0.46.0"
+    "@ark/util": "npm:0.46.0"
+  checksum: 10/1d5ab511bed4b9fbe930e0876a7ef5785e182724a29867565fa00033cf9a6fcc48e424b1391ccbe5215573638652142cce0c4ebf81cbcff4947a69d79959ebf2
   languageName: node
   linkType: hard
 
@@ -2882,13 +2902,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase-css@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "camelcase-css@npm:2.0.1"
-  checksum: 10/1cec2b3b3dcb5026688a470b00299a8db7d904c4802845c353dbd12d9d248d3346949a814d83bfd988d4d2e5b9904c07efe76fecd195a1d4f05b543e7c0b56b1
-  languageName: node
-  linkType: hard
-
 "camelcase@npm:^8.0.0":
   version: 8.0.0
   resolution: "camelcase@npm:8.0.0"
@@ -2954,12 +2967,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:^4.4.7":
-  version: 4.4.7
-  resolution: "chart.js@npm:4.4.7"
+"chart.js@npm:^4.4.9":
+  version: 4.4.9
+  resolution: "chart.js@npm:4.4.9"
   dependencies:
     "@kurkle/color": "npm:^0.3.0"
-  checksum: 10/f80c5e61adf8118d71d189db431f9bf82864e42d19d1c19008afdcf5e8933545f1f8a8662a4e7809f21a518781f12f2242657864c863016303cbf63a2aade72b
+  checksum: 10/b19adf26347589fccf8efa314d927284674c46d2a934869bc8dda1ee56e3cd2fffa627bd0b6c6e16e2cc876b2c3880e106e48f22737138f06293f8373c8ae9f9
   languageName: node
   linkType: hard
 
@@ -3016,13 +3029,13 @@ __metadata:
   linkType: hard
 
 "class-validator@npm:^0.14.1":
-  version: 0.14.1
-  resolution: "class-validator@npm:0.14.1"
+  version: 0.14.2
+  resolution: "class-validator@npm:0.14.2"
   dependencies:
     "@types/validator": "npm:^13.11.8"
-    libphonenumber-js: "npm:^1.10.53"
+    libphonenumber-js: "npm:^1.11.1"
     validator: "npm:^13.9.0"
-  checksum: 10/0c34592a1cbdd5e9c35cd02f4babd94120339e875fc7627aa2bf5dffb45ecc373275e854389c6ff3d39781cddb85a18193b4e9e8f4d77d6d90e445fd0b8b8e11
+  checksum: 10/37fbbc2ddb335993bf6bbe3fcaa55ddb03e31dccdf6413753e7323e1f106fed888d298b1ecc3b2000d40096e63ee983790c2155056d0a404629bb22b31b051e0
   languageName: node
   linkType: hard
 
@@ -3068,7 +3081,7 @@ __metadata:
     "@testing-library/svelte": "npm:^5.2.4"
     "@types/lodash": "npm:^4.17.14"
     autoprefixer: "npm:^10.4.20"
-    daisyui: "npm:^4.12.23"
+    daisyui: "npm:^5.0.43"
     date-fns: "npm:^4.1.0"
     eslint: "npm:^9.18.0"
     eslint-config-prettier: "npm:^10.0.1"
@@ -3076,7 +3089,7 @@ __metadata:
     globals: "npm:^16.0.0"
     jsdom: "npm:^26.0.0"
     lodash: "npm:^4.17.21"
-    lucide-svelte: "npm:^0.471.0"
+    lucide-svelte: "npm:^0.511.0"
     mdsvex: "npm:^0.12.3"
     postcss: "npm:^8.5.1"
     prettier: "npm:^3.4.2"
@@ -3185,16 +3198,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-selector-tokenizer@npm:^0.8":
-  version: 0.8.0
-  resolution: "css-selector-tokenizer@npm:0.8.0"
-  dependencies:
-    cssesc: "npm:^3.0.0"
-    fastparse: "npm:^1.1.2"
-  checksum: 10/1eb7ca7d2c21ede700a0fab7df4547198431c30ba62663d81a566a8abe6ab7524f627ce6c0bde63f34917e199b73be4081e449bd8faf107d155766204082aa0a
-  languageName: node
-  linkType: hard
-
 "css.escape@npm:^1.5.1":
   version: 1.5.1
   resolution: "css.escape@npm:1.5.1"
@@ -3221,22 +3224,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"culori@npm:^3":
-  version: 3.3.0
-  resolution: "culori@npm:3.3.0"
-  checksum: 10/e11fc8e2cd86a2a6cfe4eb676c26ce94d6bb404b8b142f24d2841125f91f9453efcb25ae9c335d0679340d7b51b09299b17dd74aaef066e751352702d47eba62
-  languageName: node
-  linkType: hard
-
-"daisyui@npm:^4.12.23":
-  version: 4.12.23
-  resolution: "daisyui@npm:4.12.23"
-  dependencies:
-    css-selector-tokenizer: "npm:^0.8"
-    culori: "npm:^3"
-    picocolors: "npm:^1"
-    postcss-js: "npm:^4"
-  checksum: 10/2d85d4c5fc62515a891c3f679c2b32178567cc4ec2b26b9fbf172ecea67c661eebdc2047b9392f0616a199d528b535c12226f9ebcde884fbdd98c2ed98793116
+"daisyui@npm:^5.0.43":
+  version: 5.0.43
+  resolution: "daisyui@npm:5.0.43"
+  checksum: 10/a73bc1994a7cb6e35571148f0134991da18c092bca448dee9d77fa1c7761e9a1647773363efe6050f70aae1f9ccebc57b9115c938c241534d1c640730e6d3973
   languageName: node
   linkType: hard
 
@@ -3368,12 +3359,12 @@ __metadata:
   linkType: hard
 
 "effect@npm:^3.13.7":
-  version: 3.14.6
-  resolution: "effect@npm:3.14.6"
+  version: 3.16.2
+  resolution: "effect@npm:3.16.2"
   dependencies:
     "@standard-schema/spec": "npm:^1.0.0"
     fast-check: "npm:^3.23.1"
-  checksum: 10/f21f107bd23ef8885cff24912e3605397db0a941b23a5ada07daf714c2005eac05d4a10add94cbc62f1a8b8475ee970d50e1ad5222aba1b194b2b1058fa69021
+  checksum: 10/955ab4a34ee14a408c103ebe0781c1973caecdfe528e959624f788507dbefbd040f6413e51c7219b903a9184fa523134a62ca56cbeb610a1c9d5904bff122552
   languageName: node
   linkType: hard
 
@@ -3983,13 +3974,6 @@ __metadata:
   version: 3.0.3
   resolution: "fast-uri@npm:3.0.3"
   checksum: 10/92487c75848b03edc45517fca0148287d342c30818ce43d556391db774d8e01644fb6964315a3336eec5a90f301b218b21f71fb9b2528ba25757435a20392c95
-  languageName: node
-  linkType: hard
-
-"fastparse@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "fastparse@npm:1.1.2"
-  checksum: 10/c4d199809dc4e8acafeb786be49481cc9144de296e2d54df4540ccfd868d0df73afc649aba70a748925eb32bbc4208b723d6288adf92382275031a8c7e10c0aa
   languageName: node
   linkType: hard
 
@@ -4639,10 +4623,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"libphonenumber-js@npm:^1.10.53":
-  version: 1.11.17
-  resolution: "libphonenumber-js@npm:1.11.17"
-  checksum: 10/e8e897834822060fe3067fc573a76f94eb0fbcc1ac075e3fdd9e1870b0c68f7c20f2bc50053ceeb69364fc3a8b881395bd121d904c38f716c4b69c3382b8f011
+"libphonenumber-js@npm:^1.11.1":
+  version: 1.12.8
+  resolution: "libphonenumber-js@npm:1.12.8"
+  checksum: 10/476e5268f5a86509de80ed5e573afbd2aff457d88cbe116208d167563f538705d3b29c9cc45e8d58dc6b5d00babc348443e49239c367c4e2e26e8c71e96372bc
   languageName: node
   linkType: hard
 
@@ -4821,12 +4805,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-svelte@npm:^0.471.0":
-  version: 0.471.0
-  resolution: "lucide-svelte@npm:0.471.0"
+"lucide-svelte@npm:^0.511.0":
+  version: 0.511.0
+  resolution: "lucide-svelte@npm:0.511.0"
   peerDependencies:
     svelte: ^3 || ^4 || ^5.0.0-next.42
-  checksum: 10/7ef6e8f88e3664cb869fa6afc147ffe75f406167504348b2bb59d66a3046f6cd1373ff86b81860d47f21cdd77e2b798d9040ddcaced12bffb885eda8027a5302
+  checksum: 10/5fb242aa486de04d3d4460789779dfe9adaf567f79077b13e5ae56145b36ef959ae60a396f678c0408a48a03c71e031e24176e0b7ca859f03e4b3b62f57810fd
   languageName: node
   linkType: hard
 
@@ -5332,20 +5316,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"overlayscrollbars-svelte@npm:^0.5.4":
-  version: 0.5.4
-  resolution: "overlayscrollbars-svelte@npm:0.5.4"
+"overlayscrollbars-svelte@npm:^0.5.5":
+  version: 0.5.5
+  resolution: "overlayscrollbars-svelte@npm:0.5.5"
   peerDependencies:
     overlayscrollbars: ^2.0.0
-    svelte: ">=3.54.0"
-  checksum: 10/8b03e204717b65b6f01d4797ed8aaf93a49cd31b878c9261192b2c654918936a97a724930a94e140f950c4c9f71ef1445ace38c4ce00cb8f19efaa8e412da97d
+    svelte: ^5.0.0
+  checksum: 10/b9483a33f4e86fa3d0e6fb7e872f9238099235e8d932283cea8c3f6914ecdf7e88cf23deb657d1a94c35a71cb69508fd4f5c8512fa89b85a3c15d4a5ef2e8dd1
   languageName: node
   linkType: hard
 
-"overlayscrollbars@npm:^2.10.1":
-  version: 2.10.1
-  resolution: "overlayscrollbars@npm:2.10.1"
-  checksum: 10/dfea9d3cf439a50b671119a806c42a7b49ad8db686a607ac8874706da092aa3cf69542605fb600dc96ee94df54b785a81c1cbdca16e8bd3fd69ba3d16ab192a1
+"overlayscrollbars@npm:^2.11.3":
+  version: 2.11.3
+  resolution: "overlayscrollbars@npm:2.11.3"
+  checksum: 10/3373e8268788edc21c7ea771ec335009dd8c6180ad0868eb1464a451b2f9ab8daa98ce4d03bb3945947f34a2a8cf4bf2ee276f68d5ee972c2baecd5b89d17106
   languageName: node
   linkType: hard
 
@@ -5381,10 +5365,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"papaparse@npm:^5.5.1":
-  version: 5.5.1
-  resolution: "papaparse@npm:5.5.1"
-  checksum: 10/6c3b47bd316cf11936641abe5590c6fb1e5b04297d1c594965a44dba89cc0f26b4e4d61eb1933352c538a30c4915d110628d14cf4d60cef0b8245c9a26477602
+"papaparse@npm:^5.5.1, papaparse@npm:^5.5.3":
+  version: 5.5.3
+  resolution: "papaparse@npm:5.5.3"
+  checksum: 10/383e38f8ff910be48b684e7f47b84dbe5e67708669c13bb21f316a0591ef183ff670dfc7eb9f6d0a8b67e21a5b0e8934712cda96ff8fb678d6591e597d108bd1
   languageName: node
   linkType: hard
 
@@ -5476,7 +5460,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picocolors@npm:^1, picocolors@npm:^1.0.0, picocolors@npm:^1.0.1, picocolors@npm:^1.1.0, picocolors@npm:^1.1.1, picocolors@npm:~1.1.1":
+"picocolors@npm:^1.0.0, picocolors@npm:^1.0.1, picocolors@npm:^1.1.0, picocolors@npm:^1.1.1, picocolors@npm:~1.1.1":
   version: 1.1.1
   resolution: "picocolors@npm:1.1.1"
   checksum: 10/e1cf46bf84886c79055fdfa9dcb3e4711ad259949e3565154b004b260cd356c5d54b31a1437ce9782624bf766272fe6b0154f5f0c744fb7af5d454d2b60db045
@@ -5525,17 +5509,6 @@ __metadata:
   version: 8.0.0
   resolution: "pluralize@npm:8.0.0"
   checksum: 10/17877fdfdb7ddb3639ce257ad73a7c51a30a966091e40f56ea9f2f545b5727ce548d4928f8cb3ce38e7dc0c5150407d318af6a4ed0ea5265d378473b4c2c61ec
-  languageName: node
-  linkType: hard
-
-"postcss-js@npm:^4":
-  version: 4.0.1
-  resolution: "postcss-js@npm:4.0.1"
-  dependencies:
-    camelcase-css: "npm:^2.0.1"
-  peerDependencies:
-    postcss: ^8.4.21
-  checksum: 10/ef2cfe8554daab4166cfcb290f376e7387964c36503f5bd42008778dba735685af8d4f5e0aba67cae999f47c855df40a1cd31ae840e0df320ded36352581045e
   languageName: node
   linkType: hard
 
@@ -5602,7 +5575,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.43, postcss@npm:^8.4.49, postcss@npm:^8.5.1, postcss@npm:^8.5.3":
+"postcss@npm:^8.4.41, postcss@npm:^8.4.43, postcss@npm:^8.4.49, postcss@npm:^8.5.1, postcss@npm:^8.5.3":
   version: 8.5.4
   resolution: "postcss@npm:8.5.4"
   dependencies:
@@ -6421,9 +6394,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sveltekit-superforms@npm:^2.24.1":
-  version: 2.24.1
-  resolution: "sveltekit-superforms@npm:2.24.1"
+"sveltekit-superforms@npm:^2.25.0":
+  version: 2.25.0
+  resolution: "sveltekit-superforms@npm:2.25.0"
   dependencies:
     "@exodus/schemasafe": "npm:^1.3.0"
     "@gcornut/valibot-json-schema": "npm:^0.31.0"
@@ -6514,7 +6487,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10/1bcea2f4207ed6c1af8d88dfad98c9acf26e6c5d3e1bba30939c494f94605af682d50b222a4b8c7973028254f21991a89a503ea0ef67065d71c06413ad606d67
+  checksum: 10/52a225ec3c877273c8f4033af5f94504d923ac4dabe8fa8335dc6cb04e4c621c2e9721e0eba17c42cdcdc98562303c432bf5a1c4839ec2462a863a58654470f8
   languageName: node
   linkType: hard
 
@@ -6729,9 +6702,9 @@ __metadata:
   linkType: hard
 
 "ts-deepmerge@npm:^7.0.2":
-  version: 7.0.2
-  resolution: "ts-deepmerge@npm:7.0.2"
-  checksum: 10/0ce920301a3a488fbe8ce57fc9a105b675f90fc5e231d9705d27768bcf1f2cdee9337a5de2dec92dbcfff1180000b0c63d8f4f0fb3caa5eec8247a558dd0803f
+  version: 7.0.3
+  resolution: "ts-deepmerge@npm:7.0.3"
+  checksum: 10/fbe1d5d7b2561430c0faa17f76e84e9b025ab1ea01812b5bbab9d5aebdad1eca8263908d9359a17348de66eb27fd42b9861f92bd1eba70906b1ae647729c3680
   languageName: node
   linkType: hard
 
@@ -6968,9 +6941,9 @@ __metadata:
   linkType: hard
 
 "validator@npm:^13.12.0, validator@npm:^13.9.0":
-  version: 13.15.0
-  resolution: "validator@npm:13.15.0"
-  checksum: 10/cc4435e37a72d65c01d0a90d0f65da1fe09a805de35be1ec37e5379e1a612ab280277d7034a5369cd491a4f94c3b551f75dc4851090efafedf529a1ef76b1e0f
+  version: 13.15.15
+  resolution: "validator@npm:13.15.15"
+  checksum: 10/a43d9271c879468b1ad6dd5d2597b71719a185d2c7ceb3d68f3c9c8c17c25af0d90a53edfa7efaa6ac0d4425ba0345684b9c7d8111bde0d06d915a634a287018
   languageName: node
   linkType: hard
 
@@ -7305,16 +7278,17 @@ __metadata:
     "@sveltejs/kit": "npm:^2.20.6"
     "@sveltejs/vite-plugin-svelte": "npm:^5.0.0"
     "@tailwindcss/forms": "npm:^0.5.9"
+    "@tailwindcss/postcss": "npm:^4.1.8"
     "@tailwindcss/typography": "npm:^0.5.15"
     "@tailwindcss/vite": "npm:^4.0.0"
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/svelte": "npm:^5.2.4"
     "@types/lodash": "npm:^4.17.14"
-    "@types/papaparse": "npm:^5.3.15"
+    "@types/papaparse": "npm:^5"
     autoprefixer: "npm:^10.4.20"
-    chart.js: "npm:^4.4.7"
+    chart.js: "npm:^4.4.9"
     chartjs-adapter-date-fns: "npm:^3.0.0"
-    daisyui: "npm:^4.12.23"
+    daisyui: "npm:^5.0.43"
     date-fns: "npm:^4.1.0"
     eslint: "npm:^9.18.0"
     eslint-config-prettier: "npm:^10.0.1"
@@ -7322,18 +7296,18 @@ __metadata:
     globals: "npm:^16.0.0"
     jsdom: "npm:^26.0.0"
     lodash: "npm:^4.17.21"
-    lucide-svelte: "npm:^0.471.0"
+    lucide-svelte: "npm:^0.511.0"
     mdsvex: "npm:^0.12.3"
-    overlayscrollbars: "npm:^2.10.1"
-    overlayscrollbars-svelte: "npm:^0.5.4"
-    papaparse: "npm:^5.5.1"
+    overlayscrollbars: "npm:^2.11.3"
+    overlayscrollbars-svelte: "npm:^0.5.5"
+    papaparse: "npm:^5.5.3"
     postcss: "npm:^8.5.1"
     prettier: "npm:^3.4.2"
     prettier-plugin-svelte: "npm:^3.3.3"
     prettier-plugin-tailwindcss: "npm:^0.6.11"
     svelte: "npm:^5.25.3"
     svelte-check: "npm:^4.1.1"
-    sveltekit-superforms: "npm:^2.24.1"
+    sveltekit-superforms: "npm:^2.25.0"
     tailwindcss: "npm:^4.0.0"
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.7.3"
@@ -7375,7 +7349,7 @@ __metadata:
     "@testing-library/svelte": "npm:^5.2.4"
     "@types/lodash": "npm:^4.17.14"
     autoprefixer: "npm:^10.4.20"
-    daisyui: "npm:^4.12.23"
+    daisyui: "npm:^5.0.43"
     date-fns: "npm:^4.1.0"
     eslint: "npm:^9.18.0"
     eslint-config-prettier: "npm:^10.0.1"
@@ -7383,7 +7357,7 @@ __metadata:
     globals: "npm:^16.0.0"
     jsdom: "npm:^26.0.0"
     lodash: "npm:^4.17.21"
-    lucide-svelte: "npm:^0.471.0"
+    lucide-svelte: "npm:^0.511.0"
     mdsvex: "npm:^0.12.3"
     postcss: "npm:^8.5.1"
     prettier: "npm:^3.4.2"
@@ -7739,8 +7713,8 @@ __metadata:
   linkType: hard
 
 "zod@npm:^3.24.2":
-  version: 3.24.2
-  resolution: "zod@npm:3.24.2"
-  checksum: 10/604c62a8cf8e330d78b106a557f4b44f5d14845d20b1360a423ccc09b58cb8525ccf7e4b40cf1bd4852d22393d2c67774b5817ec5a2fedab25f543b36ed15943
+  version: 3.25.42
+  resolution: "zod@npm:3.25.42"
+  checksum: 10/eb1f86ef6c29f1cb35245b671a1f2a6ad1a40b3b56acd98d72afb1775c12d72631ad161fdf5e5041bcc78560df6a135096244f74734885458ee0aeec8ccb288d
   languageName: node
   linkType: hard

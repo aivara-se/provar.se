@@ -15,10 +15,10 @@
 		"test:unit": "vitest"
 	},
 	"dependencies": {
-		"daisyui": "^4.12.23",
+		"daisyui": "^5.0.43",
 		"date-fns": "^4.1.0",
 		"lodash": "^4.17.21",
-		"lucide-svelte": "^0.471.0",
+		"lucide-svelte": "^0.511.0",
 		"tslib": "^2.8.1"
 	},
 	"devDependencies": {
