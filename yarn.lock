@@ -3102,6 +3102,7 @@ __metadata:
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
     vite: "npm:^6.2.6"
+    vite-plugin-devtools-json: "npm:^0.1.0"
     vitest: "npm:^3.0.0"
     wrangler: "npm:^4.18.0"
   languageName: unknown
@@ -6921,6 +6922,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uuid@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "uuid@npm:11.1.0"
+  bin:
+    uuid: dist/esm/bin/uuid
+  checksum: 10/d2da43b49b154d154574891ced66d0c83fc70caaad87e043400cf644423b067542d6f3eb641b7c819224a7cd3b4c2f21906acbedd6ec9c6a05887aa9115a9cf5
+  languageName: node
+  linkType: hard
+
 "valibot@npm:1.0.0-rc.3":
   version: 1.0.0-rc.3
   resolution: "valibot@npm:1.0.0-rc.3"
@@ -6984,6 +6994,17 @@ __metadata:
   bin:
     vite-node: vite-node.mjs
   checksum: 10/e4c198fe9447b4182b95601249a1e8be183380bbd2875034e8ed741a67895b8ad5c6324d6a6db7d60c2b0372f5209ca046604abfc0a70c04bffef00e5a4f6e19
+  languageName: node
+  linkType: hard
+
+"vite-plugin-devtools-json@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "vite-plugin-devtools-json@npm:0.1.0"
+  dependencies:
+    uuid: "npm:^11.1.0"
+  peerDependencies:
+    vite: ^2.7.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
+  checksum: 10/7d536bc9c17454f932287e023ac6708efef404c62dabee70f1b7f0e6abc65d57aad8519908a79b4176dd6381dea91a9e364435a340040244994888c3ebdd8423
   languageName: node
   linkType: hard
 
@@ -7313,6 +7334,7 @@ __metadata:
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
     vite: "npm:^6.2.6"
+    vite-plugin-devtools-json: "npm:^0.1.0"
     vitest: "npm:^3.0.0"
     wrangler: "npm:^4.18.0"
   languageName: unknown
@@ -7370,6 +7392,7 @@ __metadata:
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
     vite: "npm:^6.2.6"
+    vite-plugin-devtools-json: "npm:^0.1.0"
     vitest: "npm:^3.0.0"
     wrangler: "npm:^4.18.0"
   languageName: unknown
