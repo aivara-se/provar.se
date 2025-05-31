@@ -1,9 +1,12 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
-    "svelte.svelte-vscode",
-    "tldraw-org.tldraw-vscode",
     "dbaeumer.vscode-eslint",
-    "golang.go"
+    "esbenp.prettier-vscode",
+    "github.copilot-chat",
+    "github.copilot",
+    "golang.go",
+    "ms-ossdata.vscode-pgsql",
+    "svelte.svelte-vscode",
+    "vitest.explorer"
   ]
 }
