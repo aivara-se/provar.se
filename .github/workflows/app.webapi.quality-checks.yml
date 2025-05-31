@@ -47,12 +47,26 @@ jobs:
         run: go vet ./...
 
       - name: Start dependencies
-        env:
-          DATABASE_URI: postgresql://postgres:postgres@localhost/provar?sslmode=disable
         run: |
           docker compose -f "../../compose.yaml" up -d
-          bash ../../.scripts/wait-for-postgres.sh
-          go run -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
+
+      - name: Wait for postgres
+        run: |
+          until pg_isready --username=postgres --host="127.0.0.1" --quiet &> /dev/null ; do
+              let "failcounter += 1"
+              echo "Waiting for database connection..."
+              if [[ $failcounter -gt 60 ]]; then
+                echo "Failed to connect to database"
+                exit 1
+              fi
+              sleep 2
+          done
+          echo "Database connection established."
+
+      - name: Run database migrations
+        env:
+          DATABASE_URI: postgresql://postgres:postgres@localhost/provar?sslmode=disable
+        run: go run -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest -database $DATABASE_URI -path ../../infra/migrations/db/migrations up
 
       - name: Check unit tests
         env:

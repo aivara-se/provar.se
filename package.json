@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "yarn workspaces foreach -Wpi --from '{webapi,webapp,website,collect}' run dev",
-    "setup-local-env": "bash .scripts/setup-local-env.sh",
-    "start-local-env": "bash .scripts/start-local-env.sh"
+    "localenv:setup": "bash .scripts/localenv setup",
+    "localenv:start": "bash .scripts/localenv start"
   },
   "workspaces": [
     "apps/*",
@@ -14,10 +14,10 @@
     "infra/*"
   ],
   "devDependencies": {
-    "@yarnpkg/types": "^4.0.0"
+    "@yarnpkg/types": "^4.0.1"
   },
   "engines": {
-    "node": ">=23.0.0"
+    "node": ">=24.1.0"
   },
   "packageManager": "yarn@4.9.1"
 }

@@ -13,9 +13,7 @@ This repository contains the following directories at the root level:
 
 ## Getting Started
 
-This guide describes how to setup a Linux based development environment. But it should also work for MacOS perhaps with minor tweaks to the setup script. If you are developing on Microsoft Windows, please use WSL2. Check the [deployment.md](./docs/deployments.md) and [components.md](./docs/components.md) to learn more about how it is deployed on provar.se
-
-At the moment, the local development environment depends on several online services (eg: GCS bucket) which will be addressed in the future.
+This guide describes how to setup a Linux based development environment. But it should also work for MacOS perhaps with minor tweaks to the setup script. If you are developing on Microsoft Windows, please use WSL2.
 
 - Install Docker, Node, Yarn and Go.
 
@@ -34,13 +32,13 @@ yarn install
 
 Next step is to set-up dependencies, docker containers and the database.
 
-- Use the `yarn setup-local-env` command to create required `.env` files needed for local development. This wil fill most of the env variables but several environment variables need to be filled manually.
+- Use the `yarn localenv setup` command to create required `.env` files needed for local development. This wil fill most of the env variables but several environment variables need to be filled manually (eg: client ids and secrets for social login).
 
 ```shell
-yarn setup-local-env
+yarn localenv setup
 ```
 
-- Start the local environment with `yarn start-local-env` and run database migrations with `yarn workspace migrations run migration:run`
+- Start the local environment with `yarn localenv start` and run database migrations with `yarn workspace migrations run migration:run`
 
 - Create a MaxMind account, download the "GeoLite2 City" database from [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) and place it as `apps/webapi/GeoLite2-City.mmdb`. This database will be used to add location data based on feedback source ip address.
 
