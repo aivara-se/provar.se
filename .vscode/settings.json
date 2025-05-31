@@ -13,6 +13,8 @@
   "files.exclude": {
     "**/.DS_Store": true,
     "**/.git": true,
+    "**/.svelte-kit": true,
+    "**/.wrangler": true,
     "**/.yarn": true,
     "**/node_modules": true,
     "**/yarn.lock": true
