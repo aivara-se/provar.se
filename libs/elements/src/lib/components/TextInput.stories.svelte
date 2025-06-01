@@ -1,6 +1,7 @@
 <script module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import TextInput from './TextInput.svelte';
+	import { Search } from 'lucide-svelte';
 
 	const { Story } = defineMeta({
 		title: 'Components/TextInput',
@@ -79,3 +80,16 @@
 		}
 	}}
 />
+
+<Story name="with an icon" asChild>
+	<TextInput
+		name="search-input"
+		value=""
+		label="Search"
+		props={{ placeholder: "Search for anything..." }}
+	>
+		{#snippet icon()}
+			<Search class="h-[1em] opacity-50" />
+		{/snippet}
+	</TextInput>
+</Story>
