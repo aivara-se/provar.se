@@ -1,7 +1,6 @@
 <script module>
+	import { CenteredLayout, TextInput } from '$lib/index.js';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import CenteredLayout from './CenteredLayout.svelte';
-	import TextInput from '../components/TextInput.svelte';
 
 	const { Story } = defineMeta({
 		title: 'Layout/CenteredLayout',

@@ -1,9 +1,9 @@
 <script module>
+	import { SelectInput } from '$lib/index.js';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import SelectInput from './SelectInput.svelte';
 
 	const { Story } = defineMeta({
-		title: 'Components/SelectInput',
+		title: 'Forms/SelectInput',
 		component: SelectInput,
 		argTypes: {
 			name: { control: 'text' },

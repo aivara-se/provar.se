@@ -1,9 +1,9 @@
 <script module>
+	import { ConfirmModal } from '$lib/index.js';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import ConfirmModal from './ConfirmModal.svelte';
 
 	const { Story } = defineMeta({
-		title: 'Components/ConfirmModal',
+		title: 'Forms/ConfirmModal',
 		component: ConfirmModal,
 		argTypes: {
 			isOpen: { control: 'boolean' },
@@ -87,7 +87,7 @@
 			</button>
 
 			<ConfirmModal
-				bind:isOpen={args.isOpen}
+				isOpen={args.isOpen}
 				submitText="Yes, Continue"
 				action={mockAction}
 			>

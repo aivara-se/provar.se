@@ -1,9 +1,9 @@
 <script module>
+	import { TextArea } from '$lib/index.js';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import TextArea from './TextArea.svelte';
 
 	const { Story } = defineMeta({
-		title: 'Components/TextArea',
+		title: 'Forms/TextArea',
 		component: TextArea,
 		argTypes: {
 			name: { control: 'text' },

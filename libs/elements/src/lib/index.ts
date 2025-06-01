@@ -1,8 +1,8 @@
-// Export components
-export { default as ConfirmModal } from './components/ConfirmModal.svelte';
-export { default as SelectInput } from './components/SelectInput.svelte';
-export { default as TextArea } from './components/TextArea.svelte';
-export { default as TextInput } from './components/TextInput.svelte';
+// Export form components
+export { default as ConfirmModal } from './forms/ConfirmModal.svelte';
+export { default as SelectInput } from './forms/SelectInput.svelte';
+export { default as TextArea } from './forms/TextArea.svelte';
+export { default as TextInput } from './forms/TextInput.svelte';
 
-// Export layouts
+// Export layout components
 export { default as CenteredLayout } from './layout/CenteredLayout.svelte';

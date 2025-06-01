@@ -1,10 +1,10 @@
 <script module>
+	import { TextInput } from '$lib/index.js';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import TextInput from './TextInput.svelte';
 	import { Search } from 'lucide-svelte';
 
 	const { Story } = defineMeta({
-		title: 'Components/TextInput',
+		title: 'Forms/TextInput',
 		component: TextInput,
 		argTypes: {
 			name: { control: 'text' },
