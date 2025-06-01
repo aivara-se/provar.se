@@ -1439,7 +1439,7 @@ __metadata:
     papaparse: "npm:^5.5.1"
     prettier: "npm:^3.4.2"
     typescript: "npm:^5.7.3"
-    vite: "npm:^5.4.18"
+    vite: "npm:^6.3.5"
     vitest: "npm:^2.1.9"
     yargs-parser: "npm:^21.1.1"
   bin:
@@ -1471,7 +1471,7 @@ __metadata:
     openapi-typescript: "npm:^7.5.1"
     prettier: "npm:^3.4.2"
     typescript: "npm:^5.7.3"
-    vite: "npm:^5.4.18"
+    vite: "npm:^6.3.5"
     vitest: "npm:^2.1.9"
     yaml: "npm:^2.7.0"
   languageName: unknown
@@ -1491,7 +1491,7 @@ __metadata:
     eslint: "npm:^9.18.0"
     prettier: "npm:^3.4.2"
     typescript: "npm:^5.7.3"
-    vite: "npm:^5.4.18"
+    vite: "npm:^6.3.5"
     vitest: "npm:^2.1.9"
   languageName: unknown
   linkType: soft
@@ -3669,7 +3669,7 @@ __metadata:
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
-    vite: "npm:^6.2.6"
+    vite: "npm:^6.3.5"
     vite-plugin-devtools-json: "npm:^0.1.0"
     vitest: "npm:^3.0.0"
     wrangler: "npm:^4.18.0"
@@ -4016,7 +4016,7 @@ __metadata:
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.0.0"
     typescript-eslint: "npm:^8.20.0"
-    vite: "npm:^6.2.6"
+    vite: "npm:^6.3.5"
     vitest: "npm:^3.0.0"
   peerDependencies:
     svelte: ^5.0.0
@@ -8128,7 +8128,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.0.0 || ^6.0.0, vite@npm:^6.2.6":
+"vite@npm:^5.0.0":
+  version: 5.4.18
+  resolution: "vite@npm:5.4.18"
+  dependencies:
+    esbuild: "npm:^0.21.3"
+    fsevents: "npm:~2.3.3"
+    postcss: "npm:^8.4.43"
+    rollup: "npm:^4.20.0"
+  peerDependencies:
+    "@types/node": ^18.0.0 || >=20.0.0
+    less: "*"
+    lightningcss: ^1.21.0
+    sass: "*"
+    sass-embedded: "*"
+    stylus: "*"
+    sugarss: "*"
+    terser: ^5.4.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    less:
+      optional: true
+    lightningcss:
+      optional: true
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 10/491f0d047695a4bb3aafdb30822a3638ac41c23b022c1599bf51beab26a7cffe3ef1617bdf014592da48864079f217da5bf144a6c3238d2d74dea688ba3a549a
+  languageName: node
+  linkType: hard
+
+"vite@npm:^5.0.0 || ^6.0.0, vite@npm:^6.3.5":
   version: 6.3.5
   resolution: "vite@npm:6.3.5"
   dependencies:
@@ -8180,49 +8223,6 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 10/7bc3a1c5ef79413ad70daeeaf69b76cd1218d16aa18ed8ee08d74648ef17284f4a17c11f5cf42b573b6dc5e3d5f115110b67b1d23c2c699cfe404757764a634a
-  languageName: node
-  linkType: hard
-
-"vite@npm:^5.0.0, vite@npm:^5.4.18":
-  version: 5.4.18
-  resolution: "vite@npm:5.4.18"
-  dependencies:
-    esbuild: "npm:^0.21.3"
-    fsevents: "npm:~2.3.3"
-    postcss: "npm:^8.4.43"
-    rollup: "npm:^4.20.0"
-  peerDependencies:
-    "@types/node": ^18.0.0 || >=20.0.0
-    less: "*"
-    lightningcss: ^1.21.0
-    sass: "*"
-    sass-embedded: "*"
-    stylus: "*"
-    sugarss: "*"
-    terser: ^5.4.0
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  peerDependenciesMeta:
-    "@types/node":
-      optional: true
-    less:
-      optional: true
-    lightningcss:
-      optional: true
-    sass:
-      optional: true
-    sass-embedded:
-      optional: true
-    stylus:
-      optional: true
-    sugarss:
-      optional: true
-    terser:
-      optional: true
-  bin:
-    vite: bin/vite.js
-  checksum: 10/491f0d047695a4bb3aafdb30822a3638ac41c23b022c1599bf51beab26a7cffe3ef1617bdf014592da48864079f217da5bf144a6c3238d2d74dea688ba3a549a
   languageName: node
   linkType: hard
 
@@ -8453,7 +8453,7 @@ __metadata:
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
-    vite: "npm:^6.2.6"
+    vite: "npm:^6.3.5"
     vite-plugin-devtools-json: "npm:^0.1.0"
     vitest: "npm:^3.0.0"
     wrangler: "npm:^4.18.0"
@@ -8518,7 +8518,7 @@ __metadata:
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
-    vite: "npm:^6.2.6"
+    vite: "npm:^6.3.5"
     vite-plugin-devtools-json: "npm:^0.1.0"
     vitest: "npm:^3.0.0"
     wrangler: "npm:^4.18.0"
