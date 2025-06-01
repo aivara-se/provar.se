@@ -1477,7 +1477,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@provar/types@workspace:libs/types":
+"@provar/types@workspace:^, @provar/types@workspace:libs/types":
   version: 0.0.0-use.local
   resolution: "@provar/types@workspace:libs/types"
   dependencies:
@@ -3977,6 +3977,7 @@ __metadata:
     "@chromatic-com/storybook": "npm:^4"
     "@eslint/compat": "npm:^1.2.5"
     "@eslint/js": "npm:^9.18.0"
+    "@provar/types": "workspace:^"
     "@storybook/addon-a11y": "npm:^9.0.3"
     "@storybook/addon-docs": "npm:^9.0.3"
     "@storybook/addon-svelte-csf": "npm:^5.0.3"

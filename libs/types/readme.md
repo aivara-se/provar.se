@@ -1,15 +1,15 @@
-# @provar/typespec
+# @provar/types
 
 A collection of typescript types used by Provar.
 
 ## Installation
 
 ```bash
-yarn add @provar/typespec
+yarn add -D @provar/types
 ```
 
 ## Usage
 
 ```ts
-import type { Response } from '@provar/typespec';
+import type { Response } from '@provar/types';
 ```

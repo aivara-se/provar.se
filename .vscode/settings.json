@@ -6,7 +6,8 @@
   "explorer.fileNesting.patterns": {
     "*.js": "$(capture).spec.js, $(capture).mock.js, $(capture).integration.spec.js",
     "*.ts": "$(capture).spec.ts, $(capture).mock.ts, $(capture).integration.spec.ts",
-    "*.go": "$(capture)_test.go"
+    "*.go": "$(capture)_test.go",
+    "*.svelte": "$(capture).stories.svelte"
   },
   "files.associations": {
     "*.svx": "markdown"
