@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { MenuIcon, ChevronRightIcon, BarChartBigIcon, SettingsIcon } from 'lucide-svelte';
+	import { MenuIcon, ChevronRightIcon, ChartColumnBigIcon, SettingsIcon } from 'lucide-svelte';
 
 	const items = [
-		{ name: 'Dashboard', href: '/admin', icon: BarChartBigIcon },
+		{ name: 'Dashboard', href: '/admin', icon: ChartColumnBigIcon },
 		{ name: 'Preferences', href: '/admin/settings', icon: SettingsIcon }
 	];
 </script>
@@ -33,8 +33,8 @@
 		<a href="/admin" class="btn btn-ghost text-xl">Provar</a>
 	</div>
 	<div class="navbar-end">
-		<button class="btn btn-ghost btn-circle">
+		<a href='/client' class="btn btn-ghost btn-circle">
 			<ChevronRightIcon class="h-5 w-5" />
-		</button>
+		</a>
 	</div>
 </div>
