@@ -6,7 +6,7 @@ toolchain go1.24.1
 
 require (
 	github.com/automattic/go-gravatar v0.0.0-20210818030622-453d3c921ea3
-	github.com/go-playground/validator/v10 v10.26.0
+	github.com/go-playground/validator/v10 v10.27.0
 	github.com/go-resty/resty/v2 v2.16.5
 	github.com/goccy/go-json v0.10.5
 	github.com/gofiber/fiber/v2 v2.52.7
