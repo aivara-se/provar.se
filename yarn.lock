@@ -894,17 +894,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:^9.18.0":
-  version: 9.28.0
-  resolution: "@eslint/js@npm:9.28.0"
-  checksum: 10/c2ab0416aef01f28f189525c9a86253f531852a1ed45db94a97f01bcc51d15720f38a8c201af7a7331eb1e80c991a7ef54c4be193b17540e48044672dba69bd8
-  languageName: node
-  linkType: hard
-
-"@eslint/js@npm:^9.19.0":
-  version: 9.19.0
-  resolution: "@eslint/js@npm:9.19.0"
-  checksum: 10/d8133a83330676d5f0827713af2e9bbf35530631a93520fb59ead6b827a325c54fdd7ad99f2158f895fb393c47bbc55dfdaa945998a647f3b9230f1d5324a626
+"@eslint/js@npm:^9.31.0":
+  version: 9.31.0
+  resolution: "@eslint/js@npm:9.31.0"
+  checksum: 10/83b45c707d9a6c62b79a9fb69b7ebcb31e8163647c0fdcae5972b4b2fcbbb1e8eac543986e0cca3582f8462a6587f6b6dc48e362b2ce3feb74282606c3d425ea
   languageName: node
   linkType: hard
 
@@ -1416,7 +1409,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@provar/eslint-config@workspace:libs/eslint-config"
   dependencies:
-    "@eslint/js": "npm:^9.19.0"
+    "@eslint/js": "npm:^9.31.0"
     eslint: "npm:^9.18.0"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
@@ -3637,7 +3630,7 @@ __metadata:
   resolution: "collect@workspace:apps/collect"
   dependencies:
     "@eslint/compat": "npm:^1.2.5"
-    "@eslint/js": "npm:^9.19.0"
+    "@eslint/js": "npm:^9.31.0"
     "@playwright/test": "npm:^1.49.1"
     "@sveltejs/adapter-cloudflare": "npm:^7.0.0"
     "@sveltejs/kit": "npm:^2.20.6"
@@ -3976,7 +3969,7 @@ __metadata:
   dependencies:
     "@chromatic-com/storybook": "npm:^4"
     "@eslint/compat": "npm:^1.2.5"
-    "@eslint/js": "npm:^9.18.0"
+    "@eslint/js": "npm:^9.31.0"
     "@provar/types": "workspace:^"
     "@storybook/addon-a11y": "npm:^9.0.3"
     "@storybook/addon-docs": "npm:^9.0.3"
@@ -8413,7 +8406,7 @@ __metadata:
   resolution: "webapp@workspace:apps/webapp"
   dependencies:
     "@eslint/compat": "npm:^1.2.5"
-    "@eslint/js": "npm:^9.19.0"
+    "@eslint/js": "npm:^9.31.0"
     "@playwright/test": "npm:^1.49.1"
     "@provar/provar-js": "npm:^1.28.1"
     "@sveltejs/adapter-cloudflare": "npm:^7.0.0"
@@ -8487,7 +8480,7 @@ __metadata:
   resolution: "website@workspace:apps/website"
   dependencies:
     "@eslint/compat": "npm:^1.2.5"
-    "@eslint/js": "npm:^9.19.0"
+    "@eslint/js": "npm:^9.31.0"
     "@playwright/test": "npm:^1.49.1"
     "@sveltejs/adapter-cloudflare": "npm:^7.0.0"
     "@sveltejs/kit": "npm:^2.20.6"
