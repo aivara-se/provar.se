@@ -1,9 +1,0 @@
-@import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
-@plugin "daisyui";
-
-html,
-body {
-	background: #1d232a;
-}
