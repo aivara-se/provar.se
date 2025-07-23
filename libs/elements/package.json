@@ -51,7 +51,7 @@
     "@storybook/addon-docs": "^9.0.3",
     "@storybook/addon-svelte-csf": "^5.0.3",
     "@storybook/addon-vitest": "^9.0.3",
-    "@storybook/sveltekit": "^9.0.3",
+    "@storybook/sveltekit": "^9.0.18",
     "@sveltejs/adapter-auto": "^6.0.0",
     "@sveltejs/kit": "^2.16.0",
     "@sveltejs/package": "^2.0.0",

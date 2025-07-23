@@ -1852,16 +1852,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/builder-vite@npm:9.0.3":
-  version: 9.0.3
-  resolution: "@storybook/builder-vite@npm:9.0.3"
+"@storybook/builder-vite@npm:9.0.18":
+  version: 9.0.18
+  resolution: "@storybook/builder-vite@npm:9.0.18"
   dependencies:
-    "@storybook/csf-plugin": "npm:9.0.3"
+    "@storybook/csf-plugin": "npm:9.0.18"
     ts-dedent: "npm:^2.0.0"
   peerDependencies:
-    storybook: ^9.0.3
-    vite: ^5.0.0 || ^6.0.0
-  checksum: 10/99fcce5b91b5491cebec382c987de82f90e671faffb142ee5b08f90f902442013070790d00fd7fbedfa88295ad221b148a78cde967175dbbc7912cd424fb2189
+    storybook: ^9.0.18
+    vite: ^5.0.0 || ^6.0.0 || ^7.0.0
+  checksum: 10/a471872bd76b683f52ea1c887054c6fcedfe5ea0f75280a0a60afc1e88f7f1a3a83aef0126fdade4ee2c5d9aeebdba333001693c2c30940cfcfa2fa1e5b1484b
+  languageName: node
+  linkType: hard
+
+"@storybook/csf-plugin@npm:9.0.18":
+  version: 9.0.18
+  resolution: "@storybook/csf-plugin@npm:9.0.18"
+  dependencies:
+    unplugin: "npm:^1.3.1"
+  peerDependencies:
+    storybook: ^9.0.18
+  checksum: 10/253a904cd8063e2065e5420d9f621d2187ee9ad24f3d1e0ae26d284d6939ef6ba81b5c892a97e456d102875e3526defb87da728073dde7f68b19010496e3f553
   languageName: node
   linkType: hard
 
@@ -1913,49 +1924,49 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/svelte-vite@npm:9.0.3":
-  version: 9.0.3
-  resolution: "@storybook/svelte-vite@npm:9.0.3"
+"@storybook/svelte-vite@npm:9.0.18":
+  version: 9.0.18
+  resolution: "@storybook/svelte-vite@npm:9.0.18"
   dependencies:
-    "@storybook/builder-vite": "npm:9.0.3"
-    "@storybook/svelte": "npm:9.0.3"
+    "@storybook/builder-vite": "npm:9.0.18"
+    "@storybook/svelte": "npm:9.0.18"
     magic-string: "npm:^0.30.0"
     svelte2tsx: "npm:^0.7.35"
     typescript: "npm:^4.9.4 || ^5.0.0"
   peerDependencies:
     "@sveltejs/vite-plugin-svelte": ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
-    storybook: ^9.0.3
+    storybook: ^9.0.18
     svelte: ^5.0.0
-    vite: ^5.0.0 || ^6.0.0
-  checksum: 10/d60ef9b5bf2d1cc6a4f13d1aaaa4f3c26e68befc0065a3f84b4a69a90eb235780eb10d83ee2d1d13bbb25f31a77607542be886929455774e8a62b739ee775cee
+    vite: ^5.0.0 || ^6.0.0 || ^7.0.0
+  checksum: 10/13009078c49b11a9f1ab5cbffbfeadba184da5650d6a0b87dd9adf7f47c98c55b2eb857a8aeb7fb51d1b5d96b9eba59c4a1a7579d1081ce586b8f11c199f7d67
   languageName: node
   linkType: hard
 
-"@storybook/svelte@npm:9.0.3":
-  version: 9.0.3
-  resolution: "@storybook/svelte@npm:9.0.3"
+"@storybook/svelte@npm:9.0.18":
+  version: 9.0.18
+  resolution: "@storybook/svelte@npm:9.0.18"
   dependencies:
     ts-dedent: "npm:^2.0.0"
     type-fest: "npm:~2.19"
   peerDependencies:
-    storybook: ^9.0.3
+    storybook: ^9.0.18
     svelte: ^5.0.0
-  checksum: 10/f219f1357a33464fea5fb3dc4d01dbe164341e61ef9cf99e95325089963ab6e55595feaa675076632a9c1ba4765e28f45a3c2ce742dee62d570701b8a01b8eaa
+  checksum: 10/8138bbabf44f6e6b875a58ede29b508a96c69d67005e6ede30b2cc3194c9a0b16363165e81ef422d4ee135747fb381764ad1a2a9cbd796594c3aecbb3999eaa9
   languageName: node
   linkType: hard
 
-"@storybook/sveltekit@npm:^9.0.3":
-  version: 9.0.3
-  resolution: "@storybook/sveltekit@npm:9.0.3"
+"@storybook/sveltekit@npm:^9.0.18":
+  version: 9.0.18
+  resolution: "@storybook/sveltekit@npm:9.0.18"
   dependencies:
-    "@storybook/builder-vite": "npm:9.0.3"
-    "@storybook/svelte": "npm:9.0.3"
-    "@storybook/svelte-vite": "npm:9.0.3"
+    "@storybook/builder-vite": "npm:9.0.18"
+    "@storybook/svelte": "npm:9.0.18"
+    "@storybook/svelte-vite": "npm:9.0.18"
   peerDependencies:
-    storybook: ^9.0.3
+    storybook: ^9.0.18
     svelte: ^5.0.0
-    vite: ^5.0.0 || ^6.0.0
-  checksum: 10/9499028c5660992cbcdc76f4ba61662486790fecb961b0a95b66847bdee95c8a6f45d11975d881dcc0fcd1ec1ba9b77217d6aacbbb15c324414e1363d73132cb
+    vite: ^5.0.0 || ^6.0.0 || ^7.0.0
+  checksum: 10/737e4956f64557c872f5cdb6f06b13879f0f6184c8b22b09be5a3af5f05f93f63b07460cc76325457986d4c12bf2f84b5ec6d460637ed4854025e728d9a61c59
   languageName: node
   linkType: hard
 
@@ -3982,7 +3993,7 @@ __metadata:
     "@storybook/addon-docs": "npm:^9.0.3"
     "@storybook/addon-svelte-csf": "npm:^5.0.3"
     "@storybook/addon-vitest": "npm:^9.0.3"
-    "@storybook/sveltekit": "npm:^9.0.3"
+    "@storybook/sveltekit": "npm:^9.0.18"
     "@sveltejs/adapter-auto": "npm:^6.0.0"
     "@sveltejs/kit": "npm:^2.16.0"
     "@sveltejs/package": "npm:^2.0.0"
