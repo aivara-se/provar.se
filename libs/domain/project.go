@@ -31,12 +31,18 @@ type File struct {
 }
 
 // Action represents one user-intent step in a file. Actions form a DAG via
-// the Next field — each ID lists the actions that may follow it.
+// the Next field — each ID lists the actions that may follow it. Source is
+// populated by ParseFile from the matching compiled .test.lua when one
+// exists (the engine writes one .test.lua per file at compile time). It is
+// surfaced for the editor so each node can show its generated Lua body
+// without re-running compile; the field is unexported from YAML/JSON wire
+// formats so a saved .test.yml stays source-only.
 type Action struct {
-	ID   string
-	Name string
-	Info string
-	Next []string
+	ID     string
+	Name   string
+	Info   string
+	Next   []string
+	Source string `yaml:"-" json:"-"`
 }
 
 type projectConfig struct {
@@ -207,6 +213,13 @@ func loadTestFiles(projectDir string) ([]File, error) {
 
 // ParseFile reads and parses a single test file into a list of actions. The relPath is
 // the file's path relative to projectDir (i.e. File.Path).
+//
+// When a compiled .test.lua exists alongside the .test.yml, each action's
+// Source field is populated with the matching `function actions.<id>(page)`
+// body — empty string if the compiled file is missing, unparseable, or has
+// no entry for that action. The Lua read is best-effort: a missing .lua is
+// not an error, and a malformed one is logged-and-skipped (engine
+// regressions should not block the editor from opening the yml).
 func ParseFile(projectDir, relPath string) ([]Action, error) {
 	data, err := os.ReadFile(filepath.Join(projectDir, relPath))
 	if err != nil {
@@ -215,6 +228,10 @@ func ParseFile(projectDir, relPath string) ([]Action, error) {
 	var actions []Action
 	if err := yaml.Unmarshal(data, &actions); err != nil {
 		return nil, fmt.Errorf("parse %s: %w", relPath, err)
+	}
+	sources, _ := ParseCompiledFile(projectDir, relPath)
+	for i := range actions {
+		actions[i].Source = sources[actions[i].ID]
 	}
 	return actions, nil
 }
