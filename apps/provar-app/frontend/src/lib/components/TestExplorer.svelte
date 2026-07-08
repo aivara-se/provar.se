@@ -13,6 +13,14 @@
     children?: TreeNode[];
   };
 
+  type ContextMenuKind = 'file' | 'folder';
+  let contextMenu = $state<{
+    x: number;
+    y: number;
+    path: string;
+    kind: ContextMenuKind;
+  } | null>(null);
+
   let query = $state('');
   let closedFolders = $state<Set<string>>(new Set());
 
@@ -66,14 +74,64 @@
     if (!projectStore.path) return;
     try {
       const view = await FileApi.ReadTestFile(projectStore.path, path);
-      // view is a domain.TestFileView — shape matches TestFileView.graph
-      // so it assigns cleanly into the canvas's local TestFileView.
-      editorStore.loadFile(path, { graph: view.graph });
+      editorStore.loadFile(path, { graph: view.graph, order: view.order ?? [] });
     } catch (e) {
       console.error('TestExplorer: failed to load file', path, e);
     }
   }
+
+  function handleContextMenu(
+    e: MouseEvent,
+    path: string,
+    kind: ContextMenuKind,
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+    contextMenu = { x: e.clientX, y: e.clientY, path, kind };
+  }
+
+  function closeContextMenu() {
+    contextMenu = null;
+  }
+
+  function newFileInFolder(parent: string) {
+    uiStore.openInputModal(
+      'New Test',
+      'Test name (without .test.yml)',
+      (name) => {
+        closeContextMenu();
+        if (!name) return;
+        void editorStore.createFile(parent, name);
+      },
+    );
+  }
+
+  function newFolderIn(parent: string) {
+    uiStore.openInputModal(
+      'New Folder',
+      'Folder name',
+      (name) => {
+        closeContextMenu();
+        if (!name) return;
+        void editorStore.createDirectory(`${parent}/${name}`);
+      },
+    );
+  }
+
+  function deleteItem(path: string, kind: ContextMenuKind) {
+    const label = kind === 'file' ? 'test' : 'folder';
+    uiStore.openConfirmModal(
+      `Delete ${label}`,
+      `Delete ${path}? This can't be undone.`,
+      () => {
+        closeContextMenu();
+        void editorStore.deletePath(path);
+      },
+    );
+  }
 </script>
+
+<svelte:window onclick={closeContextMenu} />
 
 {#snippet treeNode(node: TreeNode, depth: number)}
   {#if node.type === 'folder'}
@@ -82,6 +140,7 @@
       class="mx-2 flex w-[calc(100%-1rem)] cursor-pointer items-center rounded py-1 pr-2 text-left text-xs text-zinc-300 hover:bg-[#21262d]"
       style="padding-left: {depth * 14 + 8}px"
       onclick={() => toggleFolder(node.path)}
+      oncontextmenu={(e) => handleContextMenu(e, node.path, 'folder')}
     >
       <ChevronDown
         class="mr-1 h-3.5 w-3.5 text-zinc-500 transition-transform {closedFolders.has(
@@ -107,6 +166,7 @@
         : 'text-zinc-400'}"
       style="padding-left: {depth * 14 + 26}px"
       onclick={() => selectFile(node.path)}
+      oncontextmenu={(e) => handleContextMenu(e, node.path, 'file')}
     >
       <File
         class="h-3.5 w-3.5 shrink-0 {editorStore.selectedFilePath === node.path
@@ -139,15 +199,58 @@
         {#if tree.length === 0}
           <p class="px-4 pt-4 text-xs text-zinc-500">
             {projectStore.tests.length === 0
-              ? 'No test files in this project yet.'
+              ? 'No test files in this project yet. Right-click to create one.'
               : 'No files match the search.'}
           </p>
-        {:else}
-          {#each tree as node}
-            {@render treeNode(node, 0)}
-          {/each}
         {/if}
+        {#each tree as node}
+          {@render treeNode(node, 0)}
+        {/each}
       </div>
     </div>
   </aside>
+{/if}
+
+<!--
+  Context menu floats above the tree. Positioned at the click coordinate
+  via fixed top/left so we don't inherit the aside's scrolling.
+-->
+{#if contextMenu}
+  <div
+    class="fixed z-[100] min-w-[160px] rounded-lg border border-zinc-800 bg-[#161b22] p-1 shadow-xl"
+    style="top: {contextMenu.y}px; left: {contextMenu.x}px"
+  >
+    {#if contextMenu.kind === 'folder'}
+      <button
+        type="button"
+        class="flex w-full rounded px-4 py-2 text-left text-xs text-zinc-300 hover:bg-[#21262d]"
+        onclick={() => newFileInFolder(contextMenu!.path)}
+      >
+        New test
+      </button>
+      <button
+        type="button"
+        class="flex w-full rounded px-4 py-2 text-left text-xs text-zinc-300 hover:bg-[#21262d]"
+        onclick={() => newFolderIn(contextMenu!.path)}
+      >
+        New folder
+      </button>
+      <div class="my-1 border-t border-zinc-800"></div>
+      <button
+        type="button"
+        class="flex w-full rounded px-4 py-2 text-left text-xs text-red-400 hover:bg-[#21262d]"
+        onclick={() => deleteItem(contextMenu!.path, 'folder')}
+      >
+        Delete folder
+      </button>
+    {:else}
+      <button
+        type="button"
+        class="flex w-full rounded px-4 py-2 text-left text-xs text-red-400 hover:bg-[#21262d]"
+        onclick={() => deleteItem(contextMenu!.path, 'file')}
+      >
+        Delete test
+      </button>
+    {/if}
+  </div>
 {/if}

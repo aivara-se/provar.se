@@ -9,6 +9,7 @@
 
 export interface TestFileView {
   graph: TestFileGraph;
+  order?: string[];
 }
 
 export interface TestFileGraph {
@@ -24,6 +25,7 @@ export interface Action {
   data?: string;
   config?: { visualCompare?: boolean };
   graph?: boolean;
+  source?: string;
 }
 
 export interface Edge {

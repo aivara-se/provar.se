@@ -37,11 +37,16 @@ type Graph struct {
 	Edges []Edge          `json:"edges"`
 }
 
-// Node is the canvas-facing view of a single action.
+// Node is the canvas-facing view of a single action. Source carries the
+// compiled Lua body the engine emits for this action (the contents of
+// `function actions.<id>(page)`); empty when no .test.lua exists or the
+// action isn't present in the compiled file. The editor surfaces this in
+// its generated-code view without re-running compile.
 type Node struct {
-	ID    string `json:"id"`
-	Title string `json:"title"`
-	Info  string `json:"info,omitempty"`
+	ID     string `json:"id"`
+	Title  string `json:"title"`
+	Info   string `json:"info,omitempty"`
+	Source string `json:"source,omitempty"`
 }
 
 // Edge is a directed edge between two nodes (or from the start node
@@ -63,7 +68,7 @@ type Edge struct {
 func FromActions(actions []domain.Action) View {
 	nodes := make(map[string]Node, len(actions))
 	for _, a := range actions {
-		nodes[a.ID] = Node{ID: a.ID, Title: a.Name, Info: a.Info}
+		nodes[a.ID] = Node{ID: a.ID, Title: a.Name, Info: a.Info, Source: a.Source}
 	}
 
 	incoming := make(map[string]bool, len(actions))

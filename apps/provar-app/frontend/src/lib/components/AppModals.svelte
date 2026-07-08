@@ -4,32 +4,36 @@
   import ConfigModal from './ConfigModal.svelte';
   import ConfirmModal from './ConfirmModal.svelte';
   import InputModal from './InputModal.svelte';
+
+  // AppModals hosts every overlay rendered above the editor. Settings and
+  // Config are permanent (visible whenever a project is open); Confirm
+  // and Input are dispatched by uiStore.modalKind — callers stage the
+  // payload with uiStore.openConfirmModal / openInputModal.
 </script>
 
 <SettingsModal />
 <ConfigModal />
+<ConfirmModal />
+<InputModal />
 
-<!-- ConfirmModal and InputModal are wired via uiStore directly when opened
-     — for v1 they're called imperatively by callers that pass props inline.
-     Phase 9 full integration: replace imperative calls with the global
-     modalKind dispatch. -->
-
-{#if uiStore.modalKind === 'confirm'}
-  <ConfirmModal
-    show={true}
-    title="Confirm"
-    message="Are you sure?"
-    onConfirm={() => (uiStore.modalKind = null)}
-    onCancel={() => (uiStore.modalKind = null)}
-  />
-{/if}
-
-{#if uiStore.modalKind === 'input'}
-  <InputModal
-    show={true}
-    title="Input"
-    placeholder="Enter value"
-    onConfirm={() => (uiStore.modalKind = null)}
-    onCancel={() => (uiStore.modalKind = null)}
-  />
+<!--
+  Toast is rendered at the App level so it floats above every panel.
+  The store's timeout (4s) auto-clears; new toasts replace the current
+  one and reset the timer.
+-->
+{#if uiStore.toast}
+  <div
+    class="pointer-events-none fixed right-4 bottom-4 z-[300] flex max-w-sm items-start gap-2 rounded-lg border px-4 py-3 text-sm shadow-2xl backdrop-blur-md transition-all {uiStore
+      .toast.kind === 'error'
+      ? 'border-red-500/40 bg-red-950/80 text-red-200'
+      : 'border-zinc-700 bg-zinc-900/80 text-zinc-200'}"
+    role="status"
+    aria-live="polite"
+    data-testid="app-toast"
+  >
+    <span class="font-mono text-[10px] tracking-wider uppercase opacity-70">
+      {uiStore.toast.kind}
+    </span>
+    <span>{uiStore.toast.message}</span>
+  </div>
 {/if}

@@ -1,20 +1,22 @@
 <script lang="ts">
-  import { PanelLeft, Settings, Sparkles, Play } from 'lucide-svelte';
-  import { projectStore } from '../stores/project-store.svelte';
+  import { PanelLeft, Settings, Play, Hammer, Square, RotateCw } from 'lucide-svelte';
   import { editorStore } from '../stores/editor-store.svelte';
   import { uiStore } from '../stores/ui-store.svelte';
-
-  let projectName = $derived(
-    projectStore.path
-      ? projectStore.path.split('/').pop() ?? projectStore.path
-      : 'No project',
-  );
 
   let fileName = $derived(
     editorStore.selectedFilePath
       ? editorStore.selectedFilePath.split('/').pop()
       : null,
   );
+
+  let hasFile = $derived(editorStore.selectedFilePath !== null);
+
+  // Run and Compile are mutually exclusive on the toolbar — the engine
+  // allows concurrent jobs across the bind, but the editor's per-file
+  // model wants one action at a time. The bind layers also wouldn't
+  // be safe; we let the engine.Rules do the right thing and just
+  // gate the buttons here.
+  let busy = $derived(editorStore.isRunning || editorStore.isCompiling);
 </script>
 
 <div
@@ -31,39 +33,67 @@
 
   <div class="flex-1"></div>
 
-  <span class="font-mono font-medium text-zinc-200">{projectName}</span>
-
   {#if fileName}
-    <span class="text-zinc-600">·</span>
     <span class="font-mono text-zinc-400">{fileName}</span>
   {/if}
 
   <div class="flex-1"></div>
 
-  <button
-    type="button"
-    class="rounded p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300 disabled:opacity-50"
-    title="Run test (Phase 12)"
-    disabled
-  >
-    <Play class="h-3.5 w-3.5" />
-  </button>
+  {#if hasFile}
+    {#if editorStore.isCompiling || Object.keys(editorStore.compileStates).length > 0}
+      <div
+        class="flex items-center gap-1.5 rounded border border-zinc-800/80 bg-[#161b22]/80 px-2.5 py-1 text-xs text-zinc-300 backdrop-blur-sm"
+        title="Compiling…"
+      >
+        <div
+          class="h-3 w-3 animate-spin rounded-full border border-zinc-500 border-t-amber-500"
+        ></div>
+        <span>Compiling…</span>
+      </div>
+    {:else}
+      <button
+        type="button"
+        class="flex items-center gap-1 rounded p-1.5 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-200"
+        title="Compile test"
+        disabled={busy}
+        onclick={() => void editorStore.compileCurrent()}
+      >
+        <Hammer class="h-3.5 w-3.5" />
+      </button>
+    {/if}
 
-  <button
-    type="button"
-    class="rounded p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
-    title="Project Settings"
-    onclick={() => uiStore.openRightPanel('config')}
-  >
-    <Settings class="h-3.5 w-3.5" />
-  </button>
+    {#if editorStore.isRunning || editorStore.isCompiling}
+      <button
+        type="button"
+        class="flex items-center gap-1 rounded border border-red-900/60 bg-[#161b22]/80 px-2.5 py-1 text-xs font-medium text-red-400 backdrop-blur-sm transition-colors hover:bg-red-950/40"
+        title={editorStore.isRunning ? 'Stop running test' : 'Stop compiling'}
+        onclick={() => {
+          if (editorStore.isRunning) void editorStore.stopRun();
+          else void editorStore.stopCompile();
+        }}
+      >
+        <Square class="h-3 w-3 fill-current" />
+        <span>Stop</span>
+      </button>
+    {:else}
+      <button
+        type="button"
+        class="flex items-center gap-1 rounded p-1.5 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-green-400"
+        title="Run test"
+        disabled={busy}
+        onclick={() => void editorStore.runCurrent()}
+      >
+        <Play class="h-3.5 w-3.5 fill-current" />
+      </button>
+    {/if}
 
-  <button
-    type="button"
-    class="rounded p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
-    title="AI Assistant"
-    onclick={() => uiStore.openRightPanel('assistant')}
-  >
-    <Sparkles class="h-3.5 w-3.5" />
-  </button>
+    <button
+      type="button"
+      class="flex items-center gap-1 rounded p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+      title="Project Settings"
+      onclick={() => uiStore.openRightSidebar()}
+    >
+      <Settings class="h-3.5 w-3.5" />
+    </button>
+  {/if}
 </div>

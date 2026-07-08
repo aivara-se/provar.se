@@ -24,6 +24,9 @@ type App struct {
 	Project *bindings.Project
 	Config  *bindings.Config
 	History *bindings.History
+	Run     *bindings.Run
+	Compile *bindings.Compile
+	Watcher *bindings.Watcher
 }
 
 // NewApp returns an App with its binding instances allocated but
@@ -36,6 +39,9 @@ func NewApp() *App {
 		Project: &bindings.Project{},
 		Config:  &bindings.Config{},
 		History: &bindings.History{},
+		Run:     &bindings.Run{},
+		Compile: &bindings.Compile{},
+		Watcher: &bindings.Watcher{},
 	}
 }
 

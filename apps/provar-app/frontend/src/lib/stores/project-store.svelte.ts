@@ -33,7 +33,7 @@ class ProjectStore {
 
   async openProject(path: string) {
     this.setPath(path);
-    await this.refreshTests();
+    await Promise.all([this.refreshTests(), this.loadConfig()]);
     try {
       await historyStore.add(path);
     } catch (e) {

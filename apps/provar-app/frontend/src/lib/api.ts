@@ -7,5 +7,8 @@ import * as Shell from '../../wailsjs/go/bindings/Shell';
 import * as Project from '../../wailsjs/go/bindings/Project';
 import * as Config from '../../wailsjs/go/bindings/Config';
 import * as History from '../../wailsjs/go/bindings/History';
+import * as Run from '../../wailsjs/go/bindings/Run';
+import * as Compile from '../../wailsjs/go/bindings/Compile';
+import * as Watcher from '../../wailsjs/go/bindings/Watcher';
 
-export { File, Dialog, Shell, Project, Config, History };
+export { File, Dialog, Shell, Project, Config, History, Run, Compile, Watcher };

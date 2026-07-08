@@ -135,6 +135,7 @@ export namespace testfile {
 	    id: string;
 	    title: string;
 	    info?: string;
+	    source?: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new Node(source);
@@ -145,6 +146,7 @@ export namespace testfile {
 	        this.id = source["id"];
 	        this.title = source["title"];
 	        this.info = source["info"];
+	        this.source = source["source"];
 	    }
 	}
 	export class Graph {
