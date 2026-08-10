@@ -52,6 +52,11 @@ class UIStore {
     },
   });
 
+  closeSidebars() {
+    this.isSidebarOpen = false;
+    this.isRightSidebarOpen = false;
+  }
+
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
