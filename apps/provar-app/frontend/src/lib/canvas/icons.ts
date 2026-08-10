@@ -15,7 +15,7 @@ export interface IconRow {
  */
 export function buildIconRow(
   state: ActionState,
-  node: Pick<Action, 'graph' | 'config'>,
+  node: Pick<Action, 'id'>,
   ticker: Ticker,
 ): IconRow {
   const container = new Container();
@@ -66,34 +66,6 @@ export function buildIconRow(
       spinner.stroke({ color, width: 1.5, cap: 'round' });
     };
     ticker.add(tick);
-  }
-
-  if (node.graph) {
-    addIcon((g) => {
-      g.rect(1, 1, 3, 3);
-      g.rect(6, 6, 3, 3);
-      g.moveTo(4, 4);
-      g.lineTo(6, 6);
-      g.stroke({
-        color: COLOURS.iconNeutral,
-        width: 1.5,
-        join: 'round',
-        cap: 'round',
-      });
-    });
-  }
-
-  if (node.config?.visualCompare) {
-    addIcon((g) => {
-      const cell = 2.5;
-      const gap = 1;
-      for (let row = 0; row < 3; row++) {
-        for (let col = 0; col < 3; col++) {
-          g.rect(col * (cell + gap), row * (cell + gap) + 0.5, cell, cell);
-        }
-      }
-      g.fill({ color: COLOURS.assertGreen, alpha: 0.9 });
-    }, 1.0);
   }
 
   // Horizontal layout

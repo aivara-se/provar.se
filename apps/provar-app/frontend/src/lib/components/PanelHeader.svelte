@@ -7,7 +7,7 @@
 </script>
 
 <header
-  class="flex items-center justify-between border-b border-zinc-800/50 px-6 pt-3 pb-4"
+  class="flex items-center justify-between border-b border-zinc-800/50 px-6 py-2.5"
 >
   <h2 class="text-sm font-semibold text-zinc-200">{title}</h2>
   {#if children}{@render children()}{/if}

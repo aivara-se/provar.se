@@ -124,8 +124,8 @@ func TestReadWriteTestFile_RoundTrip(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ReadTestFile: %v", err)
 	}
-	if got.Graph.Nodes["open_login"].Title != "Open Login" {
-		t.Errorf("title = %q, want %q", got.Graph.Nodes["open_login"].Title, "Open Login")
+	if got.Graph.Nodes["open_login"].Name != "Open Login" {
+		t.Errorf("name = %q, want %q", got.Graph.Nodes["open_login"].Name, "Open Login")
 	}
 	if got.Graph.Start != testfile.GraphStartID {
 		t.Errorf("start = %q, want %q", got.Graph.Start, testfile.GraphStartID)

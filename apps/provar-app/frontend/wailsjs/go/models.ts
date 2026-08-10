@@ -133,7 +133,7 @@ export namespace testfile {
 	}
 	export class Node {
 	    id: string;
-	    title: string;
+	    name: string;
 	    info?: string;
 	    source?: string;
 	
@@ -144,7 +144,7 @@ export namespace testfile {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
-	        this.title = source["title"];
+	        this.name = source["name"];
 	        this.info = source["info"];
 	        this.source = source["source"];
 	    }

@@ -10,13 +10,13 @@ import {
 import type { TestFileGraph } from './types';
 
 function makeGraph(
-  nodes: Record<string, { title?: string }>,
+  nodes: Record<string, { name?: string }>,
   edges: { from: string; to: string; implicit?: boolean }[] = [],
   start: string = '__start__',
 ): TestFileGraph {
   const nodeMap: TestFileGraph['nodes'] = {};
   for (const [id, n] of Object.entries(nodes)) {
-    nodeMap[id] = { id, title: n.title ?? id, info: '' };
+    nodeMap[id] = { id, name: n.name ?? id, info: '' };
   }
   return {
     start,

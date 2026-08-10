@@ -24,7 +24,7 @@ export class ActionShape extends NodeShape {
     onClick: (id: string) => void,
     isCompiled: boolean = false,
   ) {
-    super(actionId, action.title, action.info ?? '', state, onActivePath, isCompiled);
+    super(actionId, action.name, action.info ?? '', state, onActivePath, isCompiled);
 
     this.eventMode = 'static';
     this.cursor = 'pointer';

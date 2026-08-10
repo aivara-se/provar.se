@@ -51,9 +51,18 @@ class EditorStore {
   activeRunId = $state<string | null>(null);
   isCompiling = $state(false);
   activeCompileId = $state<string | null>(null);
+  dirtyNeedsCompile = $state(false);
 
   taskStates = $state<Record<string, RunState>>({});
   compileStates = $state<Record<string, CompileState>>({});
+
+  needsCompile = $derived.by(() => {
+    if (!this.currentFile) return false;
+    if (this.dirtyNeedsCompile) return true;
+    const nodes = Object.values(this.currentFile.graph.nodes);
+    if (nodes.length === 0) return false;
+    return nodes.some((n) => n.id !== '__start__' && (!n.source || n.source.trim() === ''));
+  });
 
   allPaths = $derived.by(() => {
     if (!this.currentFile) return [];
@@ -65,6 +74,7 @@ class EditorStore {
     this.selectedFilePath = path;
     this.currentFile = file;
     this.selectedNodeId = null;
+    this.dirtyNeedsCompile = false;
     // Reset transient state so a stale compile border doesn't linger from
     // a different file the user opened earlier in the session.
     this.taskStates = {};
@@ -75,6 +85,7 @@ class EditorStore {
     this.selectedFilePath = null;
     this.currentFile = null;
     this.selectedNodeId = null;
+    this.dirtyNeedsCompile = false;
   }
 
   // ---- Mutations ----
@@ -89,6 +100,7 @@ class EditorStore {
     if (!this.currentFile) return;
     const node = this.currentFile.graph.nodes[id];
     if (!node) return;
+    this.dirtyNeedsCompile = true;
     this.currentFile = {
       ...this.currentFile,
       graph: {
@@ -110,6 +122,7 @@ class EditorStore {
    */
   addNode(fromId: string | null, toId: string | null): string | null {
     if (!this.currentFile) return null;
+    this.dirtyNeedsCompile = true;
     const { graph, newNodeId } = addNodeToGraph(this.currentFile.graph, fromId, toId);
     this.currentFile = { ...this.currentFile, graph };
     this.selectedNodeId = newNodeId;
@@ -127,10 +140,11 @@ class EditorStore {
     if (!this.currentFile) return;
     const file = this.currentFile;
     uiStore.openConfirmModal(
-      'Delete Task Node',
-      'Delete this node and everything after it?',
+      'Delete Action Node',
+      'Delete this action node and everything after it?',
       () => {
         if (!file) return;
+        this.dirtyNeedsCompile = true;
         // `file` is captured by closure but Svelte 5's $state proxies
         // are reactive in place — so the closure reflects current values.
         const after = deleteNodeFromGraph(file.graph, id);
@@ -338,6 +352,7 @@ class EditorStore {
       if (event.type === 'compile-finished') {
         this.isCompiling = false;
         this.activeCompileId = null;
+        this.dirtyNeedsCompile = false;
         // Compile finished → the .test.lua on disk now reflects the
         // latest yaml. Re-read the file so node.source picks up the
         // freshly emitted bodies; without this the side panel's

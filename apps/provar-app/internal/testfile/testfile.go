@@ -44,7 +44,7 @@ type Graph struct {
 // its generated-code view without re-running compile.
 type Node struct {
 	ID     string `json:"id"`
-	Title  string `json:"title"`
+	Name   string `json:"name"`
 	Info   string `json:"info,omitempty"`
 	Source string `json:"source,omitempty"`
 }
@@ -68,7 +68,7 @@ type Edge struct {
 func FromActions(actions []domain.Action) View {
 	nodes := make(map[string]Node, len(actions))
 	for _, a := range actions {
-		nodes[a.ID] = Node{ID: a.ID, Title: a.Name, Info: a.Info, Source: a.Source}
+		nodes[a.ID] = Node{ID: a.ID, Name: a.Name, Info: a.Info, Source: a.Source}
 	}
 
 	incoming := make(map[string]bool, len(actions))
@@ -143,7 +143,7 @@ func ToActions(view View) []domain.Action {
 		}
 		actions = append(actions, domain.Action{
 			ID:   n.ID,
-			Name: n.Title,
+			Name: n.Name,
 			Info: n.Info,
 			Next: nextByID[id],
 		})

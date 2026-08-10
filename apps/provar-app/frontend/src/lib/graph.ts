@@ -28,12 +28,12 @@ export function getNextNodes(graph: TestFileGraph, id: string): string[] {
  * editor-flavoured fields (data, config, source) are stripped because
  * the engine only needs id/title/info/next to enumerate paths.
  */
-export function toEngineTasks(graph: TestFileGraph): Record<string, { id: string; title: string; info: string; next: string[] }> {
-  const tasks: Record<string, { id: string; title: string; info: string; next: string[] }> = {};
+export function toEngineTasks(graph: TestFileGraph): Record<string, { id: string; name: string; info: string; next: string[] }> {
+  const tasks: Record<string, { id: string; name: string; info: string; next: string[] }> = {};
   for (const [id, node] of Object.entries(graph.nodes)) {
     tasks[id] = {
       id,
-      title: node.title,
+      name: node.name,
       info: node.info ?? '',
       next: getNextNodes(graph, id),
     };
@@ -70,8 +70,8 @@ export function addNodeToGraph(
   const newNodeId = generateNodeId();
   next.nodes[newNodeId] = {
     id: newNodeId,
-    title: 'New Task',
-    info: 'Describe what this task does…',
+    name: 'New Action',
+    info: 'Describe what this action does…',
   };
 
   if (fromId === null) {
@@ -195,11 +195,8 @@ export function generateNodeId(): string {
 export function snapshotAction(a: Action): Action {
   return {
     id: a.id,
-    title: a.title,
+    name: a.name,
     info: a.info,
-    data: a.data,
-    config: a.config ? { ...a.config } : undefined,
-    graph: a.graph,
     source: a.source,
   };
 }
