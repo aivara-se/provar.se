@@ -1,6 +1,5 @@
 <script lang="ts">
   import { projectStore } from '../stores/project-store.svelte';
-  import { uiStore } from '../stores/ui-store.svelte';
   import PanelHeader from './PanelHeader.svelte';
 
   // ProjectConfigPanel edits the project's `.provar/config.yml` via the

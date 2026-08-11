@@ -2,7 +2,7 @@
   import { ChevronDown, File, Folder, Search } from 'lucide-svelte';
   import { projectStore } from '../stores/project-store.svelte';
   import { editorStore } from '../stores/editor-store.svelte';
-  import { uiStore } from '../stores/ui-store.svelte';
+  import { applicationStore } from '../stores/application-store.svelte';
   import { File as FileApi } from '../api';
   import type { TestFileView } from '../types';
 
@@ -95,7 +95,7 @@
   }
 
   function newFileInFolder(parent: string) {
-    uiStore.openInputModal(
+    applicationStore.openInputModal(
       'New Test',
       'Test name (without .test.yml)',
       (name) => {
@@ -107,7 +107,7 @@
   }
 
   function newFolderIn(parent: string) {
-    uiStore.openInputModal(
+    applicationStore.openInputModal(
       'New Folder',
       'Folder name',
       (name) => {
@@ -120,7 +120,7 @@
 
   function deleteItem(path: string, kind: ContextMenuKind) {
     const label = kind === 'file' ? 'test' : 'folder';
-    uiStore.openConfirmModal(
+    applicationStore.openConfirmModal(
       `Delete ${label}`,
       `Delete ${path}? This can't be undone.`,
       () => {
@@ -178,7 +178,7 @@
   {/if}
 {/snippet}
 
-{#if uiStore.isSidebarOpen}
+{#if applicationStore.isSidebarOpen}
   <aside
     class="absolute top-0 bottom-0 left-0 z-20 flex w-[260px] flex-col border-r border-zinc-800 bg-[#161b22]/50 pt-[36px] backdrop-blur-md"
   >

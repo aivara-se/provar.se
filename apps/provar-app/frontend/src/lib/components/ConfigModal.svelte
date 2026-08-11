@@ -1,6 +1,6 @@
 <script lang="ts">
   import { projectStore } from '../stores/project-store.svelte';
-  import { uiStore } from '../stores/ui-store.svelte';
+  import { applicationStore } from '../stores/application-store.svelte';
   import Modal from './Modal.svelte';
 
   let variablesJson = $state('{}');
@@ -19,16 +19,16 @@
       return;
     }
     projectStore.saveConfig({ ...projectStore.config, variables: vars });
-    uiStore.modalKind = null;
+    applicationStore.modalKind = null;
   }
 </script>
 
 <Modal
-  show={uiStore.modalKind === 'config'}
+  show={applicationStore.modalKind === 'config'}
   title="Project Config"
   primaryLabel="Save"
   onPrimary={save}
-  onClose={() => (uiStore.modalKind = null)}
+  onClose={() => (applicationStore.modalKind = null)}
 >
   <div>
     <label class="mb-1 block text-xs text-zinc-500" for="config-vars">Variables (JSON)</label>

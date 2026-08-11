@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
   import { editorStore } from '../stores/editor-store.svelte';
-  import { uiStore } from '../stores/ui-store.svelte';
+  import { applicationStore } from '../stores/application-store.svelte';
   import { InfiniteCanvas } from './infinite-canvas';
 
   let container: HTMLDivElement;
@@ -17,9 +17,9 @@
     canvas = new InfiniteCanvas();
     canvas.onNodeSelect = (id) => {
       editorStore.selectedNodeId = id;
-      uiStore.isSidebarOpen = false;
+      applicationStore.isSidebarOpen = false;
       if (id === null) {
-        uiStore.closeSidebars();
+        applicationStore.closeSidebars();
       }
     };
     try {

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { editorStore } from '../stores/editor-store.svelte';
-  import { uiStore } from '../stores/ui-store.svelte';
+  import { applicationStore } from '../stores/application-store.svelte';
   import Canvas from '../canvas/Canvas.svelte';
 </script>
 
@@ -11,7 +11,7 @@
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     class="absolute inset-0 flex items-center justify-center pt-[48px] text-sm text-zinc-500"
-    onclick={() => uiStore.closeSidebars()}
+    onclick={() => applicationStore.closeSidebars()}
   >
     <p>Select a test to begin</p>
   </div>

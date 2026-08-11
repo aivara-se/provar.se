@@ -3,7 +3,7 @@
   import { settingsStore } from './lib/stores/settings-store.svelte';
   import { historyStore } from './lib/stores/history-store.svelte';
   import { editorStore } from './lib/stores/editor-store.svelte';
-  import { uiStore } from './lib/stores/ui-store.svelte';
+  import { applicationStore } from './lib/stores/application-store.svelte';
   import { Watcher } from './lib/api';
   import { subscribe } from './lib/events';
   import Welcome from './lib/components/Welcome.svelte';
@@ -65,7 +65,7 @@
   //    sidebar toggle to dismiss it.
   $effect(() => {
     if (editorStore.selectedNodeId !== null) {
-      uiStore.isRightSidebarOpen = true;
+      applicationStore.isRightSidebarOpen = true;
     }
   });
 
@@ -73,7 +73,7 @@
   //    sidebar toggle brings it back. Closing the file restores it
   //    so the workspace is back in "browse" mode.
   $effect(() => {
-    uiStore.isSidebarOpen = editorStore.selectedFilePath === null;
+    applicationStore.isSidebarOpen = editorStore.selectedFilePath === null;
   });
 </script>
 

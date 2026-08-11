@@ -8,7 +8,7 @@
     X,
   } from 'lucide-svelte';
   import { editorStore } from '../stores/editor-store.svelte';
-  import { uiStore } from '../stores/ui-store.svelte';
+  import { applicationStore } from '../stores/application-store.svelte';
 
   let runMenuOpen = $state(false);
   let toolbarEl = $state<HTMLDivElement>();
@@ -41,9 +41,9 @@
   >
     <button
       type="button"
-      onclick={() => uiStore.toggleSidebar()}
+      onclick={() => applicationStore.toggleSidebar()}
       class="flex h-full cursor-pointer items-center gap-1.5 rounded-l-full px-3 py-1 text-xs font-medium text-zinc-300 transition-colors duration-200 hover:bg-[#21262d]/90 hover:text-zinc-100 focus:outline-none"
-      title={uiStore.isSidebarOpen ? 'Hide Test Explorer' : 'Show Test Explorer'}
+      title={applicationStore.isSidebarOpen ? 'Hide Test Explorer' : 'Show Test Explorer'}
     >
       <FileIcon class="h-3.5 w-3.5 text-blue-400" />
       <span class="tracking-wide">{fileName}</span>

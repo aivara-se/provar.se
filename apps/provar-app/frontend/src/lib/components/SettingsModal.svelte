@@ -1,6 +1,6 @@
 <script lang="ts">
   import Modal from './Modal.svelte';
-  import { uiStore } from '../stores/ui-store.svelte';
+  import { applicationStore } from '../stores/application-store.svelte';
 
   let provider = $state('openai');
   let apiKey = $state('');
@@ -8,16 +8,16 @@
   function save() {
     // TODO: persist via Settings binding once it exists.
     console.log('Settings saved (stub):', { provider, apiKey });
-    uiStore.modalKind = null;
+    applicationStore.modalKind = null;
   }
 </script>
 
 <Modal
-  show={uiStore.modalKind === 'settings'}
+  show={applicationStore.modalKind === 'settings'}
   title="Settings"
   primaryLabel="Save"
   onPrimary={save}
-  onClose={() => (uiStore.modalKind = null)}
+  onClose={() => (applicationStore.modalKind = null)}
 >
   <div class="space-y-4 text-sm">
     <div>

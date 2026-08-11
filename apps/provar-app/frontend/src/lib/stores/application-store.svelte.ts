@@ -1,5 +1,5 @@
 /**
- * UIStore manages the visibility state of panels, sidebars, modals, and
+ * ApplicationStore manages the visibility state of panels, sidebars, modals, and
  * transient messages. One state field per concern — no boolean explosion.
  *
  * Modals are dispatched by kind through `modalKind`. The active modal's
@@ -28,7 +28,7 @@ export interface InputProps {
   onConfirm: (value: string) => void;
 }
 
-class UIStore {
+class ApplicationStore {
   isSidebarOpen = $state(true);
   isRightSidebarOpen = $state(false);
   modalKind = $state<ModalKind>(null);
@@ -100,4 +100,4 @@ class UIStore {
   }
 }
 
-export const uiStore = new UIStore();
+export const applicationStore = new ApplicationStore();

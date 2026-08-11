@@ -9,7 +9,7 @@ import {
 } from '../graph';
 import { File, Run, Compile } from '../api';
 import { projectStore } from './project-store.svelte';
-import { uiStore } from './ui-store.svelte';
+import { applicationStore } from './application-store.svelte';
 import { forJob } from '../events';
 
 // WRITE_DEBOUNCE_MS is the quiet-period before a typed title/info change
@@ -133,13 +133,13 @@ class EditorStore {
   /**
    * deleteNode opens the global confirm modal and removes the node (and
    * its downstream descendants) on confirm. The confirm wiring lives
-   * in uiStore.openConfirmModal — we just hand it a callback that does
+   * in applicationStore.openConfirmModal — we just hand it a callback that does
    * the mutation.
    */
   deleteNode(id: string) {
     if (!this.currentFile) return;
     const file = this.currentFile;
-    uiStore.openConfirmModal(
+    applicationStore.openConfirmModal(
       'Delete Action Node',
       'Delete this action node and everything after it?',
       () => {
@@ -163,7 +163,7 @@ class EditorStore {
     try {
       await File.CreateFile(joinAbs(projectStore.path, relPath));
     } catch (e) {
-      uiStore.showToast('error', `Could not create ${relPath}: ${errorMessage(e)}`);
+      applicationStore.showToast('error', `Could not create ${relPath}: ${errorMessage(e)}`);
       return;
     }
     await projectStore.refreshTests();
@@ -175,7 +175,7 @@ class EditorStore {
     try {
       await File.CreateDirectory(joinAbs(projectStore.path, path));
     } catch (e) {
-      uiStore.showToast('error', `Could not create ${path}: ${errorMessage(e)}`);
+      applicationStore.showToast('error', `Could not create ${path}: ${errorMessage(e)}`);
       return;
     }
     await projectStore.refreshTests();
@@ -184,14 +184,14 @@ class EditorStore {
   async deletePath(path: string): Promise<void> {
     if (!projectStore.path) return;
     const label = path.endsWith('.test.yml') ? 'test' : 'folder';
-    uiStore.openConfirmModal(
+    applicationStore.openConfirmModal(
       `Delete ${label}`,
       `Delete ${path}? This can't be undone.`,
       async () => {
         try {
           await File.DeletePath(joinAbs(projectStore.path!, path));
         } catch (e) {
-          uiStore.showToast('error', `Could not delete ${path}: ${errorMessage(e)}`);
+          applicationStore.showToast('error', `Could not delete ${path}: ${errorMessage(e)}`);
           return;
         }
         const closedHere =
@@ -238,7 +238,7 @@ class EditorStore {
     try {
       await File.WriteTestFile(projectStore.path, this.selectedFilePath, view);
     } catch (e) {
-      uiStore.showToast('error', `Could not save: ${errorMessage(e)}`);
+      applicationStore.showToast('error', `Could not save: ${errorMessage(e)}`);
     }
   }
 
@@ -251,7 +251,7 @@ class EditorStore {
         order: view.order ?? [],
       });
     } catch (e) {
-      uiStore.showToast('error', `Could not open ${relPath}: ${errorMessage(e)}`);
+      applicationStore.showToast('error', `Could not open ${relPath}: ${errorMessage(e)}`);
     }
   }
 
@@ -272,7 +272,7 @@ class EditorStore {
       this.isRunning = true;
       void this.consumeRunEvents(jobId);
     } catch (e) {
-      uiStore.showToast('error', `Could not start run: ${errorMessage(e)}`);
+      applicationStore.showToast('error', `Could not start run: ${errorMessage(e)}`);
     }
   }
 
@@ -317,7 +317,7 @@ class EditorStore {
       this.isCompiling = true;
       void this.consumeCompileEvents(jobId);
     } catch (e) {
-      uiStore.showToast('error', `Could not start compile: ${errorMessage(e)}`);
+      applicationStore.showToast('error', `Could not start compile: ${errorMessage(e)}`);
     }
   }
 
