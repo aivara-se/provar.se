@@ -27,6 +27,13 @@ export class AppCommands {
       }
     })();
 
+    void (async () => {
+      for await (const _ of subscribe('app:toggle-console')) {
+        if (cancelled) return;
+        applicationStore.toggleConsole();
+      }
+    })();
+
     return () => {
       cancelled = true;
     };

@@ -12,5 +12,10 @@ func buildViewMenu(app AppController) *menu.MenuItem {
 			app.ToggleTestExplorer()
 		}
 	})
+	viewMenu.AddText("Toggle Output Console", keys.CmdOrCtrl("j"), func(_ *menu.CallbackData) {
+		if app != nil {
+			app.ToggleConsole()
+		}
+	})
 	return menu.SubMenu("View", viewMenu)
 }

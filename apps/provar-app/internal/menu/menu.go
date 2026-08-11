@@ -14,6 +14,7 @@ type AppController interface {
 	RunActiveTest()
 	CompileProject()
 	ToggleTestExplorer()
+	ToggleConsole()
 }
 
 // BuildMenu constructs and returns the native OS application menu hierarchy.

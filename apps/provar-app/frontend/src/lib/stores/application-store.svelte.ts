@@ -34,6 +34,7 @@ class ApplicationStore {
   isSidebarOpen = $state(true);
   isRightSidebarOpen = $state(false);
   rightSidebarTab = $state<RightSidebarTab>('auto');
+  isConsoleOpen = $state(false);
   modalKind = $state<ModalKind>(null);
   toast = $state<Toast | null>(null);
 
@@ -66,6 +67,18 @@ class ApplicationStore {
 
   toggleRightSidebar() {
     this.isRightSidebarOpen = !this.isRightSidebarOpen;
+  }
+
+  toggleConsole() {
+    this.isConsoleOpen = !this.isConsoleOpen;
+  }
+
+  openConsole() {
+    this.isConsoleOpen = true;
+  }
+
+  closeConsole() {
+    this.isConsoleOpen = false;
   }
 
   openRightSidebar() {

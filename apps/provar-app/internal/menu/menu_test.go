@@ -11,14 +11,16 @@ type mockAppController struct {
 	testRun             bool
 	compiled            bool
 	testExplorerToggled bool
+	consoleToggled      bool
 }
 
-func (m *mockAppController) OpenSettingsModal()   { m.settingsOpened = true }
-func (m *mockAppController) OpenProject()         { m.projectOpened = true }
-func (m *mockAppController) CloseProject()        { m.projectClosed = true }
-func (m *mockAppController) RunActiveTest()       { m.testRun = true }
-func (m *mockAppController) CompileProject()      { m.compiled = true }
+func (m *mockAppController) OpenSettingsModal()  { m.settingsOpened = true }
+func (m *mockAppController) OpenProject()        { m.projectOpened = true }
+func (m *mockAppController) CloseProject()       { m.projectClosed = true }
+func (m *mockAppController) RunActiveTest()      { m.testRun = true }
+func (m *mockAppController) CompileProject()     { m.compiled = true }
 func (m *mockAppController) ToggleTestExplorer() { m.testExplorerToggled = true }
+func (m *mockAppController) ToggleConsole()      { m.consoleToggled = true }
 
 func TestBuildMenu_NoProject(t *testing.T) {
 	mock := &mockAppController{}
@@ -99,6 +101,9 @@ func TestMenuCallbacks(t *testing.T) {
 
 	if !mock.testExplorerToggled {
 		t.Errorf("expected ToggleTestExplorer to be called by View menu callback")
+	}
+	if !mock.consoleToggled {
+		t.Errorf("expected ToggleConsole to be called by View menu callback")
 	}
 
 	runItem := buildRunMenu(mock)

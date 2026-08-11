@@ -115,6 +115,14 @@ func (a *App) ToggleTestExplorer() {
 	}
 }
 
+// ToggleConsole emits the "app:toggle-console" event over the Wails runtime
+// event bus to toggle the visibility of the output log console drawer.
+func (a *App) ToggleConsole() {
+	if a.ctx != nil {
+		runtime.EventsEmit(a.ctx, "app:toggle-console")
+	}
+}
+
 // boundBindings returns every pointer-to-struct field as a slice
 // of interface{}. Used by main.go (Wails' Bind list) and startup
 // (Ctx wiring) so the struct fields stay the single source of truth.

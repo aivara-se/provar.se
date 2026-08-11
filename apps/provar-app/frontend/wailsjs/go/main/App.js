@@ -30,6 +30,10 @@ export function SetProjectOpen(arg1) {
   return window['go']['main']['App']['SetProjectOpen'](arg1);
 }
 
+export function ToggleConsole() {
+  return window['go']['main']['App']['ToggleConsole']();
+}
+
 export function ToggleTestExplorer() {
   return window['go']['main']['App']['ToggleTestExplorer']();
 }

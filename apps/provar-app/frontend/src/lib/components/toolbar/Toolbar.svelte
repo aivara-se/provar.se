@@ -7,6 +7,7 @@
     ChevronDown,
     X,
     AlertTriangle,
+    Terminal,
   } from 'lucide-svelte';
   import { editorStore } from '../../stores/editor-store.svelte';
   import { executionStore } from '../../stores/execution-store.svelte';
@@ -165,5 +166,20 @@
         <span>{issueCount}</span>
       </button>
     {/if}
+
+    <button
+      type="button"
+      onclick={() => applicationStore.toggleConsole()}
+      class="pointer-events-auto flex h-[26px] cursor-pointer items-center gap-1.5 rounded-full border border-zinc-800/80 bg-[#161b22]/80 px-2.5 text-xs font-medium text-zinc-300 shadow-sm backdrop-blur-sm transition-colors hover:border-zinc-700 hover:bg-[#1c2128] hover:text-zinc-100 focus:outline-none"
+      title="Toggle Output Console (Cmd+J)"
+    >
+      <Terminal class="h-3.5 w-3.5 shrink-0 text-blue-400" />
+      <span>Console</span>
+      {#if executionStore.logs.length > 0}
+        <span class="rounded-full bg-blue-500/20 px-1.5 text-[10px] font-semibold text-blue-400">
+          {executionStore.logs.length}
+        </span>
+      {/if}
+    </button>
   </div>
 {/if}

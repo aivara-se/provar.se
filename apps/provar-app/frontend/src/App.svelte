@@ -14,6 +14,7 @@
   import TestExplorer from './lib/components/explorer/TestExplorer.svelte';
   import Canvas from './lib/components/Canvas.svelte';
   import RightSidebar from './lib/components/panels/RightSidebar.svelte';
+  import LogConsoleDrawer from './lib/components/panels/LogConsoleDrawer.svelte';
   import AppModals from './lib/components/modals/AppModals.svelte';
 
   $effect(() => {
@@ -68,6 +69,9 @@
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'b') {
       e.preventDefault();
       applicationStore.toggleSidebar();
+    } else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'j') {
+      e.preventDefault();
+      applicationStore.toggleConsole();
     }
   }
 </script>
@@ -99,6 +103,7 @@
     <TestExplorer />
     <Canvas />
     <RightSidebar />
+    <LogConsoleDrawer />
 
     {#if !applicationStore.isSidebarOpen}
       <button
