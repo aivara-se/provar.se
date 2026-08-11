@@ -1,6 +1,6 @@
 <script lang="ts">
   import Modal from './Modal.svelte';
-  import { applicationStore } from '../stores/application-store.svelte';
+  import { applicationStore } from '../../stores/application-store.svelte';
 
   // Confirm is a thin wrapper over the shared Modal. It reads all of its
   // payload off the applicationStore — no props — so callers stage the dialog with

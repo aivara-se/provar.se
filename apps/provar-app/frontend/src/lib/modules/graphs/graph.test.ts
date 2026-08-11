@@ -7,7 +7,7 @@ import {
   getNextNodes,
   toEngineTasks,
 } from './graph';
-import type { TestFileGraph } from './types';
+import type { TestFileGraph } from '../../domain/types';
 
 function makeGraph(
   nodes: Record<string, { name?: string }>,

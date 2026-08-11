@@ -1,6 +1,6 @@
 import { Container, Graphics, type Ticker } from 'pixi.js';
 import { COLOURS, LAYOUT, type ActionState } from './constants';
-import type { Action } from '../types';
+import type { Action } from '../../domain/types';
 
 export interface IconRow {
   container: Container;

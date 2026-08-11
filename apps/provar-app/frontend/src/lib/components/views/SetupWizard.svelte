@@ -1,9 +1,9 @@
 <script lang="ts">
   import { ArrowRight, ArrowLeft, Sparkles } from 'lucide-svelte';
-  import { settingsStore } from '../stores/settings-store.svelte';
-  import { projectStore } from '../stores/project-store.svelte';
-  import { Dialog, Project } from '../api';
-  import { domain } from '../../../wailsjs/go/models';
+  import { settingsStore } from '../../stores/settings-store.svelte';
+  import { projectStore } from '../../stores/project-store.svelte';
+  import { Dialog, Project } from '../../services/bindings';
+  import { domain } from '../../../../wailsjs/go/models';
 
   type Step = 'provider' | 'apikey' | 'project';
   let step = $state<Step>('provider');

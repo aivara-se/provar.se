@@ -1,10 +1,10 @@
 <script lang="ts">
   import { ChevronDown, File, Folder, Search } from 'lucide-svelte';
-  import { projectStore } from '../stores/project-store.svelte';
-  import { editorStore } from '../stores/editor-store.svelte';
-  import { applicationStore } from '../stores/application-store.svelte';
-  import { File as FileApi } from '../api';
-  import type { TestFileView } from '../types';
+  import { projectStore } from '../../stores/project-store.svelte';
+  import { editorStore } from '../../stores/editor-store.svelte';
+  import { applicationStore } from '../../stores/application-store.svelte';
+  import { File as FileApi } from '../../services/bindings';
+  import type { TestFileView } from '../../domain/types';
 
   type TreeNode = {
     type: 'folder' | 'file';

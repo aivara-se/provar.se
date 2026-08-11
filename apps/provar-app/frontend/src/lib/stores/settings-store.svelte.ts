@@ -1,4 +1,4 @@
-import { Project } from '../api';
+import { Project } from '../services/bindings';
 
 /**
  * SettingsStore owns app-lifecycle state from the on-disk settings file:

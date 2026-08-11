@@ -2,7 +2,7 @@ import { Application, Container, Graphics, TilingSprite } from 'pixi.js';
 import { GraphRenderer } from './renderer';
 import { LAYOUT, type ActionState } from './constants';
 import { Viewport } from './viewport';
-import type { TestFileView } from '../types';
+import type { TestFileView } from '../../domain/types';
 
 /**
  * InfiniteCanvas controls the PIXI application, viewport, and the

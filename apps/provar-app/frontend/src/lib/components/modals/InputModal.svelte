@@ -1,7 +1,7 @@
 <script lang="ts">
   import { tick } from 'svelte';
   import Modal from './Modal.svelte';
-  import { applicationStore } from '../stores/application-store.svelte';
+  import { applicationStore } from '../../stores/application-store.svelte';
 
   let value = $state('');
   let input: HTMLInputElement | undefined = $state();

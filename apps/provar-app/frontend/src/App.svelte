@@ -4,15 +4,15 @@
   import { historyStore } from './lib/stores/history-store.svelte';
   import { editorStore } from './lib/stores/editor-store.svelte';
   import { applicationStore } from './lib/stores/application-store.svelte';
-  import { Watcher } from './lib/api';
-  import { subscribe } from './lib/events';
-  import Welcome from './lib/components/Welcome.svelte';
-  import SetupWizard from './lib/components/SetupWizard.svelte';
-  import Toolbar from './lib/components/Toolbar.svelte';
-  import TestExplorer from './lib/components/TestExplorer.svelte';
+  import { Watcher } from './lib/services/bindings';
+  import { subscribe } from './lib/services/events';
+  import Welcome from './lib/components/views/Welcome.svelte';
+  import SetupWizard from './lib/components/views/SetupWizard.svelte';
+  import Toolbar from './lib/components/toolbar/Toolbar.svelte';
+  import TestExplorer from './lib/components/explorer/TestExplorer.svelte';
   import Canvas from './lib/components/Canvas.svelte';
-  import RightSidebar from './lib/components/RightSidebar.svelte';
-  import AppModals from './lib/components/AppModals.svelte';
+  import RightSidebar from './lib/components/panels/RightSidebar.svelte';
+  import AppModals from './lib/components/modals/AppModals.svelte';
 
   // Both stores load on first mount; gated on "no project open yet"
   // so the load is skipped once a project is in flight. historyStore.load

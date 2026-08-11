@@ -1,4 +1,4 @@
-import { History } from '../api';
+import { History } from '../services/bindings';
 
 /**
  * HistoryStore owns the desktop app's recent-projects list. Persists

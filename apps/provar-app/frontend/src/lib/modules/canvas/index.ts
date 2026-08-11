@@ -1,3 +1,4 @@
+export { default as Canvas } from './Canvas.svelte';
 export { InfiniteCanvas } from './infinite-canvas';
 export { GraphRenderer } from './renderer';
 export { Viewport } from './viewport';

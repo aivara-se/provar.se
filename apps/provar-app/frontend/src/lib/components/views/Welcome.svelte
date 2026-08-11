@@ -7,8 +7,8 @@
     ArrowRight,
     AlertCircle,
   } from "lucide-svelte";
-  import { Dialog, Project } from "../api";
-  import { projectStore } from "../stores/project-store.svelte";
+  import { Dialog, Project } from "../../services/bindings";
+  import { projectStore } from "../../stores/project-store.svelte";
 
   interface Props {
     homeDir: string;

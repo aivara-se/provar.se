@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { projectStore } from '../stores/project-store.svelte';
-  import { applicationStore } from '../stores/application-store.svelte';
+  import { projectStore } from '../../stores/project-store.svelte';
+  import { applicationStore } from '../../stores/application-store.svelte';
   import Modal from './Modal.svelte';
 
   let variablesJson = $state('{}');

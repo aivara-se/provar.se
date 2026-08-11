@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { applicationStore } from '../stores/application-store.svelte';
+  import { applicationStore } from '../../stores/application-store.svelte';
   import SettingsModal from './SettingsModal.svelte';
   import ConfigModal from './ConfigModal.svelte';
   import ConfirmModal from './ConfirmModal.svelte';

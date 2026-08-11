@@ -1,7 +1,7 @@
 import { Rectangle, type Ticker } from 'pixi.js';
 import { NodeShape } from './shape';
 import { type ActionState } from '../constants';
-import type { Action } from '../../types';
+import type { Action } from '../../../domain/types';
 import { buildIconRow } from '../icons';
 
 export class ActionShape extends NodeShape {

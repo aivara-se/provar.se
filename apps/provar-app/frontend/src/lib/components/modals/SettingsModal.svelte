@@ -1,6 +1,6 @@
 <script lang="ts">
   import Modal from './Modal.svelte';
-  import { applicationStore } from '../stores/application-store.svelte';
+  import { applicationStore } from '../../stores/application-store.svelte';
 
   let provider = $state('openai');
   let apiKey = $state('');

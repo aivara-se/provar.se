@@ -1,4 +1,4 @@
-import { File, Config, Project } from '../api';
+import { File, Config, Project } from '../services/bindings';
 import { historyStore } from './history-store.svelte';
 
 /**

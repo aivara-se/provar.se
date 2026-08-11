@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Code, Copy, Trash2, Image as ImageIcon } from 'lucide-svelte';
-  import { editorStore } from '../stores/editor-store.svelte';
+  import { editorStore } from '../../stores/editor-store.svelte';
   import PanelHeader from './PanelHeader.svelte';
 
   type View = 'info' | 'code';

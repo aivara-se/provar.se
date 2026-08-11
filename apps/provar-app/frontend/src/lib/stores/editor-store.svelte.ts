@@ -1,4 +1,4 @@
-import type { Action, TestFileView } from '../types';
+import type { Action, TestFileView } from '../domain/types';
 import {
   addNodeToGraph,
   deleteNodeFromGraph,
@@ -6,11 +6,11 @@ import {
   generateNodeId,
   getNextNodes,
   toEngineTasks,
-} from '../graph';
-import { File, Run, Compile } from '../api';
+} from '../modules/graphs';
+import { File, Run, Compile } from '../services/bindings';
 import { projectStore } from './project-store.svelte';
 import { applicationStore } from './application-store.svelte';
-import { forJob } from '../events';
+import { forJob } from '../services/events';
 
 // WRITE_DEBOUNCE_MS is the quiet-period before a typed title/info change
 // is committed back to disk. Per-keystroke writes used to fire fresh

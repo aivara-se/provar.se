@@ -1,7 +1,7 @@
 <script lang="ts">
   import { editorStore } from '../stores/editor-store.svelte';
   import { applicationStore } from '../stores/application-store.svelte';
-  import Canvas from '../canvas/Canvas.svelte';
+  import { Canvas } from '../modules/canvas';
 </script>
 
 {#if editorStore.currentFile}

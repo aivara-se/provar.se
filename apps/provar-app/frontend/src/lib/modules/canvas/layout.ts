@@ -1,5 +1,5 @@
 import { LAYOUT } from './constants';
-import type { Edge, TestFileGraph } from '../types';
+import type { Edge, TestFileGraph } from '../../domain/types';
 
 export interface PositionedNode {
   id: string;

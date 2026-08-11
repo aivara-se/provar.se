@@ -7,8 +7,8 @@
     ChevronDown,
     X,
   } from 'lucide-svelte';
-  import { editorStore } from '../stores/editor-store.svelte';
-  import { applicationStore } from '../stores/application-store.svelte';
+  import { editorStore } from '../../stores/editor-store.svelte';
+  import { applicationStore } from '../../stores/application-store.svelte';
 
   let runMenuOpen = $state(false);
   let toolbarEl = $state<HTMLDivElement>();

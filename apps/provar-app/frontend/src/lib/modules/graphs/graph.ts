@@ -1,4 +1,4 @@
-import type { Action, Edge, TestFileGraph } from './types';
+import type { Action, Edge, TestFileGraph } from '../../domain/types';
 
 /**
  * getNextNodes reads the outgoing edges of nodeId from the graph and

@@ -1,5 +1,5 @@
 import { Container, type Ticker } from 'pixi.js';
-import type { TestFileView } from '../types';
+import type { TestFileView, Edge } from '../../domain/types';
 import { NodeShape } from './shapes/shape';
 import { StartShape } from './shapes/start';
 import { EndShape } from './shapes/end';
@@ -13,7 +13,6 @@ import {
   computeDepths,
   type PositionedNode,
 } from './layout';
-import type { Edge } from '../types';
 
 /**
  * GraphRenderer owns the per-graph scene graph. It builds node + edge
