@@ -14,3 +14,5 @@ export function ProjectOpen():Promise<boolean>;
 export function RunActiveTest():Promise<void>;
 
 export function SetProjectOpen(arg1:boolean):Promise<void>;
+
+export function ToggleTestExplorer():Promise<void>;

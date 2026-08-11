@@ -7,6 +7,7 @@
   import { ProjectService } from './lib/services/project-service';
   import { subscribe } from './lib/services/events';
   import { AppCommands } from './lib/services/app-commands';
+  import { PanelLeft } from 'lucide-svelte';
   import Welcome from './lib/components/views/Welcome.svelte';
   import SetupWizard from './lib/components/views/SetupWizard.svelte';
   import Toolbar from './lib/components/toolbar/Toolbar.svelte';
@@ -61,7 +62,17 @@
   $effect(() => {
     applicationStore.isSidebarOpen = editorStore.selectedFilePath === null;
   });
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (!projectStore.path) return;
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'b') {
+      e.preventDefault();
+      applicationStore.toggleSidebar();
+    }
+  }
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <div
   class="relative h-screen w-full overflow-hidden overscroll-none bg-[rgba(14,17,22,0.7)] font-sans text-zinc-300"
@@ -88,6 +99,17 @@
     <TestExplorer />
     <Canvas />
     <RightSidebar />
+
+    {#if !applicationStore.isSidebarOpen}
+      <button
+        type="button"
+        onclick={() => applicationStore.toggleSidebar()}
+        class="absolute bottom-3 left-3 z-30 flex h-6 w-6 cursor-pointer items-center justify-center text-zinc-500 transition-colors duration-200 hover:text-zinc-200 focus:outline-none"
+        title="Show Test Explorer"
+      >
+        <PanelLeft class="h-4 w-4" />
+      </button>
+    {/if}
   {/if}
 
   <AppModals />

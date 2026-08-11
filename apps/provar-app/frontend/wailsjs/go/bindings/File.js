@@ -34,6 +34,10 @@ export function ReadTestFile(arg1, arg2) {
   return window['go']['bindings']['File']['ReadTestFile'](arg1, arg2);
 }
 
+export function Validate(arg1, arg2, arg3) {
+  return window['go']['bindings']['File']['Validate'](arg1, arg2, arg3);
+}
+
 export function WriteTestFile(arg1, arg2, arg3) {
   return window['go']['bindings']['File']['WriteTestFile'](arg1, arg2, arg3);
 }

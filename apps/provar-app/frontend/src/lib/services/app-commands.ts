@@ -20,6 +20,13 @@ export class AppCommands {
       }
     })();
 
+    void (async () => {
+      for await (const _ of subscribe('app:toggle-test-explorer')) {
+        if (cancelled) return;
+        applicationStore.toggleSidebar();
+      }
+    })();
+
     return () => {
       cancelled = true;
     };

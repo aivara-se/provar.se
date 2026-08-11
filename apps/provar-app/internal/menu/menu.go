@@ -13,10 +13,11 @@ type AppController interface {
 	CloseProject()
 	RunActiveTest()
 	CompileProject()
+	ToggleTestExplorer()
 }
 
 // BuildMenu constructs and returns the native OS application menu hierarchy.
-// When hasProjectOpen is false, project-scoped menus (such as Run) and menu items are omitted.
+// When hasProjectOpen is false, project-scoped menus (such as View and Run) and menu items are omitted.
 func BuildMenu(app AppController, hasProjectOpen bool) *menu.Menu {
 	wailsMenu := menu.NewMenu()
 	if runtime.GOOS == "darwin" {
@@ -28,6 +29,7 @@ func BuildMenu(app AppController, hasProjectOpen bool) *menu.Menu {
 	}
 	if hasProjectOpen {
 		wailsMenu.Append(buildRunMenu(app))
+		wailsMenu.Append(buildViewMenu(app))
 	}
 	wailsMenu.Append(buildHelpMenu(app))
 	return wailsMenu

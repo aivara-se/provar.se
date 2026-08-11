@@ -51,6 +51,7 @@ apps/provar-app/
     │   ├── file.go       # File menu items (Open Project, Settings, Close)
     │   ├── edit.go       # Edit menu items (Undo, Redo, Cut, Copy, Paste, Select All)
     │   ├── run.go        # Run menu items (Run Test, Compile Project)
+    │   ├── view.go       # View menu items (Toggle Test Explorer)
     │   └── help.go       # Help menu items (Documentation, About)
     ├── testfile/         # Layer 3: Canvas graph <-> domain action list AST converter
     └── watcher/          # Layer 3: File system watching service
@@ -112,6 +113,7 @@ The native application menu in `internal/menu/` defines standard desktop shortcu
 | | Cut / Copy / Paste | `Cmd+X` / `C` / `V` | Native / Standard | Clipboard operations |
 | **Run** | Run Active Test | `Cmd+R` / `Ctrl+R` | `app:run-active-test` | Triggers active test execution |
 | | Compile Project | `Cmd+Shift+B` | `app:compile-project` | Compiles project Lua output |
+| **View** | Toggle Test Explorer | `Cmd+B` / `Ctrl+B` | `app:toggle-test-explorer` | Toggles test explorer sidebar |
 | **Help** | Provar Documentation | `F1` | `app.OpenDocumentation()` | Opens online documentation |
 
 ---

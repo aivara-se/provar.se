@@ -1,6 +1,6 @@
 import { Container, type Ticker } from 'pixi.js';
 import type { TestFileView, Edge } from '../../domain/types';
-import type { DiagnosticReport } from '../../domain/graph-validator';
+import type { DiagnosticReport } from '../../domain/types';
 import { NodeShape } from './shapes/shape';
 import { StartShape } from './shapes/start';
 import { EndShape } from './shapes/end';

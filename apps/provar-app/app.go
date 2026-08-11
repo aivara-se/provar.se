@@ -107,6 +107,14 @@ func (a *App) CompileProject() {
 	}
 }
 
+// ToggleTestExplorer emits the "app:toggle-test-explorer" event over the Wails runtime
+// event bus to toggle the visibility of the test explorer panel.
+func (a *App) ToggleTestExplorer() {
+	if a.ctx != nil {
+		runtime.EventsEmit(a.ctx, "app:toggle-test-explorer")
+	}
+}
+
 // boundBindings returns every pointer-to-struct field as a slice
 // of interface{}. Used by main.go (Wails' Bind list) and startup
 // (Ctx wiring) so the struct fields stay the single source of truth.

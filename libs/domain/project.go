@@ -25,9 +25,10 @@ type Project struct {
 
 // File represents a test specification file inside a project. Path is relative to the
 // project root (e.g. ".provar/tests/auth/login.test.yml"). Actions are not loaded
-// eagerly; call ParseFile to read and parse them on demand.
+// eagerly by default; call ParseFile to read and parse them on demand.
 type File struct {
-	Path string
+	Path    string
+	Actions []Action
 }
 
 // Action represents one user-intent step in a file. Actions form a DAG via

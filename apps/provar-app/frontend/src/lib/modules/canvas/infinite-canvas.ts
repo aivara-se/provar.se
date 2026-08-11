@@ -3,7 +3,7 @@ import { GraphRenderer } from './renderer';
 import { LAYOUT, type ActionState } from './constants';
 import { Viewport } from './viewport';
 import type { TestFileView } from '../../domain/types';
-import type { DiagnosticReport } from '../../domain/graph-validator';
+import type { DiagnosticReport } from '../../domain/types';
 
 /**
  * InfiniteCanvas controls the PIXI application, viewport, and the

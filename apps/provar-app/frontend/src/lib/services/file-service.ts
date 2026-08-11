@@ -54,4 +54,17 @@ export class FileService {
       throw e;
     }
   }
+
+  static async validate(
+    projectPath: string = '',
+    relPath: string = '',
+    view?: TestFileView,
+  ): Promise<import('../domain/types').DiagnosticReport> {
+    try {
+      return await File.Validate(projectPath, relPath, view as any);
+    } catch (e) {
+      console.error('FileService: validate failed:', e);
+      return { isValid: true, errors: [], warnings: [] };
+    }
+  }
 }

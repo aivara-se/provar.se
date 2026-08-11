@@ -1,4 +1,4 @@
-import type { Action, TestFileView, TestFileGraph } from '../domain/types';
+import type { Action, TestFileView, TestFileGraph, DiagnosticReport } from '../domain/types';
 import {
   addNodeToGraph,
   deleteNodeFromGraph,
@@ -8,7 +8,6 @@ import {
   toEngineTasks,
 } from '../modules/graphs';
 import { FileService } from '../services/file-service';
-import { GraphValidator, type DiagnosticReport } from '../domain/graph-validator';
 import { projectStore } from './project-store.svelte';
 import { applicationStore } from './application-store.svelte';
 import { executionStore } from './execution-store.svelte';
@@ -35,10 +34,21 @@ class EditorStore {
   private saveTimer: ReturnType<typeof setTimeout> | null = null;
   private pendingWritePromise: Promise<void> | null = null;
 
-  // ---- Reactive Diagnostics (FOUNDATION-03) ----
-  diagnostics = $derived.by<DiagnosticReport>(() => {
-    return GraphValidator.validate(this.currentFile?.graph);
-  });
+  // ---- Backend Diagnostics ----
+  diagnostics = $state<DiagnosticReport>({ isValid: true, errors: [], warnings: [] });
+
+  async runValidation() {
+    if (!this.currentFile) {
+      this.diagnostics = { isValid: true, errors: [], warnings: [] };
+      return;
+    }
+    const report = await FileService.validate(
+      projectStore.path ?? '',
+      this.selectedFilePath ?? '',
+      this.currentFile,
+    );
+    this.diagnostics = report ?? { isValid: true, errors: [], warnings: [] };
+  }
 
   selectedNode = $derived.by(() => {
     if (!this.currentFile || !this.selectedNodeId) return null;
@@ -69,6 +79,7 @@ class EditorStore {
     this.isDirty = false;
     this.dirtyNeedsCompile = false;
     executionStore.clearStates();
+    void this.runValidation();
   }
 
   async closeFile() {
@@ -78,6 +89,7 @@ class EditorStore {
     this.selectedNodeId = null;
     this.isDirty = false;
     this.dirtyNeedsCompile = false;
+    this.diagnostics = { isValid: true, errors: [], warnings: [] };
   }
 
   // ---- Mutations ----
@@ -98,6 +110,7 @@ class EditorStore {
       },
     };
     this.scheduleSave();
+    void this.runValidation();
   }
 
   addNode(fromId: string | null, toId: string | null): string | null {
@@ -108,6 +121,7 @@ class EditorStore {
     this.currentFile = { ...this.currentFile, graph };
     this.selectedNodeId = newNodeId;
     void this.saveFile();
+    void this.runValidation();
     return newNodeId;
   }
 
@@ -125,6 +139,7 @@ class EditorStore {
         this.currentFile = { ...file, graph: after };
         if (this.selectedNodeId === id) this.selectedNodeId = null;
         void this.saveFile();
+        void this.runValidation();
       },
     );
   }

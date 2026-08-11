@@ -19,4 +19,6 @@ export function LogErrorf(arg1:string,arg2:Array<any>):Promise<void>;
 
 export function ReadTestFile(arg1:string,arg2:string):Promise<testfile.View>;
 
+export function Validate(arg1:string,arg2:string,arg3:testfile.View):Promise<domain.DiagnosticReport>;
+
 export function WriteTestFile(arg1:string,arg2:string,arg3:testfile.View):Promise<void>;

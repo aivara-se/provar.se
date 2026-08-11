@@ -621,3 +621,18 @@ func TestJob_Lifecycle(t *testing.T) {
 		t.Error("timeout waiting for Stop event")
 	}
 }
+
+func TestFile_OptionalActions(t *testing.T) {
+	file := File{
+		Path: ".provar/tests/login.test.yml",
+		Actions: []Action{
+			{ID: "act1", Name: "Action 1"},
+		},
+	}
+	if file.Path != ".provar/tests/login.test.yml" {
+		t.Errorf("expected Path to match, got %q", file.Path)
+	}
+	if len(file.Actions) != 1 || file.Actions[0].ID != "act1" {
+		t.Errorf("expected Actions slice to contain 1 action, got %+v", file.Actions)
+	}
+}

@@ -31,11 +31,10 @@ func validateHandler(ctx context.Context, target string, raw helpers.Flags, p *h
 		p.Warn("no test files in %s", target)
 		return int(helpers.ExitSuccess)
 	}
-	// seenIDs tracks IDs across the whole project so duplicate IDs in
-	// different files also fail validation — they'd silently collide at
-	// run time if every file is compiled into one Lua.
 	seenIDs := map[string]string{} // id → file it was first seen in
 	var problems int
+	totalActions := 0
+
 	for _, f := range project.Files {
 		actions, err := domain.ParseFile(project.Path, f.Path)
 		if err != nil {
@@ -43,15 +42,23 @@ func validateHandler(ctx context.Context, target string, raw helpers.Flags, p *h
 			problems++
 			continue
 		}
+		f.Actions = actions
+		totalActions += len(actions)
+
+		report := f.Validate()
+		for _, errDiag := range report.Errors {
+			p.Error("%s: %s", f.Path, errDiag.Message)
+			problems++
+		}
+		for _, warnDiag := range report.Warnings {
+			p.Warn("%s: %s", f.Path, warnDiag.Message)
+		}
+
 		for _, a := range actions {
 			if a.ID == "" {
 				p.Error("%s: action with empty id: %s", f.Path, a.Name)
 				problems++
 				continue
-			}
-			if a.Name == "" {
-				p.Error("%s: %s: missing name", f.Path, a.ID)
-				problems++
 			}
 			if a.Info == "" {
 				p.Warn("%s: %s: empty info (LLM will have to guess the intent)", f.Path, a.ID)
@@ -68,6 +75,6 @@ func validateHandler(ctx context.Context, target string, raw helpers.Flags, p *h
 		p.Error("validation failed: %d problem(s)", problems)
 		return int(helpers.ExitRuntime)
 	}
-	p.Success("validated %d file(s), %d action(s)", len(project.Files), len(seenIDs))
+	p.Success("validated %d file(s), %d action(s)", len(project.Files), totalActions)
 	return int(helpers.ExitSuccess)
 }

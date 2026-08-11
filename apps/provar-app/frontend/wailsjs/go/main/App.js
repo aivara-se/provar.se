@@ -29,3 +29,7 @@ export function RunActiveTest() {
 export function SetProjectOpen(arg1) {
   return window['go']['main']['App']['SetProjectOpen'](arg1);
 }
+
+export function ToggleTestExplorer() {
+  return window['go']['main']['App']['ToggleTestExplorer']();
+}

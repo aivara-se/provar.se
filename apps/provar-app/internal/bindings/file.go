@@ -98,3 +98,22 @@ func (f File) DeletePath(path string) error {
 	}
 	return nil
 }
+
+// Validate runs backend domain graph validation on a test file view or file on disk.
+func (f File) Validate(projectDir, relPath string, view *testfile.View) (*domain.DiagnosticReport, error) {
+	var actions []domain.Action
+	if view != nil {
+		actions = testfile.ToActions(*view)
+	} else if projectDir != "" && relPath != "" {
+		var err error
+		actions, err = domain.ParseFile(projectDir, relPath)
+		if err != nil {
+			return nil, fmt.Errorf("validate %s: %w", relPath, err)
+		}
+	}
+	domFile := domain.File{
+		Path:    relPath,
+		Actions: actions,
+	}
+	return domFile.Validate(), nil
+}

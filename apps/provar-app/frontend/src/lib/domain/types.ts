@@ -23,3 +23,23 @@ export interface Edge {
   to: string;
   implicit?: boolean;
 }
+
+export interface GraphDiagnostic {
+  id: string;
+  nodeId?: string;
+  severity: 'error' | 'warning';
+  code:
+    | 'CYCLE_DETECTED'
+    | 'DISCONNECTED_NODE'
+    | 'DANGLING_EDGE'
+    | 'MISSING_ACTION_NAME'
+    | 'MISSING_START'
+    | 'EMPTY_GRAPH';
+  message: string;
+}
+
+export interface DiagnosticReport {
+  isValid: boolean;
+  errors: GraphDiagnostic[];
+  warnings: GraphDiagnostic[];
+}
