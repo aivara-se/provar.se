@@ -31,6 +31,7 @@ type App struct {
 	Run     *bindings.Run
 	Compile *bindings.Compile
 	Watcher *bindings.Watcher
+	Doctor  *bindings.Doctor
 }
 
 // NewApp returns an App with its binding instances allocated but
@@ -46,6 +47,7 @@ func NewApp() *App {
 		Run:     &bindings.Run{},
 		Compile: &bindings.Compile{},
 		Watcher: &bindings.Watcher{},
+		Doctor:  &bindings.Doctor{},
 	}
 	a.File.OnStateChange = a.SetProjectOpen
 	return a
@@ -56,6 +58,14 @@ func NewApp() *App {
 func (a *App) OpenSettingsModal() {
 	if a.ctx != nil {
 		runtime.EventsEmit(a.ctx, "app:open-settings")
+	}
+}
+
+// OpenDoctorModal emits the "app:open-doctor" event over the Wails
+// runtime event bus to open the Provar Doctor diagnostic modal in the frontend.
+func (a *App) OpenDoctorModal() {
+	if a.ctx != nil {
+		runtime.EventsEmit(a.ctx, "app:open-doctor")
 	}
 }
 

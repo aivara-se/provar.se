@@ -4,6 +4,7 @@
   import ConfigModal from './ConfigModal.svelte';
   import ConfirmModal from './ConfirmModal.svelte';
   import InputModal from './InputModal.svelte';
+  import DoctorModal from './DoctorModal.svelte';
 
   // AppModals hosts every overlay rendered above the editor. Settings and
   // Config are permanent (visible whenever a project is open); Confirm
@@ -15,6 +16,7 @@
 <ConfigModal />
 <ConfirmModal />
 <InputModal />
+<DoctorModal />
 
 <!--
   Toast is rendered at the App level so it floats above every panel.

@@ -8,7 +8,7 @@
  * everything off the store and re-renders on every change.
  */
 
-export type ModalKind = 'confirm' | 'input' | 'settings' | 'config' | null;
+export type ModalKind = 'confirm' | 'input' | 'settings' | 'config' | 'doctor' | null;
 
 export interface Toast {
   id: number;
@@ -127,6 +127,11 @@ class ApplicationStore {
   /** openSettingsModal opens the global settings dialog overlay. */
   openSettingsModal() {
     this.modalKind = 'settings';
+  }
+
+  /** openDoctorModal opens the Provar Doctor diagnostic overlay. */
+  openDoctorModal() {
+    this.modalKind = 'doctor';
   }
 
   /** closeModal dismisses whichever modal is currently active. */

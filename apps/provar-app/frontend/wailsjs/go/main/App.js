@@ -10,6 +10,10 @@ export function CompileProject() {
   return window['go']['main']['App']['CompileProject']();
 }
 
+export function OpenDoctorModal() {
+  return window['go']['main']['App']['OpenDoctorModal']();
+}
+
 export function OpenProject() {
   return window['go']['main']['App']['OpenProject']();
 }

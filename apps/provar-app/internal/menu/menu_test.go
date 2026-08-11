@@ -6,6 +6,7 @@ import (
 
 type mockAppController struct {
 	settingsOpened      bool
+	doctorOpened        bool
 	projectOpened       bool
 	projectClosed       bool
 	testRun             bool
@@ -15,6 +16,7 @@ type mockAppController struct {
 }
 
 func (m *mockAppController) OpenSettingsModal()  { m.settingsOpened = true }
+func (m *mockAppController) OpenDoctorModal()    { m.doctorOpened = true }
 func (m *mockAppController) OpenProject()        { m.projectOpened = true }
 func (m *mockAppController) CloseProject()       { m.projectClosed = true }
 func (m *mockAppController) RunActiveTest()      { m.testRun = true }
@@ -122,5 +124,20 @@ func TestMenuCallbacks(t *testing.T) {
 	}
 	if !mock.compiled {
 		t.Errorf("expected CompileProject to be called by Run menu callback")
+	}
+
+	helpItem := buildHelpMenu(mock)
+	if helpItem == nil || helpItem.SubMenu == nil {
+		t.Fatal("expected buildHelpMenu to return a valid submenu item")
+	}
+
+	for _, item := range helpItem.SubMenu.Items {
+		if item.Click != nil {
+			item.Click(nil)
+		}
+	}
+
+	if !mock.doctorOpened {
+		t.Errorf("expected OpenDoctorModal to be called by Help menu callback")
 	}
 }

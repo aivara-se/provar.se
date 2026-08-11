@@ -34,6 +34,13 @@ export class AppCommands {
       }
     })();
 
+    void (async () => {
+      for await (const _ of subscribe('app:open-doctor')) {
+        if (cancelled) return;
+        applicationStore.openDoctorModal();
+      }
+    })();
+
     return () => {
       cancelled = true;
     };

@@ -1,3 +1,26 @@
+export namespace bindings {
+	
+	export class DoctorCheck {
+	    id: string;
+	    label: string;
+	    status: string;
+	    detail: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new DoctorCheck(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.label = source["label"];
+	        this.status = source["status"];
+	        this.detail = source["detail"];
+	    }
+	}
+
+}
+
 export namespace domain {
 	
 	export class Action {

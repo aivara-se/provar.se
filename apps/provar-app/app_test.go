@@ -41,7 +41,7 @@ func TestStartupWiresCtxOnEveryBinding(t *testing.T) {
 func TestBoundBindingsEnumeratesPointerStructFields(t *testing.T) {
 	a := NewApp()
 	got := a.boundBindings()
-	want := 9 // File, Dialog, Shell, Project, Config, History, Run, Compile, Watcher
+	want := 10 // File, Dialog, Shell, Project, Config, History, Run, Compile, Watcher, Doctor
 	if len(got) != want {
 		t.Errorf("boundBindings() returned %d entries, want %d (every pointer-to-struct field on App)", len(got), want)
 	}

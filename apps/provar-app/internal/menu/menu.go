@@ -9,6 +9,7 @@ import (
 // AppController abstracts the application callback methods required by native menus.
 type AppController interface {
 	OpenSettingsModal()
+	OpenDoctorModal()
 	OpenProject()
 	CloseProject()
 	RunActiveTest()

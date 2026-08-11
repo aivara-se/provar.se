@@ -5,6 +5,8 @@ export function CloseProject():Promise<void>;
 
 export function CompileProject():Promise<void>;
 
+export function OpenDoctorModal():Promise<void>;
+
 export function OpenProject():Promise<void>;
 
 export function OpenSettingsModal():Promise<void>;

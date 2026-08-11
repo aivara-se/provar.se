@@ -10,5 +10,6 @@ import * as History from '../../../wailsjs/go/bindings/History';
 import * as Run from '../../../wailsjs/go/bindings/Run';
 import * as Compile from '../../../wailsjs/go/bindings/Compile';
 import * as Watcher from '../../../wailsjs/go/bindings/Watcher';
+import * as Doctor from '../../../wailsjs/go/bindings/Doctor';
 
-export { File, Dialog, Shell, Project, Config, History, Run, Compile, Watcher };
+export { File, Dialog, Shell, Project, Config, History, Run, Compile, Watcher, Doctor };
