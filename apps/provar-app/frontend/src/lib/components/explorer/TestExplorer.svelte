@@ -3,8 +3,7 @@
   import { projectStore } from '../../stores/project-store.svelte';
   import { editorStore } from '../../stores/editor-store.svelte';
   import { applicationStore } from '../../stores/application-store.svelte';
-  import { File as FileApi } from '../../services/bindings';
-  import type { TestFileView } from '../../domain/types';
+  import { FileService } from '../../services/file-service';
 
   type TreeNode = {
     type: 'folder' | 'file';
@@ -73,8 +72,8 @@
   async function selectFile(path: string) {
     if (!projectStore.path) return;
     try {
-      const view = await FileApi.ReadTestFile(projectStore.path, path);
-      editorStore.loadFile(path, { graph: view.graph, order: view.order ?? [] });
+      const view = await FileService.readTestFile(projectStore.path, path);
+      await editorStore.loadFile(path, view);
     } catch (e) {
       console.error('TestExplorer: failed to load file', path, e);
     }
@@ -211,10 +210,6 @@
   </aside>
 {/if}
 
-<!--
-  Context menu floats above the tree. Positioned at the click coordinate
-  via fixed top/left so we don't inherit the aside's scrolling.
--->
 {#if contextMenu}
   <div
     class="fixed z-[100] min-w-[160px] rounded-lg border border-zinc-800 bg-[#161b22] p-1 shadow-xl"

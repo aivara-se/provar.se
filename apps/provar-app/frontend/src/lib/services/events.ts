@@ -12,7 +12,7 @@
 // jobs can be in flight if the user races the toolbar; the filter keeps
 // each for-await loop reading only its own job's events.
 
-import { EventsOn } from '../../wailsjs/runtime/runtime';
+import { EventsOn } from '../../../wailsjs/runtime/runtime';
 
 type ReleaseFn = () => void;
 

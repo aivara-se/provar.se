@@ -2,7 +2,8 @@
   import { ArrowRight, ArrowLeft, Sparkles } from 'lucide-svelte';
   import { settingsStore } from '../../stores/settings-store.svelte';
   import { projectStore } from '../../stores/project-store.svelte';
-  import { Dialog, Project } from '../../services/bindings';
+  import { SettingsService } from '../../services/settings-service';
+  import { ProjectService } from '../../services/project-service';
   import { domain } from '../../../../wailsjs/go/models';
 
   type Step = 'provider' | 'apikey' | 'project';
@@ -21,11 +22,8 @@
     saving = true;
     saveError = null;
     try {
-      const settings = (await Project.Settings()) ?? new domain.Settings();
+      const settings = (await SettingsService.getSettings()) ?? new domain.Settings();
       settings.Provider = provider;
-      // Ensure the active provider's entry exists; the domain's
-      // defaultSettings populates all three, but defensive in case a
-      // future save stripped it.
       if (!settings.Providers) settings.Providers = {};
       if (!settings.Providers[provider]) {
         settings.Providers[provider] = {
@@ -36,7 +34,7 @@
       } else {
         settings.Providers[provider].APIKey = apiKey.trim();
       }
-      await Project.SaveSettings(settings);
+      await settingsStore.updateSettings(settings);
       step = 'project';
     } catch (e) {
       console.error('Setup wizard: save settings failed:', e);
@@ -48,7 +46,7 @@
 
   async function pickFirstProject() {
     try {
-      const path = await Dialog.SelectProject();
+      const path = await ProjectService.selectProjectDialog();
       if (!path) return;
       await projectStore.openProject(path);
       settingsStore.dismissSetupWizard();

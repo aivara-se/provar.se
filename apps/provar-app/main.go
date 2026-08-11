@@ -17,8 +17,8 @@ func main() {
 
 	err := wails.Run(&options.App{
 		Title:  "provar-app",
-		Width:  1024,
-		Height: 768,
+		Width:  1200,
+		Height: 900,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},

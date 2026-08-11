@@ -1,23 +1,63 @@
 <script lang="ts">
   import Modal from './Modal.svelte';
   import { applicationStore } from '../../stores/application-store.svelte';
+  import { settingsStore } from '../../stores/settings-store.svelte';
+  import { SettingsService } from '../../services/settings-service';
+  import { domain } from '../../../../wailsjs/go/models';
 
   let provider = $state('openai');
   let apiKey = $state('');
+  let saving = $state(false);
 
-  function save() {
-    // TODO: persist via Settings binding once it exists.
-    console.log('Settings saved (stub):', { provider, apiKey });
-    applicationStore.modalKind = null;
+  $effect(() => {
+    if (applicationStore.modalKind === 'settings') {
+      void (async () => {
+        try {
+          const current = (await SettingsService.getSettings()) ?? new domain.Settings();
+          if (current.Provider) {
+            provider = current.Provider;
+          }
+          if (current.Providers && current.Providers[provider]) {
+            apiKey = current.Providers[provider].APIKey || '';
+          }
+        } catch (e) {
+          console.error('SettingsModal: load settings failed:', e);
+        }
+      })();
+    }
+  });
+
+  async function save() {
+    saving = true;
+    try {
+      const current = (await SettingsService.getSettings()) ?? new domain.Settings();
+      current.Provider = provider;
+      if (!current.Providers) current.Providers = {};
+      if (!current.Providers[provider]) {
+        current.Providers[provider] = {
+          Model: '',
+          APIKey: apiKey.trim(),
+          BaseURL: '',
+        };
+      } else {
+        current.Providers[provider].APIKey = apiKey.trim();
+      }
+      await settingsStore.updateSettings(current);
+      applicationStore.closeModal();
+    } catch (e) {
+      console.error('SettingsModal: save settings failed:', e);
+    } finally {
+      saving = false;
+    }
   }
 </script>
 
 <Modal
   show={applicationStore.modalKind === 'settings'}
   title="Settings"
-  primaryLabel="Save"
+  primaryLabel={saving ? 'Saving...' : 'Save'}
   onPrimary={save}
-  onClose={() => (applicationStore.modalKind = null)}
+  onClose={() => applicationStore.closeModal()}
 >
   <div class="space-y-4 text-sm">
     <div>

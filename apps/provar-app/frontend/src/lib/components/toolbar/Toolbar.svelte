@@ -6,8 +6,10 @@
     Square,
     ChevronDown,
     X,
+    AlertTriangle,
   } from 'lucide-svelte';
   import { editorStore } from '../../stores/editor-store.svelte';
+  import { executionStore } from '../../stores/execution-store.svelte';
   import { applicationStore } from '../../stores/application-store.svelte';
 
   let runMenuOpen = $state(false);
@@ -18,7 +20,8 @@
     return editorStore.selectedFilePath.replace(/^\.provar\/tests\//, '');
   });
 
-  let busy = $derived(editorStore.isRunning || editorStore.isCompiling);
+  let busy = $derived(executionStore.isRunning || executionStore.isCompiling);
+  let hasDiagnosticsError = $derived(!editorStore.diagnostics.isValid);
 
   function handleDocumentClick(e: MouseEvent) {
     if (!runMenuOpen) return;
@@ -47,16 +50,21 @@
     >
       <FileIcon class="h-3.5 w-3.5 text-blue-400" />
       <span class="tracking-wide">{fileName}</span>
+      {#if hasDiagnosticsError}
+        <span title="Graph has validation issues">
+          <AlertTriangle class="h-3.5 w-3.5 text-amber-400" />
+        </span>
+      {/if}
     </button>
 
-    {#if editorStore.isCompiling}
+    {#if executionStore.isCompiling}
       <div class="flex h-full items-center gap-1.5 rounded-r-full px-3 py-1 text-xs text-zinc-400">
         <div
           class="h-3 w-3 animate-spin rounded-full border border-zinc-500 border-t-blue-500"
         ></div>
         <span>Compiling...</span>
       </div>
-    {:else if editorStore.isRunning}
+    {:else if executionStore.isRunning}
       <button
         type="button"
         onclick={() => void editorStore.stopRun()}
@@ -83,9 +91,9 @@
           <button
             type="button"
             onclick={() => void editorStore.runCurrent()}
-            disabled={busy}
+            disabled={busy || hasDiagnosticsError}
             class="flex h-full cursor-pointer items-center gap-1.5 px-3 py-1 text-xs font-medium text-zinc-400 transition-colors duration-200 hover:bg-[#21262d]/90 hover:text-green-400 focus:outline-none disabled:opacity-50"
-            title="Run test"
+            title={hasDiagnosticsError ? "Fix graph diagnostics before running" : "Run test"}
           >
             <Play class="h-2.5 w-2.5 fill-current" />
             <span>Run</span>
@@ -110,11 +118,12 @@
           >
             <button
               type="button"
+              disabled={busy || hasDiagnosticsError}
               onclick={() => {
                 runMenuOpen = false;
                 void editorStore.runCurrent();
               }}
-              class="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-zinc-300 transition-colors hover:bg-zinc-800/60"
+              class="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-zinc-300 transition-colors hover:bg-zinc-800/60 disabled:opacity-50"
             >
               <Play class="h-3 w-3 shrink-0 text-zinc-400 fill-current" />
               <span>Run test</span>
@@ -136,8 +145,7 @@
               disabled={busy}
               onclick={() => {
                 runMenuOpen = false;
-                editorStore.taskStates = {};
-                editorStore.compileStates = {};
+                executionStore.clearStates();
               }}
               class="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-zinc-400 transition-colors hover:bg-zinc-800/60 hover:text-zinc-300 disabled:opacity-50"
             >
@@ -150,4 +158,3 @@
     {/if}
   </div>
 {/if}
-

@@ -21,4 +21,5 @@ export interface Action {
 export interface Edge {
   from: string;
   to: string;
+  implicit?: boolean;
 }

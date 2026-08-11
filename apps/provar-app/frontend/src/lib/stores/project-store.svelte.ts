@@ -1,4 +1,4 @@
-import { File, Config, Project } from '../services/bindings';
+import { ProjectService } from '../services/project-service';
 import { historyStore } from './history-store.svelte';
 
 /**
@@ -23,12 +23,7 @@ class ProjectStore {
       this.tests = [];
       return;
     }
-    try {
-      this.tests = await File.ListTests(this.path);
-    } catch (e) {
-      console.error('ProjectStore: ListTests failed:', e);
-      this.tests = [];
-    }
+    this.tests = await ProjectService.listTests(this.path);
   }
 
   async openProject(path: string) {
@@ -37,30 +32,19 @@ class ProjectStore {
     try {
       await historyStore.add(path);
     } catch (e) {
-      // historyStore.add already reverts in-memory state on failure;
-      // log here so the failure is visible.
       console.error('ProjectStore: history add failed:', e);
     }
   }
 
   async loadConfig() {
     if (!this.path) return;
-    try {
-      this.config = await Config.LoadConfig(this.path);
-    } catch (e) {
-      console.error('ProjectStore: LoadConfig failed:', e);
-      this.config = null;
-    }
+    this.config = await ProjectService.loadConfig(this.path);
   }
 
   async saveConfig(next: Record<string, unknown>) {
     if (!this.path) return;
-    try {
-      await Config.SaveConfig(this.path, next);
-      this.config = next;
-    } catch (e) {
-      console.error('ProjectStore: SaveConfig failed:', e);
-    }
+    await ProjectService.saveConfig(this.path, next);
+    this.config = next;
   }
 }
 

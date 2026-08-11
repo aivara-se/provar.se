@@ -7,7 +7,7 @@
     ArrowRight,
     AlertCircle,
   } from "lucide-svelte";
-  import { Dialog, Project } from "../../services/bindings";
+  import { ProjectService } from "../../services/project-service";
   import { projectStore } from "../../stores/project-store.svelte";
 
   interface Props {
@@ -30,7 +30,7 @@
     busy = true;
     error = null;
     try {
-      const target = await Dialog.SelectProject();
+      const target = await ProjectService.selectProjectDialog();
       if (!target) return;
       await projectStore.openProject(target);
     } catch (e) {
@@ -46,9 +46,9 @@
     busy = true;
     error = null;
     try {
-      const target = await Dialog.SelectProject();
+      const target = await ProjectService.selectProjectDialog();
       if (!target) return;
-      await Project.CreateSampleProject(target);
+      await ProjectService.createSampleProject(target);
       await projectStore.openProject(target);
     } catch (e) {
       console.error("Welcome: create sample failed:", e);
