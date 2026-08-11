@@ -4,7 +4,10 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/wailsapp/wails/v2/pkg/runtime"
+
 	"provar-app/internal/bindings"
+	appmenu "provar-app/internal/menu"
 )
 
 // App holds the binding instances and the Wails runtime context.
@@ -16,7 +19,8 @@ import (
 // boundBindings) and used by both main.go's Wails Bind list and
 // startup's Ctx wiring. Adding a new binding = one new field here.
 type App struct {
-	ctx context.Context
+	ctx            context.Context
+	hasProjectOpen bool
 
 	File    *bindings.File
 	Dialog  *bindings.Dialog
@@ -32,7 +36,7 @@ type App struct {
 // NewApp returns an App with its binding instances allocated but
 // not yet bound to a runtime context. The context is set in startup.
 func NewApp() *App {
-	return &App{
+	a := &App{
 		File:    &bindings.File{},
 		Dialog:  &bindings.Dialog{},
 		Shell:   &bindings.Shell{},
@@ -42,6 +46,64 @@ func NewApp() *App {
 		Run:     &bindings.Run{},
 		Compile: &bindings.Compile{},
 		Watcher: &bindings.Watcher{},
+	}
+	a.File.OnStateChange = a.SetProjectOpen
+	return a
+}
+
+// OpenSettingsModal emits the "app:open-settings" event over the Wails
+// runtime event bus to open the settings modal in the frontend.
+func (a *App) OpenSettingsModal() {
+	if a.ctx != nil {
+		runtime.EventsEmit(a.ctx, "app:open-settings")
+	}
+}
+
+// OpenProject emits the "app:open-project" event over the Wails runtime
+// event bus to prompt the frontend/dialog layer to open a project.
+func (a *App) OpenProject() {
+	if a.ctx != nil {
+		runtime.EventsEmit(a.ctx, "app:open-project")
+	}
+}
+
+// CloseProject emits the "app:close-project" event over the Wails runtime
+// event bus to close the currently open project and updates menu state.
+func (a *App) CloseProject() {
+	a.SetProjectOpen(false)
+	if a.ctx != nil {
+		runtime.EventsEmit(a.ctx, "app:close-project")
+	}
+}
+
+// SetProjectOpen updates the open project state and dynamically re-applies
+// and re-renders the application menu to show/hide project-scoped menus (e.g. Run menu).
+func (a *App) SetProjectOpen(open bool) {
+	a.hasProjectOpen = open
+	if a.ctx != nil {
+		runtime.MenuSetApplicationMenu(a.ctx, appmenu.BuildMenu(a, a.hasProjectOpen))
+		runtime.MenuUpdateApplicationMenu(a.ctx)
+	}
+}
+
+// ProjectOpen returns true if a project is currently open in the application.
+func (a *App) ProjectOpen() bool {
+	return a.hasProjectOpen
+}
+
+// RunActiveTest emits the "app:run-active-test" event over the Wails runtime
+// event bus to run the currently active test in the editor.
+func (a *App) RunActiveTest() {
+	if a.ctx != nil {
+		runtime.EventsEmit(a.ctx, "app:run-active-test")
+	}
+}
+
+// CompileProject emits the "app:compile-project" event over the Wails runtime
+// event bus to trigger project compilation.
+func (a *App) CompileProject() {
+	if a.ctx != nil {
+		runtime.EventsEmit(a.ctx, "app:compile-project")
 	}
 }
 

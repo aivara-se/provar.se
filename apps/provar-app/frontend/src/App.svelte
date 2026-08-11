@@ -6,6 +6,7 @@
   import { applicationStore } from './lib/stores/application-store.svelte';
   import { ProjectService } from './lib/services/project-service';
   import { subscribe } from './lib/services/events';
+  import { AppCommands } from './lib/services/app-commands';
   import Welcome from './lib/components/views/Welcome.svelte';
   import SetupWizard from './lib/components/views/SetupWizard.svelte';
   import Toolbar from './lib/components/toolbar/Toolbar.svelte';
@@ -13,6 +14,13 @@
   import Canvas from './lib/components/Canvas.svelte';
   import RightSidebar from './lib/components/panels/RightSidebar.svelte';
   import AppModals from './lib/components/modals/AppModals.svelte';
+
+  $effect(() => {
+    const cleanup = AppCommands.init();
+    return () => {
+      cleanup();
+    };
+  });
 
   $effect(() => {
     if (!projectStore.path) {

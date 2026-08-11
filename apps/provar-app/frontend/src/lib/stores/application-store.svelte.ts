@@ -86,6 +86,11 @@ class ApplicationStore {
     this.modalKind = 'input';
   }
 
+  /** openSettingsModal opens the global settings dialog overlay. */
+  openSettingsModal() {
+    this.modalKind = 'settings';
+  }
+
   /** closeModal dismisses whichever modal is currently active. */
   closeModal() {
     this.modalKind = null;

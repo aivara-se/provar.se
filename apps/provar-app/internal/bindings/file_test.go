@@ -34,6 +34,30 @@ func TestListTests(t *testing.T) {
 	}
 }
 
+func TestListTests_TriggersOnStateChange(t *testing.T) {
+	var stateCalled bool
+	var stateVal bool
+
+	f := File{
+		OnStateChange: func(open bool) {
+			stateCalled = true
+			stateVal = open
+		},
+	}
+
+	tmp := t.TempDir()
+	_, err := f.ListTests(tmp)
+	if err != nil {
+		t.Fatalf("ListTests: %v", err)
+	}
+	if !stateCalled {
+		t.Errorf("expected OnStateChange to be called")
+	}
+	if !stateVal {
+		t.Errorf("expected OnStateChange value to be true for valid root")
+	}
+}
+
 func TestListTests_EmptyDir(t *testing.T) {
 	f := File{}
 	got, err := f.ListTests(t.TempDir())

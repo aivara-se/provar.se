@@ -17,13 +17,18 @@ const testFileExt = ".test.yml"
 // process's current working directory.
 type File struct {
 	BaseBinding
+	OnStateChange func(open bool)
 }
 
 // LoadProject reads the project at root and returns the populated
 // domain.Project. The frontend uses this to get the project's test
 // file list and browser config without re-walking the directory.
 func (f File) LoadProject(root string) (*domain.Project, error) {
-	return domain.LoadProject(root)
+	proj, err := domain.LoadProject(root)
+	if err == nil && f.OnStateChange != nil {
+		f.OnStateChange(root != "")
+	}
+	return proj, err
 }
 
 // ListTests returns every test file under root, paths relative to root.
@@ -42,6 +47,9 @@ func (f File) ListTests(root string) ([]string, error) {
 	})
 	if err != nil {
 		return nil, fmt.Errorf("list tests: %w", err)
+	}
+	if f.OnStateChange != nil {
+		f.OnStateChange(root != "")
 	}
 	return out, nil
 }
