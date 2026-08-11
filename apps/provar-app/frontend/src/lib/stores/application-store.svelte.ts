@@ -28,13 +28,12 @@ export interface InputProps {
   onConfirm: (value: string) => void;
 }
 
-export type RightSidebarTab = 'auto' | 'node' | 'config' | 'diagnostics';
+export type RightSidebarTab = 'project' | 'issues' | 'node' | 'console';
 
 class ApplicationStore {
   isSidebarOpen = $state(true);
   isRightSidebarOpen = $state(false);
-  rightSidebarTab = $state<RightSidebarTab>('auto');
-  isConsoleOpen = $state(false);
+  rightSidebarTab = $state<RightSidebarTab>('project');
   modalKind = $state<ModalKind>(null);
   toast = $state<Toast | null>(null);
 
@@ -70,15 +69,23 @@ class ApplicationStore {
   }
 
   toggleConsole() {
-    this.isConsoleOpen = !this.isConsoleOpen;
+    if (this.isRightSidebarOpen && this.rightSidebarTab === 'console') {
+      this.isRightSidebarOpen = false;
+    } else {
+      this.isRightSidebarOpen = true;
+      this.rightSidebarTab = 'console';
+    }
   }
 
   openConsole() {
-    this.isConsoleOpen = true;
+    this.isRightSidebarOpen = true;
+    this.rightSidebarTab = 'console';
   }
 
   closeConsole() {
-    this.isConsoleOpen = false;
+    if (this.rightSidebarTab === 'console') {
+      this.isRightSidebarOpen = false;
+    }
   }
 
   openRightSidebar() {
@@ -87,7 +94,7 @@ class ApplicationStore {
 
   openDiagnosticsPanel() {
     this.isRightSidebarOpen = true;
-    this.rightSidebarTab = 'diagnostics';
+    this.rightSidebarTab = 'issues';
   }
 
   openNodePanel() {
@@ -97,7 +104,7 @@ class ApplicationStore {
 
   openConfigPanel() {
     this.isRightSidebarOpen = true;
-    this.rightSidebarTab = 'config';
+    this.rightSidebarTab = 'project';
   }
 
   /** openConfirmModal stages a confirm dialog with the given title,
