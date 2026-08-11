@@ -3,6 +3,7 @@ import { GraphRenderer } from './renderer';
 import { LAYOUT, type ActionState } from './constants';
 import { Viewport } from './viewport';
 import type { TestFileView } from '../../domain/types';
+import type { DiagnosticReport } from '../../domain/graph-validator';
 
 /**
  * InfiniteCanvas controls the PIXI application, viewport, and the
@@ -112,7 +113,11 @@ export class InfiniteCanvas {
     this.tilingSprite.tilePosition.set(this.viewport.x, this.viewport.y);
   }
 
-  renderGraph(file: TestFileView, actionStates: Record<string, ActionState> = {}) {
+  renderGraph(
+    file: TestFileView,
+    actionStates: Record<string, ActionState> = {},
+    diagnostics?: DiagnosticReport,
+  ) {
     this.clearGraph();
     if (!this.shapeContainer || !this.app || !this.viewport) return;
 
@@ -123,6 +128,8 @@ export class InfiniteCanvas {
       this.app.ticker,
       (id) => this.onNodeSelect?.(id),
       (from, to) => this.onAddNode?.(from, to),
+      {},
+      diagnostics,
     );
     this.shapeContainer.addChild(this.currentRenderer);
 
@@ -135,8 +142,9 @@ export class InfiniteCanvas {
     actionStates: Record<string, ActionState> = {},
     runningPathNodeIds: Set<string> = new Set(),
     compilationStates: Record<string, 'compiling' | 'compiled' | 'failed' | 'idle'> = {},
+    diagnostics?: DiagnosticReport,
   ) {
-    this.currentRenderer?.setState(actionStates, runningPathNodeIds, compilationStates);
+    this.currentRenderer?.setState(actionStates, runningPathNodeIds, compilationStates, diagnostics);
   }
 
   private clearGraph() {

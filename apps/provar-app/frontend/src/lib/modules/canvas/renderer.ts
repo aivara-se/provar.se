@@ -1,5 +1,6 @@
 import { Container, type Ticker } from 'pixi.js';
 import type { TestFileView, Edge } from '../../domain/types';
+import type { DiagnosticReport } from '../../domain/graph-validator';
 import { NodeShape } from './shapes/shape';
 import { StartShape } from './shapes/start';
 import { EndShape } from './shapes/end';
@@ -13,6 +14,18 @@ import {
   computeDepths,
   type PositionedNode,
 } from './layout';
+
+function mapNodeDiagnostics(diagnostics?: DiagnosticReport): Record<string, 'error' | 'warning'> {
+  const result: Record<string, 'error' | 'warning'> = {};
+  if (!diagnostics) return result;
+  for (const w of diagnostics.warnings) {
+    if (w.nodeId) result[w.nodeId] = 'warning';
+  }
+  for (const e of diagnostics.errors) {
+    if (e.nodeId) result[e.nodeId] = 'error';
+  }
+  return result;
+}
 
 /**
  * GraphRenderer owns the per-graph scene graph. It builds node + edge
@@ -34,47 +47,42 @@ export class GraphRenderer extends Container {
     private readonly onNodeSelect: (id: string | null) => void,
     private readonly onAddNode: (fromId: string | null, toId: string | null) => void,
     private readonly compilationStates: Record<string, 'compiling' | 'compiled' | 'failed' | 'idle'> = {},
+    diagnostics?: DiagnosticReport,
   ) {
     super();
-    this.build(file, actionStates, runningPathNodeIds);
+    this.build(file, actionStates, runningPathNodeIds, diagnostics);
   }
 
   private build(
     file: TestFileView,
     actionStates: Record<string, ActionState>,
     runningPathNodeIds: Set<string>,
+    diagnostics?: DiagnosticReport,
   ) {
     const { graph } = file;
     const depths = computeDepths(graph);
     const positions = assignPositions(graph, depths);
     this.positions = new Map(positions.map((p) => [p.id, p]));
+    const nodeDiagnostics = mapNodeDiagnostics(diagnostics);
 
-    // Start node — placed so its right edge sits a normal
-    // inter-action gap to the left of the first action, so the gap
-    // from Start to action 1 visually matches the gap between any two
-    // actions. The inter-action gap is roughly `horizontalGap −
-    // avgActionWidth`. We approximate that with an explicit
-    // constant; if action widths drift, retune here.
+    // Start node
     const startPos = this.positions.get(graph.start) ?? { x: 0, y: 0 };
     this.startShape = new StartShape('idle', false);
     const INTER_NODE_GAP = 52;
-    const FIRST_ACTION_LEFT_EDGE = LAYOUT.horizontalGap; // depth 1 → x = horizontalGap
+    const FIRST_ACTION_LEFT_EDGE = LAYOUT.horizontalGap;
     this.startShape.position.set(
       FIRST_ACTION_LEFT_EDGE - INTER_NODE_GAP - this.startShape.nodeWidth,
       startPos.y,
     );
     this.addChild(this.startShape);
 
-    // Action nodes — positions are depth × horizontalGap from
-    // assignPositions, so each action's left edge is already a
-    // horizontalGap past the previous action's left edge. With
-    // typical action widths (~208), this leaves an
-    // `INTER_NODE_GAP`-sized space between them.
+    // Action nodes
     for (const [id, node] of Object.entries(graph.nodes)) {
       if (id === graph.start || id.startsWith('end_')) continue;
       const pos = this.positions.get(id)!;
       const state = actionStates[id] ?? 'idle';
       const isCompiled = this.compilationStates[id] === 'compiled';
+      const diagSeverity = nodeDiagnostics[id] ?? 'none';
       const shape = new ActionShape(
         id,
         node,
@@ -83,16 +91,14 @@ export class GraphRenderer extends Container {
         this.ticker,
         (selectedId) => this.onNodeSelect(selectedId),
         isCompiled,
+        diagSeverity,
       );
       shape.position.set(pos.x, pos.y);
       this.actionShapes.set(id, shape);
       this.addChild(shape);
     }
 
-    // End nodes — same convention as actions (left edge at depth ×
-    // horizontalGap). The previous offset by `nodeWidth / 2 + pad`
-    // shifted the End off by half-width, which is why the End used
-    // to look detached from the chain.
+    // End nodes
     for (const [id] of Object.entries(graph.nodes)) {
       if (!id.startsWith('end_')) continue;
       const pos = this.positions.get(id)!;
@@ -119,12 +125,6 @@ export class GraphRenderer extends Container {
     const toShape = this.shapeFor(edge.to);
     if (!fromShape || !toShape) return;
     const state = computeConnectorState(edge.from, edge.to, actionStates);
-    // Connector endpoints are the right edge of the source and the
-    // left edge of the target. Shape's pivot is at its left edge so
-    // `position.x + nodeWidth` is the right edge and `position.x`
-    // is the left edge. (Earlier versions used `nodeWidth / 2`,
-    // which is each shape's centre — that's why connectors previously
-    // started from inside source shapes and ended short of targets.)
     const startX = fromShape.position.x + fromShape.nodeWidth;
     const endX = toShape.position.x;
     const startY = fromShape.position.y;
@@ -138,13 +138,17 @@ export class GraphRenderer extends Container {
     actionStates: Record<string, ActionState>,
     runningPathNodeIds: Set<string>,
     compilationStates: Record<string, 'compiling' | 'compiled' | 'failed' | 'idle'> = {},
+    diagnostics?: DiagnosticReport,
   ) {
+    const nodeDiagnostics = mapNodeDiagnostics(diagnostics);
     for (const [id, shape] of this.actionShapes) {
       const compiled = compilationStates[id] === 'compiled';
+      const diagSeverity = nodeDiagnostics[id] ?? 'none';
       shape.setState(
         actionStates[id] ?? 'idle',
         runningPathNodeIds.has(id),
         compiled,
+        diagSeverity,
       );
     }
     for (const [id, shape] of this.endShapes) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Code, Copy, Trash2, Image as ImageIcon } from 'lucide-svelte';
+  import { Code, Copy, Trash2, Image as ImageIcon, AlertTriangle, AlertCircle } from 'lucide-svelte';
   import { editorStore } from '../../stores/editor-store.svelte';
   import PanelHeader from './PanelHeader.svelte';
 
@@ -9,6 +9,14 @@
   let info = $state('');
   let view = $state<View>('info');
   let codeCopied = $state(false);
+
+  let nodeDiagnostics = $derived.by(() => {
+    const id = editorStore.selectedNodeId;
+    if (!id) return [];
+    const errors = editorStore.diagnostics.errors.filter((e) => e.nodeId === id);
+    const warnings = editorStore.diagnostics.warnings.filter((w) => w.nodeId === id);
+    return [...errors, ...warnings];
+  });
 
   // Sync local form state with the selected node whenever the selection
   // changes. We reset `view` so a fresh node opens on its info by
@@ -63,6 +71,30 @@
   </PanelHeader>
 
   <div class="flex-1 space-y-6 overflow-y-auto p-6 text-xs">
+    {#if nodeDiagnostics.length > 0}
+      <div class="space-y-2 rounded-lg border border-amber-500/30 bg-amber-950/30 p-3 text-xs">
+        <div class="flex items-center gap-1.5 font-semibold text-amber-400">
+          <AlertTriangle class="h-4 w-4 shrink-0 text-amber-400" />
+          <span>Graph Validation Issues ({nodeDiagnostics.length})</span>
+        </div>
+        <div class="space-y-1.5 pt-1 text-zinc-300">
+          {#each nodeDiagnostics as diag (diag.id)}
+            <div class="flex flex-col gap-0.5 rounded bg-zinc-900/80 p-2.5 border border-zinc-800">
+              <div class="flex items-center gap-1.5 font-mono text-[10px] font-bold {diag.severity === 'error' ? 'text-red-400' : 'text-amber-400'}">
+                {#if diag.severity === 'error'}
+                  <AlertCircle class="h-3 w-3 shrink-0" />
+                {:else}
+                  <AlertTriangle class="h-3 w-3 shrink-0" />
+                {/if}
+                <span>{diag.code}</span>
+              </div>
+              <p class="text-xs leading-relaxed text-zinc-300">{diag.message}</p>
+            </div>
+          {/each}
+        </div>
+      </div>
+    {/if}
+
     <div>
       <label class="mb-1 block text-zinc-500" for="node-name">Name</label>
       <input

@@ -42,20 +42,24 @@
     bind:this={toolbarEl}
     class="pointer-events-auto absolute top-[8px] left-1/2 z-50 flex h-[26px] -translate-x-1/2 items-center rounded-full border border-zinc-800/80 bg-[#161b22]/80 shadow-sm backdrop-blur-sm divide-x divide-zinc-800/80 text-xs select-none"
   >
-    <button
-      type="button"
-      onclick={() => applicationStore.toggleSidebar()}
-      class="flex h-full cursor-pointer items-center gap-1.5 rounded-l-full px-3 py-1 text-xs font-medium text-zinc-300 transition-colors duration-200 hover:bg-[#21262d]/90 hover:text-zinc-100 focus:outline-none"
-      title={applicationStore.isSidebarOpen ? 'Hide Test Explorer' : 'Show Test Explorer'}
+    <div
+      class="flex h-full items-center gap-1.5 rounded-l-full px-3 py-1 text-xs font-medium text-zinc-300"
     >
       <FileIcon class="h-3.5 w-3.5 text-blue-400" />
       <span class="tracking-wide">{fileName}</span>
-      {#if hasDiagnosticsError}
-        <span title="Graph has validation issues">
-          <AlertTriangle class="h-3.5 w-3.5 text-amber-400" />
-        </span>
+      {#if !editorStore.diagnostics.isValid || editorStore.diagnostics.warnings.length > 0}
+        {@const issueCount = editorStore.diagnostics.errors.length + editorStore.diagnostics.warnings.length}
+        <button
+          type="button"
+          onclick={() => applicationStore.openDiagnosticsPanel()}
+          class="flex items-center gap-1 text-xs font-medium text-amber-400 transition-colors hover:text-amber-300"
+          title="Graph has validation issues. Click to open Diagnostics Panel."
+        >
+          <AlertTriangle class="h-3.5 w-3.5 shrink-0 text-amber-400" />
+          <span>{issueCount}</span>
+        </button>
       {/if}
-    </button>
+    </div>
 
     {#if executionStore.isCompiling}
       <div class="flex h-full items-center gap-1.5 rounded-r-full px-3 py-1 text-xs text-zinc-400">

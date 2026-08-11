@@ -79,4 +79,24 @@ describe('GraphValidator', () => {
     expect(report.isValid).toBe(false);
     expect(report.errors.some((e) => e.code === 'EMPTY_GRAPH')).toBe(true);
   });
+
+  test('detects dangling edges and tags target nodeId', () => {
+    const graph: TestFileGraph = {
+      start: '__start__',
+      nodes: {
+        __start__: { id: '__start__', name: 'Start' },
+        node1: { id: 'node1', name: 'Valid Node' },
+      },
+      edges: [
+        { from: '__start__', to: 'node1' },
+        { from: 'node1', to: 'ghostNode' },
+      ],
+    };
+
+    const report = GraphValidator.validate(graph);
+    expect(report.isValid).toBe(false);
+    const dangling = report.errors.find((e) => e.code === 'DANGLING_EDGE');
+    expect(dangling).toBeDefined();
+    expect(dangling?.nodeId).toBe('ghostNode');
+  });
 });

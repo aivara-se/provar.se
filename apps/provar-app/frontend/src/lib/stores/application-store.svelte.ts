@@ -28,9 +28,12 @@ export interface InputProps {
   onConfirm: (value: string) => void;
 }
 
+export type RightSidebarTab = 'auto' | 'node' | 'config' | 'diagnostics';
+
 class ApplicationStore {
   isSidebarOpen = $state(true);
   isRightSidebarOpen = $state(false);
+  rightSidebarTab = $state<RightSidebarTab>('auto');
   modalKind = $state<ModalKind>(null);
   toast = $state<Toast | null>(null);
 
@@ -67,6 +70,21 @@ class ApplicationStore {
 
   openRightSidebar() {
     this.isRightSidebarOpen = true;
+  }
+
+  openDiagnosticsPanel() {
+    this.isRightSidebarOpen = true;
+    this.rightSidebarTab = 'diagnostics';
+  }
+
+  openNodePanel() {
+    this.isRightSidebarOpen = true;
+    this.rightSidebarTab = 'node';
+  }
+
+  openConfigPanel() {
+    this.isRightSidebarOpen = true;
+    this.rightSidebarTab = 'config';
   }
 
   /** openConfirmModal stages a confirm dialog with the given title,

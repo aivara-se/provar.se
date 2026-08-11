@@ -23,8 +23,9 @@ export class ActionShape extends NodeShape {
     ticker: Ticker,
     onClick: (id: string) => void,
     isCompiled: boolean = false,
+    diagnosticSeverity: 'error' | 'warning' | 'none' = 'none',
   ) {
-    super(actionId, action.name, action.info ?? '', state, onActivePath, isCompiled);
+    super(actionId, action.name, action.info ?? '', state, onActivePath, isCompiled, diagnosticSeverity);
 
     this.eventMode = 'static';
     this.cursor = 'pointer';

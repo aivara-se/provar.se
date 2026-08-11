@@ -9,8 +9,10 @@ export class NodeShape extends Container {
   public readonly nodeId: string;
 
   private isCompiledFlag: boolean = false;
+  private diagnosticSeverityFlag: 'error' | 'warning' | 'none' = 'none';
   private borderWidth = 0;
   private borderHeight = 0;
+  private diagnosticBadge: Graphics | null = null;
 
   protected get cornerRadius(): number {
     return 8;
@@ -43,10 +45,12 @@ export class NodeShape extends Container {
     state: ActionState = 'idle',
     onActivePath: boolean = false,
     isCompiled: boolean = false,
+    diagnosticSeverity: 'error' | 'warning' | 'none' = 'none',
   ) {
     super();
     this.nodeId = nodeId;
     this.isCompiledFlag = isCompiled;
+    this.diagnosticSeverityFlag = diagnosticSeverity;
 
     this.bg = new Graphics();
     this.addChild(this.bg);
@@ -138,16 +142,21 @@ export class NodeShape extends Container {
 
     this.bg.fill({ color: COLOURS.nodeBg });
 
-    const { color, width, alpha } = this.borderFor(state, onActivePath);
+    const { color, width, alpha } = this.borderFor(state, onActivePath, diagnosticSeverity);
     this.bg.stroke({ color, width, alpha });
 
     this.pivot.set(0, totalHeight / 2);
     this.applyCompiledOpacity();
     this.borderWidth = this.bg.width;
     this.borderHeight = this.bg.height;
+    this.renderDiagnosticBadge(totalWidth, diagnosticSeverity);
   }
 
-  private borderFor(state: ActionState, onActivePath: boolean) {
+  private borderFor(
+    state: ActionState,
+    onActivePath: boolean,
+    diagnosticSeverity: 'error' | 'warning' | 'none' = 'none',
+  ) {
     if (state === 'running') return { color: 0x3b82f6, width: 2, alpha: 1 };
     if (state === 'success' || state === 'compiled')
       return { color: 0x10b981, width: 2, alpha: 1 };
@@ -156,18 +165,45 @@ export class NodeShape extends Container {
       return { color: COLOURS.stateMixed, width: 2, alpha: 1 };
     if (state === 'compiling')
       return { color: 0xf59e0b, width: 2, alpha: 1 };
+    if (diagnosticSeverity === 'error')
+      return { color: 0xef4444, width: 2, alpha: 1 };
+    if (diagnosticSeverity === 'warning')
+      return { color: 0xf59e0b, width: 1.5, alpha: 1 };
     if (onActivePath)
       return { color: 0xffffff, width: 1.5, alpha: 0.25 };
     return { color: COLOURS.nodeBorder, width: 1, alpha: 1 };
+  }
+
+  private renderDiagnosticBadge(totalWidth: number, diagnosticSeverity: 'error' | 'warning' | 'none') {
+    if (diagnosticSeverity === 'none') {
+      if (this.diagnosticBadge) {
+        this.diagnosticBadge.visible = false;
+      }
+      return;
+    }
+    if (!this.diagnosticBadge) {
+      this.diagnosticBadge = new Graphics();
+      this.addChild(this.diagnosticBadge);
+    }
+    this.diagnosticBadge.visible = true;
+    this.diagnosticBadge.clear();
+    const color = diagnosticSeverity === 'error' ? 0xef4444 : 0xf59e0b;
+    const badgeX = totalWidth - 12;
+    const badgeY = 12;
+    this.diagnosticBadge.circle(badgeX, badgeY, 4.5);
+    this.diagnosticBadge.fill({ color });
+    this.diagnosticBadge.stroke({ color: 0x161b22, width: 1.5 });
   }
 
   public setState(
     state: ActionState,
     onActivePath: boolean,
     isCompiled: boolean = this.isCompiledFlag,
+    diagnosticSeverity: 'error' | 'warning' | 'none' = this.diagnosticSeverityFlag,
   ): void {
     this.isCompiledFlag = isCompiled;
-    const { color, width, alpha } = this.borderFor(state, onActivePath);
+    this.diagnosticSeverityFlag = diagnosticSeverity;
+    const { color, width, alpha } = this.borderFor(state, onActivePath, diagnosticSeverity);
 
     this.bg.clear();
     this.bg.roundRect(0, 0, this.borderWidth, this.borderHeight, this.finalRadius);
@@ -175,6 +211,7 @@ export class NodeShape extends Container {
     this.bg.stroke({ color, width, alpha });
 
     this.applyCompiledOpacity();
+    this.renderDiagnosticBadge(this.borderWidth, diagnosticSeverity);
   }
 
   private applyCompiledOpacity(): void {
