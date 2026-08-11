@@ -2,7 +2,6 @@
   import { AlertCircle, AlertTriangle, ExternalLink, ShieldCheck } from 'lucide-svelte';
   import { editorStore } from '../../stores/editor-store.svelte';
   import { applicationStore } from '../../stores/application-store.svelte';
-  import PanelHeader from './PanelHeader.svelte';
 
   function focusNode(nodeId?: string) {
     if (!nodeId) return;
@@ -16,14 +15,6 @@
 </script>
 
 <div class="flex h-full flex-col">
-  <PanelHeader title="Graph Diagnostics">
-    {#if totalIssues > 0}
-      <span class="rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-semibold text-amber-300">
-        {totalIssues} {totalIssues === 1 ? 'issue' : 'issues'}
-      </span>
-    {/if}
-  </PanelHeader>
-
   <div class="flex-1 space-y-6 overflow-y-auto p-6 text-xs">
     {#if totalIssues === 0}
       <div class="flex flex-col items-center justify-center py-12 text-center text-zinc-400">

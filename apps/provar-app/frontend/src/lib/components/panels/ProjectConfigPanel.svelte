@@ -1,6 +1,6 @@
 <script lang="ts">
   import { projectStore } from '../../stores/project-store.svelte';
-  import PanelHeader from './PanelHeader.svelte';
+  import PanelActions from './PanelActions.svelte';
 
   // ProjectConfigPanel edits the project's `.provar/config.yml` via the
   // Config binding. Config.LoadConfig returns the raw map; for v1 we
@@ -51,37 +51,39 @@
   }
 </script>
 
-<PanelHeader title="Project Settings">
-  <button
-    type="button"
-    class="rounded p-1 text-xs font-medium text-zinc-300 transition-colors hover:bg-zinc-800 disabled:opacity-50"
-    disabled={!dirty}
-    onclick={save}
-  >
-    Save
-  </button>
-</PanelHeader>
-
-<div class="flex-1 overflow-y-auto p-6 text-xs">
-  <label class="mb-1 block text-zinc-500" for="config-vars">Variables (JSON)</label>
-  <textarea
-    id="config-vars"
-    bind:value={variablesJson}
-    oninput={onInput}
-    rows="10"
-    spellcheck="false"
-    class="w-full rounded-lg border border-zinc-700/50 bg-[#0d1117] p-3 font-mono leading-relaxed text-zinc-200 placeholder-zinc-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none {jsonError
-      ? 'border-red-500/50 ring-1 ring-red-500/20'
-      : ''}"
-  ></textarea>
-  {#if jsonError}
-    <p class="mt-2 font-mono text-[10px] leading-tight text-red-400/80">
-      {jsonError}
+<div class="flex h-full flex-col">
+  <div class="flex-1 overflow-y-auto p-6 text-xs">
+    <label class="mb-1 block text-zinc-500" for="config-vars">Variables (JSON)</label>
+    <textarea
+      id="config-vars"
+      bind:value={variablesJson}
+      oninput={onInput}
+      rows="10"
+      spellcheck="false"
+      class="w-full rounded-lg border border-zinc-700/50 bg-[#0d1117] p-3 font-mono leading-relaxed text-zinc-200 placeholder-zinc-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none {jsonError
+        ? 'border-red-500/50 ring-1 ring-red-500/20'
+        : ''}"
+    ></textarea>
+    {#if jsonError}
+      <p class="mt-2 font-mono text-[10px] leading-tight text-red-400/80">
+        {jsonError}
+      </p>
+    {/if}
+    <p class="mt-3 text-zinc-500">
+      Variables are substituted into compiled Lua at run time.
+      Use <span class="font-mono text-zinc-400">{'{{name}}'}</span> in titles and
+      info fields; the engine will replace it with this map's value.
     </p>
-  {/if}
-  <p class="mt-3 text-zinc-500">
-    Variables are substituted into compiled Lua at run time.
-    Use <span class="font-mono text-zinc-400">{'{{name}}'}</span> in titles and
-    info fields; the engine will replace it with this map's value.
-  </p>
+  </div>
+
+  <PanelActions>
+    <button
+      type="button"
+      class="cursor-pointer px-3 py-1 text-xs text-zinc-400 transition-colors hover:text-zinc-200 focus:outline-none disabled:opacity-50"
+      disabled={!dirty}
+      onclick={save}
+    >
+      Save
+    </button>
+  </PanelActions>
 </div>
