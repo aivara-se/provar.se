@@ -68,13 +68,9 @@
   <div
     class="fixed inset-0 z-[200] flex flex-col bg-[#0d1117] text-zinc-100"
     role="dialog"
-    aria-labelledby="settings-title"
   >
     <!-- Top Header Bar -->
-    <header class="flex h-14 shrink-0 items-center justify-between border-b border-zinc-800 bg-[#161b22] px-6">
-      <div class="flex items-center gap-3">
-        <h2 id="settings-title" class="text-base font-semibold text-zinc-100">Settings</h2>
-      </div>
+    <header class="flex h-14 shrink-0 items-center justify-end border-b border-zinc-800 bg-[#161b22] px-6">
       <div class="flex items-center gap-3">
         <button
           type="button"
@@ -115,7 +111,7 @@
               <select
                 id={def.id}
                 bind:value={flatValues[def.id]}
-                class="w-full rounded border border-zinc-700/50 bg-[#21262d] px-2.5 py-1.5 text-xs text-zinc-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                class="h-8 w-full rounded border border-zinc-700/50 bg-[#21262d] px-2.5 text-xs text-zinc-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
               >
                 {#each def.options ?? [] as opt}
                   <option value={opt.value}>{opt.label}</option>
@@ -128,7 +124,7 @@
                   type={showPassword[def.id] ? 'text' : 'password'}
                   bind:value={flatValues[def.id]}
                   placeholder={def.placeholder}
-                  class="w-full rounded border border-zinc-700/50 bg-[#21262d] px-2.5 py-1.5 pr-10 font-mono text-xs text-zinc-200 placeholder-zinc-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  class="h-8 w-full rounded border border-zinc-700/50 bg-[#21262d] px-2.5 pr-10 font-mono text-xs text-zinc-200 placeholder-zinc-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                 />
                 <button
                   type="button"
@@ -149,7 +145,7 @@
                 type="text"
                 bind:value={flatValues[def.id]}
                 placeholder={def.placeholder}
-                class="w-full rounded border border-zinc-700/50 bg-[#21262d] px-2.5 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                class="h-8 w-full rounded border border-zinc-700/50 bg-[#21262d] px-2.5 text-xs text-zinc-200 placeholder-zinc-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
               />
             {/if}
 
