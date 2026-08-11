@@ -13,12 +13,12 @@
       provider: openai
       providers:
         openai:
-          model: gpt-5.5
+          model: gpt-5.6-terra
           apiKey: \$PROVAR_OPENAI_KEY
         google:
-          model: gemini-3.5-flash
+          model: gemini-3.6-flash
         anthropic:
-          model: claude-5-sonnet-latest
+          model: claude-sonnet-5
     EOF`;
 </script>
 

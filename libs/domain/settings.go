@@ -142,9 +142,9 @@ func defaultSettings() *Settings {
 	return &Settings{
 		Provider: ProviderGoogle,
 		Providers: map[string]ProviderConfig{
-			string(ProviderGoogle):    {Model: "gemini-3.5-flash"},
-			string(ProviderOpenAI):    {Model: "gpt-5.5"},
-			string(ProviderAnthropic): {Model: "claude-5-sonnet-latest"},
+			string(ProviderGoogle):    {Model: "gemini-3.6-flash"},
+			string(ProviderOpenAI):    {Model: "gpt-5.6-terra"},
+			string(ProviderAnthropic): {Model: "claude-sonnet-5"},
 		},
 	}
 }
