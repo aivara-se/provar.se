@@ -83,7 +83,7 @@ apps/provar-app/frontend/src/lib/
 
 ### 6. Encapsulated Subsystem Modules Pattern (`lib/modules/`)
 - **Rule**: Major complex subsystems (e.g. `canvas`, `graphs`) MUST be placed in `lib/modules/<subsystem>/`.
-  - Modules **MUST NOT** import files from outside their directory (zero external app coupling).
+  - Modules **MUST NOT** import files from outside their directory, with the exception of `lib/domain` (zero external UI/store coupling).
   - External app code **MUST ONLY** import from the module's public `index.ts` file; all other internal files are private to the module.
 
 ---
