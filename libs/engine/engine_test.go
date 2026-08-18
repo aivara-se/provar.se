@@ -7,6 +7,7 @@ import (
 
 	"github.com/thani-sh/provar/libs/domain"
 	"github.com/thani-sh/provar/libs/engine/browser"
+	"github.com/thani-sh/provar/libs/models"
 )
 
 func TestInterpolateVars(t *testing.T) {
@@ -375,5 +376,95 @@ func TestReverseSubstituteURLSeparatorAccepts(t *testing.T) {
 	got := reverseSubstituteActions(actions, vars)
 	if got[0].Args["url"] != "{{host}}/page" {
 		t.Errorf("expected %q, got %v", "{{host}}/page", got[0].Args["url"])
+	}
+}
+
+type mockSession struct {
+	chunks []string
+	onSend func()
+}
+
+func (m *mockSession) Send(ctx context.Context, attachments []models.Attachment) error {
+	if m.onSend != nil {
+		m.onSend()
+	}
+	return nil
+}
+
+func (m *mockSession) Recv() <-chan string {
+	ch := make(chan string, len(m.chunks))
+	for _, c := range m.chunks {
+		ch <- c
+	}
+	close(ch)
+	return ch
+}
+
+type mockClient struct {
+	session *mockSession
+	err     error
+}
+
+func (m *mockClient) CreateSession(ctx context.Context, systemPrompt string, tools ...models.ModelTool) (models.Session, error) {
+	if m.err != nil {
+		return nil, m.err
+	}
+	return m.session, nil
+}
+
+func TestCompileAction_StreamErrorPropagated(t *testing.T) {
+	client := &mockClient{
+		session: &mockSession{
+			chunks: []string{"error: 401 Unauthorized"},
+		},
+	}
+	compiler := NewCompiler(client)
+	browserSession := &browser.Session{}
+	_, err := compiler.compileAction(context.Background(), domain.Action{ID: "act1", Name: "Login"}, CompileOptions{Browser: browserSession})
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	if !strings.Contains(err.Error(), "401 Unauthorized") {
+		t.Errorf("expected error to contain '401 Unauthorized', got %q", err.Error())
+	}
+	if strings.Contains(err.Error(), "no actions recorded by LLM") {
+		t.Errorf("error must not be masked as 'no actions recorded by LLM', got %q", err.Error())
+	}
+}
+
+func TestCompileAction_ModelTextSurfacedWhenNoActions(t *testing.T) {
+	client := &mockClient{
+		session: &mockSession{
+			chunks: []string{"I cannot perform this step because the element is not found."},
+		},
+	}
+	compiler := NewCompiler(client)
+	browserSession := &browser.Session{}
+	_, err := compiler.compileAction(context.Background(), domain.Action{ID: "act1", Name: "Login"}, CompileOptions{Browser: browserSession})
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	if !strings.Contains(err.Error(), "I cannot perform this step") {
+		t.Errorf("expected error to include model response text, got %q", err.Error())
+	}
+}
+
+func TestCompileAction_Success(t *testing.T) {
+	browserSession := &browser.Session{}
+	client := &mockClient{
+		session: &mockSession{
+			chunks: []string{"navigated to https://example.com"},
+			onSend: func() {
+				browserSession.RecordAction("navigate", map[string]any{"url": "https://example.com"})
+			},
+		},
+	}
+	compiler := NewCompiler(client)
+	body, err := compiler.compileAction(context.Background(), domain.Action{ID: "act1", Name: "Login"}, CompileOptions{Browser: browserSession})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if !strings.Contains(body, `page:navigate("https://example.com")`) {
+		t.Errorf("expected body to contain navigate statement, got %q", body)
 	}
 }

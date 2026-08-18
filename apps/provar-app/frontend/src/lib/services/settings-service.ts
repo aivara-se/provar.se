@@ -37,8 +37,8 @@ export const SETTINGS_SCHEMA: SettingDefinition[] = [
     label: 'Google Model',
     helpText: 'Model identifier for Google Gemini API.',
     type: 'text',
-    placeholder: 'gemini-3.6-flash',
-    defaultValue: 'gemini-3.6-flash',
+    placeholder: 'gemini-3.7-flash',
+    defaultValue: 'gemini-3.7-flash',
   },
   {
     id: 'providers.google.apiKey',

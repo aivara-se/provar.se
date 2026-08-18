@@ -160,10 +160,22 @@ func (c *Compiler) compileAction(ctx context.Context, action domain.Action, opts
 	if err := session.Send(ctx, []models.Attachment{{Type: models.AttachmentTypeText, Text: prompt}}); err != nil {
 		return "", fmt.Errorf("send: %w", err)
 	}
-	for range session.Recv() {
+	var streamErr string
+	var textBuf strings.Builder
+	for chunk := range session.Recv() {
+		textBuf.WriteString(chunk)
+		if strings.HasPrefix(chunk, "error:") {
+			streamErr = chunk
+		}
+	}
+	if streamErr != "" {
+		return "", fmt.Errorf("%s", streamErr)
 	}
 	body := translateActions(reverseSubstituteActions(opts.Browser.Actions(), opts.Vars))
 	if body == "" {
+		if text := strings.TrimSpace(textBuf.String()); text != "" {
+			return "", fmt.Errorf("no actions recorded by LLM (model response: %s)", text)
+		}
 		return "", fmt.Errorf("no actions recorded by LLM")
 	}
 	logger.Debug("compile action end", "id", action.ID, "bytes", len(body))

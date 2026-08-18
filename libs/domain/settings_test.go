@@ -39,7 +39,7 @@ func TestLoadSettings_OK(t *testing.T) {
 	if err := os.MkdirAll(settingsDir, dirPerm); err != nil {
 		t.Fatalf("setup: %v", err)
 	}
-	content := "provider: openai\nproviders:\n  openai:\n    apiKey: sk-test\n    model: gpt-5.5\n  google:\n    model: gemini-3.5-flash\n  anthropic:\n    model: claude-5-sonnet-latest\n"
+	content := "provider: openai\nproviders:\n  openai:\n    apiKey: sk-test\n    model: gpt-5.5\n  google:\n    model: gemini-3.7-flash\n  anthropic:\n    model: claude-5-sonnet-latest\n"
 	if err := os.WriteFile(filepath.Join(settingsDir, testSettingsFile), []byte(content), filePerm); err != nil {
 		t.Fatalf("setup: %v", err)
 	}
@@ -79,7 +79,7 @@ func TestSettings_Validate_OK(t *testing.T) {
 	s := &Settings{
 		Provider: ProviderGoogle,
 		Providers: map[string]ProviderConfig{
-			string(ProviderGoogle):    {APIKey: testAPIKey, Model: "gemini-3.6-flash"},
+			string(ProviderGoogle):    {APIKey: testAPIKey, Model: "gemini-3.7-flash"},
 			string(ProviderOpenAI):    {Model: "gpt-5.6-terra"},
 			string(ProviderAnthropic): {Model: "claude-sonnet-5"},
 		},
@@ -93,7 +93,7 @@ func TestSettings_Validate_MissingAPIKey(t *testing.T) {
 	s := &Settings{
 		Provider: ProviderGoogle,
 		Providers: map[string]ProviderConfig{
-			string(ProviderGoogle):    {Model: "gemini-3.5-flash"},
+			string(ProviderGoogle):    {Model: "gemini-3.7-flash"},
 			string(ProviderOpenAI):    {Model: "gpt-5.5"},
 			string(ProviderAnthropic): {Model: "claude-5-sonnet-latest"},
 		},
@@ -111,7 +111,7 @@ func TestSettings_Validate_BadProvider(t *testing.T) {
 	s := &Settings{
 		Provider: Provider("unknown-provider"),
 		Providers: map[string]ProviderConfig{
-			string(ProviderGoogle):    {Model: "gemini-3.5-flash"},
+			string(ProviderGoogle):    {Model: "gemini-3.7-flash"},
 			string(ProviderOpenAI):    {Model: "gpt-5.5"},
 			string(ProviderAnthropic): {Model: "claude-5-sonnet-latest"},
 		},
@@ -125,7 +125,7 @@ func TestSettings_Validate_BadURL(t *testing.T) {
 	s := &Settings{
 		Provider: ProviderOpenAI,
 		Providers: map[string]ProviderConfig{
-			string(ProviderGoogle):    {Model: "gemini-3.5-flash"},
+			string(ProviderGoogle):    {Model: "gemini-3.7-flash"},
 			string(ProviderOpenAI):    {APIKey: testAPIKey, Model: "gpt-5.5", BaseURL: testBadURL},
 			string(ProviderAnthropic): {Model: "claude-5-sonnet-latest"},
 		},

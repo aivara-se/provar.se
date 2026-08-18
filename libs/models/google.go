@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/thani-sh/provar/libs/logger"
 	"google.golang.org/genai"
@@ -111,11 +112,14 @@ func (s *googleSession) runLoop(ctx context.Context) {
 	}
 	for iter := 0; ; iter++ {
 		if len(s.tools) > 0 && iter >= maxToolIterations {
+			logger.Error("exceeded max tool iterations", "provider", "google", "max", maxToolIterations)
 			s.ch <- "error: exceeded max tool iterations"
 			return
 		}
 		modelParts, functionCalls, err := s.streamOnce(ctx)
 		if err != nil {
+			logger.Error("model stream error", "provider", "google", "error", err)
+			s.ch <- fmt.Sprintf("error: %v", err)
 			return
 		}
 		s.contents = append(s.contents, &genai.Content{
@@ -149,6 +153,7 @@ func (s *googleSession) runLoop(ctx context.Context) {
 			argsJSON, _ := json.Marshal(fc.Args)
 			result, execErr := tool.Execute(ctx, json.RawMessage(argsJSON))
 			if execErr != nil {
+				logger.Error("tool execute error", "provider", "google", "tool", fc.Name, "error", execErr)
 				s.ch <- fmt.Sprintf("error: tool %q: %v", fc.Name, execErr)
 				return
 			}
@@ -196,8 +201,9 @@ func (s *googleSession) streamOnce(ctx context.Context) ([]*genai.Part, []*genai
 		config.Tools = []*genai.Tool{{FunctionDeclarations: decls}}
 	}
 	stream := s.client.Models.GenerateContentStream(ctx, s.model, s.contents, config)
-	var modelParts []*genai.Part
+	var textBuilder strings.Builder
 	var functionCalls []*genai.FunctionCall
+	var functionCallParts []*genai.Part
 	var filter thinkFilter
 	for resp, err := range stream {
 		if err != nil {
@@ -208,14 +214,15 @@ func (s *googleSession) streamOnce(ctx context.Context) ([]*genai.Part, []*genai
 				continue
 			}
 			for _, part := range candidate.Content.Parts {
-				modelParts = append(modelParts, part)
 				if part.FunctionCall != nil {
 					functionCalls = append(functionCalls, part.FunctionCall)
+					functionCallParts = append(functionCallParts, part)
 				}
-				if part.Text != "" {
+				if part.Text != "" && !part.Thought {
 					filtered := filter.Process(part.Text)
 					if filtered != "" {
 						s.ch <- filtered
+						textBuilder.WriteString(filtered)
 					}
 				}
 			}
@@ -223,6 +230,14 @@ func (s *googleSession) streamOnce(ctx context.Context) ([]*genai.Part, []*genai
 	}
 	if flushed := filter.Flush(); flushed != "" {
 		s.ch <- flushed
+		textBuilder.WriteString(flushed)
+	}
+	var modelParts []*genai.Part
+	if text := textBuilder.String(); text != "" {
+		modelParts = append(modelParts, &genai.Part{Text: text})
+	}
+	for _, fcp := range functionCallParts {
+		modelParts = append(modelParts, fcp)
 	}
 	return modelParts, functionCalls, nil
 }

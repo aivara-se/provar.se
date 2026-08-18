@@ -58,7 +58,7 @@ func TestGoogleClient_Integration(t *testing.T) {
 	}
 	model := os.Getenv("GEMINI_API_MODEL")
 	if model == "" {
-		model = "gemini-3.1-flash-lite"
+		model = "gemini-3.7-flash"
 	}
 	client, err := models.NewClient(models.Google, apiKey, "", model)
 	if err != nil {

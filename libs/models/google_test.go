@@ -7,13 +7,14 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
 func TestGoogleClient_Streaming(t *testing.T) {
 	var receivedBody []byte
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/v1beta/models/gemini-3.5-flash:streamGenerateContent" {
+		if r.URL.Path != "/v1beta/models/gemini-3.7-flash:streamGenerateContent" {
 			w.WriteHeader(http.StatusNotFound)
 			return
 		}
@@ -37,7 +38,7 @@ func TestGoogleClient_Streaming(t *testing.T) {
 		}
 	}))
 	defer server.Close()
-	client, err := NewClient(Google, mockKey, server.URL, "gemini-3.5-flash")
+	client, err := NewClient(Google, mockKey, server.URL, "gemini-3.7-flash")
 	if err != nil {
 		t.Fatalf("failed to create client: %v", err)
 	}
@@ -80,7 +81,7 @@ func TestGoogleClient_Streaming(t *testing.T) {
 func TestGoogleClient_ImageStreaming(t *testing.T) {
 	var receivedBody []byte
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/v1beta/models/gemini-3.5-flash:streamGenerateContent" {
+		if r.URL.Path != "/v1beta/models/gemini-3.7-flash:streamGenerateContent" {
 			w.WriteHeader(http.StatusNotFound)
 			return
 		}
@@ -104,7 +105,7 @@ func TestGoogleClient_ImageStreaming(t *testing.T) {
 		}
 	}))
 	defer server.Close()
-	client, err := NewClient(Google, mockKey, server.URL, "gemini-3.5-flash")
+	client, err := NewClient(Google, mockKey, server.URL, "gemini-3.7-flash")
 	if err != nil {
 		t.Fatalf("failed to create client: %v", err)
 	}
@@ -164,7 +165,7 @@ func TestGoogleClient_ImageStreaming(t *testing.T) {
 func TestGoogleClient_SystemPrompt(t *testing.T) {
 	var receivedBody []byte
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/v1beta/models/gemini-3.5-flash:streamGenerateContent" {
+		if r.URL.Path != "/v1beta/models/gemini-3.7-flash:streamGenerateContent" {
 			w.WriteHeader(http.StatusNotFound)
 			return
 		}
@@ -184,7 +185,7 @@ func TestGoogleClient_SystemPrompt(t *testing.T) {
 		}
 	}))
 	defer server.Close()
-	client, err := NewClient(Google, mockKey, server.URL, "gemini-3.5-flash")
+	client, err := NewClient(Google, mockKey, server.URL, "gemini-3.7-flash")
 	if err != nil {
 		t.Fatalf("failed to create client: %v", err)
 	}
@@ -213,5 +214,34 @@ func TestGoogleClient_SystemPrompt(t *testing.T) {
 	}
 	if len(reqObj.SystemInstruction.Parts) != 1 || reqObj.SystemInstruction.Parts[0].Text != sysPrompt {
 		t.Errorf("expected systemInstruction to contain %q, got %+v", sysPrompt, reqObj.SystemInstruction)
+	}
+}
+
+func TestGoogleClient_StreamError(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+		_, _ = fmt.Fprint(w, "internal server error")
+	}))
+	defer server.Close()
+	client, err := NewClient(Google, mockKey, server.URL, "gemini-3.7-flash")
+	if err != nil {
+		t.Fatalf("failed to create client: %v", err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+	session, err := client.CreateSession(ctx, "")
+	if err != nil {
+		t.Fatalf("failed to create session: %v", err)
+	}
+	err = session.Send(ctx, []Attachment{{Type: AttachmentTypeText, Text: msgHi}})
+	if err != nil {
+		t.Fatalf("failed to send: %v", err)
+	}
+	var received string
+	for chunk := range session.Recv() {
+		received += chunk
+	}
+	if !strings.HasPrefix(received, "error:") {
+		t.Errorf("expected error message starting with 'error:', got %q", received)
 	}
 }

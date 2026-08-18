@@ -16,7 +16,7 @@
           model: gpt-5.6-terra
           apiKey: \$PROVAR_OPENAI_KEY
         google:
-          model: gemini-3.6-flash
+          model: gemini-3.7-flash
         anthropic:
           model: claude-sonnet-5
     EOF`;
