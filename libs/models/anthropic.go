@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"strings"
 
 	"github.com/anthropics/anthropic-sdk-go"
@@ -128,6 +129,7 @@ func (s *anthropicSession) runLoop(ctx context.Context) {
 		}
 		toolUses, textContent, err := s.streamOnce(ctx)
 		if err != nil {
+			s.ch <- fmt.Sprintf("error: %v", err)
 			return
 		}
 		var assistantBlocks []anthropic.ContentBlockParamUnion

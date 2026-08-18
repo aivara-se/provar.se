@@ -113,6 +113,7 @@ func (s *openaiSession) runLoop(ctx context.Context) {
 		}
 		assistantText, toolCalls, finishReason, err := s.streamOnce(ctx)
 		if err != nil {
+			s.ch <- fmt.Sprintf("error: %v", err)
 			return
 		}
 		if len(toolCalls) == 0 {
@@ -120,14 +121,6 @@ func (s *openaiSession) runLoop(ctx context.Context) {
 			_ = finishReason
 			return
 		}
-		assistantParam := openai.ChatCompletionMessageParamUnion{
-			OfAssistant: &openai.ChatCompletionAssistantMessageParam{
-				Content: openai.ChatCompletionAssistantMessageParamContentUnion{
-					OfString: openai.String(assistantText),
-				},
-			},
-		}
-		s.messages = append(s.messages, assistantParam)
 		toolCallBuilders := make(map[int64]*openaiToolCallBuilder, len(toolCalls))
 		for _, tc := range toolCalls {
 			builder, ok := toolCallBuilders[tc.Index]
@@ -143,6 +136,27 @@ func (s *openaiSession) runLoop(ctx context.Context) {
 			}
 			builder.args.WriteString(tc.Function.Arguments)
 		}
+		var tcParams []openai.ChatCompletionMessageToolCallParam
+		for _, builder := range toolCallBuilders {
+			tcParams = append(tcParams, openai.ChatCompletionMessageToolCallParam{
+				ID: builder.id,
+				Function: openai.ChatCompletionMessageToolCallFunctionParam{
+					Name:      builder.name,
+					Arguments: builder.args.String(),
+				},
+			})
+		}
+		assistantParam := openai.ChatCompletionMessageParamUnion{
+			OfAssistant: &openai.ChatCompletionAssistantMessageParam{
+				ToolCalls: tcParams,
+			},
+		}
+		if assistantText != "" {
+			assistantParam.OfAssistant.Content = openai.ChatCompletionAssistantMessageParamContentUnion{
+				OfString: openai.String(assistantText),
+			}
+		}
+		s.messages = append(s.messages, assistantParam)
 		if assistantText != "" {
 			logger.Debug("model text", "provider", "openai", "iter", iter, "len", len(assistantText), "snippet", truncate(assistantText, 400))
 		}
