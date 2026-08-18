@@ -196,6 +196,7 @@ func (s *openaiSession) streamOnce(ctx context.Context) (string, []openai.ChatCo
 	}
 	if len(s.openaiTools) > 0 {
 		params.Tools = s.openaiTools
+		params.ReasoningEffort = shared.ReasoningEffort("none")
 	}
 	stream := s.client.Chat.Completions.NewStreaming(ctx, params)
 	var filter thinkFilter
